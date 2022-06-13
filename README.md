@@ -3,6 +3,18 @@
 # bridge <img src="man/figures/package-sticker.png" align="right" style="float:right; height:120px;"/>
 
 <!-- badges: start -->
+
+[![R CMD
+Check](https://github.com/frbcesab/bridge/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/frbcesab/bridge/actions/workflows/R-CMD-check.yaml)
+[![Website](https://github.com/frbcesab/bridge/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/frbcesab/bridge/actions/workflows/pkgdown.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/bridge)](https://CRAN.R-project.org/package=bridge)
+[![License: GPL (&gt;=
+2)](https://img.shields.io/badge/License-GPL%20%28%3E%3D%202%29-blue.svg)](https://choosealicense.com/licenses/gpl-2.0/)
+[![LifeCycle](https://img.shields.io/badge/lifecycle-experimental-orange)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Project Status:
+Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
+[![Dependencies](https://img.shields.io/badge/dependencies-0/0-brightgreen?style=flat)](#)
 <!-- badges: end -->
 
 The goal of the R package `bridge` is to **{{ PLEASE ADD A FEW LINES
