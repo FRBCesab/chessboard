@@ -1,0 +1,10 @@
+citHeader("To cite bridge in publications use:")
+
+bibentry(
+  bibtype = "Manual",
+  title   = "bridge: {An} {R} package to ...",
+  author  = c(person("Casajus Nicolas")),
+  year    = "2022",
+  note    = "R package version 0.0.0.9000",
+  url     = "https://github.com/frbcesab/bridge"
+)
