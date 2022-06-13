@@ -19,19 +19,69 @@ library("bridge")
 
 
 ```{r}
+## Create fake dataset with two sites and 5 quadrats in each ----
 quadrat_per_site <- 5
 tab <- data.frame("site"    = c(rep("S1", quadrat_per_site),
                                 rep("S2", quadrat_per_site)),
                   "quadrat" = rep(paste0("AD0", 1:quadrat_per_site), 2))
+```
 
+```{r echo = FALSE}
+knitr::kable(tab, caption = "Fake dataset", align = c("c", "c"))
+```
+
+
+```{r}
+## Create a unique key (site and quadrat combination) ----
 tab <- recode_units(tab)
+```
 
+
+```{r echo = FALSE}
+knitr::kable(head(tab, 8), caption = "Fake dataset with unique key", 
+             align = c("c", "c", "c"))
+```
+
+```{r}
+## Number of neighbors to consider (both in upstream and downstream directions) ----
 level <- 1
 
+## Identify links between edges (unique key) ----
 dat <- make_links(tab$"key", level = level)
-mat <- df_to_matrix(dat, diag = FALSE, upper = FALSE)
-dat <- matrix_to_df(mat)
+```
 
+
+
+```{r echo = FALSE}
+knitr::kable(head(dat, 8), caption = "Adjacency data frame", 
+             align = c("c", "c", "c"))
+```
+
+```{r}
+## Convert data frame to adjacency matrix ----
+## (remove diagonal and upper triangle)
+mat <- df_to_matrix(dat, diag = FALSE, upper = FALSE)
+```
+
+
+```{r echo = FALSE}
+mat
+```
+
+
+```{r}
+## Convert back adjacency matrix to data frame ----
+## (tricks to remove diagonal and upper links)
+dat <- matrix_to_df(mat)
+```
+
+
+```{r echo = FALSE}
+dat
+```
+
+```{r}
+## Plot the network with igraph ----
 net <- igraph::graph.data.frame(dat[dat$"weight" == 1, ], directed = FALSE)
 plot(net, layout = igraph::layout_components(net))
 title(paste("Neighbors", level))
@@ -39,6 +89,7 @@ title(paste("Neighbors", level))
 
 
 ```{r}
+
 level <- 2
 
 dat <- make_links(tab$"key", level = level)
