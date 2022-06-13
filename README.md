@@ -1,3 +1,4 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # bridge <img src="man/figures/package-sticker.png" align="right" style="float:right; height:120px;"/>
@@ -9,7 +10,7 @@ Check](https://github.com/frbcesab/bridge/actions/workflows/R-CMD-check.yaml/bad
 [![Website](https://github.com/frbcesab/bridge/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/frbcesab/bridge/actions/workflows/pkgdown.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/bridge)](https://CRAN.R-project.org/package=bridge)
-[![License: GPL (&gt;=
+[![License: GPL (>=
 2)](https://img.shields.io/badge/License-GPL%20%28%3E%3D%202%29-blue.svg)](https://choosealicense.com/licenses/gpl-2.0/)
 [![LifeCycle](https://img.shields.io/badge/lifecycle-experimental-orange)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Project Status:
@@ -25,12 +26,16 @@ The goal of the R package `bridge` is to **{{ PLEASE ADD A FEW LINES
 You can install the development version from
 [GitHub](https://github.com/) with:
 
-    # install.packages("remotes")
-    remotes::install_github("frbcesab/bridge")
+``` r
+# install.packages("remotes")
+remotes::install_github("frbcesab/bridge")
+```
 
 Then you can attach the package `bridge`:
 
-    library("bridge")
+``` r
+library("bridge")
+```
 
 ## Overview
 
