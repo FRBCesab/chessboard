@@ -61,3 +61,29 @@ net <- igraph::graph.data.frame(dat[dat$"weight" == 1, ], directed = FALSE)
 plot(net, layout = igraph::layout_components(net))
 title(paste("Neighbors", level))
 ```
+
+
+```{r}
+level <- 4
+
+dat <- make_links(tab$"key", level = level)
+mat <- df_to_matrix(dat, diag = FALSE, upper = FALSE)
+dat <- matrix_to_df(mat)
+
+net <- igraph::graph.data.frame(dat[dat$"weight" == 1, ], directed = FALSE)
+plot(net, layout = igraph::layout_components(net))
+title(paste("Neighbors", level))
+```
+
+
+```{r}
+level <- 5
+
+dat <- make_links(tab$"key", level = level)
+mat <- df_to_matrix(dat, diag = FALSE, upper = FALSE)
+dat <- matrix_to_df(mat)
+
+net <- igraph::graph.data.frame(dat[dat$"weight" == 1, ], directed = FALSE)
+plot(net, layout = igraph::layout_components(net))
+title(paste("Neighbors", level))
+```
