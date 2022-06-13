@@ -4,9 +4,9 @@
 \name{bridge-package}
 \alias{bridge}
 \alias{bridge-package}
-\title{bridge: The Title of the Project}
+\title{bridge: Bridge Project Toolbox}
 \description{
-A paragraph providing a full description of the project (on several lines...)
+Contains different tools used by the FRB-CESAB Project Bridge to work with connectivity matrix and Moran Eigenvalue Maps.
 }
 \seealso{
 Useful links:
