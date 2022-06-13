@@ -1,6 +1,6 @@
 Package: bridge
 Type: Package
-Title: The Title of the Project
+Title: Bridge Project Toolbox
 Version: 0.0.0.9000
 Authors@R: c(
     person(given   = "Nicolas",
@@ -8,8 +8,8 @@ Authors@R: c(
            role    = c("aut", "cre", "cph"),
            email   = "nicolas.casajus@fondationbiodiversite.fr",
            comment = c(ORCID = "0000-0002-5537-5294")))
-Description: A paragraph providing a full description of the project (on 
-    several lines...)
+Description: Contains different tools used by the FRB-CESAB Project Bridge to
+    work with connectivity matrix and Moran Eigenvalue Maps.
 URL: https://github.com/frbcesab/bridge
 BugReports: https://github.com/frbcesab/bridge/issues
 License: GPL (>= 2)
@@ -17,6 +17,10 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
 VignetteBuilder: knitr
+Imports: 
+    rlang,
+    tidyr
 Suggests: 
+    igraph,
     knitr,
     rmarkdown
