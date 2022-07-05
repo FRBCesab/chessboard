@@ -25,5 +25,8 @@ Imports:
     tidyr
 Suggests: 
     ggplot2,
+    ggsflabel,
     knitr,
     rmarkdown
+Remotes:
+    yutannihilation/ggsflabel
