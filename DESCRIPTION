@@ -24,6 +24,6 @@ Imports:
     sf,
     tidyr
 Suggests: 
-    igraph,
+    ggplot2,
     knitr,
     rmarkdown
