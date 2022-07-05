@@ -102,8 +102,8 @@ adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
 ggplot(data = adour_river) +
   geom_sf(col = "steelblue") +
   geom_sf(data = adour_sites_sf, shape = 19) +
-  ggsflabel::geom_sf_label(data = adour_sites_sf, aes(label = site), size = 5, 
-                           nudge_x = -5000) + 
+  ggsflabel::geom_sf_label(data = adour_sites_sf, aes(label = site), size = 4.5, 
+                           nudge_x = -7500) + 
   ggtitle("Sites along the French river Adour") +
   custom_theme
 ```
