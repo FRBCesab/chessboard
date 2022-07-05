@@ -74,7 +74,7 @@ Now, let's load the sites around the Adour:
 ```{r 'load-adour-sites'}
 ## Path to the example dataset ----
 
-path_to_file <- system.file("extdata", "sites_coords.rds", package = "bridge")
+path_to_file <- system.file("extdata", "adour_sites_coords.rds", package = "bridge")
 
 
 ## Load the data.frame ----

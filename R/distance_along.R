@@ -44,7 +44,7 @@
 #' 
 #' ## Import Adour sites ----
 #' 
-#' path_to_file <- system.file("extdata", "sites_coords.rds", 
+#' path_to_file <- system.file("extdata", "adour_sites_coords.rds", 
 #'                             package = "bridge")
 #'                             
 #' adour_sites <- readRDS(path_to_file)
