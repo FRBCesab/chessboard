@@ -22,6 +22,9 @@
 #' @param self a `logical` of length 1. If `TRUE`, a node can be linked to 
 #'   itself. Default is `FALSE`.
 #'
+#' @param all a `logical` of length 1. If `TRUE`, the missing edges are also
+#'   returned. Default is `FALSE`.
+#'
 #' @return A `data.frame` with three columns:
 #'   - `from`: label of one of the two nodes of the edge
 #'   - `to`: label of the other node of the edge
@@ -38,7 +41,7 @@
 #' # List of edges with 1 degree of neighborhood ----
 #' edges_list(adour_sites$"site")
 
-edges_list <- function(nodes, degree = 1, self = FALSE) {
+edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE) {
   
   ## Check 'nodes' argument ----
   
@@ -115,6 +118,11 @@ edges_list <- function(nodes, degree = 1, self = FALSE) {
   ## Sort edges list ----
   
   edges <- edges[with(edges, order(from, to)), ]
+  
+  
+  ## Remove non-edges ----
+  
+  if (!all) edges <- edges[edges$"edge" == 1, ]
   
   
   ## Clean row names ----

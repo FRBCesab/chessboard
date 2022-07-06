@@ -4,7 +4,7 @@
 \alias{edges_list}
 \title{Find edges between nodes based on a degree of neighborhood}
 \usage{
-edges_list(nodes, degree = 1, self = FALSE)
+edges_list(nodes, degree = 1, self = FALSE, all = FALSE)
 }
 \arguments{
 \item{nodes}{a \code{character} vector of nodes (sites) labels.}
@@ -14,6 +14,9 @@ define edges.}
 
 \item{self}{a \code{logical} of length 1. If \code{TRUE}, a node can be linked to
 itself. Default is \code{FALSE}.}
+
+\item{all}{a \code{logical} of length 1. If \code{TRUE}, the missing edges are also
+returned. Default is \code{FALSE}.}
 }
 \value{
 A \code{data.frame} with three columns:
