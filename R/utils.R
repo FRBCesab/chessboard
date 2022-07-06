@@ -12,6 +12,8 @@
 #' @param x a character vector. Must contain numbers.
 #'
 #' @return An integer vector of the same length as `x`.
+#' 
+#' @noRd
 
 char_to_int <- function(x) {
   
@@ -28,6 +30,8 @@ char_to_int <- function(x) {
 #' @note This function is no more in use.
 #'
 #' @return A character vector with nodes labels.
+#' 
+#' @noRd
 
 create_unique_key <- function(data) {
   
