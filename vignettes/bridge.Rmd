@@ -22,10 +22,12 @@ library("ggplot2")
 
 
 ```{r 'ggplot-theme', echo=FALSE}
-custom_theme <- theme_light() + 
+custom_theme <- function() {
+  theme_light() + 
   theme(plot.title = element_text(face = "bold", family = "serif", size = 18),
         axis.title = element_blank(),
         axis.text  = element_text(family = "serif"))
+}
 ```
 
 
@@ -44,27 +46,19 @@ First let's load the **Adour river** layer:
 
 
 ```{r 'load-adour-river', fig.height=10, fig.width=12}
-## Path to the example layer ----
+# Load the spatial layer of Adour river ----
+path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
+                            package = "bridge")
+adour_river  <- sf::st_read(path_to_file, quiet = TRUE)
 
-path_to_file <- system.file("extdata", "adour_lambert93.gpkg", package = "bridge")
-
-
-## Load the spatial layer ----
-
-adour_river <- sf::st_read(path_to_file, quiet = TRUE)
-
-
-## Preview ----
-
+# Preview ----
 print(adour_river)
 
-
-## Map ----
-
+# Map ----
 ggplot(data = adour_river) +
   geom_sf(col = "steelblue") +
   ggtitle("The French river Adour") +
-  custom_theme
+  custom_theme()
 ```
 
 
@@ -72,14 +66,10 @@ Now, let's load the sites around the Adour:
 
 
 ```{r 'load-adour-sites'}
-## Path to the example dataset ----
-
-path_to_file <- system.file("extdata", "adour_sites_coords.rds", package = "bridge")
-
-
-## Load the data.frame ----
-
-adour_sites <- readRDS(path_to_file)
+## Load the dataset of sites ----
+path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
+                            package = "bridge")
+adour_sites  <- read.csv(path_to_file)
 ```
 
 
@@ -93,20 +83,17 @@ knitr::kable(adour_sites,
 Let's convert this `data.frame` into an `sf` object of type `POINT`:
 
 ```{r 'df-to-sf', fig.height=10, fig.width=12}
-## Convert data.frame to sf object ----
-
+# Convert data.frame to sf object ----
 adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
 
-
-## Map ----
-
+# Map ----
 ggplot(data = adour_river) +
   geom_sf(col = "steelblue") +
   geom_sf(data = adour_sites_sf, shape = 19) +
   ggsflabel::geom_sf_label(data = adour_sites_sf, aes(label = site), size = 4.5, 
                            nudge_x = -7500) + 
   ggtitle("Sites along the French river Adour") +
-  custom_theme
+  custom_theme()
 ```
 
 
@@ -122,9 +109,9 @@ of neighborhood. This means that a site is linked to the first next site
 **Important:** as the sites have a direction (along the Adour river, from 
 upstream to downstream), the order of the sites must be found in the sites labels.
 
-For instance, in our dataset, the sites are labelled as **Site_01**, **Site_02**, 
-..., **Site_10**. This means that the most upstream site is **Site_01** and the
-most downstream is **Site_10**.
+For instance, in our dataset, the sites are labelled as **S-01**, **S-02**, 
+..., **S-10**. This means that the most upstream site is **S-01** and the
+most downstream is **S-10**.
 
 But be aware that ordering characters can have some unwanted effects, especially if 
 they contain numbers.
@@ -132,14 +119,11 @@ they contain numbers.
 For instance,
 
 ```{r 'order-labels'}
-## Alphanumerical ordering ----
-
+# Alphanumerical ordering ----
 sites <- c( "s1",  "s2", "s11", "s10")
 sort(sites)
 
-
-## Natural ordering ----
-
+# Natural ordering ----
 sites <- c("s01", "s02", "s11", "s10")
 sort(sites)
 ```
@@ -152,8 +136,7 @@ ordering.
 Let's create this adjacency table with the function `bridge::adjacency_table()`
 
 ```{r 'adjacency-table'}
-## Create adjacency table (degree 1 of neighborhood) ----
-
+# Create adjacency table (degree 1 of neighborhood) ----
 adj_table <- adjacency_table(adour_sites$"site", level = 1, self = FALSE)
 ```
 
@@ -171,13 +154,11 @@ We can convert this table to an adjacency matrix with function
 
 
 ```{r 'df-matrix'}
-## Convert data frame to adjacency matrix ----
-
+# Convert data.frame to adjacency matrix ----
 mat <- df_to_matrix(adj_table)
-```
 
-
-```{r echo = FALSE}
+# Preview ----
 mat[1:5, 1:5]
 ```
+
 

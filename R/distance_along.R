@@ -44,10 +44,10 @@
 #' 
 #' ## Import Adour sites ----
 #' 
-#' path_to_file <- system.file("extdata", "adour_sites_coords.rds", 
+#' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "bridge")
 #'                             
-#' adour_sites <- readRDS(path_to_file)
+#' adour_sites <- read.csv(path_to_file)
 #' 
 #' 
 #' ## Convert to sf object ----
