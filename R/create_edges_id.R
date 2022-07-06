@@ -105,7 +105,7 @@ create_edges_id <- function(edges) {
   
   ## Output ----
   
-  edges <- edges[with(edges, order(from, to)), 4:1]
+  edges <- edges[with(edges, order(from, to)), c(4:3, 1:2)]
   
   rownames(edges) <- NULL
   
