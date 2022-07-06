@@ -137,7 +137,8 @@ Let's create this adjacency table with the function `bridge::edges_list()`
 
 ```{r 'adjacency-table'}
 # List of edges with degree 1 of neighborhood ----
-adj_table <- edges_list(adour_sites$"site", level = 1, self = FALSE)
+adj_table <- edges_list(nodes  = adour_sites$"site", 
+                        degree = 1, self = FALSE)
 ```
 
 

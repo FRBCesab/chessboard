@@ -4,34 +4,40 @@
 \alias{edges_list}
 \title{Find edges between nodes based on a degree of neighborhood}
 \usage{
-edges_list(x, level = 1, self = FALSE)
+edges_list(nodes, degree = 1, self = FALSE)
 }
 \arguments{
-\item{x}{a \code{character} vector of nodes (sites) labels.}
+\item{nodes}{a \code{character} vector of nodes (sites) labels.}
 
-\item{level}{an \code{integer} of length 1. The number of neighbors used to
-define vertices.}
+\item{degree}{an \code{integer} of length 1. The number of neighbors used to
+define edges.}
 
-\item{self}{a \code{logical} of length 1. If \code{TRUE}, a site can be linked to
+\item{self}{a \code{logical} of length 1. If \code{TRUE}, a node can be linked to
 itself. Default is \code{FALSE}.}
 }
 \value{
 A \code{data.frame} with three columns:
 \itemize{
-\item \code{from}: label of one of the two edges of the vertice (link)
-\item \code{to}: label of the other edge of the vertice
-\item \code{weight}: the presence or absence of vertice between two edges
+\item \code{from}: label of one of the two nodes of the edge
+\item \code{to}: label of the other node of the edge
+\item \code{edge}: 0 (no edge) or 1 (edge)
 }
 }
 \description{
 Finds edges (links) between nodes (sites) based on a degree of neighborhood.
-The nodes (argument \code{x}) will be ordered to find edges in a directional way
-(from upstream to downstream along a linear shape).
+The nodes labels (argument \code{nodes}) will be ordered to find edges in a
+directional way (from upstream to downstream along a linear shape).
 
-\strong{IMPORTANT:} The order of sites must be found in the sites labels.
+Note that the detection of edges is only based on the nodes labels
+(no explicit spatial detection). For instance, if nodes are labelled as
+\strong{S-01}, \strong{S-02}, ..., \strong{S-10}, the most upstream site will be \strong{S-01}
+and the most downstream \strong{S-10}.
+
+With a degree of neighborhood of 1, a node will be linked to the first
+previous node (upstream) and also to the first next node (downstream). So,
+two edges will be detected.
 }
 \examples{
-\dontrun{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "bridge")
@@ -39,5 +45,4 @@ adour_sites  <- read.csv(path_to_file)
 
 # List of edges with 1 degree of neighborhood ----
 edges_list(adour_sites$"site")
-}
 }

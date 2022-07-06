@@ -2,28 +2,34 @@
 #' 
 #' @description
 #' Finds edges (links) between nodes (sites) based on a degree of neighborhood.
-#' The nodes (argument `x`) will be ordered to find edges in a directional way 
-#' (from upstream to downstream along a linear shape).
+#' The nodes labels (argument `nodes`) will be ordered to find edges in a 
+#' directional way (from upstream to downstream along a linear shape).
 #' 
-#' **IMPORTANT:** The order of sites must be found in the sites labels.
+#' Note that the detection of edges is only based on the nodes labels 
+#' (no explicit spatial detection). For instance, if nodes are labelled as 
+#' **S-01**, **S-02**, ..., **S-10**, the most upstream site will be **S-01** 
+#' and the most downstream **S-10**.
 #' 
-#' @param x a `character` vector of nodes (sites) labels.
+#' With a degree of neighborhood of 1, a node will be linked to the first 
+#' previous node (upstream) and also to the first next node (downstream). So,
+#' two edges will be detected.
 #' 
-#' @param level an `integer` of length 1. The number of neighbors used to 
-#'   define vertices.
+#' @param nodes a `character` vector of nodes (sites) labels.
+#' 
+#' @param degree an `integer` of length 1. The number of neighbors used to 
+#'   define edges.
 #'
-#' @param self a `logical` of length 1. If `TRUE`, a site can be linked to 
+#' @param self a `logical` of length 1. If `TRUE`, a node can be linked to 
 #'   itself. Default is `FALSE`.
 #'
 #' @return A `data.frame` with three columns:
-#'   - `from`: label of one of the two edges of the vertice (link)
-#'   - `to`: label of the other edge of the vertice
-#'   - `weight`: the presence or absence of vertice between two edges
+#'   - `from`: label of one of the two nodes of the edge
+#'   - `to`: label of the other node of the edge
+#'   - `edge`: 0 (no edge) or 1 (edge)
 #' 
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "bridge")
@@ -31,59 +37,89 @@
 #' 
 #' # List of edges with 1 degree of neighborhood ----
 #' edges_list(adour_sites$"site")
-#' }
 
-edges_list <- function(x, level = 1, self = FALSE) {
+edges_list <- function(nodes, degree = 1, self = FALSE) {
   
-  ## Check 'x' argument ----
+  ## Check 'nodes' argument ----
   
-  if (missing(x)) {
-    stop("Argument 'x' is required", call. = FALSE)
+  if (missing(nodes)) {
+    stop("Argument 'nodes' is required", call. = FALSE)
   }
   
-  if (!is.character(x)) {
-    stop("Argiment 'x' must be a character vector (sites labels)", 
+  if (!is.character(nodes)) {
+    stop("Argument 'nodes' must be a character vector (sites labels)", 
          call. = FALSE)
   }
   
   
-  ## Check 'level' argument ----
+  ## Check 'degree' argument ----
   
-  if (!is.numeric(level) || length(level) != 1) {
-    stop("Argument 'level' must be an integer of length 1", call. = FALSE)
+  if (!is.numeric(degree) || length(degree) != 1) {
+    stop("Argument 'degree' must be an integer of length 1", call. = FALSE)
   }
   
-  if (level > (length(x) - 1)) {
-    stop("Argument 'level' must be 'strictly < length(x)'")
+  if (degree > (length(nodes) - 1)) {
+    stop("Argument 'degree' must be 'strictly < length(nodes)'")
   }
   
   
-  ## Order sites labels ----
+  ## Order nodes labels ----
   
-  x    <- sort(x)
-  dict <- data.frame(x, "x_int" = seq_len(length(x)))
+  nodes <- sort(nodes)
   
-  x <- expand.grid(x, x)
-  colnames(x) <- c("from", "to")
   
-  x <- x[order(x$"from"), ]
+  ## Create all possible edges ----
   
-  x <- merge(x, dict, by.x = "to", by.y = "x")
-  colnames(x)[ncol(x)] <- "to_int"
+  edges <- expand.grid(nodes, nodes)
+  colnames(edges) <- c("from", "to")
   
-  x <- merge(x, dict, by.x = "from", by.y = "x")
-  colnames(x)[ncol(x)] <- "from_int"
+  edges <- edges[with(edges, order(from, to)), ]
   
-  x <- x[with(x, order(from, to)), ]
   
-  x$"weight" <- 0
-  x[which(abs(x$"from_int" - x$"to_int") <= level), "weight"] <- 1
+  ## Create a sequence of nodes (order matters) ----
   
-  x <- x[ , -c(3:4)]
+  nodes <- data.frame("node"      = nodes, 
+                      "nodes_int" = seq_len(length(nodes)))
   
-  if (!self) {
-    x[which(x$"from" == x$"to"), "weight"] <- 0
-  }
   
-  x
+  ## Add information on nodes in edges list ----
+  
+  edges <- merge(edges, nodes, by.x = "from", by.y = "node")
+  colnames(edges)[ncol(edges)] <- "from_int"
+  
+  edges <- merge(edges, nodes, by.x = "to", by.y = "node")
+  colnames(edges)[ncol(edges)] <- "to_int"
+  
+  
+  ## Sort edges list ----
+  
+  edges <- edges[with(edges, order(from, to)), c(2, 1, 3, 4)]
+  
+  
+  ## Detect links ----
+  
+  edges$"edge" <- 0
+  edges[which(abs(edges$"from_int" - edges$"to_int") <= degree), "edge"] <- 1
+
+
+  ## Remove autolinks ----
+  
+  if (!self) edges[which(edges$"from" == edges$"to"), "edge"] <- 0
+  
+  
+  ## Select columns ----
+  
+  edges <- edges[ , -c(3:4)]
+  
+  
+  ## Sort edges list ----
+  
+  edges <- edges[with(edges, order(from, to)), ]
+  
+  
+  ## Clean row names ----
+  
+  rownames(edges) <- NULL
+  
+  edges
 }
