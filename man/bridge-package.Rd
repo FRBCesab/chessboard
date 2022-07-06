@@ -4,9 +4,9 @@
 \name{bridge-package}
 \alias{bridge}
 \alias{bridge-package}
-\title{bridge: Bridge Project Toolbox}
+\title{bridge: Directional Spatial Network Analyses}
 \description{
-Contains different tools used by the FRB-CESAB Project Bridge to work with connectivity matrix and Moran Eigenvalue Maps.
+Contains different tools used by the FRB-CESAB Project Bridge to work with directional spatial network.
 }
 \seealso{
 Useful links:

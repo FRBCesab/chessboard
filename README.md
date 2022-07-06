@@ -17,9 +17,11 @@ status](https://www.r-pkg.org/badges/version/bridge)](https://CRAN.R-project.org
 Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
-The R package `bridge` contains different tools used by the FRB-CESAB
-Project Bridge to work with connectivity matrix and Moran Eigenvalue
-Maps.
+The R package `bridge` contains different tools used by the
+[FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/)
+project
+[Bridge](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/bridge/)
+to work with directional spatial network.
 
 ## Installation
 
@@ -27,6 +29,7 @@ You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
+# install.packages("remotes")
 remotes::install_github("frbcesab/bridge")
 ```
 
@@ -46,8 +49,8 @@ vignette.
 
 Please cite this package as:
 
-> Casajus N (2022) bridge: An R package to **{{ TITLE }}**. R package
-> version 0.0.0.9000.
+> Casajus N (2022) bridge: An R package to analyse directional spatial
+> network. R package version 0.0.0.9000.
 
 ## Code of Conduct
 

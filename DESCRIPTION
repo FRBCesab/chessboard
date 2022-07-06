@@ -1,6 +1,6 @@
 Package: bridge
 Type: Package
-Title: Bridge Project Toolbox
+Title: Directional Spatial Network Analyses
 Version: 0.0.0.9000
 Authors@R: c(
     person(given   = "Nicolas",
@@ -9,7 +9,7 @@ Authors@R: c(
            email   = "nicolas.casajus@fondationbiodiversite.fr",
            comment = c(ORCID = "0000-0002-5537-5294")))
 Description: Contains different tools used by the FRB-CESAB Project Bridge to
-    work with connectivity matrix and Moran Eigenvalue Maps.
+    work with directional spatial network.
 URL: https://github.com/frbcesab/bridge
 BugReports: https://github.com/frbcesab/bridge/issues
 License: GPL (>= 2)
