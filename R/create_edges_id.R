@@ -15,6 +15,10 @@
 
 create_edges_id <- function(edges) {
   
+  if (missing(edges)) {
+    stop("Argument 'edges' is required", call. = FALSE)
+  }
+  
   if (!is.data.frame(edges)) {
     stop("Argument 'edges' must be a data.frame", call. = FALSE)
   }
