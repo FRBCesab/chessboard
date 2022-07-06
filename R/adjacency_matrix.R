@@ -1,7 +1,8 @@
-#' Convert a data frame to an adjacency matrix
+#' Create an adjacency matrix
 #' 
 #' @description
-#' Converts a data frame to an adjacency matrix.
+#' Converts an edges list to an adjacency matrix (also known as connectivity 
+#' matrix).
 #' 
 #' @param data a `data.frame` with the following three columns: `from` (edge), 
 #'   `to` (edge), and `weight` (value of the vertice).
@@ -26,7 +27,7 @@
 #' ## _Add an example_
 #' }
 
-df_to_matrix <- function(data, lower = TRUE, upper = TRUE, diag = TRUE) {
+adjacency_matrix <- function(data, lower = TRUE, upper = TRUE, diag = TRUE) {
   
   colnames(data) <- c("from", "to", "weight")
   mat <- tidyr::pivot_wider(data, names_from = .data$to, 

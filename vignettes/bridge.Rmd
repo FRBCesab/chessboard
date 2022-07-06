@@ -152,7 +152,7 @@ knitr::kable(adour_edges, row.names = FALSE,
 
 
 We can convert this table to an adjacency matrix with function
-`bridge::df_to_matrix()`.
+`bridge::adjacency_matrix()`.
 
 
 
