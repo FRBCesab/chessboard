@@ -137,29 +137,20 @@ Let's create this adjacency table with the function `bridge::edges_list()`
 
 ```{r 'adjacency-table'}
 # List of edges with degree 1 of neighborhood ----
-adj_table <- edges_list(nodes  = adour_sites$"site", 
-                        degree = 1, self = FALSE)
+adour_edges <- edges_list(nodes  = adour_sites$"site", degree = 1)
 ```
 
 
 
 ```{r 'kable-adjacency-table', echo=FALSE}
-knitr::kable(head(adj_table, 25), row.names = FALSE,
+knitr::kable(adour_edges, row.names = FALSE,
              caption = "Adjacency table of degree 1 of neighborhood", 
-             align   = c("c", "c", "c"))
+             align   = rep("c", ncol(adour_edges)))
 ```
 
 
 We can convert this table to an adjacency matrix with function
 `bridge::df_to_matrix()`.
 
-
-```{r 'df-matrix'}
-# Convert data.frame to adjacency matrix ----
-mat <- df_to_matrix(adj_table)
-
-# Preview ----
-mat[1:5, 1:5]
-```
 
 

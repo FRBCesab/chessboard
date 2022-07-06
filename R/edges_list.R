@@ -31,10 +31,11 @@
 #'   edge (e.g. S01-S02) is returned (according to direction of the nodes 
 #'   labels).
 #'
-#' @return A `data.frame` with three columns:
+#' @return A `data.frame` with four columns:
 #'   - `from`: label of one of the two nodes of the edge
 #'   - `to`: label of the other node of the edge
 #'   - `edge`: 0 (no edge) or 1 (edge)
+#'   - `edge_id`: label of the edge
 #' 
 #' @export
 #'
@@ -80,7 +81,7 @@ edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE,
   
   ## Create all possible edges ----
   
-  edges <- expand.grid(nodes, nodes)
+  edges <- expand.grid(nodes, nodes, stringsAsFactors = FALSE)
   colnames(edges) <- c("from", "to")
   
   edges <- edges[with(edges, order(from, to)), ]
@@ -112,12 +113,12 @@ edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE,
   edges[which(abs(edges$"from_int" - edges$"to_int") <= degree), "edge"] <- 1
   
   
-  ## Remove directedal edges ----
+  ## Remove symmetrical edges (directed network) ----
   
-  if (!directed) edges <- edges[which(edges$"from_int" <= edges$"to_int"), ]
+  if (directed) edges[which(edges$"from_int" > edges$"to_int"), "edge"] <- 0
   
 
-  ## Remove autolinks ----
+  ## Remove auto-links ----
   
   if (!self) edges[which(edges$"from" == edges$"to"), "edge"] <- 0
   
@@ -135,11 +136,9 @@ edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE,
   ## Remove non-edges ----
   
   if (!all) edges <- edges[edges$"edge" == 1, ]
+ 
   
+  ## Create edge ids ----
   
-  ## Clean row names ----
-  
-  rownames(edges) <- NULL
-  
-  edges
+  create_edges_id(edges)
 }

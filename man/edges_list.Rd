@@ -24,11 +24,12 @@ edge (e.g. S01-S02) is returned (according to direction of the nodes
 labels).}
 }
 \value{
-A \code{data.frame} with three columns:
+A \code{data.frame} with four columns:
 \itemize{
 \item \code{from}: label of one of the two nodes of the edge
 \item \code{to}: label of the other node of the edge
 \item \code{edge}: 0 (no edge) or 1 (edge)
+\item \code{edge_id}: label of the edge
 }
 }
 \description{
