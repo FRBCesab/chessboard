@@ -2,7 +2,8 @@
 % Please edit documentation in R/edges_list.R
 \name{edges_list}
 \alias{edges_list}
-\title{Find edges between nodes based on a degree of neighborhood}
+\title{Find edges between nodes based on a degree of neighborhood along a linear
+shape}
 \usage{
 edges_list(nodes, degree = 1, self = FALSE, all = FALSE, directed = FALSE)
 }
@@ -19,21 +20,22 @@ itself. Default is \code{FALSE}.}
 returned. Default is \code{FALSE}.}
 
 \item{directed}{a \code{logical} of length 1. If \code{FALSE} (default), symmetrical
-edges (e.g. S01-S02 and S02-S01) are returned. Otherwise only the first
-edge (e.g. S01-S02) is returned (according to direction of the nodes
-labels).}
+edges (e.g. S01-S02 and S02-S01) are returned (undirected network).
+Otherwise (directed network) only the first edge (e.g. S01-S02) is
+returned (according to direction of the nodes labels).}
 }
 \value{
 A \code{data.frame} with four columns:
 \itemize{
+\item \code{edge_id}: label of the edge
+\item \code{edge}: 0 (no edge) or 1 (edge)
 \item \code{from}: label of one of the two nodes of the edge
 \item \code{to}: label of the other node of the edge
-\item \code{edge}: 0 (no edge) or 1 (edge)
-\item \code{edge_id}: label of the edge
 }
 }
 \description{
-Finds edges (links) between nodes (sites) based on a degree of neighborhood.
+Finds edges (links) between nodes (sites) based on a degree of neighborhood
+and along a linear shape (e.g. river or road).
 The nodes labels (argument \code{nodes}) will be ordered to find edges in a
 directional way (from upstream to downstream along a linear shape).
 
@@ -44,15 +46,20 @@ and the most downstream \strong{S-10}.
 
 With a degree of neighborhood of 1, a node will be linked to the first
 previous node and also to the first next node (undirected network). So,
-two edges will be detected. If \code{directed = FALSE}, this node will be only
-linked to first next node (directed network).
+the same edges will be detected twice. If \code{directed = FALSE}, this node will
+be only linked to first next node (directed network from upstream to
+downstream).
 }
 \examples{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "bridge")
 adour_sites  <- read.csv(path_to_file)
+adour_sites
 
-# List of edges with 1 degree of neighborhood ----
+# Find edges with 1 degree of neighborhood (undirected network) ----
 edges_list(adour_sites$"site")
+
+# Find edges with 1 degree of neighborhood (directed network) ----
+edges_list(adour_sites$"site", directed = TRUE)
 }
