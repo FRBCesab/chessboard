@@ -12,14 +12,28 @@
 #' @param x a character vector. Must contain numbers.
 #'
 #' @return An integer vector of the same length as `x`.
-#' 
-#' @export
-#'
-#' @examples
-#' x <- paste0("A-D 0", 1:9)
-#' char_to_int(x)
 
 char_to_int <- function(x) {
   
   as.numeric(gsub("[A-Z]|[a-z]|[[:punct:]]|\\s", "", x))
+}
+
+
+
+#' Create an unique node identifier
+#'
+#' @param data a `data.frame`. Each column will be used to create an unique 
+#'   edge identifier.
+#'
+#' @note This function is no more in use.
+#'
+#' @return A character vector with nodes labels.
+
+create_unique_key <- function(data) {
+  
+  data$"key" <- unlist(lapply(seq_len(nrow(data)), function(x) {
+    paste(as.vector(data[x, ]), collapse = "__")
+  }))
+  
+  data
 }
