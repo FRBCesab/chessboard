@@ -76,7 +76,8 @@ adour_sites  <- read.csv(path_to_file)
 ```{r 'kable-adour-sites', echo=FALSE}
 knitr::kable(adour_sites, 
              caption = "Sites along Adour", 
-             align   = c("c", "r", "r"))
+             align   = c("c", "r", "r")) %>% 
+  kableExtra::kable_styling(position = "center")
 ```
 
 
@@ -145,7 +146,8 @@ adour_edges <- edges_list(nodes  = adour_sites$"site", degree = 1)
 ```{r 'kable-adjacency-table', echo=FALSE}
 knitr::kable(adour_edges, row.names = FALSE,
              caption = "Adjacency table of degree 1 of neighborhood", 
-             align   = rep("c", ncol(adour_edges)))
+             align   = rep("c", ncol(adour_edges))) %>% 
+  kableExtra::kable_styling(position = "center")
 ```
 
 

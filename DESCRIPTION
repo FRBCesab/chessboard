@@ -23,6 +23,7 @@ Imports:
 Suggests: 
     ggplot2,
     ggsflabel,
+    kableExtra,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
