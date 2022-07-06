@@ -133,11 +133,11 @@ ordering.
 
 <br />
 
-Let's create this adjacency table with the function `bridge::adjacency_table()`
+Let's create this adjacency table with the function `bridge::edges_list()`
 
 ```{r 'adjacency-table'}
-# Create adjacency table (degree 1 of neighborhood) ----
-adj_table <- adjacency_table(adour_sites$"site", level = 1, self = FALSE)
+# List of edges with degree 1 of neighborhood ----
+adj_table <- edges_list(adour_sites$"site", level = 1, self = FALSE)
 ```
 
 

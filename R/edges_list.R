@@ -1,13 +1,13 @@
-#' Find links between edges based on number of neighbors
+#' Find edges between nodes based on a degree of neighborhood
 #' 
 #' @description
-#' Finds links between edges based on number of neighbors. The edges (argument 
-#' `x`) will be ordered to find links in a directional way (from upstream to
-#' downstream).
+#' Finds edges (links) between nodes (sites) based on a degree of neighborhood.
+#' The nodes (argument `x`) will be ordered to find edges in a directional way 
+#' (from upstream to downstream along a linear shape).
 #' 
 #' **IMPORTANT:** The order of sites must be found in the sites labels.
 #' 
-#' @param x a `character` vector of edges labels.
+#' @param x a `character` vector of nodes (sites) labels.
 #' 
 #' @param level an `integer` of length 1. The number of neighbors used to 
 #'   define vertices.
@@ -24,25 +24,16 @@
 #'
 #' @examples
 #' \dontrun{
-#' ## Import Adour sites ----
-#' 
+#' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "bridge")
-#'                             
-#' adour_sites <- read.csv(path_to_file)
+#' adour_sites  <- read.csv(path_to_file)
 #' 
-#' 
-#' ## Select the 5 first sites ----
-#' 
-#' adour_sites <- adour_sites[1:5, ]
-#' 
-#' 
-#' ## Create adjacency table with 1 degree of neighborhood ----
-#' 
-#' adjacency_df <- adjacency_table(adour_sites$"site")
+#' # List of edges with 1 degree of neighborhood ----
+#' edges_list(adour_sites$"site")
 #' }
 
-adjacency_table <- function(x, level = 1, self = FALSE) {
+edges_list <- function(x, level = 1, self = FALSE) {
   
   ## Check 'x' argument ----
   
