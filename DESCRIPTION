@@ -14,9 +14,6 @@ URL: https://github.com/frbcesab/bridge
 BugReports: https://github.com/frbcesab/bridge/issues
 License: GPL (>= 2)
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
-VignetteBuilder: knitr
 Imports: 
     dplyr,
     magrittr,
@@ -27,6 +24,11 @@ Suggests:
     ggplot2,
     ggsflabel,
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 Remotes:
     yutannihilation/ggsflabel
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+VignetteBuilder: knitr
+Config/testthat/edition: 3
