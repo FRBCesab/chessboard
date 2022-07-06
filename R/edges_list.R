@@ -64,9 +64,14 @@ edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE,
     stop("Argument 'nodes' is required", call. = FALSE)
   }
   
-  if (!is.character(nodes)) {
+  if (!is.character(nodes) || !is.null(dim(nodes)) || is.list(nodes) || 
+      is.null(nodes)) {
     stop("Argument 'nodes' must be a character vector (sites labels)", 
          call. = FALSE)
+  }
+  
+  if (any(NA %in% nodes)) {
+    stop("Argument 'nodes' cannot contain NA", call. = FALSE)
   }
   
   
