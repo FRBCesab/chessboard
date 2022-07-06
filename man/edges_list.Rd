@@ -4,7 +4,7 @@
 \alias{edges_list}
 \title{Find edges between nodes based on a degree of neighborhood}
 \usage{
-edges_list(nodes, degree = 1, self = FALSE, all = FALSE)
+edges_list(nodes, degree = 1, self = FALSE, all = FALSE, directed = FALSE)
 }
 \arguments{
 \item{nodes}{a \code{character} vector of nodes (sites) labels.}
@@ -17,6 +17,11 @@ itself. Default is \code{FALSE}.}
 
 \item{all}{a \code{logical} of length 1. If \code{TRUE}, the missing edges are also
 returned. Default is \code{FALSE}.}
+
+\item{directed}{a \code{logical} of length 1. If \code{FALSE} (default), symmetrical
+edges (e.g. S01-S02 and S02-S01) are returned. Otherwise only the first
+edge (e.g. S01-S02) is returned (according to direction of the nodes
+labels).}
 }
 \value{
 A \code{data.frame} with three columns:
@@ -37,8 +42,9 @@ Note that the detection of edges is only based on the nodes labels
 and the most downstream \strong{S-10}.
 
 With a degree of neighborhood of 1, a node will be linked to the first
-previous node (upstream) and also to the first next node (downstream). So,
-two edges will be detected.
+previous node and also to the first next node (undirected network). So,
+two edges will be detected. If \code{directed = FALSE}, this node will be only
+linked to first next node (directed network).
 }
 \examples{
 # Import Adour sites ----

@@ -11,8 +11,9 @@
 #' and the most downstream **S-10**.
 #' 
 #' With a degree of neighborhood of 1, a node will be linked to the first 
-#' previous node (upstream) and also to the first next node (downstream). So,
-#' two edges will be detected.
+#' previous node and also to the first next node (undirected network). So,
+#' two edges will be detected. If `directed = FALSE`, this node will be only
+#' linked to first next node (directed network).
 #' 
 #' @param nodes a `character` vector of nodes (sites) labels.
 #' 
@@ -24,6 +25,11 @@
 #'
 #' @param all a `logical` of length 1. If `TRUE`, the missing edges are also
 #'   returned. Default is `FALSE`.
+#'
+#' @param directed a `logical` of length 1. If `FALSE` (default), symmetrical 
+#'   edges (e.g. S01-S02 and S02-S01) are returned. Otherwise only the first 
+#'   edge (e.g. S01-S02) is returned (according to direction of the nodes 
+#'   labels).
 #'
 #' @return A `data.frame` with three columns:
 #'   - `from`: label of one of the two nodes of the edge
@@ -41,7 +47,8 @@
 #' # List of edges with 1 degree of neighborhood ----
 #' edges_list(adour_sites$"site")
 
-edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE) {
+edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE, 
+                       directed = FALSE) {
   
   ## Check 'nodes' argument ----
   
@@ -103,7 +110,12 @@ edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE) {
   
   edges$"edge" <- 0
   edges[which(abs(edges$"from_int" - edges$"to_int") <= degree), "edge"] <- 1
-
+  
+  
+  ## Remove directedal edges ----
+  
+  if (!directed) edges <- edges[which(edges$"from_int" <= edges$"to_int"), ]
+  
 
   ## Remove autolinks ----
   
