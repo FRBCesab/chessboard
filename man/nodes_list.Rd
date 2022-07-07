@@ -4,23 +4,19 @@
 \alias{nodes_list}
 \title{Retrieve and order nodes from an edges list}
 \usage{
-nodes_list(edges)
+nodes_list(x)
 }
 \arguments{
-\item{edges}{a \code{data.frame} with at least two columns:
-\itemize{
-\item \code{from}: label of one of the two nodes of the edge
-\item \code{to}: label of the other node of the edge
-}}
+\item{x}{either a \code{data.frame} with at least two columns: \code{from}, the label
+of one of the two nodes of the edge and \code{to}, label of the other node of
+the edge, or a \code{character} vector with nodes labels.}
 }
 \value{
-A \code{data.frame} with column, \code{node} containing unique ordered nodes
-labels.
+A \code{data.frame} with one column, \code{node} containing unique ordered
+nodes labels.
 }
 \description{
-Creates labels for edges (non edges are ignored). If two edges are identical
-(e.g. \code{"S01-S02"} and \code{"S02-S01"}), there will have the same label
-(\code{"E-01"}).
+Retrieves and orders nodes from an edges list or from a vector of nodes.
 }
 \examples{
 # Import Adour sites ----
@@ -28,9 +24,12 @@ path_to_file <- system.file("extdata", "adour_sites_coords.csv",
                             package = "bridge")
 adour_sites  <- read.csv(path_to_file)
 
+# Retrieve nodes (from nodes vector) ----
+nodes_list(adour_sites$"site")
+
 # Find edges with 1 degree of neighborhood (undirected network) ----
 edges <- edges_list(adour_sites$"site")
 
-# Retrieve nodes ----
+# Retrieve nodes (from edges list) ----
 nodes_list(edges)
 }

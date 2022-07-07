@@ -12,11 +12,11 @@ edges_to   <- edges[ , -2, drop = FALSE]
 test_that("nodes_list() - Tests for wrong inputs", {
   
   expect_error(nodes_list(), 
-               "Argument 'edges' is required", 
+               "Argument 'x' is required", 
                fixed = TRUE)
   
   expect_error(nodes_list(nodes), 
-               "Argument 'edges' must be a data.frame", 
+               "Argument 'x' must be a data.frame", 
                fixed = TRUE)
   
   expect_error(nodes_list(edges_from), 
