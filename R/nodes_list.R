@@ -34,24 +34,46 @@ nodes_list <- function(x) {
     stop("Argument 'x' is required", call. = FALSE)
   }
   
-  if (!is.data.frame(x)) {
-    stop("Argument 'x' must be a data.frame", call. = FALSE)
+  if (!is.data.frame(x) && !is.character(x)) {
+    stop("Argument 'x' must be either a data.frame (edges list) or a ", 
+         "character (vector of nodes)", call. = FALSE)
   }
   
-  if (!("from" %in% colnames(x))) {
-    stop("The column 'from' is absent from the edges data.frame", 
-         call. = FALSE)
+  if (is.data.frame(x)) {
+    
+    if (!("from" %in% colnames(x))) {
+      stop("The column 'from' is absent from the edges data.frame", 
+           call. = FALSE)
+    }
+    
+    if (!("to" %in% colnames(x))) {
+      stop("The column 'to' is absent from the edges data.frame", 
+           call. = FALSE)
+    }
+    
+  } else {
+    
+    if (!is.null(dim(x))) {
+      
+      stop("Argument 'x' must be either a data.frame (edges list) or a ", 
+           "character (vector of nodes)", call. = FALSE)
+    }
   }
   
-  if (!("to" %in% colnames(x))) {
-    stop("The column 'to' is absent from the edges data.frame", 
-         call. = FALSE)
+  
+  ## Extract nodes ----
+  
+  if (is.data.frame(x)) nodes <- c(x$"from", x$"to") else nodes <- x
+  
+  
+  ## Check for NA ----
+  
+  if (any(NA %in% nodes)) {
+    stop("Argument 'x' cannot contain NA (unidentified nodes)", call. = FALSE)
   }
   
   
-  ## Get nodes ----
-  
-  nodes <- c(x$"from", x$"to")
+  ## Get unique labels and order ----
   
   data.frame("node" = sort(unique(as.character(nodes))))
 }
