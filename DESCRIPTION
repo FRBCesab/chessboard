@@ -25,6 +25,7 @@ Suggests:
     ggsflabel,
     knitr,
     rmarkdown,
+    sp,
     testthat (>= 3.0.0)
 Remotes:
     yutannihilation/ggsflabel
