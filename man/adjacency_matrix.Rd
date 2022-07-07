@@ -4,30 +4,72 @@
 \alias{adjacency_matrix}
 \title{Create an adjacency matrix}
 \usage{
-adjacency_matrix(data, lower = TRUE, upper = TRUE, diag = TRUE)
+adjacency_matrix(
+  edges,
+  lower = TRUE,
+  upper = TRUE,
+  diag = TRUE,
+  na_to_zero = TRUE
+)
 }
 \arguments{
-\item{data}{a \code{data.frame} with the following three columns: \code{from} (edge),
-\code{to} (edge), and \code{weight} (value of the vertice).}
+\item{edges}{a \code{data.frame} with the following three columns: \code{from} (the
+first node of the edge), \code{to} (the second node of the edge), and \code{edge}
+(presence/absence of the edge).}
 
 \item{lower}{a logical value. If \code{TRUE} (default), keep values in the lower
-triangle of the matrix. Otherwise their will be replaced by \code{NA}.}
+triangle of the matrix. Otherwise they will be replaced by \code{NA}.}
 
 \item{upper}{a logical value. If \code{TRUE} (default), keep values in the upper
-triangle of the matrix. Otherwise their will be replaced by \code{NA}.}
+triangle of the matrix. Otherwise they will be replaced by \code{NA}.}
 
 \item{diag}{a logical value. If \code{TRUE} (default), keep values in the
-diagonal of the matrix. Otherwise their will be replaced by \code{NA}.}
+diagonal of the matrix. Otherwise they will be replaced by \code{NA}.}
+
+\item{na_to_zero}{a logical value. If \code{TRUE} (default), missing edges are
+coded as \code{0}. Otherwise they will be coded as \code{NA}.}
 }
 \value{
-An integer vector of the same length as \code{x}.
+An adjacency matrix of dimensions \verb{n x n}, where \code{n} is the number
+of nodes.
 }
 \description{
 Converts an edges list to an adjacency matrix (also known as connectivity
 matrix).
 }
 \examples{
-\dontrun{
-## _Add an example_
-}
+# Import Adour sites ----
+path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
+                            package = "bridge")
+adour_sites  <- read.csv(path_to_file)
+
+# Find edges with 1 degree of neighborhood (undirected) ----
+adour_edges <- edges_list(adour_sites$"site")
+
+# Get adjacency matrix ----
+adjacency_matrix(adour_edges)
+
+# Get adjacency matrix ----
+adjacency_matrix(adour_edges, na_to_zero = FALSE)
+
+# Find edges with 1 degree of neighborhood (directed) ----
+adour_edges <- edges_list(adour_sites$"site", directed = TRUE)
+
+# Get adjacency matrix ----
+adjacency_matrix(adour_edges)
+
+# Find edges with 1 degree of neighborhood (auto-links) ----
+adour_edges <- edges_list(adour_sites$"site", self = TRUE)
+
+# Get adjacency matrix ----
+adjacency_matrix(adour_edges)
+
+# Get adjacency matrix (remove upper triangle) ----
+adjacency_matrix(adour_edges, upper = FALSE)
+
+# Get adjacency matrix (remove lower triangle) ----
+adjacency_matrix(adour_edges, lower = FALSE)
+
+# Get adjacency matrix (remove diagonal) ----
+adjacency_matrix(adour_edges, diag = FALSE)
 }
