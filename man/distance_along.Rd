@@ -2,10 +2,10 @@
 % Please edit documentation in R/distance_along.R
 \name{distance_along}
 \alias{distance_along}
-\title{Compute the distance between two points along a line}
+\title{Compute the distance between two nodes along a linear shape}
 \usage{
 distance_along(
-  xy,
+  sites,
   along,
   density = 0.01,
   type = "regular",
@@ -14,68 +14,56 @@ distance_along(
 )
 }
 \arguments{
-\item{xy}{an \code{sf} object of type \code{POINT}. A spatial object
+\item{sites}{an \code{sf} object of type \code{POINT}. A spatial object
 containing coordinates of sites. Note that the first column must be the
 site label.}
 
 \item{along}{an \code{sf} object of type \code{LINESTRING}. A spatial object
-containing coordinates of the linear structure (e.g. a river, a road, etc.)
-to follow while computing distances between two points (sites).}
+containing coordinates of the linear shape (e.g. a river, a road, etc.)
+to follow while computing distances between two nodes (sites).}
 
 \item{density}{a \code{numeric} of length 1. The density of points to sample on
 the linear structure. See \code{\link[sf:st_line_sample]{sf::st_line_sample()}} for further detail.
-Default value is \code{1/100}.}
+Default is \code{1/100}.}
 
-\item{type}{a character of length 1. Either \code{regular} (default) or \code{random}.
-Default is \code{regular}.}
+\item{type}{a \code{character} of length 1. The method to sample points on the
+linear shape. Either \code{regular} (default) or \code{random}.}
 
 \item{mc.cores}{an \code{integer} of length 1. The number of cores to use
-(must be lesser than the number of cores available on the machine).}
+(must be lesser than the number of cores available on the machine obtained
+with \code{\link[parallel:detectCores]{parallel::detectCores()}}).}
 
 \item{...}{other argument to pass to  \code{\link[sf:st_line_sample]{sf::st_line_sample()}}.}
 }
 \value{
 A three-column \code{data.frame} with:
 \itemize{
-\item \code{from}, the first site,
-\item \code{to}, the second site,
-\item \code{distance_along}, the distance between the two sites along the river.
+\item \code{from}, the first node
+\item \code{to}, the second node
+\item \code{weight}, the distance between the two nodes along the linear shape
 }
 }
 \description{
-Computes distance between two points (sites) along a linear structure
-(river). This function uses parallel code to speed up the distance
-computation.
+Computes distance between two nodes (sites) along a linear shape
+(e.g. a river, a road, etc.). This function uses parallel computing to speed
+up the distance computation.
 }
 \examples{
-\dontrun{
-## Import Adour river (LINESTRING) ----
-
+# Import Adour river (LINESTRING) ----
 path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
                             package = "bridge")
-                            
 adour_river <- sf::st_read(path_to_file)
 
-
-## Import Adour sites ----
-
+# Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "bridge")
-                            
 adour_sites <- read.csv(path_to_file)
 
-
-## Convert to sf object ----
-
+# Convert sites to sf object (POINTS) ----
 adour_sites <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
 
-
-## Compute distances between pairs of sites along the Adour river ----
-
-dist_on_river <- distance_along(adour_sites, adour_river)
-
-
-## Preview ----
-head(dist_on_river)
+\dontrun{
+# Compute distances between pairs of sites along the Adour river ----
+dist_along_river <- distance_along(adour_sites, adour_river)
 }
 }

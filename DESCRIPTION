@@ -17,6 +17,7 @@ Encoding: UTF-8
 Imports: 
     dplyr,
     magrittr,
+    parallel,
     rlang,
     sf,
     tidyr
