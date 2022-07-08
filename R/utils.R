@@ -100,9 +100,9 @@ points_to_line <- function(points_sf, from, to) {
   
   ## Check 'from' and 'to' arguments ----
   
-  if (from > to) {
-    stop("Argument 'from' must be lesser than argument 'to'", call. = FALSE)
-  }
+  # if (from > to) {
+  #   stop("Argument 'from' must be lesser than argument 'to'", call. = FALSE)
+  # }
   
   
   ## Extract segment ----
