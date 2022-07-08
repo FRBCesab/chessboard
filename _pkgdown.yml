@@ -17,4 +17,7 @@ reference:
     Create and handle network matrices
   contents:
     - adjacency_matrix
+    - edges_weight_matrix
+- title: Other features
+  contents:
     - matrix_to_edges_list
