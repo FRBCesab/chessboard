@@ -3,6 +3,7 @@
 export("%>%")
 export(adjacency_matrix)
 export(distance_along)
+export(distance_euclidean)
 export(edges_list)
 export(edges_to_sf)
 export(matrix_to_edges_list)
