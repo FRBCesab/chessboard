@@ -11,10 +11,8 @@ Check](https://github.com/frbcesab/bridge/actions/workflows/R-CMD-check.yaml/bad
 [![Website](https://github.com/frbcesab/bridge/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/frbcesab/bridge/actions/workflows/pkgdown.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/bridge)](https://CRAN.R-project.org/package=bridge)
-[![License: GPL (>=
+[![License: GPL (\>=
 2)](https://img.shields.io/badge/License-GPL%20%28%3E%3D%202%29-blue.svg)](https://choosealicense.com/licenses/gpl-2.0/)
-[![Project Status:
-Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 The R package `bridge` contains different tools used by the
