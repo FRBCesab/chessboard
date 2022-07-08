@@ -78,6 +78,10 @@ test_that("distance_along() - Tests for wrong inputs", {
                "Linear shape geometry must be of type LINESTRING", 
                fixed = TRUE)
   
+  expect_error(distance_along(points_sf, rbind(river, river)), 
+               "Argument 'along' (linear shape) should have exactly one row", 
+               fixed = TRUE)
+  
   
   ## Test type argument ----
   
