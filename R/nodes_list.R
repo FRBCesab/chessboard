@@ -73,7 +73,16 @@ nodes_list <- function(x) {
   }
   
   
-  ## Get unique labels and order ----
+  ## Get unique nodes labels ----
   
-  data.frame("node" = sort(unique(as.character(nodes))))
+  nodes <- unique(as.character(nodes))
+  
+  
+  ## Get for single node ----
+  
+  if (length(nodes) < 2) {
+    stop("The data contain less than two nodes", call. = FALSE)
+  }
+    
+  data.frame("node" = sort(nodes))
 }

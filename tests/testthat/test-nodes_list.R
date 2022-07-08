@@ -9,6 +9,7 @@ edges_to   <- edges[ , -2, drop = FALSE]
 nodes_num  <- 1:8
 nodes_fac  <- as.factor(letters)
 nodes_na   <- c(NA, "S02", "S11", "S21")
+nodes_one  <- c("S21", "S21", "S21", "S21")
 nodes_mat  <- matrix(nodes, ncol = 2)
 
 
@@ -45,6 +46,10 @@ test_that("nodes_list() - Tests for wrong inputs", {
   
   expect_error(nodes_list(nodes_na), 
                "Argument 'x' cannot contain NA (unidentified nodes)", 
+               fixed = TRUE)
+  
+  expect_error(nodes_list(nodes_one), 
+               "The data contain less than two nodes", 
                fixed = TRUE)
 })
 
