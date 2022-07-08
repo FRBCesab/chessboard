@@ -72,6 +72,10 @@ test_that("edges_list() - Tests for wrong inputs", {
   expect_error(edges_list(nodes, degree = length(nodes)), 
                "Argument 'degree' must be 'strictly < length(nodes)'", 
                fixed = TRUE)
+  
+  expect_error(edges_list(nodes, degree = 0), 
+               "Argument 'degree' must be > 1", 
+               fixed = TRUE)
 })
 
 

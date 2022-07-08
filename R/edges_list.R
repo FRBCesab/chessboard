@@ -90,7 +90,11 @@ edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE,
   }
   
   if (degree > (length(nodes) - 1)) {
-    stop("Argument 'degree' must be 'strictly < length(nodes)'")
+    stop("Argument 'degree' must be 'strictly < length(nodes)'", call. = FALSE)
+  }
+  
+  if (degree < 1) {
+    stop("Argument 'degree' must be > 1", call. = FALSE)
   }
   
   
