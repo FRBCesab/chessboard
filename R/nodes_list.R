@@ -6,8 +6,7 @@
 #'   of one of the two nodes of the edge and `to`, label of the other node of 
 #'   the edge, or a `character` vector with nodes labels.
 #' 
-#' @return A `data.frame` with one column, `node` containing unique ordered 
-#'   nodes labels. 
+#' @return A `character` vector of unique ordered nodes labels. 
 #' 
 #' @export
 #'
@@ -18,13 +17,14 @@
 #' adour_sites  <- read.csv(path_to_file)
 #' 
 #' # Retrieve nodes (from nodes vector) ----
-#' nodes_list(adour_sites$"site")
+#' adour_nodes <- nodes_list(adour_sites$"site")
+#' adour_nodes
 #' 
 #' # Find edges with 1 degree of neighborhood (undirected network) ----
-#' edges <- edges_list(adour_sites$"site")
+#' adour_edges <- edges_list(adour_nodes)
 #' 
 #' # Retrieve nodes (from edges list) ----
-#' nodes_list(edges)
+#' nodes_list(adour_edges)
 
 nodes_list <- function(x) {
   
@@ -84,5 +84,5 @@ nodes_list <- function(x) {
     stop("The data contain less than two nodes", call. = FALSE)
   }
     
-  data.frame("node" = sort(nodes))
+  nodes
 }

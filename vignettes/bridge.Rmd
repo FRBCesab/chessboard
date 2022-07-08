@@ -136,8 +136,12 @@ ordering.
 Let's create this adjacency table with the function `bridge::edges_list()`
 
 ```{r 'adjacency-table'}
+# Retrieve nodes (from nodes vector) ----
+adour_nodes <- nodes_list(adour_sites$"site")
+adour_nodes
+
 # List of edges with degree 1 of neighborhood ----
-adour_edges <- edges_list(nodes  = adour_sites$"site", degree = 1)
+adour_edges <- edges_list(adour_nodes, degree = 1)
 ```
 
 

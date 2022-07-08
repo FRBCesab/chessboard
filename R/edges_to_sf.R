@@ -24,8 +24,11 @@
 #'                             package = "bridge")
 #' adour_sites  <- read.csv(path_to_file)
 #' 
+#' # Retrieve nodes (from nodes vector) ----
+#' adour_nodes <- nodes_list(adour_sites$"site")
+#' 
 #' # Find edges with 1 degree of neighborhood ----
-#' adour_edges <- edges_list(adour_sites$"site")
+#' adour_edges <- edges_list(adour_nodes)
 #' 
 #' # Convert sites to spatial POINT ----
 #' adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
@@ -39,7 +42,7 @@
 #' plot(sf::st_geometry(edges_sf), add = TRUE)
 #' 
 #' # Find edges with 2 degrees of neighborhood ----
-#' adour_edges <- edges_list(adour_sites$"site", degree = 2)
+#' adour_edges <- edges_list(adour_nodes, degree = 2)
 #' 
 #' # Convert sites to spatial POINT ----
 #' adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
@@ -130,7 +133,6 @@ edges_to_sf <- function(edges, sites) {
   ## Check for missing sites ----
   
   nodes <- nodes_list(edges)
-  nodes <- as.character(nodes[ , "node"])
   
   if (any(!(nodes %in% sites[ , 1, drop = TRUE]))) {
     stop("Some nodes (sites) are missing from the 'sites' object ", 

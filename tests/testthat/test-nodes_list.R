@@ -64,12 +64,10 @@ test_that("nodes_list() - Tests for good outputs", {
     nodes <- nodes_list(edges)
   })
   
-  expect_equal(class(nodes), "data.frame")
-  expect_equal(ncol(nodes), 1L)
-  expect_equal(nrow(nodes), 4L)
-  expect_equal(colnames(nodes), "node")
-  expect_equal(nodes[1, 1], "S01")
-  expect_equal(nodes[3, 1], "S11")
+  expect_equal(class(nodes), "character")
+  expect_equal(length(nodes), 4L)
+  expect_equal(nodes[1], "S01")
+  expect_equal(nodes[3], "S11")
   
   
   ## Test of nodes vector ----
@@ -78,10 +76,8 @@ test_that("nodes_list() - Tests for good outputs", {
     nodes <- nodes_list(c("S01", "S02", "S11", "S21"))
   })
   
-  expect_equal(class(nodes), "data.frame")
-  expect_equal(ncol(nodes), 1L)
-  expect_equal(nrow(nodes), 4L)
-  expect_equal(colnames(nodes), "node")
-  expect_equal(nodes[1, 1], "S01")
-  expect_equal(nodes[3, 1], "S11")
+  expect_equal(class(nodes), "character")
+  expect_equal(length(nodes), 4L)
+  expect_equal(nodes[1], "S01")
+  expect_equal(nodes[3], "S11")
 })

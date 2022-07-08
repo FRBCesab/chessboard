@@ -50,6 +50,10 @@ test_that("edges_list() - Tests for wrong inputs", {
                "Argument 'nodes' cannot contain NA", 
                fixed = TRUE)
   
+  expect_error(edges_list(rep("S21", 4)), 
+               "Argument 'nodes' contain less than two nodes", 
+               fixed = TRUE)
+  
   
   ## Test degree argument ----
   

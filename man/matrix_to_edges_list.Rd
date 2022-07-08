@@ -31,8 +31,11 @@ path_to_file <- system.file("extdata", "adour_sites_coords.csv",
                             package = "bridge")
 adour_sites  <- read.csv(path_to_file)
 
+# Retrieve nodes (from nodes vector) ----
+adour_nodes <- nodes_list(adour_sites$"site")
+
 # Find edges with 1 degree of neighborhood (undirected network) ----
-adour_edges <- edges_list(adour_sites$"site")
+adour_edges <- edges_list(adour_nodes)
 adour_edges
 
 # Get adjacency matrix ----

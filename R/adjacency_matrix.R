@@ -33,8 +33,11 @@
 #'                             package = "bridge")
 #' adour_sites  <- read.csv(path_to_file)
 #' 
+#' # Retrieve nodes (from nodes vector) ----
+#' adour_nodes <- nodes_list(adour_sites$"site")
+#' 
 #' # Find edges with 1 degree of neighborhood (undirected) ----
-#' adour_edges <- edges_list(adour_sites$"site")
+#' adour_edges <- edges_list(adour_nodes)
 #' 
 #' # Get adjacency matrix ----
 #' adjacency_matrix(adour_edges)
@@ -43,13 +46,13 @@
 #' adjacency_matrix(adour_edges, na_to_zero = FALSE)
 #' 
 #' # Find edges with 1 degree of neighborhood (directed) ----
-#' adour_edges <- edges_list(adour_sites$"site", directed = TRUE)
+#' adour_edges <- edges_list(adour_nodes, directed = TRUE)
 #' 
 #' # Get adjacency matrix ----
 #' adjacency_matrix(adour_edges)
 #' 
 #' # Find edges with 1 degree of neighborhood (auto-links) ----
-#' adour_edges <- edges_list(adour_sites$"site", self = TRUE)
+#' adour_edges <- edges_list(adour_nodes, self = TRUE)
 #' 
 #' # Get adjacency matrix ----
 #' adjacency_matrix(adour_edges)
@@ -103,7 +106,7 @@ adjacency_matrix <- function(edges, lower = TRUE, upper = TRUE, diag = TRUE,
   
   ## Complete missing edges ----
   
-  nodes <- nodes_list(edges)[ , 1]
+  nodes <- nodes_list(edges)
   edges_all <- expand.grid(nodes, nodes, stringsAsFactors = FALSE)
   colnames(edges_all) <- c("from", "to")
   

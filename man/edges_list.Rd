@@ -57,9 +57,13 @@ path_to_file <- system.file("extdata", "adour_sites_coords.csv",
 adour_sites  <- read.csv(path_to_file)
 adour_sites
 
+# Get nodes ----
+adour_nodes <- nodes_list(adour_sites$"site")
+adour_nodes
+
 # Find edges with 1 degree of neighborhood (undirected network) ----
-edges_list(adour_sites$"site")
+edges_list(adour_nodes)
 
 # Find edges with 1 degree of neighborhood (directed network) ----
-edges_list(adour_sites$"site", directed = TRUE)
+edges_list(adour_nodes, directed = TRUE)
 }

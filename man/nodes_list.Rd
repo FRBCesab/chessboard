@@ -12,8 +12,7 @@ of one of the two nodes of the edge and \code{to}, label of the other node of
 the edge, or a \code{character} vector with nodes labels.}
 }
 \value{
-A \code{data.frame} with one column, \code{node} containing unique ordered
-nodes labels.
+A \code{character} vector of unique ordered nodes labels.
 }
 \description{
 Retrieves and orders nodes from an edges list or from a vector of nodes.
@@ -25,11 +24,12 @@ path_to_file <- system.file("extdata", "adour_sites_coords.csv",
 adour_sites  <- read.csv(path_to_file)
 
 # Retrieve nodes (from nodes vector) ----
-nodes_list(adour_sites$"site")
+adour_nodes <- nodes_list(adour_sites$"site")
+adour_nodes
 
 # Find edges with 1 degree of neighborhood (undirected network) ----
-edges <- edges_list(adour_sites$"site")
+adour_edges <- edges_list(adour_nodes)
 
 # Retrieve nodes (from edges list) ----
-nodes_list(edges)
+nodes_list(adour_edges)
 }
