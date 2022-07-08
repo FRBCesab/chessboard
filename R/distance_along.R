@@ -112,11 +112,6 @@ distance_along <- function(sites, along, density = 0.01, type = "regular",
   
   geom <- sf::st_geometry_type(along) %>% as.character() %>% unique()
   
-  if (length(geom) > 1) {
-    stop("Argument 'along' (linear shape) cannot contain different geometries", 
-         call. = FALSE)
-  }
-  
   if (!("LINESTRING" %in% geom)) {
     stop("Linear shape geometry must be of type LINESTRING", call. = FALSE)
   }
