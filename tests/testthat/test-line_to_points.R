@@ -45,6 +45,30 @@ test_that("line_to_points() - Tests for wrong inputs", {
   expect_error(line_to_points(lnstrg_sf, type = 1), 
                "Argument 'type' must either 'regular' or 'random'", 
                fixed = TRUE)
+  
+  
+  ## Test density argument ----
+  
+  expect_error(line_to_points(lnstrg_sf, density = "all"), 
+               "Argument 'density' must be a numeric of length 1", 
+               fixed = TRUE)
+  
+  expect_error(line_to_points(lnstrg_sf, density = 2:3), 
+               "Argument 'density' must be a numeric of length 1", 
+               fixed = TRUE)
+  
+  expect_error(line_to_points(lnstrg_sf, density = -0.01), 
+               "Argument 'density' must be > 0", 
+               fixed = TRUE)
+  
+  expect_error(line_to_points(lnstrg_sf, density = 0), 
+               "Argument 'density' must be > 0", 
+               fixed = TRUE)
+  
+  expect_error(line_to_points(lnstrg_sf, density = 0.01), 
+               paste0("Unable to sample points along the linear shape. ", 
+                      "Please increase the value of 'density'"), 
+               fixed = TRUE)
 })
 
 

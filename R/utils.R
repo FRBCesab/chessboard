@@ -172,9 +172,27 @@ line_to_points <- function(x, density = 0.01, type = "regular", ...) {
   }
   
   
+  ## Check density argument ----
+  
+  if (!is.numeric(density) || length(density) != 1) {
+    stop("Argument 'density' must be a numeric of length 1", call. = FALSE)
+  }
+  
+  if (density <= 0) {
+    stop("Argument 'density' must be > 0", call. = FALSE)
+  }
+  
+  
   ## Convert LINESTRING to POINT ----
   
-  sf::st_line_sample(x, density = density, type = type, ...) %>% 
+  sampled_points <- sf::st_line_sample(x, density = density, type = type, ...)
+  
+  if (sf::st_is_empty(sampled_points)) {
+    stop("Unable to sample points along the linear shape. Please increase ", 
+         "the value of 'density'", call. = FALSE)
+  }
+  
+  sampled_points <- sampled_points %>% 
     sf::st_sf() %>% 
     sf::st_cast("POINT") %>% 
     dplyr::mutate(id = 1:dplyr::n(), group = 1) %>%

@@ -91,7 +91,22 @@ test_that("distance_along() - Tests for wrong inputs", {
   
   
   ## Test density argument ----
-  # ...
+  
+  expect_error(distance_along(points_sf, river, density = "all"), 
+               "Argument 'density' must be a numeric of length 1", 
+               fixed = TRUE)
+  
+  expect_error(distance_along(points_sf, river, density = 2:3), 
+               "Argument 'density' must be a numeric of length 1", 
+               fixed = TRUE)
+  
+  expect_error(distance_along(points_sf, river, density = -0.01), 
+               "Argument 'density' must be > 0", 
+               fixed = TRUE)
+  
+  expect_error(distance_along(points_sf, river, density = 0), 
+               "Argument 'density' must be > 0", 
+               fixed = TRUE)
 })
 
 

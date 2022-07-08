@@ -122,7 +122,18 @@ distance_along <- function(sites, along, density = 0.01, type = "regular",
   type <- tolower(type)
   
   if (!(type %in% c("regular", "random"))) {
-    stop("Argument 'type' must either 'regular' or 'random'")
+    stop("Argument 'type' must either 'regular' or 'random'", call. = FALSE)
+  }
+  
+  
+  ## Check density argument ----
+  
+  if (!is.numeric(density) || length(density) != 1) {
+    stop("Argument 'density' must be a numeric of length 1", call. = FALSE)
+  }
+  
+  if (density <= 0) {
+    stop("Argument 'density' must be > 0", call. = FALSE)
   }
   
   
