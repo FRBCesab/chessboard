@@ -1,0 +1,20 @@
+reference:
+- title: Nodes and Edges
+  desc: >
+    Create, extract, and transform nodes and edges objects
+  contents:
+    - nodes_list
+    - edges_list
+    - edges_to_sf
+- title: Distances computation
+  desc: >
+    Compute distances between nodes
+  contents:
+    - distance_euclidean
+    - distance_along
+- title: Network objects
+  desc: >
+    Create and handle network matrices
+  contents:
+    - adjacency_matrix
+    - matrix_to_edges_list
