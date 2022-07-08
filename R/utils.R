@@ -65,6 +65,10 @@ points_to_line <- function(points_sf, from, to) {
     stop("Geometry of 'points_sf' must be of type POINT", call. = FALSE)
   }
   
+  if (!("group" %in% colnames(points_sf))) {
+    stop("The column 'group' is absent from 'points_sf'", call. = FALSE)
+  }
+  
   
   ## Check 'from' argument ----
   
@@ -96,13 +100,6 @@ points_to_line <- function(points_sf, from, to) {
     stop("Argument 'to' must be between 1 and number of rows in 'points_sf'",
          call. = FALSE)
   }
-  
-  
-  ## Check 'from' and 'to' arguments ----
-  
-  # if (from > to) {
-  #   stop("Argument 'from' must be lesser than argument 'to'", call. = FALSE)
-  # }
   
   
   ## Extract segment ----
@@ -145,8 +142,8 @@ line_to_points <- function(x, density = 0.01, type = "regular", ...) {
   ## Check 'x' argument ----
   
   if (missing(x)) {
-    stop("Argument 'x' (spatial coordinates of linear structure) is ", 
-         "required", call. = FALSE)
+    stop("Argument 'x' (spatial layer of linear shape) is required", 
+         call. = FALSE)
   }
   
   if (!inherits(x, "sf")) {
@@ -161,17 +158,14 @@ line_to_points <- function(x, density = 0.01, type = "regular", ...) {
   
   geom <- sf::st_geometry_type(x) %>% as.character() %>% unique()
   
-  if (length(geom) > 1) {
-    stop("Argument 'x' (linear structure) cannot contain different ", 
-         "geometries", call. = FALSE)
-  }
-  
   if (!("LINESTRING" %in% geom)) {
-    stop("Linear structure geometry must be of type LINESTRING", call. = FALSE)
+    stop("Linear shape geometry must be of type LINESTRING", call. = FALSE)
   }
   
   
   ## Check 'type' argument ----
+  
+  type <- tolower(type)
   
   if (!(type %in% c("regular", "random"))) {
     stop("Argument 'type' must either 'regular' or 'random'")
