@@ -18,6 +18,7 @@ reference:
   contents:
     - adjacency_matrix
     - edges_weight_matrix
+    - spatial_weights_matrix
 - title: Other features
   contents:
     - matrix_to_edges_list
