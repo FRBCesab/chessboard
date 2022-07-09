@@ -12,6 +12,7 @@ Description: Contains different tools used by the FRB-CESAB Project Bridge to
     work with directional spatial network.
 URL: https://github.com/frbcesab/bridge
 BugReports: https://github.com/frbcesab/bridge/issues
+Additional_repositories: http://packages.ropensci.org
 License: GPL (>= 2)
 Encoding: UTF-8
 Imports: 
@@ -28,6 +29,7 @@ Suggests:
     rmarkdown,
     rnaturalearth,
     rnaturalearthdata,
+    rnaturalearthhires,
     sp,
     testthat (>= 3.0.0)
 Remotes:
