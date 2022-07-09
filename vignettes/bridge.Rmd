@@ -11,7 +11,8 @@ vignette: >
 knitr::opts_chunk$set(collapse  = TRUE,
                       comment   = "#>",
                       out.width = "100%",
-                      dpi       = 96)
+                      dpi       = 96,
+                      fig.align = "center")
 ```
 
 
@@ -90,7 +91,7 @@ france <- sf::st_transform(france, sf::st_crs(adour_river))
 Let's locate the Adour river of the France map.
 
 
-```{r 'map-adour-river', fig.height=12, fig.width=12}
+```{r 'map-adour-river', fig.height=10, fig.width=10}
 ggplot(data = france) +
   geom_sf(fill = "lightgray", col = "white", size = 0.2) +
   geom_sf(data = adour_river, col = "steelblue") +
