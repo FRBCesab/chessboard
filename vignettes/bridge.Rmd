@@ -15,90 +15,148 @@ knitr::opts_chunk$set(collapse  = TRUE,
 ```
 
 
+The aim of the package `bridge` is to [...]
+
+
 ```{r 'setup'}
 library("bridge")
 library("ggplot2")
 ```
 
 
-```{r 'ggplot-theme', echo=FALSE}
+First let's define a custom theme for the `ggplot2` visualizations.
+
+
+```{r 'ggplot-theme'}
 custom_theme <- function() {
   theme_light() + 
-  theme(plot.title = element_text(face = "bold", family = "serif", size = 18),
-        axis.title = element_blank(),
-        axis.text  = element_text(family = "serif"))
+  theme(plot.title   = element_text(face = "bold", family = "serif", size = 18),
+        plot.caption = element_text(face = "italic", family = "serif"),
+        axis.title   = element_blank(),
+        axis.text    = element_text(family = "serif"))
 }
 ```
 
 
 
-## Provided datasets
+## Provided data
+
+
 
 The package `bridge` comes with two datasets:
 
 - **Adour river**, an `sf` spatial object of type `LINESTRING` providing the 
 geometry of the French river _L'Adour_;
 - **Adour sites**, a `data.frame` with sites labels and sites coordinates along
-the river. Note that for this tutorial these sites are fictive.
+the river.
 
 
-First let's load the **Adour river** layer:
+
+### Adour river
 
 
-```{r 'load-adour-river', fig.height=10, fig.width=12}
+
+Let's import the **Adour river** spatial layer.
+
+
+```{r 'load-adour-river'}
 # Load the spatial layer of Adour river ----
-path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
-                            package = "bridge")
+path_to_file <- system.file("extdata", "adour_lambert93.gpkg", package = "bridge")
 adour_river  <- sf::st_read(path_to_file, quiet = TRUE)
 
-# Preview ----
-print(adour_river)
+head(adour_river)
+```
 
-# Map ----
-ggplot(data = adour_river) +
-  geom_sf(col = "steelblue") +
-  ggtitle("The French river Adour") +
+This layer is an [`sf`](https://cran.r-project.org/package=sf) spatial object 
+of type `LINESTRING` and contains one single row (geometry) defined in the 
+[RGF93 / Lambert-93](https://epsg.io/2154) projection.
+
+Now let's import a base map of France to locate the Adour river using the package
+[`rnaturalearth`](https://cran.r-project.org/package=rnaturalearth).
+
+
+```{r 'get-basemap'}
+# Import France departments ----
+france <- rnaturalearth::ne_states("france", returnclass = "sf")
+
+# Remove overseas territories ----
+france <- france[grep("^FR\\.", france$code_hasc), ]
+
+# Project layer to RGF93 / Lambert-93 system ----
+france <- sf::st_transform(france, sf::st_crs(adour_river))
+```
+
+
+Let's locate the Adour river of the France map.
+
+
+```{r 'map-adour-river', fig.height=12, fig.width=12}
+ggplot(data = france) +
+  geom_sf(fill = "lightgray", col = "white", size = 0.2) +
+  geom_sf(data = adour_river, col = "steelblue") +
+  labs(title   = "The French river Adour", 
+       caption = "RGF93 / Lambert-93 Projection") +
   custom_theme()
 ```
 
 
-Now, let's load the sites around the Adour:
+
+### Adour sites
 
 
-```{r 'load-adour-sites'}
+
+Let's import the **Adour sites** data representing survey sites around the Adour.
+
+
+```{r 'import-adour-sites'}
 ## Load the dataset of sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "bridge")
 adour_sites  <- read.csv(path_to_file)
+adour_sites
 ```
 
 
-```{r 'kable-adour-sites', echo=FALSE}
-knitr::kable(adour_sites, 
-             caption = "Sites along Adour", 
-             align   = c("c", "r", "r"))
-```
+[...]
 
 
-Let's convert this `data.frame` into an `sf` object of type `POINT`:
+Let's convert this `data.frame` into an `sf` object of type `POINT`.
 
 ```{r 'df-to-sf', fig.height=10, fig.width=12}
 # Convert data.frame to sf object ----
 adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
+adour_sites_sf
+```
 
-# Map ----
+
+Finally, let's map these sites and the Adour river.
+
+
+```{r 'map-adour-sites', fig.height=10, fig.width=12}
 ggplot(data = adour_river) +
   geom_sf(col = "steelblue") +
   geom_sf(data = adour_sites_sf, shape = 19) +
   ggsflabel::geom_sf_label(data = adour_sites_sf, aes(label = site), size = 4.5, 
                            nudge_x = -7500) + 
-  ggtitle("Sites along the French river Adour") +
+  labs(title   = "Study area (French river Adour)", 
+       caption = "RGF93 / Lambert-93 Projection") +
   custom_theme()
 ```
 
 
 
-## Adjacency table
+## Nodes and Edges
+
+
+### Nodes list
+
+
+### Edges list
+
+
+
+
+## TO REVIEW
 
 
 
