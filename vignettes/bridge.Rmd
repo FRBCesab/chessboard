@@ -171,13 +171,13 @@ ggplot(data = adour_river) +
   geom_sf(col = "steelblue") +
   geom_sf(data = adour_sites_sf, shape = 19) +
   geom_label(data = adour_sites, aes(x = longitude, y = latitude, label = site), 
-            size = 4, nudge_x = 7500, family = "serif") +
+            size = 4.2, nudge_x = 5000, family = "serif") +
   labs(title   = "Study area (French river Adour)", 
        caption = "RGF93 / Lambert-93 Projection") +
   custom_theme() +
   geom_segment(aes(x = 454180, xend = 440170, y = 6216290, yend = 6263320), 
-               arrow = arrow(length = unit(0.5, 'cm'), type = 'closed'),
-               size  = 1.5)
+               arrow = arrow(length = unit(0.75, 'cm'), type = 'closed'),
+               size  = 2.25)
 ```
 
 
