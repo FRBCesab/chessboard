@@ -109,9 +109,14 @@ Let's locate the Adour river of the France map.
 
 
 ```{r 'map-adour-river', fig.height=10, fig.width=10, out.width='80%'}
+# Get extent of Adour river ----
+adour_extent <- sf::st_bbox(adour_river)
+adour_extent <- adour_extent + c(-10000, -10000, 10000, 10000)
+
 ggplot(data = france) +
   geom_sf(fill = "lightgray", col = "white", size = 0.2) +
   geom_sf(data = adour_river, col = "steelblue") +
+  geom_sf(data = sf::st_as_sfc(adour_extent), fill = NA, size = 0.3) +
   labs(title   = "The French river Adour", 
        caption = "RGF93 / Lambert-93 Projection") +
   custom_theme()
@@ -165,11 +170,14 @@ Finally, let's map these sites and the Adour river.
 ggplot(data = adour_river) +
   geom_sf(col = "steelblue") +
   geom_sf(data = adour_sites_sf, shape = 19) +
-  ggsflabel::geom_sf_label(data = adour_sites_sf, aes(label = site), size = 4.5, 
-                           nudge_x = -7500) + 
+  geom_label(data = adour_sites, aes(x = longitude, y = latitude, label = site), 
+            size = 4, nudge_x = 7500, family = "serif") +
   labs(title   = "Study area (French river Adour)", 
        caption = "RGF93 / Lambert-93 Projection") +
-  custom_theme()
+  custom_theme() +
+  geom_segment(aes(x = 454180, xend = 440170, y = 6216290, yend = 6263320), 
+               arrow = arrow(length = unit(0.5, 'cm'), type = 'closed'),
+               size  = 1.5)
 ```
 
 
