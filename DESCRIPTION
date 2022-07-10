@@ -23,7 +23,6 @@ Imports:
     tidyr
 Suggests: 
     ggplot2,
-    ggsflabel,
     knitr,
     rmarkdown,
     rnaturalearth,
@@ -32,7 +31,6 @@ Suggests:
     sp,
     testthat (>= 3.0.0)
 Remotes:
-    yutannihilation/ggsflabel,
     ropensci/rnaturalearthhires
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
