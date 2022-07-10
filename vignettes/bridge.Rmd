@@ -19,10 +19,16 @@ knitr::opts_chunk$set(collapse  = TRUE,
 The aim of the package `bridge` is to [...]
 
 
+\
+
+
 ```{r 'setup'}
 library("bridge")
 library("ggplot2")
 ```
+
+
+\
 
 
 First let's define a custom theme for the `ggplot2` visualizations.
@@ -39,6 +45,8 @@ custom_theme <- function() {
 ```
 
 
+\
+
 
 ## Provided data
 
@@ -52,6 +60,8 @@ geometry of the French river _L'Adour_;
 the river.
 
 
+\
+
 
 ### Adour river
 
@@ -60,8 +70,8 @@ the river.
 Let's import the **Adour river** spatial layer.
 
 
-```{r 'load-adour-river'}
-# Load the spatial layer of Adour river ----
+```{r 'import-adour-river'}
+# Import the spatial layer of Adour river ----
 path_to_file <- system.file("extdata", "adour_lambert93.gpkg", package = "bridge")
 adour_river  <- sf::st_read(path_to_file, quiet = TRUE)
 
@@ -72,6 +82,10 @@ This layer is an [`sf`](https://cran.r-project.org/package=sf) spatial object
 of type `LINESTRING` and contains one single row (geometry) defined in the 
 [RGF93 / Lambert-93](https://epsg.io/2154) projection.
 
+
+\
+
+
 Now let's import a base map of France to locate the Adour river using the package
 [`rnaturalearth`](https://cran.r-project.org/package=rnaturalearth).
 
@@ -81,17 +95,20 @@ Now let's import a base map of France to locate the Adour river using the packag
 france <- rnaturalearth::ne_states("france", returnclass = "sf")
 
 # Remove overseas territories ----
-france <- france[grep("^FR\\.", france$code_hasc), ]
+france <- france[grep("^FR\\.", france$"code_hasc"), ]
 
 # Project layer to RGF93 / Lambert-93 system ----
 france <- sf::st_transform(france, sf::st_crs(adour_river))
 ```
 
 
+\
+
+
 Let's locate the Adour river of the France map.
 
 
-```{r 'map-adour-river', fig.height=10, fig.width=10}
+```{r 'map-adour-river', fig.height=10, fig.width=10, out.width='80%'}
 ggplot(data = france) +
   geom_sf(fill = "lightgray", col = "white", size = 0.2) +
   geom_sf(data = adour_river, col = "steelblue") +
@@ -100,6 +117,8 @@ ggplot(data = france) +
   custom_theme()
 ```
 
+
+\
 
 
 ### Adour sites
@@ -110,7 +129,7 @@ Let's import the **Adour sites** data representing survey sites around the Adour
 
 
 ```{r 'import-adour-sites'}
-## Load the dataset of sites ----
+## Import the dataset of sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "bridge")
 adour_sites  <- read.csv(path_to_file)
@@ -119,6 +138,9 @@ adour_sites
 
 
 [...]
+
+
+\
 
 
 Let's convert this `data.frame` into an `sf` object of type `POINT`.
@@ -130,10 +152,16 @@ adour_sites_sf
 ```
 
 
+[...]
+
+
+\
+
+
 Finally, let's map these sites and the Adour river.
 
 
-```{r 'map-adour-sites', fig.height=10, fig.width=12}
+```{r 'map-adour-sites', fig.height=10, fig.width=12, out.width='80%'}
 ggplot(data = adour_river) +
   geom_sf(col = "steelblue") +
   geom_sf(data = adour_sites_sf, shape = 19) +
