@@ -183,7 +183,7 @@ Finally, let's map these sites and the Adour river.
 ```{r 'map-adour-sites', fig.height=10, fig.width=12, out.width='80%'}
 ggplot() +
   geom_sf(data = adour_river, col = "steelblue") +
-  geom_sf(data = adour_sites_sf, shape = 19) +
+  geom_sf(data = adour_sites_sf, shape = 19, size = 3) +
   geom_label(data = adour_sites, aes(x = longitude, y = latitude, label = site), 
             size = 4.2, nudge_x = 5000, family = "serif") +
   labs(title   = "Study area (French river Adour)", 
@@ -317,6 +317,13 @@ first edge (e.g. `S01-S02`) is returned (according to the direction of the nodes
 \
 
 
+**Tips: ** if you want to use Moran's Eigenvector Maps (MEM) use `directed = FALSE`.
+If you want to use Asymetric Eigenvector Maps (AEM) use `directed = TRUE`.
+
+
+\
+
+
 Let's use this function `edges_list()` in a directed way.
 
 ```{r 'edges-list-directed'}
@@ -358,8 +365,33 @@ Let's add these edges to our map.
 ggplot() +
   geom_sf(data = adour_river, col = "darkgray") +
   geom_sf(data = adour_edges_sf) +
-  geom_sf(data = adour_sites_sf, shape = 19) +
+  geom_sf(data = adour_sites_sf, shape = 19, size = 3) +
   labs(title   = "Edges with degree 1 of neighborhood", 
+       caption = "RGF93 / Lambert-93 Projection") +
+  custom_theme()
+```
+
+
+\
+
+
+Finally, let's increase the degree of neighborhood.
+
+
+```{r 'edges-degree-3'}
+# List of edges with degree 3 of neighborhood ----
+adour_edges <- edges_list(adour_nodes, degree = 3, directed = TRUE)
+
+# Convert edges list to sf object ----
+adour_edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)
+```
+
+```{r 'map-adour-edges-3', fig.height=10, fig.width=12, out.width='80%'}
+ggplot() +
+  geom_sf(data = adour_river, col = "darkgray") +
+  geom_sf(data = adour_edges_sf) +
+  geom_sf(data = adour_sites_sf, shape = 19, size = 3) +
+  labs(title   = "Edges with degree 3 of neighborhood", 
        caption = "RGF93 / Lambert-93 Projection") +
   custom_theme()
 ```
@@ -370,9 +402,20 @@ ggplot() +
 
 ## Connectivity matrix
 
-We can convert this table to an adjacency matrix with function
-`bridge::adjacency_matrix()`.
+We can convert the edges list to a connectivity matrix (also called adjacency matrix) 
+by using the function `adjacency_matrix()`.
 
+```{r 'connectivity-matrix'}
+# List of edges with degree 3 of neighborhood ----
+adour_edges <- edges_list(adour_nodes, degree = 1, directed = TRUE)
+
+# Create connectivity matrix ----
+adour_edges_mat <- adjacency_matrix(adour_edges)
+adour_edges_mat
+```
+
+
+\
 
 
 ## References
