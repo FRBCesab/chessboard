@@ -411,8 +411,17 @@ ggplot() +
 
 ## Connectivity matrix
 
+
 We can convert the edges list to a connectivity matrix (also called adjacency matrix) 
-by using the function `adjacency_matrix()`.
+by using the function `adjacency_matrix()`. A connectivity matrix is a matrix of 
+dimensions `n x n`, where `n` is the number of nodes indicating the presence of
+an edge between two nodes (noted as `1`) or the absence of edge (noted as `0`).
+
+
+\
+
+
+The function `adjacency_matrix()` only requires the edges list as argument.
 
 ```{r 'connectivity-matrix'}
 # Create list of edges ----
@@ -432,6 +441,7 @@ See the documentation of the function `adjacency_matrix()` for other usage.
 
 ## Spatial weights
 
+
 The package `bridge` also provides some useful functions to compute spatial 
 weights required by MEM and AEM methods.
 
@@ -440,6 +450,7 @@ weights required by MEM and AEM methods.
 
 
 ### Distances
+
 
 The simplest way to create spatial weights is to compute distances between pairs
 of nodes. Two methods are implemented in `bridge`: the Euclidean distance and 
@@ -450,6 +461,7 @@ the distance according to the shape of the river.
 
 
 #### Euclidean distance
+
 
 The Euclidean distance, a straightforward metric to compute distances between pairs
 of nodes, is implemented in the function `distance_euclidean()`. This function only requires
@@ -473,9 +485,9 @@ The returned object is a `data.frame` will the following three columns:
 \
 
 
-Note that is the units of the coordinates system are in degrees, the Great Circle
-distance will be used instead. See the documentation of the function `distance_euclidean()`
-for further detail.
+Note that if the units of the coordinates system are in degrees (geodetic 
+coordinates), the Great Circle distance will be used instead. See the 
+documentation of the function `distance_euclidean()` for further detail.
 
 
 \
@@ -517,7 +529,25 @@ The returned object has the same format as in `distance_euclidean()`.
 ### Edges weighting matrix
 
 
-...
+An edges weighting matrix is a matrix of dimensions `n x n`, where `n` is the 
+number of nodes (sites). This matrix contains the weight values of edges and is
+a simple transposition of the `data.frame` created either by `distance_euclidean()`
+or by `distance_along()`.
+
+
+\
+
+
+Let's create this edges weighting matrix for our network.
+
+
+```{r 'edges-weighting-matrix'}
+# Edges weighting matrix ----
+adour_edges_weights <- edges_weight_matrix(adour_dists)
+round(adour_edges_weights)
+```
+
+Note that this matrix must have the same dimensions as the connectivity matrix.
 
 
 \
