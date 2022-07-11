@@ -16,8 +16,8 @@ knitr::opts_chunk$set(collapse  = TRUE,
 ```
 
 
-The aim of the package `bridge` is to provide tools to work with directed spatial
-networks. It allows users to easily create and visualize network objects, 
+The aim of the package `bridge` is to provide tools to work with directed (asymetric) 
+spatial networks. It allows users to easily create and visualize network objects, 
 like nodes and edges lists, connectivity matrix, edges weighting matrix, spatial 
 weight matrix, nodes by edges matrix, etc. These objects can be used later in 
 spatial multivariate analyses: Moran's Eigenvector Maps (MEM, Dray _et al._ 2006) and 
@@ -157,7 +157,7 @@ adour_sites
 ```
 
 
-This `data.frame` contains three columns: the site label and sites coordinates
+This `data.frame` contains three columns: the site label and sites coordinates, also
 defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection.
 
 
@@ -172,6 +172,10 @@ Let's convert this `data.frame` into an `sf` object of type `POINT`.
 adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
 adour_sites_sf
 ```
+
+**Note:** The package `bridge` expects that each site is one row in this object
+and its geometry is `POINT` (other geometry like `MUTLIPOINT`, `POLYGON`, etc.)
+are not implemented.
 
 
 \
@@ -194,6 +198,10 @@ ggplot() +
                size  = 2.25)
 ```
 
+The arrow indicates the direction of the Adour river flow. This means that our 
+system is a directed spatial network where the main direction is from upstream 
+to downstream. 
+
 
 \
 
@@ -202,8 +210,8 @@ ggplot() +
 
 
 The first information to extract from our spatial network is 
-1) the nodes (sites) list and 
-2) the edges (links) list between nodes.
+1) the list of nodes and 
+2) the list of edges (links) between nodes.
 
 
 \
@@ -211,7 +219,7 @@ The first information to extract from our spatial network is
 
 ### Nodes list
 
-First, let's identify the **nodes list**, i.e. a vector of unique ordered sites 
+First, let's identify the **nodes list**, i.e. a vector of unique **ordered** sites 
 labels.
 
 
@@ -279,15 +287,16 @@ most of them are available in the package
 Here we implement our own method to detect spatial neighbors based sites labels 
 and a degree of neighborhood. As our sites are ordered along the Adour river, if
 we use a degree **1** of neighborhood, a site will be linked to the first next site 
-(upstream) and also to the first previous site (downstream). If we use a degree 
+(downstream) and also to the first previous site (upstream). If we use a degree 
 **2** of neighborhood, a site will be linked to the two next sites 
-(upstream) and also to the two previous sites (downstream). And so on.
+(downstream) and also to the two previous sites (upstream). And so on.
 
 
 \
 
 
-Let's create this edges list with the function `edges_list()`.
+Let's create this edges list with the function `edges_list()` provided by the package
+`bridge`.
 
 ```{r 'edges-list'}
 # List of edges with degree 1 of neighborhood ----
@@ -311,7 +320,7 @@ The function `edges_list()` has three additional arguments:
 - `all`: if `TRUE`, the missing edges are also returned. Default is `FALSE`.
 - `directed`: if `FALSE` (default), symmetrical edges (e.g. `S01-S02` and `S02-S01`) 
 are returned (_undirected network_). Otherwise (_directed network_) only the 
-first edge (e.g. `S01-S02`) is returned (according to the direction of the nodes labels).
+first edge (e.g. `S01-S02`) is returned (according to the direction of the network).
 
 
 \
@@ -406,13 +415,118 @@ We can convert the edges list to a connectivity matrix (also called adjacency ma
 by using the function `adjacency_matrix()`.
 
 ```{r 'connectivity-matrix'}
-# List of edges with degree 3 of neighborhood ----
+# Create list of edges ----
 adour_edges <- edges_list(adour_nodes, degree = 1, directed = TRUE)
+adour_edges
 
 # Create connectivity matrix ----
 adour_edges_mat <- adjacency_matrix(adour_edges)
 adour_edges_mat
 ```
+
+See the documentation of the function `adjacency_matrix()` for other usage.
+
+
+\
+
+
+## Spatial weights
+
+The package `bridge` also provides some useful functions to compute spatial 
+weights required by MEM and AEM methods.
+
+
+\
+
+
+### Distances
+
+The simplest way to create spatial weights is to compute distances between pairs
+of nodes. Two methods are implemented in `bridge`: the Euclidean distance and 
+the distance according to the shape of the river.
+
+
+\
+
+
+#### Euclidean distance
+
+The Euclidean distance, a straightforward metric to compute distances between pairs
+of nodes, is implemented in the function `distance_euclidean()`. This function only requires
+the coordinates of sites (object `sf`) and will compute distances between each
+possible pairs of sites.
+
+```{r 'euclidean-distance'}
+# Euclidean distance between pairs of sites ----
+adour_dists <- distance_euclidean(adour_sites_sf)
+
+head(adour_dists)
+```
+
+The returned object is a `data.frame` will the following three columns:
+
+- `from`, the label of the first node
+- `to`, the label of the second node
+- `weight`, the Euclidean distance between the two nodes
+
+
+\
+
+
+Note that is the units of the coordinates system are in degrees, the Great Circle
+distance will be used instead. See the documentation of the function `distance_euclidean()`
+for further detail.
+
+
+\
+
+
+#### Distance along river
+
+
+The function `distance_along()` implements of more complex way to compute distances
+between pairs of sites by taking into account the shape of the river. The distance
+between two sites will be equal to the length of river segment between these two sites.
+
+To create segments, this function will sample points on the river and select the two points
+of the river that are the nearest from the two sites. These two points will define
+the endpoints of the segment.
+
+```{r 'distance-along', eval = FALSE}
+# Distance along the river between pairs of sites ----
+distance_along(adour_sites_sf, adour_river, density = 0.01, type = "regular")
+```
+
+This function uses two specific arguments:
+
+- `density`: the density of points to sample on the linear structure. 
+(see `sf::st_line_sample()` for further detail)
+- `type`: the method to sample points on the linear shape. Either `regular` 
+(default) or `random`
+
+
+\
+
+
+The returned object has the same format as in `distance_euclidean()`.
+
+
+\
+
+
+### Edges weighting matrix
+
+
+...
+
+
+\
+
+
+### Spatial weights matrix
+
+
+...
 
 
 \
