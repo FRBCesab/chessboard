@@ -21,7 +21,8 @@ networks. It allows users to easily create and visualize network objects,
 like nodes and edges lists, connectivity matrix, edges weighting matrix, spatial 
 weight matrix, nodes by edges matrix, etc. These objects can be used later in 
 spatial multivariate analyses: Moran's Eigenvector Maps (MEM, Dray _et al._ 2006) and 
-Asymetric Eigenvector Maps (AEM, Blanchet _et al._ 2008).
+Asymetric Eigenvector Maps (AEM, Blanchet _et al._ 2008) available in the package
+[`adespatial`](https://cran.r-project.org/package=adespatial) (Dray _et al._ 2022).
 
 This package has been developed for the 
 [FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) 
@@ -127,8 +128,8 @@ Let's locate the Adour river of the France map.
 adour_extent <- sf::st_bbox(adour_river)
 adour_extent <- adour_extent + c(-10000, -10000, 10000, 10000)
 
-ggplot(data = france) +
-  geom_sf(fill = "lightgray", col = "white", size = 0.2) +
+ggplot() +
+  geom_sf(data = france, fill = "lightgray", col = "white", size = 0.2) +
   geom_sf(data = adour_river, col = "steelblue") +
   geom_sf(data = sf::st_as_sfc(adour_extent), fill = NA, size = 0.3) +
   labs(title   = "The French river Adour", 
@@ -180,8 +181,8 @@ Finally, let's map these sites and the Adour river.
 
 
 ```{r 'map-adour-sites', fig.height=10, fig.width=12, out.width='80%'}
-ggplot(data = adour_river) +
-  geom_sf(col = "steelblue") +
+ggplot() +
+  geom_sf(data = adour_river, col = "steelblue") +
   geom_sf(data = adour_sites_sf, shape = 19) +
   geom_label(data = adour_sites, aes(x = longitude, y = latitude, label = site), 
             size = 4.2, nudge_x = 5000, family = "serif") +
@@ -194,32 +195,39 @@ ggplot(data = adour_river) +
 ```
 
 
+\
+
 
 ## Nodes and Edges
 
 
+The first information to extract from our spatial network is 
+1) the nodes (sites) list and 
+2) the edges (links) list between nodes.
+
+
+\
+
+
 ### Nodes list
 
-
-### Edges list
-
-
+First, let's identify the **nodes list**, i.e. a vector of unique ordered sites 
+labels.
 
 
-## TO REVIEW
+\
 
-
-
-From the sites labels, we will create an adjacency table based on a degree **1**
-of neighborhood. This means that a site is linked to the first next site 
-(upstream) and also to the first previous site (downstream).
 
 **Important:** as the sites have a direction (along the Adour river, from 
 upstream to downstream), the order of the sites must be found in the sites labels.
 
-For instance, in our dataset, the sites are labelled as **S-01**, **S-02**, 
+For instance, in the Adour sites dataset, sites are labelled as **S-01**, **S-02**, 
 ..., **S-10**. This means that the most upstream site is **S-01** and the
 most downstream is **S-10**.
+
+
+\
+
 
 But be aware that ordering characters can have some unwanted effects, especially if 
 they contain numbers.
@@ -236,30 +244,131 @@ sites <- c("s01", "s02", "s11", "s10")
 sort(sites)
 ```
 
-You may want to code your sites as in the second example, i.e. based on a Natural 
-ordering.
+You may want to code your sites as in the second example, i.e. based on a 
+**Natural ordering**.
 
-<br />
 
-Let's create this adjacency table with the function `bridge::edges_list()`
+\
 
-```{r 'adjacency-table'}
-# Retrieve nodes (from nodes vector) ----
+
+Let's use the function `nodes_list()` to 1) retrieve the unique labels of sites,
+and to 2) order them along the Adour river (from upstream to downstream).
+
+
+```{r 'nodes-list'}
 adour_nodes <- nodes_list(adour_sites$"site")
 adour_nodes
+```
 
+
+\
+
+
+### Edges list
+
+
+From this nodes list, we can create an **edges list**, i.e. a table describing 
+links between nodes. Several methods exist to identify spatial neighbors and
+most of them are available in the package 
+[`spdep`](https://cran.r-project.org/package=spdep) (Bivand _et al._ 2022).
+
+
+\
+
+
+Here we implement our own method to detect spatial neighbors based sites labels 
+and a degree of neighborhood. As our sites are ordered along the Adour river, if
+we use a degree **1** of neighborhood, a site will be linked to the first next site 
+(upstream) and also to the first previous site (downstream). If we use a degree 
+**2** of neighborhood, a site will be linked to the two next sites 
+(upstream) and also to the two previous sites (downstream). And so on.
+
+
+\
+
+
+Let's create this edges list with the function `edges_list()`.
+
+```{r 'edges-list'}
 # List of edges with degree 1 of neighborhood ----
 adour_edges <- edges_list(adour_nodes, degree = 1)
+adour_edges
+```
+
+This `data.frame` contains four columns:
+
+- `edge_id`: label of the edge
+- `edge`: 0 (no edge) or 1 (edge), useful if `all = TRUE` (see below)
+- `from`: label of the most upstream node of the edge
+- `to`: label of the most downstream node of the edge
+
+\
+
+
+The function `edges_list()` has three additional arguments:
+
+- `self`: if `TRUE`, a node can be linked to itself. Default is `FALSE`.
+- `all`: if `TRUE`, the missing edges are also returned. Default is `FALSE`.
+- `directed`: if `FALSE` (default), symmetrical edges (e.g. `S01-S02` and `S02-S01`) 
+are returned (_undirected network_). Otherwise (_directed network_) only the 
+first edge (e.g. `S01-S02`) is returned (according to the direction of the nodes labels).
+
+
+\
+
+
+Let's use this function `edges_list()` in a directed way.
+
+```{r 'edges-list-directed'}
+# List of edges with degree 1 of neighborhood (directed network) ----
+adour_edges <- edges_list(adour_nodes, degree = 1, directed = TRUE)
+adour_edges
 ```
 
 
+\
 
-```{r 'kable-adjacency-table', echo=FALSE}
-knitr::kable(adour_edges, row.names = FALSE,
-             caption = "Adjacency table of degree 1 of neighborhood", 
-             align   = rep("c", ncol(adour_edges)))
+
+### Visualizing edges
+
+
+The package `bridge` provides a convenient function to convert this edges list 
+table to an `sf` object of type `LINESTRING`: `edges_to_sf()`.
+
+
+\
+
+
+Let's convert the edges list to a spatial object.
+
+```{r 'edges-to-sf'}
+# Convert edges list to sf object ----
+adour_edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)
+adour_edges_sf
 ```
 
+
+\
+
+
+Let's add these edges to our map.
+
+
+```{r 'map-adour-edges', fig.height=10, fig.width=12, out.width='80%'}
+ggplot() +
+  geom_sf(data = adour_river, col = "darkgray") +
+  geom_sf(data = adour_edges_sf) +
+  geom_sf(data = adour_sites_sf, shape = 19) +
+  labs(title   = "Edges with degree 1 of neighborhood", 
+       caption = "RGF93 / Lambert-93 Projection") +
+  custom_theme()
+```
+
+
+\
+
+
+## Connectivity matrix
 
 We can convert this table to an adjacency matrix with function
 `bridge::adjacency_matrix()`.
@@ -267,6 +376,10 @@ We can convert this table to an adjacency matrix with function
 
 
 ## References
+
+Bivand R. _et al._ (2022) spdep: Spatial dependence, weighting schemes, and statistics.
+R package version 1.2-4, 
+[https://CRAN.R-project.org/package=spdep](https://CRAN.R-project.org/package=spdep).
 
 Blanchet F. G., Legendre P. & Borcard D. (2008) Modelling directional spatial 
 processes in ecological data. **Ecological Modelling**, 215, 325-336. 
@@ -277,3 +390,6 @@ framework for principal coordinate analysis of neighbour matrices (PCNM).
 **Ecological Modelling**, 196, 483-493. 
 doi: [10.1016/j.ecolmodel.2006.02.015](https://doi.org/10.1016/j.ecolmodel.2006.02.015).
 
+Dray S. _et al._ (2022) adespatial: Multivariate Multiscale Spatial Analysis. 
+R package version 0.3-16, 
+[https://CRAN.R-project.org/package=adespatial](https://CRAN.R-project.org/package=adespatial).
