@@ -92,19 +92,23 @@ plot_matrix <- function(x, title) {
   x$"from" <- factor(x$"from", levels = nodes)
   x$"to"   <- factor(x$"to", levels = edges)
   
-  ggplot(data = x) +
-    geom_tile(aes(.data$to, .data$from, fill = .data$edge), 
-              color = "lightgray") +
-    scale_fill_manual(values = c(`0` = "transparent", `1` = "black")) +
-    coord_fixed() +
-    xlab("") + ylab("") +
-    scale_x_discrete(position = "top") +
-    theme_classic() +
-    labs(caption = title) +
-    theme(legend.position = "none",
-          axis.line       = element_blank(),
-          axis.ticks      = element_blank(),
-          axis.text       = element_text(family = "serif"),
-          axis.text.x     = element_text(angle = 45, vjust = 1, hjust = 0),
-          plot.caption    = element_text(family = "serif", size = 11))
+  ggplot2::ggplot(data = x) +
+    ggplot2::geom_tile(ggplot2::aes(.data$to, .data$from, fill = .data$edge), 
+                       color = "lightgray") +
+    ggplot2::scale_fill_manual(values = c(`0` = "transparent", 
+                                          `1` = "black")) +
+    ggplot2::coord_fixed() +
+    ggplot2::xlab("") + ggplot2::ylab("") +
+    ggplot2::scale_x_discrete(position = "top") +
+    ggplot2::theme_classic() +
+    ggplot2::labs(caption = title) +
+    ggplot2::theme(legend.position = "none",
+                   axis.line       = ggplot2::element_blank(),
+                   axis.ticks      = ggplot2::element_blank(),
+                   axis.text       = ggplot2::element_text(family = "serif"),
+                   # axis.text.x     = ggplot2::element_text(angle = 45, 
+                   #                                         vjust = 1, 
+                   #                                         hjust = 0),
+                   plot.caption    = ggplot2::element_text(family = "serif", 
+                                                           size   = 11))
 }
