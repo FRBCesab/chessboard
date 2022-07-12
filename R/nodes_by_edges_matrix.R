@@ -71,7 +71,21 @@ nodes_by_edges_matrix <- function(edges) {
   if (nrow(edges) == 0) {
     stop("Argument 'edges' must have at least one row", call. = FALSE)
   }
-
+  
+  
+  ## Detect undirected network ----
+  
+  nodes <- nodes_list(c(edges$"from", edges$"to"))
+  nodes <- data.frame("node" = nodes, "id" = seq_len(length(nodes)))
+  
+  udn <- merge(edges, nodes, by.x = "from", by.y = "node", all = FALSE)
+  udn <- merge(udn, nodes, by.x = "to", by.y = "node", all = FALSE)
+  
+  if (any(udn$"id.x" >= udn$"id.y")) {
+    stop("This function is not designed to deal with directed network. ",
+         "Please remove symetrical edges.", call. = FALSE)
+  }
+  
   
   ## Prepare edges ----
   
