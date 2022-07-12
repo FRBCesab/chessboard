@@ -92,6 +92,10 @@ distance_along <- function(sites, along, density = 0.01, type = "regular",
     stop("The argument 'sites' cannot contain duplicates", call. = FALSE)
   }
   
+  if (is.na(sf::st_crs(sites))) {
+    stop("The 'sites' layer has not a valid CRS", call. = FALSE)
+  }
+  
   
   ## Check 'along' argument ----
   
@@ -116,6 +120,10 @@ distance_along <- function(sites, along, density = 0.01, type = "regular",
     stop("Linear shape geometry must be of type LINESTRING", call. = FALSE)
   }
   
+  if (is.na(sf::st_crs(along))) {
+    stop("The 'along' layer has not a valid CRS", call. = FALSE)
+  }
+  
   
   ## Check 'type' argument ----
   
@@ -134,6 +142,13 @@ distance_along <- function(sites, along, density = 0.01, type = "regular",
   
   if (density <= 0) {
     stop("Argument 'density' must be > 0", call. = FALSE)
+  }
+  
+  
+  ## Check for different CRS ----
+  
+  if (sf::st_crs(sites) != sf::st_crs(along)) {
+    stop("Layers 'sites' and 'along' have different CRS", call. = FALSE)
   }
   
   

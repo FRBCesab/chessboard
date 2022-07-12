@@ -1,8 +1,12 @@
 # Data for tests ----
 
 nodes     <- c("S01", "S02", "S11", "S21")
-points_df <- data.frame("site" = nodes, "x" = 1:4, "y" = 101:104)
+points_df <- data.frame("site" = nodes, "x" = 101:104, "y" = 1:4)
 points_sf <- sf::st_as_sf(points_df, coords = 2:3)
+sf::st_crs(points_sf) <- "epsg:4326"
+
+points_sf_no_crs <- points_sf
+sf::st_crs(points_sf_no_crs) <- NA
 
 points_sf_mltpt <- sf::st_cast(points_sf, "MULTIPOINT")
 points_sf_lnstr <- sf::st_cast(points_sf, "LINESTRING")
@@ -50,6 +54,10 @@ test_that("distance_euclidean() - Tests for wrong inputs", {
   
   expect_error(distance_euclidean(rbind(points_sf, points_sf)), 
                "The argument 'sites' cannot contain duplicates", 
+               fixed = TRUE)
+  
+  expect_error(distance_euclidean(points_sf_no_crs), 
+               "The 'sites' layer has not a valid CRS", 
                fixed = TRUE)
   
 })

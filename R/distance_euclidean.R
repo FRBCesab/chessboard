@@ -67,6 +67,10 @@ distance_euclidean <- function(sites, ...) {
     stop("The argument 'sites' cannot contain duplicates", call. = FALSE)
   }
   
+  if (is.na(sf::st_crs(sites))) {
+    stop("The 'sites' layer has not a valid CRS", call. = FALSE)
+  }
+  
   
   ## Order sites ----
   

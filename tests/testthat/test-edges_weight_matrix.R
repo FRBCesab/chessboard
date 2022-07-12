@@ -1,8 +1,9 @@
 # Data for tests ----
 
 nodes     <- c("S01", "S02", "S11", "S21")
-points_df <- data.frame("site" = nodes, "x" = 1:4, "y" = 101:104)
+points_df <- data.frame("site" = nodes, "x" = 101:104, "y" = 1:4)
 points_sf <- sf::st_as_sf(points_df, coords = 2:3)
+sf::st_crs(points_sf) <- "epsg:4326"
 
 dists <- distance_euclidean(points_sf)
 dists_from   <- dists[ , -1]
@@ -67,7 +68,7 @@ test_that("edges_weight_matrix() - Tests for good outputs", {
     edge_weight_mat <- edges_weight_matrix(dists, upper = FALSE)
   })
   
-  expect_equal(edge_weight_mat[2, 1], 1.414214, tolerance = 0.0001)
+  expect_equal(edge_weight_mat[2, 1], 157225.7, tolerance = 0.0001)
   expect_true(is.na(edge_weight_mat[1, 2]))
   
   
@@ -77,7 +78,7 @@ test_that("edges_weight_matrix() - Tests for good outputs", {
     edge_weight_mat <- edges_weight_matrix(dists, lower = FALSE)
   })
   
-  expect_equal(edge_weight_mat[1, 2], 1.414214, tolerance = 0.0001)
+  expect_equal(edge_weight_mat[1, 2], 157225.7, tolerance = 0.0001)
   expect_true(is.na(edge_weight_mat[2, 1]))
   
   
