@@ -1,8 +1,8 @@
 #' Create an edges weights vector
 #' 
 #' @description
-#' Creates an spatial weights vector that can be used in [adespatial::aem()]. 
-#' Resulting spatial weights equal to 0 will be replaced by `4 x max(w)`, 
+#' Creates an edges weights vector that can be used in [adespatial::aem()]. 
+#' Resulting edges weights equal to 0 will be replaced by `4 x max(w)`, 
 #' where `max(w)` is the maximal weight in the matrix.
 #'
 #' @param x a `list` of length 2. The nodes_by_edges matrix returned by 

@@ -18,8 +18,8 @@ edges_weights_vector(x, y)
 An edges weights \code{vector}.
 }
 \description{
-Creates an spatial weights vector that can be used in \code{\link[adespatial:aem]{adespatial::aem()}}.
-Resulting spatial weights equal to 0 will be replaced by \verb{4 x max(w)},
+Creates an edges weights vector that can be used in \code{\link[adespatial:aem]{adespatial::aem()}}.
+Resulting edges weights equal to 0 will be replaced by \verb{4 x max(w)},
 where \code{max(w)} is the maximal weight in the matrix.
 }
 \examples{
