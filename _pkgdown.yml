@@ -6,19 +6,25 @@ reference:
     - nodes_list
     - edges_list
     - edges_to_sf
+    - adjacency_matrix
 - title: Distances computation
   desc: >
     Compute distances between nodes
   contents:
     - distance_euclidean
     - distance_along
-- title: Network objects
+- title: Objects for MEM
   desc: >
-    Create and handle network matrices
+    Create objects to be used in Moran's Eigenvector Maps (MEM)
   contents:
-    - adjacency_matrix
     - edges_weight_matrix
     - spatial_weights_matrix
+- title: Objects for AEM
+  desc: >
+    Create objects to be used in Asymetric Eigenvector Maps (AEM)
+  contents:
+    - nodes_by_edges_matrix
+    - edges_weights_vector
 - title: Other features
   contents:
     - matrix_to_edges_list
