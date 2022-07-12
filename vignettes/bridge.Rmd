@@ -505,7 +505,7 @@ the first edge (coded as `E-01`) to the first site.
 \
 
 
-Let's plot our connectivity matrix.
+Let's plot our nodes-by-edges matrix.
 
 
 ```{r 'plot-nodes-by-edges-matrix', fig.height=10, fig.width=10, out.width='80%'}
