@@ -145,9 +145,9 @@ adjacency_matrix <- function(edges, lower = TRUE, upper = TRUE, diag = TRUE,
   
   ## Apply filters ----
   
-  if (!upper) mat[upper.tri(mat)] <- NA
-  if (!lower) mat[lower.tri(mat)] <- NA
-  if (!diag)  diag(mat) <- NA
+  if (!upper) mat[upper.tri(mat)] <- ifelse(na_to_zero, 0, NA)
+  if (!lower) mat[lower.tri(mat)] <- ifelse(na_to_zero, 0, NA)
+  if (!diag)  diag(mat)           <- ifelse(na_to_zero, 0, NA)
   
   mat
 }

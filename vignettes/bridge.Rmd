@@ -37,8 +37,8 @@ margins.
 
 
 The package `bridge` also provides some tools to work with Moran's Eigenvector Maps 
-(MEM, Dray _et al._ 2006) but this vignette shows only its usage with 
-**directed spatial network**.
+(MEM, Dray _et al._ 2006) but this vignette only focuses on 
+**directed spatial network** and AEM.
 
 
 \

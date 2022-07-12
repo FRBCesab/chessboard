@@ -84,7 +84,7 @@ test_that("adjacency_matrix() - Tests for good outputs", {
   })
   
   expect_equal(adja_mat[2, 1], 1L)
-  expect_true(is.na(adja_mat[1, 2]))
+  expect_true(adja_mat[1, 2] == 0L)
   
   
   ## Lower is FALSE ----
@@ -94,7 +94,7 @@ test_that("adjacency_matrix() - Tests for good outputs", {
   })
   
   expect_equal(adja_mat[1, 2], 1L)
-  expect_true(is.na(adja_mat[2, 1]))
+  expect_true(adja_mat[2, 1] == 0L)
   
   
   ## Upper and Lower are FALSE ----
@@ -103,8 +103,8 @@ test_that("adjacency_matrix() - Tests for good outputs", {
     adja_mat <- adjacency_matrix(edges, upper = FALSE, lower = FALSE)
   })
   
-  expect_true(is.na(adja_mat[1, 2])) 
-  expect_true(is.na(adja_mat[2, 1])) 
+  expect_true(adja_mat[1, 2] == 0L) 
+  expect_true(adja_mat[2, 1] == 0L)
   
   
   ## Diag is FALSE ----
@@ -113,8 +113,8 @@ test_that("adjacency_matrix() - Tests for good outputs", {
     adja_mat <- adjacency_matrix(edges, diag = FALSE)
   })
   
-  expect_true(is.na(adja_mat[1, 1])) 
-  expect_true(is.na(adja_mat[3, 3])) 
+  expect_true(adja_mat[1, 1] == 0L) 
+  expect_true(adja_mat[3, 3] == 0L) 
   
   
   ## Upper, Lower, and Diag are FALSE ----
@@ -124,7 +124,7 @@ test_that("adjacency_matrix() - Tests for good outputs", {
                                  lower = FALSE)
   })
   
-  expect_true(sum(is.na(adja_mat)) == length(adja_mat)) 
+  expect_true(sum(adja_mat == 0) == length(adja_mat)) 
   
   
   ## na_to_zero is FALSE ----
