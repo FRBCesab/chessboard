@@ -559,7 +559,7 @@ edges weights vector.
 
 ```{r 'edges-weights-vector'}
 # Edges weights vector ----
-adour_weights <- edges_weights_vector(adour_dists)
+adour_weights <- edges_weights_vector(adour_edges_mat, adour_dists)
 adour_weights
 ```
 
