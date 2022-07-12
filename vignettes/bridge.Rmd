@@ -442,6 +442,24 @@ See the documentation of the function `adjacency_matrix()` for other usage.
 \
 
 
+The package `bridge` provides a convenient function to visualize matrix: 
+`plot_matrix()`.
+
+
+\
+
+
+Let's plot our connectivity matrix.
+
+
+```{r 'plot-connectivity-matrix', fig.height=10, fig.width=10, out.width='80%'}
+plot_matrix(adour_edges_mat, title = "Connectivity matrix")
+```
+
+
+\
+
+
 ## Nodes-by-edges matrix
 
 The first object required by AEM is the nodes-by-edges matrix, i.e. a matrix of 
@@ -482,6 +500,17 @@ fictitious origin and the first site);
 
 **Note:** a fictitious `origin` site (coded as `0`) has been created and represents
 the first edge (coded as `E-01`) to the first site.
+
+
+\
+
+
+Let's plot our connectivity matrix.
+
+
+```{r 'plot-nodes-by-edges-matrix', fig.height=10, fig.width=10, out.width='80%'}
+plot_matrix(adour_edges_mat$"se.mat", title = "Nodes-by-edges matrix")
+```
 
 
 \

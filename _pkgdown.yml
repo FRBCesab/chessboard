@@ -28,3 +28,4 @@ reference:
 - title: Other features
   contents:
     - matrix_to_edges_list
+    - plot_matrix

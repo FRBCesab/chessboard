@@ -16,13 +16,13 @@ License: GPL (>= 2)
 Encoding: UTF-8
 Imports: 
     dplyr,
+    ggplot2,
     magrittr,
     parallel,
     rlang,
     sf,
     tidyr
 Suggests: 
-    ggplot2,
     knitr,
     rmarkdown,
     rnaturalearth,
