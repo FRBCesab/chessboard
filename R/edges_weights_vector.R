@@ -12,7 +12,7 @@
 #'   (the first node of the edge), `to` (the second node of the edge), and 
 #'   `weight` (the weight of the edge between the two nodes, e.g. a distance).
 #'
-#' @return A `data.frame` with the weights values added to the edges list.
+#' @return An edges weights `vector`.
 #' 
 #' @export
 #'
@@ -105,8 +105,8 @@ edges_weights_vector <- function(x, y) {
                              weights$"weight")
   
   row_names <- weights$"edge"
-  weights <- weights[ , c(1:2, 4)]
-  rownames(weights) <- row_names
+  weights <- weights[ , "weight", drop = TRUE]
+  names(weights) <- row_names
   
   weights
 }

@@ -15,7 +15,7 @@ edges_weights_vector(x, y)
 \code{weight} (the weight of the edge between the two nodes, e.g. a distance).}
 }
 \value{
-A \code{data.frame} with the weights values added to the edges list.
+An edges weights \code{vector}.
 }
 \description{
 Creates an spatial weights vector that can be used in \code{\link[adespatial:aem]{adespatial::aem()}}.
