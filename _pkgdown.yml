@@ -3,10 +3,24 @@ reference:
   desc: >
     Create, extract, and transform nodes and edges objects
   contents:
+    - create_nodes_labels
     - nodes_list
     - edges_list
     - edges_to_sf
     - adjacency_matrix
+- title: Detect neighbors
+  desc: >
+    Detect neighbors of a node using chess movements
+  contents:
+    - pawn
+    - fool
+- title: Visualize neighbors
+  desc: >
+    Visualize neighbors on a chessboard
+  contents:
+    - gg_chessboard
+    - geom_piece
+    - geom_neighbors
 - title: Distances computation
   desc: >
     Compute distances between nodes
