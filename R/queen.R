@@ -11,7 +11,7 @@
 #' labels.
 #' 
 #' 
-#' The detection of neighbors using the rook method can only work with 
+#' The detection of neighbors using the queen method can only work with 
 #' two-dimensional sampling (both **transects** and **quadrats**) and 
 #' one-dimensional sampling of type **quadrats**. For sampling of type 
 #' **transects** or **quadrats**, please use the functions [fool()] or 

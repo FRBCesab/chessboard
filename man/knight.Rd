@@ -49,7 +49,7 @@ between the \code{\link[=wizard]{wizard()}} and the \code{\link[=queen]{queen()}
 \strong{Important:} Use the function \code{\link[=create_nodes_labels]{create_nodes_labels()}} to create nodes
 labels.
 
-The detection of neighbors using the rook method can only work with
+The detection of neighbors using the knight method can only work with
 two-dimensional sampling (both \strong{transects} and \strong{quadrats}) and
 one-dimensional sampling of type \strong{quadrats}. For sampling of type
 \strong{transects} or \strong{quadrats}, please use the functions \code{\link[=fool]{fool()}} or
