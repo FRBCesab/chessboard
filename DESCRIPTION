@@ -24,13 +24,14 @@ Imports:
     tidyr
 Suggests: 
     knitr,
+    patchwork,
     rmarkdown,
     rnaturalearth,
     rnaturalearthdata,
     rnaturalearthhires,
     sp,
     testthat (>= 3.0.0)
-Remotes:
+Remotes: 
     ropensci/rnaturalearthhires
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
