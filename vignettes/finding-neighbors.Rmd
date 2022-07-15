@@ -47,7 +47,7 @@ called **quadrat**.
 
 
 
-```{r 'cb-transects-quadrats', fig.height=10*5/3, fig.width=10*3/5, echo=FALSE}
+```{r 'cb-transects-quadrats', fig.height=8, fig.width=6, echo=FALSE}
 gg_chessboard(nodes_transects_quadrats)
 ```
 
