@@ -16,7 +16,7 @@ knitr::opts_chunk$set(collapse  = TRUE,
 ```
 
 
-```{r 'setup'}
+```{r 'setup', echo=FALSE}
 library("bridge")
 library("ggplot2")
 library("patchwork")
@@ -42,36 +42,68 @@ nodes_quadrats_only <- create_nodes_labels(
 
 
 The package `bridge` is designed to work with two-dimensional networks (i.e. 
-regular grid), where one dimension is called **transect** and the other is
-called **quadrat**.
+regular grids), where one dimension is called **transect** and the other is
+called **quadrat**. By convention, the dimension **transect** corresponds to 
+the x-axis, and the **quadrat** corresponds to the y-axis (Fig. 1). 
+Note that the number of sampling units in both dimensions can be different.
 
 
 
-```{r 'cb-transects-quadrats', fig.height=8, fig.width=6, echo=FALSE, fig.asp=1, fig.cap="Two-dimensional network"}
+
+```{r 'cb-transects-quadrats', fig.height=8, fig.width=6, echo=FALSE, fig.cap="Figure 1. Two-dimensional network"}
 gg_chessboard(nodes_transects_quadrats)
 ```
 
 
-By convention, the dimension **transect** corresponds to the x-axis, and the 
-**quadrat** corresponds to the y-axis.
-
+\
 
 The package `bridge` can also deal with one-dimensional networks 
-(either **transects-only** or **quadrats-only**).
+(either **transects-only** or **quadrats-only**). If the sampling has been 
+conducted along one single dimension, a fictitious second dimension will be 
+created (for the purpose of the package).
 
-```{r 'cb-transects-only', fig.height=3, fig.width=8, echo=FALSE, fig.asp=1, fig.cap="Transects-only network"}
+
+\
+
+
+For instance, if the sampling has been conducted only through transects, a
+fictitious quadrat will be added with only one quadrat (Fig.2).
+
+
+
+```{r 'cb-transects-only', fig.height=3, fig.width=8, echo=FALSE, fig.cap="Figure 2. Transects-only network"}
 gg_chessboard(nodes_transects_only)
 ```
 
-```{r 'cb-quadrats-only', fig.height=8, fig.width=3, echo=FALSE, fig.asp=1, fig.cap="Quadrats-only network"}
+
+\
+
+
+On the other hand, if the sampling has been conducted only through qudrats, a
+fictitious transect will be added with only one transect (Fig.3).
+
+
+```{r 'cb-quadrats-only', fig.height=8, fig.width=3, echo=FALSE, fig.cap="Figure 3. Quadrats-only network", }
 gg_chessboard(nodes_quadrats_only)
 ```
 
-The network can be undirected or directed.
+
+\
 
 
-but one-dimensional sampling (transects) are allowed. It's 
-important to note that, even the package handles spatial networks, it does not 
+The network can be undirected or directed. If the network is **directed**, it will 
+have (by default) these two orientations:
+- from bottom to top for quadrats (i.e. along transects), and
+- from left to right for transects (i.e. along quadrats).
+
+
+\
+
+
+## Nodes labeling
+
+
+It's important to note that, even the package handles spatial networks, it does not 
 explicitly use spatial coordinates to find neighbors. Instead, it will find 
 neighbors based on **nodes labels** (i.e. sampling units).
 
@@ -82,13 +114,10 @@ of the quadrat (created by the function is missing).
 
 ## Chessboard
 
-Ignoring the spatial coordinates of the sampling, we can report sampling units
-of a chessboard of dimensions `t` x `q`, with `t`, the number of transects, 
-and `q`, the number of quadrats. By convention, the **transects** will be the 
-x-axis and the **quadrats** the y-axis.
+Ignoring the spatial coordinates of the sampling design, we can consider it as
+a chessboard of dimensions `t` x `q`, with `t`, the number of transects, 
+and `q`, the number of quadrats.
 
-If the network is directed, it will have (by default) two orientations:
-- from bottom to top for quadrats along transect, and
-- from left to right for transects along quadrat.
+
 
 
