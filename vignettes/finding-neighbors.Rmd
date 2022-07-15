@@ -3,8 +3,10 @@ title: "Finding neighbors"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{finding-neighbors}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r include=FALSE}
@@ -24,7 +26,7 @@ library("patchwork")
 
 ```{r 'load-data', echo=FALSE}
 transects_quadrats <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
-transects_only     <- 1:5
+transects_only     <- 1:3
 quadrats_only      <- 1:5
 
 nodes_transects_quadrats <- create_nodes_labels(
@@ -50,12 +52,13 @@ Note that the number of sampling units in both dimensions can be different.
 
 
 
-```{r 'cb-transects-quadrats', fig.height=8, fig.width=6, echo=FALSE, fig.cap="Figure 1. Two-dimensional network"}
+```{r 'cb-transects-quadrats', fig.height=8, fig.width=5, echo=FALSE, fig.cap="Figure 1. Two-dimensional network"}
 gg_chessboard(nodes_transects_quadrats)
 ```
 
 
 \
+
 
 The package `bridge` can also deal with one-dimensional networks 
 (either **transects-only** or **quadrats-only**). If the sampling has been 
@@ -67,11 +70,11 @@ created (for the purpose of the package).
 
 
 For instance, if the sampling has been conducted only through transects, a
-fictitious quadrat will be added with only one quadrat (Fig.2).
+fictitious quadrat will be added with only one quadrat (Fig. 2).
 
 
 
-```{r 'cb-transects-only', fig.height=3, fig.width=8, echo=FALSE, fig.cap="Figure 2. Transects-only network"}
+```{r 'cb-transects-only', fig.height=2.1, fig.width=5, echo=FALSE, fig.cap="Figure 2. Transects-only network"}
 gg_chessboard(nodes_transects_only)
 ```
 
@@ -79,11 +82,11 @@ gg_chessboard(nodes_transects_only)
 \
 
 
-On the other hand, if the sampling has been conducted only through qudrats, a
-fictitious transect will be added with only one transect (Fig.3).
+On the other hand, if the sampling has been conducted only through quadrats, a
+fictitious transect will be added with only one transect (Fig. 3).
 
 
-```{r 'cb-quadrats-only', fig.height=8, fig.width=3, echo=FALSE, fig.cap="Figure 3. Quadrats-only network", }
+```{r 'cb-quadrats-only', fig.height=8, fig.width=2.1, echo=FALSE, fig.cap="Figure 3. Quadrats-only network", out.width='16%'}
 gg_chessboard(nodes_quadrats_only)
 ```
 
