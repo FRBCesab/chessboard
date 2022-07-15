@@ -16,7 +16,11 @@ reference:
     - fool
     - rook
     - bishop
+    - bishop_right
+    - bishop_left
     - knight
+    - knight_right
+    - knight_left
     - queen
     - wizard
 - title: Visualize neighbors
