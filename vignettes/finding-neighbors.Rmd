@@ -42,13 +42,29 @@ nodes_quadrats_only <- create_nodes_labels(
 
 
 The package `bridge` is designed to work with two-dimensional networks (i.e. 
-regular grid), where one dimension is called **transects** and the other is
+regular grid), where one dimension is called **transect** and the other is
 called **quadrat**.
 
 
 
-```{r 'cb-transects-quadrats', fig.height=8, fig.width=6, echo=FALSE}
+```{r 'cb-transects-quadrats', fig.height=8, fig.width=6, echo=FALSE, fig.asp=1, fig.cap="Two-dimensional network"}
 gg_chessboard(nodes_transects_quadrats)
+```
+
+
+By convention, the dimension **transect** corresponds to the x-axis, and the 
+**quadrat** corresponds to the y-axis.
+
+
+The package `bridge` can also deal with one-dimensional networks 
+(either **transects-only** or **quadrats-only**).
+
+```{r 'cb-transects-only', fig.height=3, fig.width=8, echo=FALSE, fig.asp=1, fig.cap="Transects-only network"}
+gg_chessboard(nodes_transects_only)
+```
+
+```{r 'cb-quadrats-only', fig.height=8, fig.width=3, echo=FALSE, fig.asp=1, fig.cap="Quadrats-only network"}
+gg_chessboard(nodes_quadrats_only)
 ```
 
 The network can be undirected or directed.
