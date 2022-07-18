@@ -3,23 +3,17 @@
 #' @description
 #' For one node (argument `focus`), finds neighbors among a list of nodes 
 #' according to the fool movement.
-#' This movement is derived from the chess game. The fool can move along one 
-#' direction, i.e. through a **quadrats**, both from left to right and from 
-#' right to left (default behavior). 
-#' 
+#' This movement is derived from the chess game. The fool can only move 
+#' horizontally, i.e. through a **quadrat**, both from left to right and from 
+#' right to left relatively to the focus node (default behavior). 
 #' 
 #' **Important:** Use the function [create_nodes_labels()] to create nodes 
 #' labels.
 #' 
-#' 
 #' The detection of neighbors using the fool method can work with 
 #' two-dimensional sampling (both **transects** and **quadrats**) and 
-#' one-dimensional sampling of type **transects**. For sampling of type 
-#' **quadrats**, please use the function [pawn()].
-#' 
-#' The identification of neighbors is only based on the nodes labels (no 
-#' explicit spatial detection). This means that labeling nodes is a 
-#' **crucial step**.
+#' one-dimensional sampling of type **transects-only**. For sampling of type 
+#' **quadrats-only**, please use the function [pawn()].
 #' 
 #' The argument `degree` controls for the degree of neighborhood.
 #' If `degree = 2`, four neighbors will be identified (except if 
@@ -34,71 +28,51 @@
 #' of the focus node will be considered as neighbors (directed network with 
 #' reverse orientation).
 #' 
-#' 
-#' @param nodes a `data.frame` with the following three columns: 
-#'   `node`, `transect`, and `quadrats`. See [create_nodes_labels()] for 
-#'   further information.
-#' 
-#' @param focus an `character` of length 1. The node label for which the 
-#'   neighbors must be found. Must exist in the `nodes` object.
-#' 
-#' @param degree an `integer` of length 1. The maximum number of neighbors to 
-#'   search for in one direction.
-#'
 #' @param directed a `logical` of length 1. If `FALSE` (default), search for 
-#'   neighbors in both directions, i.e. at the left and at the right of the 
-#'   focus node (undirected network). Otherwise (directed network) search for 
-#'   neighbors at the right of the focus node (`reverse = FALSE`) or at the 
-#'   left (`reverse = TRUE`).
+#'   neighbors in all directions (undirected network). Otherwise, the network 
+#'   will be considered as directed from left to right.
 #'
-#' @param reverse a `logical` of length 1. If `TRUE`, change the orientation of
-#'   the network. This argument is ignored if `directed = FALSE`.
-#'   
-#' @param self a `logical` of length 1. If `TRUE`, a node can be its own 
-#'   neighbor. Default is `FALSE`.
+#' @param reverse a `logical` of length 1. If `TRUE`, change the default 
+#'   orientation of the network. This argument is ignored if `directed = FALSE`.
 #' 
-#' @return A subset of the `nodes` (`data.frame`) where each row is a neighbor
-#'   of `focus`.
+#' @inheritParams bishop_left
 #' 
-#' 
-#' @note 
-#' This function is called by [edges_list()] (if `type = "fool"`). It can be 
-#' directly used only to 1) understand the neighbors detection method, 2) to 
-#' check, and 3) visualize detected neighbors for one particular node.
-#' 
+#' @inherit bishop_left return details
 #' 
 #' @export
 #'
 #' @examples
 #' library("bridge")
 #' 
-#' # Two-dimensional sampling ----
-#' sites_infos <- expand.grid("transect" = 1:5, "quadrat" = 1:3)
+#' # Two-dimensional sampling (only) ----
+#' sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 #' 
-#' nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-#'                              quadrats  = sites_infos$"quadrat")
+#' nodes <- create_nodes_labels(data     = sites_infos, 
+#'                              transect = "transect", 
+#'                              quadrat  = "quadrat")
+#' 
+#' focus     <- "5-5"
+#' 
+#' # Default settings ----
+#' neighbors <- fool(nodes, focus)
+#' gg_chessboard(nodes) +
+#'   geom_piece(nodes, focus) +
+#'   geom_neighbors(neighbors)
 #'
-#' fool(nodes, focus = "3-2", degree = 2)
-#' fool(nodes, focus = "3-2", degree = 2, self = TRUE)
-#' fool(nodes, focus = "3-2", degree = 2, directed = TRUE)
-#' fool(nodes, focus = "3-2", degree = 2, directed = TRUE, reverse = TRUE)
-#' 
-#' # Visualization ----
-#' focus     <- "3-2"
-#' neighbors <- fool(nodes, focus = focus, degree = 1)
-#' 
+#' # Higher degree of neighborhood ----
+#' neighbors <- fool(nodes, focus, degree = 3)
 #' gg_chessboard(nodes) +
 #'   geom_piece(nodes, focus) +
 #'   geom_neighbors(neighbors)
 #'   
-#' # One-dimensional sampling (transects) ----
-#' sites_infos <- 1:5
-#' nodes <- create_nodes_labels(transects = sites_infos)
-#' 
-#' # Visualization ----
-#' focus     <- "3-1"
-#' neighbors <- fool(nodes, focus = focus, degree = 2, directed = TRUE)
-#' 
+#' # Directed (default orientation) ----
+#' neighbors <- fool(nodes, focus, degree = 3, directed = TRUE)
+#' gg_chessboard(nodes) +
+#'   geom_piece(nodes, focus) +
+#'   geom_neighbors(neighbors)
+#'   
+#' # Directed (reverse orientation) ----
+#' neighbors <- fool(nodes, focus, degree = 3, directed = TRUE, reverse = TRUE)
 #' gg_chessboard(nodes) +
 #'   geom_piece(nodes, focus) +
 #'   geom_neighbors(neighbors)
