@@ -4,50 +4,65 @@
 \alias{create_nodes_labels}
 \title{Create unique nodes labels}
 \usage{
-create_nodes_labels(transects, quadrats)
+create_nodes_labels(data, location, transect, quadrat)
 }
 \arguments{
-\item{transects}{a \code{numeric} vector. The identifier of the transects. If
-missing, a unique transect will be created and named \code{1}
-(for the purpose of the package).}
+\item{data}{a \code{data.frame} with at least one column, \code{'transect'} or
+\code{'quadrat'}. If only one column is provided and \code{transect} or \code{quadrat}
+is \code{NULL}, the network will be considered as one-dimensional. If \code{data}
+contains both \code{'transect'} and \code{'quadrat'} columns, the network will be
+considered as two-dimensional. The \code{data.frame} can contain additional
+columns.}
 
-\item{quadrats}{a \code{numeric} vector. The identifier of the quadrats. If
-missing, a unique quadrat will be created and named \code{1}.
-(for the purpose of the package).}
+\item{location}{a \code{character} of length 1. The name of the column that
+contains location identifiers. If missing (or \code{NULL}), a unique location
+identifier will be created and named \code{1} (for the purpose of the package
+only). This argument is optional if the sampling ha been conducted at one
+location, but required if the survey is structured in multiple locations.}
+
+\item{transect}{a \code{character} of length 1. The name of the column that
+contains transect identifiers. If missing (or \code{NULL}), a unique transect
+identifier will be created and named \code{1} (for the purpose of the package
+only). If missing, the network will be considered as one-dimensional.}
+
+\item{quadrat}{a \code{character} of length 1. The name of the column that
+contains quadrat identifiers. If missing (or \code{NULL}), a unique quadrat
+identifier will be created and named \code{1} (for the purpose of the package
+only). If missing, the network will be considered as one-dimensional.}
 }
 \value{
-A \code{data.frame} with the three following columns:
+A \code{data.frame} with at least the four following columns:
 \itemize{
-\item \code{node}, the nodes label (created by the function)
-\item \code{transect}, the transects label (created by the function or provided)
-\item \code{quadrat}, the quadrats label (created by the function or provided)
+\item \code{node}, the nodes label
+\item \code{location}, the identifier of the location
+\item \code{transect}, the identifier of the transect
+\item \code{quadrat}, the identifier of the quadrat
+Other columns present in the original dataset will also be added.
 }
 }
 \description{
-Creates unique nodes (sampling units) labels in (un)directed two-dimensional
-(spatial) networks (i.e. regular grid).
+Creates unique nodes (sampling units) labels in directed (or undirected)
+spatial (or not) networks.
 
 It's important to note that, even the package \code{bridge} is designed to deal
-with spatial networks, it does not deal explicitly with spatial coordinates.
-\strong{But nodes labels matters!}
+with spatial networks, it does not explicitly use spatial coordinates. Every
+functions of the package will use the \strong{nodes labels}.
 
-\strong{Convention}
-
-The package \code{bridge} requires that the sampling has two dimensions: one
-from bottom to top (called \strong{quadrats}), and one from left to right (called
-\strong{transects}). If the sampling has been conducted along one single
+To work, the package \code{bridge} requires that the sampling has two dimensions:
+one from bottom to top (called \strong{quadrats}), and one from left to right
+(called \strong{transects}). If the sampling has been conducted along one single
 dimension (\strong{transects} or \strong{quadrats}), this function will create a
 fictitious label for the missing dimension.
-
 In other words, the package \code{bridge} can work with sampling designs such as
 regular grids (two dimensions), transects (one dimension), and quadrats
 (one dimension).
 
-\strong{Nodes labeling}
+In addition, the package can also deal with multiple locations. In that
+case, users will need to use the argument \code{location}.
 
 The nodes labels will be of the form: \code{1-2}, where \code{1} is the identifier of
-the transect (created by the function is missing), and \code{2}, the identifier
-of the quadrat (created by the function is missing).
+the transect (created by the function if missing), and \code{2}, the identifier
+of the quadrat (created by the function if missing).
 }
 \examples{
 library("bridge")
@@ -56,24 +71,27 @@ library("bridge")
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 sites_infos
 
-nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-                             quadrats  = sites_infos$"quadrat")
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect", 
+                             quadrat  = "quadrat")
 nodes
 
 gg_chessboard(nodes)
 
 # One-dimensional sampling (only transects) ----
-sites_infos <- 1:5
+transects_only <- data.frame("transect" = 1:5)
 
-nodes <- create_nodes_labels(transects = sites_infos)
+nodes <- create_nodes_labels(transects_only,
+                             transect = "transect")
 nodes
 
 gg_chessboard(nodes)
 
 # One-dimensional sampling (only quadrats) ----
-sites_infos <- 1:5
+quadrats_only <- data.frame("quadrat" = 1:5)
 
-nodes <- create_nodes_labels(quadrats = sites_infos)
+nodes <- create_nodes_labels(quadrats_only,
+                             quadrat = "quadrat")
 nodes
 
 gg_chessboard(nodes)

@@ -1,46 +1,58 @@
 #' Create unique nodes labels 
 #'
 #' @description 
-#' Creates unique nodes (sampling units) labels in (un)directed two-dimensional
-#' (spatial) networks (i.e. regular grid). 
+#' Creates unique nodes (sampling units) labels in directed (or undirected) 
+#' spatial (or not) networks. 
 #' 
 #' It's important to note that, even the package `bridge` is designed to deal
-#' with spatial networks, it does not deal explicitly with spatial coordinates.
-#' **But nodes labels matters!**
+#' with spatial networks, it does not explicitly use spatial coordinates. Every
+#' functions of the package will use the **nodes labels**.
 #' 
-#'
-#' **Convention**
-#' 
-#' The package `bridge` requires that the sampling has two dimensions: one 
-#' from bottom to top (called **quadrats**), and one from left to right (called
-#' **transects**). If the sampling has been conducted along one single 
+#' To work, the package `bridge` requires that the sampling has two dimensions: 
+#' one from bottom to top (called **quadrats**), and one from left to right 
+#' (called **transects**). If the sampling has been conducted along one single 
 #' dimension (**transects** or **quadrats**), this function will create a 
 #' fictitious label for the missing dimension.
-#' 
 #' In other words, the package `bridge` can work with sampling designs such as 
 #' regular grids (two dimensions), transects (one dimension), and quadrats 
 #' (one dimension).
 #' 
-#' 
-#' **Nodes labeling**
+#' In addition, the package can also deal with multiple locations. In that 
+#' case, users will need to use the argument `location`.
 #' 
 #' The nodes labels will be of the form: `1-2`, where `1` is the identifier of 
-#' the transect (created by the function is missing), and `2`, the identifier 
-#' of the quadrat (created by the function is missing).
+#' the transect (created by the function if missing), and `2`, the identifier 
+#' of the quadrat (created by the function if missing).
 #' 
-#'
-#' @param transects a `numeric` vector. The identifier of the transects. If 
-#'   missing, a unique transect will be created and named `1` 
-#'   (for the purpose of the package).
+#' @param data a `data.frame` with at least one column, `'transect'` or 
+#'   `'quadrat'`. If only one column is provided and `transect` or `quadrat` 
+#'   is `NULL`, the network will be considered as one-dimensional. If `data` 
+#'   contains both `'transect'` and `'quadrat'` columns, the network will be 
+#'   considered as two-dimensional. The `data.frame` can contain additional
+#'   columns.
 #' 
-#' @param quadrats a `numeric` vector. The identifier of the quadrats. If 
-#'   missing, a unique quadrat will be created and named `1`.
-#'   (for the purpose of the package).
+#' @param location a `character` of length 1. The name of the column that 
+#'   contains location identifiers. If missing (or `NULL`), a unique location
+#'   identifier will be created and named `1` (for the purpose of the package 
+#'   only). This argument is optional if the sampling ha been conducted at one
+#'   location, but required if the survey is structured in multiple locations.
+#' 
+#' @param transect a `character` of length 1. The name of the column that 
+#'   contains transect identifiers. If missing (or `NULL`), a unique transect
+#'   identifier will be created and named `1` (for the purpose of the package 
+#'   only). If missing, the network will be considered as one-dimensional.
+#' 
+#' @param quadrat a `character` of length 1. The name of the column that 
+#'   contains quadrat identifiers. If missing (or `NULL`), a unique quadrat
+#'   identifier will be created and named `1` (for the purpose of the package 
+#'   only). If missing, the network will be considered as one-dimensional.
 #'
-#' @return A `data.frame` with the three following columns:
-#' - `node`, the nodes label (created by the function)
-#' - `transect`, the transects label (created by the function or provided)
-#' - `quadrat`, the quadrats label (created by the function or provided)
+#' @return A `data.frame` with at least the four following columns:
+#' - `node`, the nodes label
+#' - `location`, the identifier of the location
+#' - `transect`, the identifier of the transect
+#' - `quadrat`, the identifier of the quadrat
+#' Other columns present in the original dataset will also be added.
 #' 
 #' @export
 #' 
@@ -51,86 +63,164 @@
 #' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 #' sites_infos
 #' 
-#' nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-#'                              quadrats  = sites_infos$"quadrat")
+#' nodes <- create_nodes_labels(data     = sites_infos, 
+#'                              transect = "transect", 
+#'                              quadrat  = "quadrat")
 #' nodes
 #' 
 #' gg_chessboard(nodes)
 #' 
 #' # One-dimensional sampling (only transects) ----
-#' sites_infos <- 1:5
+#' transects_only <- data.frame("transect" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(transects = sites_infos)
+#' nodes <- create_nodes_labels(transects_only,
+#'                              transect = "transect")
 #' nodes
 #' 
 #' gg_chessboard(nodes)
 #' 
 #' # One-dimensional sampling (only quadrats) ----
-#' sites_infos <- 1:5
+#' quadrats_only <- data.frame("quadrat" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(quadrats = sites_infos)
+#' nodes <- create_nodes_labels(quadrats_only,
+#'                              quadrat = "quadrat")
 #' nodes
 #' 
 #' gg_chessboard(nodes)
 
-create_nodes_labels <- function(transects, quadrats) {
+create_nodes_labels <- function(data, location, transect, quadrat) {
   
-  if (missing(transects)) transects <- NULL
-  if (missing(quadrats))  quadrats  <- NULL
+  if (missing(location)) location <- NULL
+  if (missing(transect)) transect <- NULL
+  if (missing(quadrat))  quadrat  <- NULL
   
-  if (is.null(transects) && is.null(quadrats)) {
-    stop("Please provide at least either 'transects' or 'quadrats'", 
+  if (!is.data.frame(data)) {
+    stop("Argument 'data' must be data.frame", call. = FALSE)
+  }
+  
+  if (nrow(data) < 1) {
+    stop("The data.frame 'data' must have at least one row", call. = FALSE)
+  }
+  
+  if (ncol(data) < 1) {
+    stop("The data.frame 'data' must have at least one column", call. = FALSE)
+  }
+  
+  if (is.null(transect) && is.null(quadrat)) {
+    stop("Please provide at least either 'transect' or 'quadrat'", 
          call. = FALSE)
   }
   
-  if (!is.null(transects)) {
-    if (!is.numeric(transects)) {
-      stop("Argument 'transects' must be a numeric", call. = FALSE)
+  if (!is.null(location)) {
+    
+    if (!is.character(location) || length(location) != 1) {
+      stop("Argument 'location' must be a character of length 1 ", 
+           "(column name of the transects)", call. = FALSE)
+    }
+    
+    if (!(location %in% colnames(data))) {
+      stop(paste0("The column '", location, "' is absent from 'data'"), 
+           call. = FALSE)
+    }
+    
+    if (!is.numeric(data[ , location])) {
+      stop(paste0("The column '", location, "' must be a numeric"), 
+           call. = FALSE)
     }
   }
   
-  if (!is.null(quadrats)) {
-    if (!is.numeric(quadrats)) {
-      stop("Argument 'quadrats' must be a numeric", call. = FALSE)
+  if (!is.null(transect)) {
+    
+    if (!is.character(transect) || length(transect) != 1) {
+      stop("Argument 'transect' must be a character of length 1 ", 
+           "(column name of the transects)", call. = FALSE)
+    }
+    
+    if (!(transect %in% colnames(data))) {
+      stop(paste0("The column '", transect, "' is absent from 'data'"), 
+           call. = FALSE)
+    }
+    
+    if (!is.numeric(data[ , transect])) {
+      stop(paste0("The column '", transect, "' must be a numeric"), 
+           call. = FALSE)
     }
   }
   
-  if (is.null(transects)) {
+  if (!is.null(quadrat)) {
+    
+    if (!is.character(quadrat) || length(quadrat) != 1) {
+      stop("Argument 'quadrat' must be a character of length 1 ", 
+           "(column name of the quadrats)", call. = FALSE)
+    }
+    
+    if (!(quadrat %in% colnames(data))) {
+      stop(paste0("The column '", quadrat, "' is absent from 'data'"), 
+           call. = FALSE)
+    }
+    
+    if (!is.numeric(data[ , quadrat])) {
+      stop(paste0("The column '", quadrat, "' must be a numeric"), 
+           call. = FALSE)
+    }
+  }
+  
+  if (is.null(transect)) {
 
-    if (any(duplicated(quadrats))) {
-      stop("As argument 'transects' is not provided, 'quadrats' cannot ", 
-           "contain duplicates", call. = FALSE)
+    if (any(duplicated(data[ , quadrat]))) {
+      stop(paste0("As argument 'transect' is not provided, the column '", 
+                  quadrat, "' cannot contain duplicated values"), 
+           call. = FALSE)
     }
 
-    transects <- rep(1, length(quadrats))
+    data[ , "transect"] <- rep(1, nrow(data))
   }
 
-  if (is.null(quadrats)) {
-
-    if (any(duplicated(transects))) {
-      stop("As argument 'quadrats' is not provided, 'transects' cannot ", 
-           "contain duplicates", call. = FALSE)
+  if (is.null(quadrat)) {
+    
+    if (any(duplicated(data[ , transect]))) {
+      stop(paste0("As argument 'quadrat' is not provided, the column '", 
+                  transect, "' cannot contain duplicated values"), 
+           call. = FALSE)
     }
-
-    quadrats <- rep(1, length(transects))
+    
+    data[ , "quadrat"] <- rep(1, nrow(data))
   }
+  
 
-
-  if (length(transects) != length(quadrats)) {
-    stop("Arguments 'transects' and 'quadrats' must have the same length", 
+  if (is.null(location)) {
+    data[ , "location"] <- rep(1, nrow(data))
+  }
+  
+  if (any(is.na(data[ , transect]))) {
+    stop(paste0("The column '", transect, "' cannot contain NA"), 
+         call. = FALSE)
+  }
+  
+  if (any(is.na(quadrat))) {
+    stop(paste0("The column '", quadrat, "' cannot contain NA"), 
          call. = FALSE)
   }
 
-  if (any(is.na(transects))) {
-    stop("Argument 'transects' cannot contain NA", call. = FALSE)
+  
+  ## Rename columns ----
+  
+  if (!is.null(location)) {
+    colnames(data)[which(colnames(data) == location)] <- "location"
   }
   
-  if (any(is.na(quadrats))) {
-    stop("Argument 'quadrats' cannot contain NA", call. = FALSE)
+  if (!is.null(transect)) {
+    colnames(data)[which(colnames(data) == transect)] <- "transect"
   }
-
-  nodes <- data.frame("transect" = transects, "quadrat"  = quadrats)
-  nodes <- nodes[with(nodes, order(transect, quadrat)), ]
+  
+  if (!is.null(quadrat)) {
+    colnames(data)[which(colnames(data) == quadrat)]  <- "quadrat"
+  }
+  
+  
+  ## Create labels ----
+  
+  nodes <- data[with(data, order(location, transect, quadrat)), ]
   rownames(nodes) <- NULL
 
   keys <- paste0(nodes$"transect", "-", nodes$"quadrat")
@@ -139,5 +229,19 @@ create_nodes_labels <- function(transects, quadrats) {
     stop("Nodes labels cannot contain duplicates", call. = FALSE)
   }
   
-  data.frame("node" = keys, nodes)
+  
+  ## Order columns ----
+  
+  col_to_add <- which(colnames(nodes) %in% c("location", "transect", "quadrat"))
+  
+  data <- data.frame("node" = keys, 
+                     "location" = nodes$"location",
+                     "transect" = nodes$"transect",
+                     "quadrat"  = nodes$"quadrat")
+  
+  if (length(col_to_add) < ncol(nodes)) {
+    data <- data.frame(data, nodes[ , -col_to_add])
+  }
+  
+  data
 }
