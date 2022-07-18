@@ -65,6 +65,11 @@ considered as neighbors (remove the nodes at the bottom of the focus node).
 If \code{directed = TRUE} and \code{reverse = TRUE}, only two nodes will be
 considered as neighbors (remove the nodes at the top of the focus node).
 }
+\details{
+This function is internally called by \code{\link[=find_neighbors]{find_neighbors()}} but it can be
+directly used to 1) understand the neighbors detection method, and 2) to
+check detected neighbors for one particular node (\code{focus}).
+}
 \note{
 This function is called by \code{\link[=find_neighbors]{find_neighbors()}} (if \code{type = "rook"}).
 It can be directly used only to 1) understand the neighbors detection

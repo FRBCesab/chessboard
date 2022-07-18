@@ -25,27 +25,9 @@
 #' If `directed = TRUE` and `reverse = TRUE`, only two nodes will be
 #' considered as neighbors (remove the nodes at the top of the focus node).
 #' 
-#' @param nodes a `data.frame` with (at least) the following three columns: 
-#'   `node`, `transect`, and `quadrats`. Must be the output if the function 
-#'   [create_nodes_labels()].
+#' @inheritParams bishop_left
 #' 
-#' @param focus an `character` of length 1. The node label for which the 
-#'   neighbors must be found. Must exist in the `nodes` object.
-#' 
-#' @param degree an `integer` of length 1. The maximum number of neighbors to 
-#'   search for in one direction.
-#'
-#' @param directed a `logical` of length 1. If `FALSE` (default), search for 
-#'   neighbors in all directions (undirected network). Otherwise, the network 
-#'   will be considered as directed according to the main direction of the 
-#'   network (i.e. through quadrats).
-#'
-#' @param reverse a `logical` of length 1. If `TRUE`, change the orientation of
-#'   the network (i.e. through quadrats). This argument is ignored if 
-#'   `directed = FALSE`.
-#'   
-#' @param self a `logical` of length 1. If `TRUE`, a node can be its own 
-#'   neighbor. Default is `FALSE`.
+#' @inherit bishop_left return details
 #' 
 #' @return A subset of the `nodes` (`data.frame`) where each row is a neighbor
 #'   of `focus`.
