@@ -83,90 +83,22 @@ fool <- function(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE,
   
   ## Check argument 'nodes' ----
   
-  if (missing(nodes)) {
-    stop("Argument 'nodes' is required ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (!is.data.frame(nodes)) {
-    stop("Argument 'nodes' must be a data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (!("node" %in% colnames(nodes))) {
-    stop("The column 'node' is absent from the 'nodes' data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (!("transect" %in% colnames(nodes))) {
-    stop("The column 'transect' is absent from the 'nodes' data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (!("quadrat" %in% colnames(nodes))) {
-    stop("The column 'quadrat' is absent from the 'nodes' data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (nrow(nodes) == 0) {
-    stop("Argument 'nodes' must have at least two rows (nodes)", call. = FALSE)
-  }
-  
-  if (!is.numeric(nodes$"transect")) {
-    stop("The column 'transect' of the 'nodes' data.frame must be a numeric", 
-         call. = FALSE)
-  }
-  
-  if (!is.numeric(nodes$"quadrat")) {
-    stop("The column 'quadrat' of the 'nodes' data.frame must be a numeric", 
-         call. = FALSE)
-  }
-  
-  if (!is.character(nodes$"node")) {
-    stop("The column 'node' of the 'nodes' data.frame must be a character", 
-         call. = FALSE)
-  }
+  check_nodes_object(nodes)
   
   if (length(unique(nodes$"transect")) == 1) {
-    stop("The fool movement is not designed to work through transects. ",
-         "Please use pawn() instead.", call. = FALSE)
+    stop("The bishop right movement is not designed to work through quadrats ",
+         "only. Please use pawn() instead.", call. = FALSE)
   }
   
   
   ## Check argument 'focus' ----
   
-  if (missing(focus)) {
-    stop("Argument 'focus' is required (node label)", call. = FALSE)
-  }
-  
-  if (!is.character(focus)) {
-    stop("Argument 'focus' must be a character (node label)", call. = FALSE)
-  }
-  
-  if (length(focus) != 1) {
-    stop("Argument 'focus' must be a character of length 1 (node label)", 
-         call. = FALSE)
-  }
-  
-  if (!(focus %in% nodes$"node")) {
-    stop(paste0("The node '", focus, "' is absent from the nodes list ", 
-                "(argument 'nodes')"), call. = FALSE)
-  }
+  check_focus_object(nodes, focus)
   
   
   ## Check argument 'degree' ----
   
-  if (!is.numeric(degree)) {
-    stop("Argument 'degree' must be a numeric", call. = FALSE)
-  }
-  
-  if (length(degree) != 1) {
-    stop("Argument 'degree' must be a numeric of length 1", call. = FALSE)
-  }
-  
-  if (degree <= 0) {
-    stop("Argument 'degree' must be strictly positive", call. = FALSE)
-  }
+  check_degree_value(degree)
   
   
   ## Get focus information ----
