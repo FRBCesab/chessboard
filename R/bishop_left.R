@@ -50,10 +50,10 @@
 #' @return A subset of the `nodes` (`data.frame`) where each row is a neighbor
 #'   of `focus`.
 #' 
-#' @note 
-#' This function is called by [find_neighbors()] (if `type = "rook"`).
-#' It can be directly used only to 1) understand the neighbors detection 
-#' method, and 2) to check detected neighbors for one particular node (`focus`).
+#' @details 
+#' This function is internally called by [find_neighbors()] but it can be
+#' directly used to 1) understand the neighbors detection method, and 2) to 
+#' check detected neighbors for one particular node (`focus`).
 #' 
 #' @export
 #'
