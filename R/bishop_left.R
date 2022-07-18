@@ -12,7 +12,7 @@
 #' 
 #' The detection of neighbors using the bishop left method can only work with 
 #' two-dimensional sampling (both **transects** and **quadrats**). 
-#' For sampling of type **transects** or **quadrats**, please use the 
+#' For sampling of type **transects-only** or **quadrats-only**, please use the 
 #' functions [fool()] or [pawn()], respectively.
 #' 
 #' The argument `degree` controls for the degree of neighborhood.
@@ -26,7 +26,7 @@
 #' considered as neighbors (remove the nodes at the top of the focus node).
 #' 
 #' @param nodes a `data.frame` with (at least) the following three columns: 
-#'   `node`, `transect`, and `quadrats`. Must be the output if the funciton 
+#'   `node`, `transect`, and `quadrats`. Must be the output if the function 
 #'   [create_nodes_labels()].
 #' 
 #' @param focus an `character` of length 1. The node label for which the 

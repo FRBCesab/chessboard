@@ -15,7 +15,7 @@ bishop_left(
 }
 \arguments{
 \item{nodes}{a \code{data.frame} with (at least) the following three columns:
-\code{node}, \code{transect}, and \code{quadrats}. Must be the output if the funciton
+\code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
 \code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
 \item{focus}{an \code{character} of length 1. The node label for which the
@@ -52,7 +52,7 @@ labels.
 
 The detection of neighbors using the bishop left method can only work with
 two-dimensional sampling (both \strong{transects} and \strong{quadrats}).
-For sampling of type \strong{transects} or \strong{quadrats}, please use the
+For sampling of type \strong{transects-only} or \strong{quadrats-only}, please use the
 functions \code{\link[=fool]{fool()}} or \code{\link[=pawn]{pawn()}}, respectively.
 
 The argument \code{degree} controls for the degree of neighborhood.
