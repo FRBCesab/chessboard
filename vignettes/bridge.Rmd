@@ -16,12 +16,30 @@ knitr::opts_chunk$set(collapse  = TRUE,
 ```
 
 
-The aim of the package `bridge` is to provide tools to work with directed (asymetric) 
-spatial networks. It allows users to easily create and visualize network objects, 
-like **nodes list**, **edges lists**, **connectivity matrix**, 
-**nodes by edges matrix**, and **edges weights vector**. These objects can be used later in 
-Asymetric Eigenvector Maps (AEM, Blanchet _et al._ 2008) available in the package
-[`adespatial`](https://cran.r-project.org/package=adespatial) (Dray _et al._ 2022).
+The aim of the package `bridge` is to provide tools to work with **directed**
+(asymmetric) and **undirected** (symmetrical) spatial **networks**.
+It makes easier the creation of **connectivity matrix**, i.e. a binary matrix 
+of dimensions `n x n`, where `n` is the number of **nodes** (sampling units) 
+indicating the presence (`1`) or the absence (`0`) of an **edge** (link) 
+between pairs of nodes. Different network objects can be produced by `bridge`:
+
+- **nodes list**
+- **neighbors list**
+- **edges list**
+- **connectivity matrix**
+
+
+\
+
+
+In addition, the package can also produce objects that can be used later in 
+Asymetric Eigenvector Maps (AEM, Blanchet _et al._ 2008), method available in 
+the package [`adespatial`](https://cran.r-project.org/package=adespatial) (Dray _et al._ 2022):
+**nodes by edges matrix** and **edges weights vector**.
+
+
+\
+
 
 This package has been developed for the 
 [FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) 
@@ -36,28 +54,20 @@ margins.
 \
 
 
-The package `bridge` also provides some tools to work with Moran's Eigenvector Maps 
-(MEM, Dray _et al._ 2006) but this vignette only focuses on 
-**directed spatial network** and AEM.
-
-
-\
+**Setup**
 
 
 
 ```{r 'setup'}
+# devtools::load_all()
 library("bridge")
 library("ggplot2")
 ```
 
 
-\
 
-
-First let's define a custom theme for the `ggplot2` visualizations.
-
-
-```{r 'ggplot-theme'}
+```{r 'ggplot-theme', echo=FALSE}
+## Custom ggplot2 theme ----
 custom_theme <- function() {
   theme_light() + 
   theme(plot.title   = element_text(face = "bold", family = "serif", size = 18),
@@ -71,56 +81,31 @@ custom_theme <- function() {
 \
 
 
-## Provided data
+## Sampling design
 
 
 
-The package `bridge` comes with two datasets:
+The package `bridge` is designed to work with **two-dimensional network** (i.e. 
+sampling on a regular grid). The network can be spatial or not, and can be 
+directed or undirected.
 
-- **Adour river**, an `sf` spatial object of type `LINESTRING` providing the 
-geometry of the French river _L'Adour_;
-- **Adour sites**, a `data.frame` with sites labels and sites coordinates along
-the river.
+`bridge` provides an example of a survey realized along the French river
+_L'Adour_ (Fig. 1).
 
-
-\
-
-
-### Adour river
-
-
-
-Let's import the **Adour river** spatial layer.
-
-
-```{r 'import-adour-river'}
-# Import the spatial layer of Adour river ----
+```{r 'import-adour-river', echo=FALSE}
+## Import the spatial layer of Adour river ----
 path_to_file <- system.file("extdata", "adour_lambert93.gpkg", package = "bridge")
 adour_river  <- sf::st_read(path_to_file, quiet = TRUE)
-
-head(adour_river)
 ```
 
-This layer is an [`sf`](https://cran.r-project.org/package=sf) spatial object 
-of type `LINESTRING` and contains one single row (geometry) defined in the 
-[RGF93 / Lambert-93](https://epsg.io/2154) projection.
-
-
-\
-
-
-Now let's import a base map of France to locate the Adour river using the package
-[`rnaturalearth`](https://cran.r-project.org/package=rnaturalearth).
-
-
-```{r 'get-basemap'}
-# Import France departments ----
+```{r 'get-basemap', echo=FALSE}
+## Import France departments ----
 france <- rnaturalearth::ne_states("france", returnclass = "sf")
 
-# Remove overseas territories ----
+## Remove overseas territories ----
 france <- france[grep("^FR\\.", france$"code_hasc"), ]
 
-# Project layer to RGF93 / Lambert-93 system ----
+## Project layer to RGF93 / Lambert-93 system ----
 france <- sf::st_transform(france, sf::st_crs(adour_river))
 ```
 
@@ -128,59 +113,234 @@ france <- sf::st_transform(france, sf::st_crs(adour_river))
 \
 
 
-Let's locate the Adour river of the France map.
-
-
-```{r 'map-adour-river', fig.height=10, fig.width=10, out.width='80%'}
-# Get extent of Adour river ----
+```{r 'map-adour-river', echo=FALSE, fig.height=9, fig.width=10, out.width='80%', fig.cap='Figure 1. Location of the French river L\'Adour'}
+## Get extent of Adour river ----
 adour_extent <- sf::st_bbox(adour_river)
 
-# Add some margin around ----
+## Add some margin around ----
 adour_extent <- adour_extent + c(-10000, -10000, 10000, 10000)
 
 ggplot() +
   geom_sf(data = france, fill = "lightgray", col = "white", size = 0.2) +
   geom_sf(data = adour_river, col = "steelblue") +
   geom_sf(data = sf::st_as_sfc(adour_extent), fill = NA, size = 0.3) +
-  labs(title   = "The French river Adour", 
-       caption = "RGF93 / Lambert-93 Projection") +
-  custom_theme()
+  labs(caption = "RGF93 / Lambert-93 Projection") +
+  custom_theme() +
+  geom_text(aes(x = 194015, y = 6453703), label = "Atlantic\nOcean",
+            color = "lightgray", fontface = "italic", size = 6, 
+            family = "serif") +
+  geom_text(aes(x = 482630, y = 6150836), label = "Pyrenees",
+            color = "lightgray", fontface = "italic", size = 6, 
+            family = "serif")
 ```
 
 
 \
 
 
-### Adour sites
+_L'Adour_ is a river in southwestern France. It rises in the Pyrenees and 
+flows into the Atlantic Ocean (Bay of Biscay). It's oriented from south-east 
+(upstream) to north-west (downstream).
 
 
-
-Let's import the **Adour sites** data representing fictitious survey sites 
-around the Adour.
+\
 
 
-```{r 'import-adour-sites'}
-## Import the dataset of sites ----
-path_to_file <- system.file("extdata", "adour_sites_coords.csv", package = "bridge")
+Along this river, a survey has been realized at **three** locations (Fig. 2).
+At each location, a sampling has been conducted on a regular grid composed of 
+**three** transects each of them composed of **five** quadrats.
+
+
+\
+
+
+```{r 'import-adour-sites', echo=FALSE}
+## Import sites data ----
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", package = "bridge")
 adour_sites  <- read.csv(path_to_file)
-adour_sites
+
+## Convert data.frame to sf object ----
+adour_sites_sf <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"), 
+                               crs = "epsg:2154")
 ```
 
 
-This `data.frame` contains three columns: the site label and sites coordinates, also
-defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection.
-
+```{r 'map-adour-sites', fig.height=9, fig.width=12, out.width='80%', echo=FALSE, fig.cap='Figure 2. Study area with survey sampling'}
+ggplot() +
+  geom_sf(data = adour_river, col = "steelblue") +
+  geom_sf(data = adour_sites_sf, shape = 19, size = 2) +
+  labs(caption = "RGF93 / Lambert-93 Projection") +
+  custom_theme() +
+  geom_segment(aes(x = 454180, xend = 440170, y = 6216290, yend = 6263320), 
+               arrow = arrow(length = unit(0.75, 'cm'), type = 'closed'),
+               size  = 2.25) +
+  geom_text(aes(x = 334500, y = 6285000), label = "River", hjust = 0,
+            color = "steelblue", fontface = "bold", size = 6, family = "serif") +
+  geom_text(aes(x = 414950, y = 6312200), label = "Location 3", hjust = -0.20,
+            color = "black", fontface = "bold", size = 6, family = "serif") +
+  geom_text(aes(x = 474655, y = 6236708), label = "Location 1", 
+            color = "black", fontface = "bold", size = 6, family = "serif") +
+  geom_text(aes(x = 467250, y = 6287620), label = "Location 2", 
+            color = "black", fontface = "bold", size = 6, family = "serif")
+```
 
 
 \
+
+
+The arrow indicates the direction of the river flow. This means that our 
+sampling design is a **directed spatial network** (both inside a location and
+between locations) where the main direction is from upstream to downstream. 
+
+
+\
+
+**N.B.** The package `bridge` can also deal with one-dimensional sampling 
+(either **transects-only** or **quadrats-only**) and with **undirected** networks.
+
+
+\
+
+
+## Nodes labeling
+
+
+It's **important** to note that, even the package `bridge` can handle spatial 
+networks, it does not explicitly use spatial coordinates to find neighbors (and edges). 
+Instead, it will identify neighbors only based on **nodes labels**. In other 
+words, the order of nodes labels will give the dimension and the direction of 
+the network.
+
+
+\
+
+Let's import the survey dataset provided by the package.
+
+```{r 'import-adour-survey'}
+## Import survey data ----
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", package = "bridge")
+adour_sites  <- read.csv(path_to_file)
+
+head(adour_sites, 20)
+```
+
+This `data.frame` contains the following columns: 
+
+- `location`: the identifier of the location (`numeric`)
+- `transect`: the identifier of the transect (`numeric`)
+- `quadrat`: the identifier of the quadrat (`numeric`)
+- `longitude`: the longitude of the site (**node**) defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection
+- `latitude`: the latitude of the site (**node**) defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection
+
+
+\
+
+
+**N.B.** The column `location` is optional (if the survey has been conducted at one single location).
+If the network has one dimension, one of the columns `transect` and `quadrat` can
+be omitted.
+
+
+\
+
+
+We can visualize this survey on a Cartesian referential, i.e. non-spatial, where
+the x-axis corresponds to **transects** and the y-axis represents the **quadrats**
+(Fig. 3).
+
+
+\
+
+
+```{r 'plot-sampling-units', fig.height=8, fig.width=12, echo=FALSE, out.width='100%', fig.cap='Figure 3. Sampling design'}
+locations <- as.factor(1:3)
+names(locations) <- paste0("Location ", 1:3)
+
+adour_sites$"location" <- factor(adour_sites$"location", levels = 1:3,
+                                 labels = paste0("Location ", 1:3))
+
+ggplot(adour_sites) +
+  geom_point(aes(x = transect, y = quadrat), shape = 19, size = 4) +
+  scale_x_continuous(breaks = seq(1, 3, by = 1)) +
+  xlab("Transect") + ylab("Quadrat") +
+  theme_light() +
+  theme(axis.title       = element_text(family = "serif", face = "bold", 
+                                        size = 16),
+        axis.text        = element_text(family = "serif", face = "bold", 
+                                        size = 14),
+        axis.ticks       = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_rect(fill = NA),
+        strip.text       = element_text(family = "serif", face = "bold", 
+                                        size = 18, color = "black"),
+        panel.spacing    = unit(4, "lines")) +
+  facet_wrap(. ~ location, scales = "free")
+
+adour_sites$"location" <- as.character(adour_sites$"location")
+adour_sites$"location" <- gsub("Location ", "", adour_sites$"location")
+adour_sites$"location" <- as.numeric(adour_sites$"location")
+```
+
+
+\
+
+From this figure, several things should be noted:
+
+1. For two-dimensional networks, the x-axis **always** corresponds to transects
+and the y-axis to the quadrats.
+2. In this survey, the locations have the same transect identifiers (1 to 3) 
+but the **identifier of quadrats increases** with locations.
+3. The **order of the quadrats** follows the direction of the network: the first 
+quadrat is upstream and the last is downstream. 
+
+
+\
+
+
+When using the package `bridge`, the **first step** is to create **nodes labels**
+by combining the identifiers of transects and quadrats. It's the purpose of the
+function `create_nodes_labels()`.
+
+
+\
+
+
+```{r 'nodes-labels'}
+## Create nodes labels ----
+adour_sites <- create_nodes_labels(data     = adour_sites, 
+                                   location = "location",
+                                   transect = "transect", 
+                                   quadrat  = "quadrat")
+
+head(adour_sites, 20)
+```
+
+\
+\
+\
+\
+\
+\
+
+
+### NOTES
+
+
+Let's import the **Adour river** spatial layer.
+
+This layer is an [`sf`](https://cran.r-project.org/package=sf) spatial object 
+of type `LINESTRING` and contains one single row (geometry) defined in the 
+[RGF93 / Lambert-93](https://epsg.io/2154) projection.
 
 
 Let's convert this `data.frame` into an `sf` object of type `POINT`.
 
 ```{r 'df-to-sf', fig.height=10, fig.width=12}
-# Convert data.frame to sf object ----
-adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
-adour_sites_sf
+## Convert data.frame to sf object ----
+adour_sites_sf <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"),
+                               crs = "epsg:2154")
+
+head(adour_sites_sf)
 ```
 
 **Note:** The package `bridge` expects that each site is one row in this object
@@ -188,441 +348,6 @@ and its geometry is `POINT` (other geometry like `MUTLIPOINT`, `POLYGON`, etc.)
 are not implemented.
 
 
-\
-
-
-Finally, let's map these sites and the Adour river.
-
-
-```{r 'map-adour-sites', fig.height=10, fig.width=12, out.width='80%'}
-ggplot() +
-  geom_sf(data = adour_river, col = "steelblue") +
-  geom_sf(data = adour_sites_sf, shape = 19, size = 3) +
-  geom_label(data = adour_sites, aes(x = longitude, y = latitude, label = site), 
-            size = 4.2, nudge_x = 5000, family = "serif") +
-  labs(title   = "Study area (French river Adour)", 
-       caption = "RGF93 / Lambert-93 Projection") +
-  custom_theme() +
-  geom_segment(aes(x = 454180, xend = 440170, y = 6216290, yend = 6263320), 
-               arrow = arrow(length = unit(0.75, 'cm'), type = 'closed'),
-               size  = 2.25)
-```
-
-The arrow indicates the direction of the Adour river flow. This means that our 
-system is a directed spatial network where the main direction is from upstream 
-to downstream. 
-
-
-\
-
-
-## Nodes list
-
-Let's identify the **nodes list**, i.e. a vector of unique **ordered** sites 
-labels.
-
-
-\
-
-
-**Important:** as the sites have a direction (along the Adour river, from 
-upstream to downstream), the order of the sites must be found in the sites labels.
-
-For instance, in the Adour sites dataset, sites are labelled as **S-01**, **S-02**, 
-..., **S-10**. This means that the most upstream site is **S-01** and the
-most downstream is **S-10**.
-
-
-\
-
-
-But be aware that ordering characters can have some unwanted effects, especially if 
-they contain numbers.
-
-For instance,
-
-```{r 'order-labels'}
-# Alphanumerical ordering ----
-sites <- c( "s1",  "s2", "s11", "s10")
-sort(sites)
-
-# Natural ordering ----
-sites <- c("s01", "s02", "s11", "s10")
-sort(sites)
-```
-
-You may want to code your sites as in the second example, i.e. based on a 
-**Natural ordering**.
-
-
-\
-
-
-Let's use the function `nodes_list()` to 1) retrieve the unique labels of sites,
-and to 2) order them along the Adour river (from upstream to downstream).
-
-
-```{r 'nodes-list'}
-adour_nodes <- nodes_list(adour_sites$"site")
-adour_nodes
-```
-
-
-\
-
-
-## Edges list
-
-
-From this nodes list, we can create an **edges list**, i.e. a table describing 
-links between nodes. Several methods exist to identify spatial neighbors and
-most of them are available in the package 
-[`spdep`](https://cran.r-project.org/package=spdep) (Bivand _et al._ 2022).
-
-
-\
-
-
-Here we implement our own method to detect spatial neighbors based sites labels 
-and a degree of neighborhood. As our sites are ordered along the Adour river, if
-we use a degree **1** of neighborhood, a site will be linked to the first next site 
-(downstream) and also to the first previous site (upstream). If we use a degree 
-**2** of neighborhood, a site will be linked to the two next sites 
-(downstream) and also to the two previous sites (upstream). And so on.
-
-
-\
-
-
-Let's create this edges list with the function `edges_list()` provided by the package
-`bridge`.
-
-```{r 'edges-list'}
-# List of edges with degree 1 of neighborhood ----
-adour_edges <- edges_list(adour_nodes, degree = 1)
-adour_edges
-```
-
-This `data.frame` contains four columns:
-
-- `edge_id`: label of the edge
-- `edge`: 0 (no edge) or 1 (edge), useful if `all = TRUE` (see below)
-- `from`: label of the most upstream node of the edge
-- `to`: label of the most downstream node of the edge
-
-\
-
-
-The function `edges_list()` has three additional arguments:
-
-- `self`: if `TRUE`, a node can be linked to itself. Default is `FALSE`.
-- `all`: if `TRUE`, the missing edges are also returned. Default is `FALSE`.
-- `directed`: if `FALSE` (default), symmetrical edges (e.g. `S01-S02` and `S02-S01`) 
-are returned (_undirected network_). Otherwise (_directed network_) only the 
-first edge (e.g. `S01-S02`) is returned (according to the direction of the network).
-
-
-\
-
-
-**Tips: ** if you want to use Moran's Eigenvector Maps (MEM) use `directed = FALSE`.
-If you want to use Asymetric Eigenvector Maps (AEM) use `directed = TRUE`.
-
-
-\
-
-
-Let's use this function `edges_list()` in a directed way.
-
-```{r 'edges-list-directed'}
-# List of edges with degree 1 of neighborhood (directed network) ----
-adour_edges <- edges_list(adour_nodes, degree = 1, directed = TRUE)
-adour_edges
-```
-
-
-\
-
-
-The package `bridge` provides a convenient function to convert this edges list 
-table to an `sf` object of type `LINESTRING`: `edges_to_sf()`.
-
-
-\
-
-
-Let's convert the edges list to a spatial object.
-
-```{r 'edges-to-sf'}
-# Convert edges list to sf object ----
-adour_edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)
-adour_edges_sf
-```
-
-
-\
-
-
-Let's add these edges to our map.
-
-
-```{r 'map-adour-edges', fig.height=10, fig.width=12, out.width='80%'}
-ggplot() +
-  geom_sf(data = adour_river, col = "darkgray") +
-  geom_sf(data = adour_edges_sf) +
-  geom_sf(data = adour_sites_sf, shape = 19, size = 3) +
-  labs(title   = "Edges with degree 1 of neighborhood", 
-       caption = "RGF93 / Lambert-93 Projection") +
-  custom_theme()
-```
-
-
-\
-
-
-Finally, let's increase the degree of neighborhood.
-
-
-```{r 'edges-degree-3'}
-# List of edges with degree 3 of neighborhood ----
-adour_edges <- edges_list(adour_nodes, degree = 3, directed = TRUE)
-
-# Convert edges list to sf object ----
-adour_edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)
-```
-
-```{r 'map-adour-edges-3', fig.height=10, fig.width=12, out.width='80%'}
-ggplot() +
-  geom_sf(data = adour_river, col = "darkgray") +
-  geom_sf(data = adour_edges_sf) +
-  geom_sf(data = adour_sites_sf, shape = 19, size = 3) +
-  labs(title   = "Edges with degree 3 of neighborhood", 
-       caption = "RGF93 / Lambert-93 Projection") +
-  custom_theme()
-```
-
-
-\
-
-
-## Connectivity matrix
-
-
-We can convert the edges list to a **connectivity matrix** (also called _adjacency matrix_) 
-by using the function `adjacency_matrix()`. A connectivity matrix is a matrix of 
-dimensions `n x n`, where `n` is the number of nodes indicating the presence of
-an edge between two nodes (noted as `1`) or the absence of edge (noted as `0`).
-
-
-\
-
-
-**Note:** this object is useless to work with AEM, but can useful to check the edges
-list.
-
-
-\
-
-
-The function `adjacency_matrix()` of the package `bridge` only requires the edges list as argument.
-
-```{r 'connectivity-matrix'}
-# Create list of edges ----
-adour_edges <- edges_list(adour_nodes, degree = 1, directed = TRUE)
-adour_edges
-
-# Create connectivity matrix ----
-adour_edges_mat <- adjacency_matrix(adour_edges)
-adour_edges_mat
-```
-
-See the documentation of the function `adjacency_matrix()` for other usage.
-
-
-\
-
-
-The package `bridge` provides a convenient function to visualize matrix: 
-`plot_matrix()`.
-
-
-\
-
-
-Let's plot our connectivity matrix.
-
-
-```{r 'plot-connectivity-matrix', fig.height=10, fig.width=10, out.width='80%'}
-plot_matrix(adour_edges_mat, title = "Connectivity matrix")
-```
-
-
-\
-
-
-## Nodes-by-edges matrix
-
-The first object required by AEM is the nodes-by-edges matrix, i.e. a matrix of 
-dimensions `n x k`, where `n` is the number of nodes (in rows) and `k` the 
-number of edges (in columns). This matrix represents the presence of a link 
-influencing a site, directly or indirectly. It also gives the direction of the 
-network.
-
-
-\
-
-
-The function `nodes_by_edges_matrix()` of the package `bridge` is an alternative
-to the function [`aem.build.binary()`](https://sdray.github.io/adespatial/reference/aem.build.binary.html) of the package 
-[`adespatial`](https://cran.r-project.org/package=adespatial). This function 
-creates the same output but works in a different way: it's only based on nodes 
-labels (not on spatial coordinates). In addition, the function `nodes_by_edges_matrix()` 
-adds labels to nodes and edges.
-
-
-
-```{r 'nodes-by-edges-matrix'}
-# Create nodes-by-edges matrix ----
-adour_edges_mat <- nodes_by_edges_matrix(adour_edges)
-adour_edges_mat
-```
-
-This function returns a list with the following elements:
-
-- `se.mat`: the nodes-by-edges matrix of dimensions `n x k`, where `n` is the 
-number of nodes and `k` the number of edges (including the edge between the 
-fictitious origin and the first site);
-- `edges`: a `data.frame` of edges list.
-
-
-\
-
-
-**Note:** a fictitious `origin` site (coded as `0`) has been created and represents
-the first edge (coded as `E-01`) to the first site.
-
-
-\
-
-
-Let's plot our nodes-by-edges matrix.
-
-
-```{r 'plot-nodes-by-edges-matrix', fig.height=10, fig.width=10, out.width='80%'}
-plot_matrix(adour_edges_mat$"se.mat", title = "Nodes-by-edges matrix")
-```
-
-
-\
-
-
-## Edges weights
-
-
-### Euclidean distance
-
-
-The Euclidean distance, a straightforward metric to compute distances between 
-pairs of nodes, is implemented in the function `distance_euclidean()`. This 
-function only requires the coordinates of sites (object `sf`) and will compute 
-distances between each **possible** pairs of sites.
-
-
-```{r 'euclidean-distance'}
-# Euclidean distance between pairs of sites ----
-adour_dists <- distance_euclidean(adour_sites_sf)
-
-head(adour_dists)
-```
-
-The returned object is a `data.frame` will the following three columns:
-
-- `from`, the label of the first node
-- `to`, the label of the second node
-- `weight`, the Euclidean distance between two nodes
-
-
-\
-
-
-Note that if the units of the coordinates system are in degrees (geodetic 
-coordinates), the Great Circle distance will be used instead. See the 
-documentation of the function `distance_euclidean()` for further detail.
-
-
-\
-
-
-### Distance along river
-
-
-The function `distance_along()` implements a more complex way to compute distances
-between pairs of sites by taking into account the shape of the river. The distance
-between two sites will be equal to the length of river segment between these two sites.
-
-To create segments, this function will sample points on the river and select the two points
-of the river that are the nearest from the two sites. These two points will define
-the endpoints of the segment.
-
-```{r 'distance-along', eval = FALSE}
-# Distance along the river between pairs of sites ----
-distance_along(adour_sites_sf, adour_river, density = 0.01, type = "regular")
-```
-
-This function uses two specific arguments:
-
-- `density`: the density of points to sample on the linear structure. 
-(see `sf::st_line_sample()` for further detail)
-- `type`: the method to sample points on the linear shape. Either `regular` 
-(default) or `random`
-
-
-\
-
-
-The returned object has the same format as in `distance_euclidean()`.
-
-
-\
-
-
-## Edges weights vector
-
-
-The second object (optional) required by AEM is the **edges weights vector**. It is
-a simple numeric vector giving the weight of each edge. Here we are going to use
-the Euclidean distance as the edge weight.
-
-
-\
-
-
-The function `edges_weights_vector()` of the package `bridge` takes the output
-of the function `distance_euclidean()` (or `distance_along()`) to create this
-edges weights vector.
-
-
-```{r 'edges-weights-vector'}
-# Edges weights vector ----
-adour_weights <- edges_weights_vector(adour_edges_mat, adour_dists)
-adour_weights
-```
-
-
-\
-
-
-Now we can run an AEM as follow: `adespatial::aem(adour_edges_mat, weight = adour_weights)`
-
-
-\
-
-
-**Note:** if you want to remove the first (fictitious) edge, you need to use the 
-function as follow: `adespatial::aem(adour_edges_mat, weight = adour_weights[-1], rm.link0 = TRUE)`
-
-
-\
 
 
 ## References

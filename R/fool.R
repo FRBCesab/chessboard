@@ -86,7 +86,7 @@ fool <- function(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE,
   check_nodes_object(nodes)
   
   if (length(unique(nodes$"transect")) == 1) {
-    stop("The bishop right movement is not designed to work through quadrats ",
+    stop("The fool movement is not designed to work through quadrats ",
          "only. Please use pawn() instead.", call. = FALSE)
   }
   

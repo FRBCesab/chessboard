@@ -114,3 +114,62 @@ check_degree_value <- function(degree) {
   
   invisible(NULL)
 }
+
+
+
+#' Check the structure of the data.frame neighbors
+#' 
+#' @param neighbors a `data.frame`. This output of the functions [pawn()], 
+#'   [fool()], etc.
+#' 
+#' @noRd
+
+check_neighbors_object <- function(neighbors) {
+  
+  if (missing(neighbors)) {
+    stop("Argument 'neighbors' is required ", 
+         "(output of the functions pawn(), fool(), etc.)", call. = FALSE)
+  }
+  
+  if (!is.data.frame(neighbors)) {
+    stop("Argument 'neighbors' must be a data.frame ", 
+         "(output of the functions pawn(), fool(), etc.", call. = FALSE)
+  }
+  
+  if (!("node" %in% colnames(neighbors))) {
+    stop("The column 'node' is absent from the 'neighbors' data.frame ", 
+         "(output of the functions pawn(), fool(), etc.)", call. = FALSE)
+  }
+  
+  if (!("transect" %in% colnames(neighbors))) {
+    stop("The column 'transect' is absent from the 'neighbors' data.frame ", 
+         "(output of the functions pawn(), fool(), etc.)", call. = FALSE)
+  }
+  
+  if (!("quadrat" %in% colnames(neighbors))) {
+    stop("The column 'quadrat' is absent from the 'neighbors' data.frame ", 
+         "(output of the functions pawn(), fool(), etc.)", call. = FALSE)
+  }
+  
+  if (nrow(neighbors) < 1) {
+    stop("Argument 'neighbors' must have at least one row (neighbor)", 
+         call. = FALSE)
+  }
+  
+  if (!is.numeric(neighbors$"transect")) {
+    stop("The column 'transect' of the 'neighbors' data.frame must be a ", 
+         "numeric", call. = FALSE)
+  }
+  
+  if (!is.numeric(neighbors$"quadrat")) {
+    stop("The column 'quadrat' of the 'neighbors' data.frame must be a ", 
+         "numeric", call. = FALSE)
+  }
+  
+  if (!is.character(neighbors$"node")) {
+    stop("The column 'node' of the 'neighbors' data.frame must be a ", 
+         "character", call. = FALSE)
+  }
+  
+  invisible(NULL)
+}

@@ -14,9 +14,9 @@ wizard(
 )
 }
 \arguments{
-\item{nodes}{a \code{data.frame} with the following three columns:
-\code{node}, \code{transect}, and \code{quadrats}. See \code{\link[=create_nodes_labels]{create_nodes_labels()}} for
-further information.}
+\item{nodes}{a \code{data.frame} with (at least) the following three columns:
+\code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
+\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
 \item{focus}{an \code{character} of length 1. The node label for which the
 neighbors must be found. Must exist in the \code{nodes} object.}
@@ -26,8 +26,8 @@ search for in one direction.}
 
 \item{directed}{a \code{logical} of length 1. If \code{FALSE} (default), search for
 neighbors in all directions (undirected network). Otherwise, the network
-will be considered as directed according the main direction of the system
-(i.e. through quadrats).}
+will be considered as directed according to the main direction of the
+network (i.e. through quadrats).}
 
 \item{reverse}{a \code{logical} of length 1. If \code{TRUE}, change the orientation of
 the network (i.e. through quadrats). This argument is ignored if
@@ -50,15 +50,10 @@ orientations (default behavior).
 \strong{Important:} Use the function \code{\link[=create_nodes_labels]{create_nodes_labels()}} to create nodes
 labels.
 
-The detection of neighbors using the wizard method can only work with
-two-dimensional sampling (both \strong{transects} and \strong{quadrats}) and
-one-dimensional sampling of type \strong{quadrats}. For sampling of type
-\strong{transects} or \strong{quadrats}, please use the functions \code{\link[=fool]{fool()}} or
-\code{\link[=pawn]{pawn()}}, respectively.
-
-The identification of neighbors is only based on the nodes labels (no
-explicit spatial detection). This means that labeling nodes is a
-\strong{crucial step}.
+The detection of neighbors using the bishop right method can only work with
+two-dimensional sampling (both \strong{transects} and \strong{quadrats}).
+For sampling of type \strong{transects-only} or \strong{quadrats-only}, please use the
+functions \code{\link[=fool]{fool()}} or \code{\link[=pawn]{pawn()}}, respectively.
 
 The argument \code{degree} controls for the degree of neighborhood.
 If \code{degree = 2}, 24 neighbors will be identified (except if
@@ -70,10 +65,10 @@ considered as neighbors (remove the nodes at the bottom of the focus node).
 If \code{directed = TRUE} and \code{reverse = TRUE}, only 14 nodes will be
 considered as neighbors (remove the nodes at the top of the focus node).
 }
-\note{
-This function is called by \code{\link[=edges_list]{edges_list()}} (if \code{type = "rook"}). It can be
-directly used only to 1) understand the neighbors detection method, 2) to
-check, and 3) visualize detected neighbors for one particular node.
+\details{
+This function is internally called by \code{\link[=find_neighbors]{find_neighbors()}} but it can be
+directly used to 1) understand the neighbors detection method, and 2) to
+check detected neighbors for one particular node (\code{focus}).
 }
 \examples{
 library("bridge")
@@ -81,12 +76,19 @@ library("bridge")
 # Two-dimensional sampling (only) ----
 sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 
-nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-                             quadrats  = sites_infos$"quadrat")
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect", 
+                             quadrat  = "quadrat")
 
 focus     <- "5-5"
 
 # Default settings ----
+neighbors <- wizard(nodes, focus)
+gg_chessboard(nodes) +
+  geom_piece(nodes, focus) +
+  geom_neighbors(neighbors)
+
+# Higher degree of neighborhood ----
 neighbors <- wizard(nodes, focus, degree = 3)
 gg_chessboard(nodes) +
   geom_piece(nodes, focus) +
@@ -97,7 +99,6 @@ neighbors <- wizard(nodes, focus, degree = 3, directed = TRUE)
 gg_chessboard(nodes) +
   geom_piece(nodes, focus) +
   geom_neighbors(neighbors)
-  
   
 # Directed (reverse orientation) ----
 neighbors <- wizard(nodes, focus, degree = 3, directed = TRUE, 

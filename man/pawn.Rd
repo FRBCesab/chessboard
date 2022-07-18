@@ -7,9 +7,9 @@
 pawn(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE, self = FALSE)
 }
 \arguments{
-\item{nodes}{a \code{data.frame} with the following three columns:
-\code{node}, \code{transect}, and \code{quadrats}. See \code{\link[=create_nodes_labels]{create_nodes_labels()}} for
-further information.}
+\item{nodes}{a \code{data.frame} with (at least) the following three columns:
+\code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
+\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
 \item{focus}{an \code{character} of length 1. The node label for which the
 neighbors must be found. Must exist in the \code{nodes} object.}
@@ -18,12 +18,11 @@ neighbors must be found. Must exist in the \code{nodes} object.}
 search for in one direction.}
 
 \item{directed}{a \code{logical} of length 1. If \code{FALSE} (default), search for
-neighbors in both directions, i.e. before and after the focus node
-(undirected network). Otherwise (directed network) search for neighbors
-after the focus node (\code{reverse = FALSE}) or before (\code{reverse = TRUE}).}
+neighbors in all directions (undirected network). Otherwise, the network
+will be considered as directed from top to bottom.}
 
-\item{reverse}{a \code{logical} of length 1. If \code{TRUE}, change the orientation of
-the network. This argument is ignored if \code{directed = FALSE}.}
+\item{reverse}{a \code{logical} of length 1. If \code{TRUE}, change the default
+orientation of the network. This argument is ignored if \code{directed = FALSE}.}
 
 \item{self}{a \code{logical} of length 1. If \code{TRUE}, a node can be its own
 neighbor. Default is \code{FALSE}.}
@@ -34,68 +33,69 @@ of \code{focus}.
 }
 \description{
 For one node (argument \code{focus}), finds neighbors among a list of nodes
-according to the pawn movement.
-This movement is derived from the chess game. The pawn can move along one
-direction, i.e. through a \strong{transect}, both backward and forward (default
-behavior).
+according to the fool movement.
+This movement is orthogonal to the \code{\link[=fool]{fool()}}. The pawn can only move
+vertically, i.e. through a \strong{transect}, both from bottom to top and from
+top to bottom relatively to the focus node (default behavior).
 
 \strong{Important:} Use the function \code{\link[=create_nodes_labels]{create_nodes_labels()}} to create nodes
 labels.
 
 The detection of neighbors using the pawn method can work with
 two-dimensional sampling (both \strong{transects} and \strong{quadrats}) and
-one-dimensional sampling of type \strong{quadrats}. For sampling of type
-\strong{transects}, please use the function \code{\link[=fool]{fool()}}.
-
-The identification of neighbors is only based on the nodes labels (no
-explicit spatial detection). This means that labeling nodes is a
-\strong{crucial step}.
+one-dimensional sampling of type \strong{quadrats-only}. For sampling of type
+\strong{transects-only}, please use the function \code{\link[=fool]{fool()}}.
 
 The argument \code{degree} controls for the degree of neighborhood.
 If \code{degree = 2}, four neighbors will be identified (except if
-\code{directed = TRUE}): the two previous nodes \strong{and} the two next nodes.
+\code{directed = TRUE}): the two nodes at the bottom \strong{and} the two nodes at the
+top of the focus node.
 
-If \code{directed = TRUE} and \code{reverse = FALSE}, only the two next nodes will be
-considered as neighbors (directed network with default orientation).
+If \code{directed = TRUE} and \code{reverse = FALSE}, only the two nodes at the top
+of the focus node will be considered as neighbors (directed network with
+default orientation).
 
-If \code{directed = TRUE} and \code{reverse = TRUE}, only the two previous nodes will
-be considered as neighbors (directed network with reverse orientation).
+If \code{directed = TRUE} and \code{reverse = TRUE}, only the two nodes at the bottom
+of the focus node will be considered as neighbors (directed network with
+reverse orientation).
 }
-\note{
-This function is called by \code{\link[=edges_list]{edges_list()}} (if \code{type = "pawn"}). It can be
-directly used only to 1) understand the neighbors detection method, 2) to
-check, and 3) visualize detected neighbors for one particular node.
+\details{
+This function is internally called by \code{\link[=find_neighbors]{find_neighbors()}} but it can be
+directly used to 1) understand the neighbors detection method, and 2) to
+check detected neighbors for one particular node (\code{focus}).
 }
 \examples{
 library("bridge")
 
-# Two-dimensional sampling ----
-sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
+# Two-dimensional sampling (only) ----
+sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 
-nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-                             quadrats  = sites_infos$"quadrat")
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect", 
+                             quadrat  = "quadrat")
 
-pawn(nodes, focus = "2-3", degree = 2)
-pawn(nodes, focus = "2-3", degree = 2, self = TRUE)
-pawn(nodes, focus = "2-3", degree = 2, directed = TRUE)
-pawn(nodes, focus = "2-3", degree = 2, directed = TRUE, reverse = TRUE)
+focus     <- "5-5"
 
-# Visualization ----
-focus     <- "2-3"
-neighbors <- pawn(nodes, focus = focus, degree = 1)
+# Default settings ----
+neighbors <- pawn(nodes, focus)
+gg_chessboard(nodes) +
+  geom_piece(nodes, focus) +
+  geom_neighbors(neighbors)
 
+# Higher degree of neighborhood ----
+neighbors <- pawn(nodes, focus, degree = 3)
 gg_chessboard(nodes) +
   geom_piece(nodes, focus) +
   geom_neighbors(neighbors)
   
-# One-dimensional sampling (quadrats) ----
-sites_infos <- 1:5
-nodes <- create_nodes_labels(quadrats = sites_infos)
-
-# Visualization ----
-focus     <- "1-2"
-neighbors <- pawn(nodes, focus = focus, degree = 2, directed = TRUE)
-
+# Directed (default orientation) ----
+neighbors <- pawn(nodes, focus, degree = 3, directed = TRUE)
+gg_chessboard(nodes) +
+  geom_piece(nodes, focus) +
+  geom_neighbors(neighbors)
+  
+# Directed (reverse orientation) ----
+neighbors <- pawn(nodes, focus, degree = 3, directed = TRUE, reverse = TRUE)
 gg_chessboard(nodes) +
   geom_piece(nodes, focus) +
   geom_neighbors(neighbors)

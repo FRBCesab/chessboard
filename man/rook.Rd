@@ -7,9 +7,9 @@
 rook(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE, self = FALSE)
 }
 \arguments{
-\item{nodes}{a \code{data.frame} with the following three columns:
-\code{node}, \code{transect}, and \code{quadrats}. See \code{\link[=create_nodes_labels]{create_nodes_labels()}} for
-further information.}
+\item{nodes}{a \code{data.frame} with (at least) the following three columns:
+\code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
+\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
 \item{focus}{an \code{character} of length 1. The node label for which the
 neighbors must be found. Must exist in the \code{nodes} object.}
@@ -19,8 +19,8 @@ search for in one direction.}
 
 \item{directed}{a \code{logical} of length 1. If \code{FALSE} (default), search for
 neighbors in all directions (undirected network). Otherwise, the network
-will be considered as directed according the main direction of the system
-(i.e. through quadrats).}
+will be considered as directed according to the main direction of the
+network (i.e. through quadrats).}
 
 \item{reverse}{a \code{logical} of length 1. If \code{TRUE}, change the orientation of
 the network (i.e. through quadrats). This argument is ignored if
@@ -36,29 +36,21 @@ of \code{focus}.
 \description{
 For one node (argument \code{focus}), finds neighbors among a list of nodes
 according to the rook movement.
-This movement is derived from the chess game. The rook can move along two
-orthogonal directions, i.e. through a \strong{transect} and through a
-\strong{quadrat}, both orientations (default behavior). It's a combination of the
-\code{\link[=pawn]{pawn()}} and the \code{\link[=fool]{fool()}}.
+This movement is derived from the chess game. The rook can move horizontally
+and vertically in both orientations (default behavior).
+It's a combination of the \code{\link[=pawn]{pawn()}} and the \code{\link[=fool]{fool()}}.
 
 \strong{Important:} Use the function \code{\link[=create_nodes_labels]{create_nodes_labels()}} to create nodes
 labels.
 
-The detection of neighbors using the rook method can only work with
-two-dimensional sampling (both \strong{transects} and \strong{quadrats}) and
-one-dimensional sampling of type \strong{quadrats}. For sampling of type
-\strong{transects} or \strong{quadrats}, please use the functions \code{\link[=fool]{fool()}} or
-\code{\link[=pawn]{pawn()}}, respectively.
-
-The identification of neighbors is only based on the nodes labels (no
-explicit spatial detection). This means that labeling nodes is a
-\strong{crucial step}.
+The detection of neighbors using the bishop right method can only work with
+two-dimensional sampling (both \strong{transects} and \strong{quadrats}).
+For sampling of type \strong{transects-only} or \strong{quadrats-only}, please use the
+functions \code{\link[=fool]{fool()}} or \code{\link[=pawn]{pawn()}}, respectively.
 
 The argument \code{degree} controls for the degree of neighborhood.
 If \code{degree = 2}, eight neighbors will be identified (except if
-\code{directed = TRUE}): four nodes along the quadrat of the focus node (two
-before and two after the focus node) \strong{and} four nodes along the transect
-of the focus node (two at the left and two at the right the focus node).
+\code{directed = TRUE}): four nodes horizontally \strong{and} four nodes vertically.
 
 If \code{directed = TRUE} and \code{reverse = FALSE}, only six nodes will be
 considered as neighbors (remove the nodes at the bottom of the focus node).
@@ -66,10 +58,10 @@ considered as neighbors (remove the nodes at the bottom of the focus node).
 If \code{directed = TRUE} and \code{reverse = TRUE}, only six nodes will be
 considered as neighbors (remove the nodes at the top of the focus node).
 }
-\note{
-This function is called by \code{\link[=edges_list]{edges_list()}} (if \code{type = "rook"}). It can be
-directly used only to 1) understand the neighbors detection method, 2) to
-check, and 3) visualize detected neighbors for one particular node.
+\details{
+This function is internally called by \code{\link[=find_neighbors]{find_neighbors()}} but it can be
+directly used to 1) understand the neighbors detection method, and 2) to
+check detected neighbors for one particular node (\code{focus}).
 }
 \examples{
 library("bridge")
@@ -77,12 +69,19 @@ library("bridge")
 # Two-dimensional sampling (only) ----
 sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 
-nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-                             quadrats  = sites_infos$"quadrat")
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect", 
+                             quadrat  = "quadrat")
 
 focus     <- "5-5"
 
 # Default settings ----
+neighbors <- rook(nodes, focus)
+gg_chessboard(nodes) +
+  geom_piece(nodes, focus) +
+  geom_neighbors(neighbors)
+
+# Higher degree of neighborhood ----
 neighbors <- rook(nodes, focus, degree = 3)
 gg_chessboard(nodes) +
   geom_piece(nodes, focus) +
@@ -93,7 +92,6 @@ neighbors <- rook(nodes, focus, degree = 3, directed = TRUE)
 gg_chessboard(nodes) +
   geom_piece(nodes, focus) +
   geom_neighbors(neighbors)
-  
   
 # Directed (reverse orientation) ----
 neighbors <- rook(nodes, focus, degree = 3, directed = TRUE, reverse = TRUE)

@@ -5,9 +5,9 @@
 #' `t`, the number of transects, and 
 #' `q`, the number of quadrats.
 #'
-#' @param nodes a `data.frame` with the following three columns: 
-#'   `node`, `transect`, and `quadrats`. See [create_nodes_labels()] for 
-#'   further information.
+#' @param nodes a `data.frame` with (at least) the following three columns: 
+#'   `node`, `transect`, and `quadrats`. Must be the output if the function 
+#'   [create_nodes_labels()].
 #'
 #' @param xlab a `character` of length 1. The title of the top axis. 
 #'  Default is `'Transect'`.
@@ -23,22 +23,25 @@
 #' # Two-dimensional sampling ----
 #' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-#'                              quadrats  = sites_infos$"quadrat")
+#' nodes <- create_nodes_labels(data     = sites_infos, 
+#'                              transect = "transect", 
+#'                              quadrat  = "quadrat")
 #' 
 #' gg_chessboard(nodes)
 #'
 #' # One-dimensional sampling (only transects) ----
-#' sites_infos <- 1:5
+#' sites_infos <- data.frame("transect" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(transects = sites_infos)
+#' nodes <- create_nodes_labels(data     = sites_infos, 
+#'                              transect = "transect")
 #' 
 #' gg_chessboard(nodes)
 #' 
 #' # One-dimensional sampling (only quadrats) ----
-#' sites_infos <- 1:5
+#' sites_infos <- data.frame("quadrat" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(quadrats = sites_infos)
+#' nodes <- create_nodes_labels(data    = sites_infos, 
+#'                              quadrat = "quadrat")
 #' 
 #' gg_chessboard(nodes)
 
@@ -47,39 +50,7 @@ gg_chessboard <- function(nodes, xlab = "Transect", ylab = "Quadrat") {
   
   ## Check argument 'nodes' ----
   
-  if (missing(nodes)) {
-    stop("Argument 'nodes' is required ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (!is.data.frame(nodes)) {
-    stop("Argument 'nodes' must be a data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (!("transect" %in% colnames(nodes))) {
-    stop("The column 'transect' is absent from the 'nodes' data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (!("quadrat" %in% colnames(nodes))) {
-    stop("The column 'quadrat' is absent from the 'nodes' data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
-  }
-  
-  if (nrow(nodes) == 0) {
-    stop("Argument 'nodes' must have at least two rows (nodes)", call. = FALSE)
-  }
-  
-  if (!is.numeric(nodes$"transect")) {
-    stop("The column 'transect' of the 'nodes' data.frame must be a numeric", 
-         call. = FALSE)
-  }
-  
-  if (!is.numeric(nodes$"quadrat")) {
-    stop("The column 'quadrat' of the 'nodes' data.frame must be a numeric", 
-         call. = FALSE)
-  }
+  check_nodes_object(nodes)
 
 
   ## Plot chessboard ----

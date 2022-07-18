@@ -33,24 +33,25 @@ eval_chunk <- TRUE
 ```{r 'fictitious-data', echo=FALSE}
 sites <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 
-nodes <- create_nodes_labels(transects = sites$"transect", 
-                             quadrats  = sites$"quadrat")
+nodes <- create_nodes_labels(data     = sites,
+                             transect = "transect", 
+                             quadrat  = "quadrat")
 
 focus  <- "5-5"
 
 transects_quadrats <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
-transects_only     <- 1:3
-quadrats_only      <- 1:5
+transects_only     <- data.frame("transect" = 1:3)
+quadrats_only      <- data.frame("quadrat"  = 1:5)
 
-nodes_transects_quadrats <- create_nodes_labels(
-  transects = transects_quadrats$"transect", 
-  quadrats  = transects_quadrats$"quadrat")
+nodes_transects_quadrats <- create_nodes_labels(data     = transects_quadrats,
+                                                transect = "transect", 
+                                                quadrat  = "quadrat")
 
-nodes_transects_only <- create_nodes_labels(
-  transects = transects_only)
+nodes_transects_only <- create_nodes_labels(data     = transects_only,
+                                            transect = "transect")
 
-nodes_quadrats_only <- create_nodes_labels(
-  quadrats = quadrats_only)
+nodes_quadrats_only <- create_nodes_labels(data    = quadrats_only,
+                                           quadrat = "quadrat")
 ```
 
 

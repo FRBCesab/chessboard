@@ -7,9 +7,9 @@
 gg_chessboard(nodes, xlab = "Transect", ylab = "Quadrat")
 }
 \arguments{
-\item{nodes}{a \code{data.frame} with the following three columns:
-\code{node}, \code{transect}, and \code{quadrats}. See \code{\link[=create_nodes_labels]{create_nodes_labels()}} for
-further information.}
+\item{nodes}{a \code{data.frame} with (at least) the following three columns:
+\code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
+\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
 \item{xlab}{a \code{character} of length 1. The title of the top axis.
 Default is \code{'Transect'}.}
@@ -29,22 +29,25 @@ Plots a sampling as a chessboard of dimensions \code{t} x \code{q}, with
 # Two-dimensional sampling ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 
-nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-                             quadrats  = sites_infos$"quadrat")
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect", 
+                             quadrat  = "quadrat")
 
 gg_chessboard(nodes)
 
 # One-dimensional sampling (only transects) ----
-sites_infos <- 1:5
+sites_infos <- data.frame("transect" = 1:5)
 
-nodes <- create_nodes_labels(transects = sites_infos)
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect")
 
 gg_chessboard(nodes)
 
 # One-dimensional sampling (only quadrats) ----
-sites_infos <- 1:5
+sites_infos <- data.frame("quadrat" = 1:5)
 
-nodes <- create_nodes_labels(quadrats = sites_infos)
+nodes <- create_nodes_labels(data    = sites_infos, 
+                             quadrat = "quadrat")
 
 gg_chessboard(nodes)
 }

@@ -7,7 +7,7 @@
 geom_neighbors(neighbors)
 }
 \arguments{
-\item{neighbors}{a \code{data.frame} with the following three columns:
+\item{neighbors}{a \code{data.frame} with the following at least three columns:
 \code{node}, \code{transect}, and \code{quadrats}. See \code{\link[=pawn]{pawn()}}, \code{\link[=fool]{fool()}}, etc. for
 further information.}
 }
@@ -21,12 +21,13 @@ Highlights neighbors (cells) on a chessboard plotted with \code{\link[=gg_chessb
 # Two-dimensional sampling ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 
-nodes <- create_nodes_labels(transects = sites_infos$"transect", 
-                             quadrats  = sites_infos$"quadrat")
-focus <- "2-3"
-neighbors <- pawn(nodes, focus, degree = 1)
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect", 
+                             quadrat  = "quadrat")
+
+neighbors <- pawn(nodes, focus = "2-3")
 
 gg_chessboard(nodes) +
-  geom_piece(nodes, focus) +
+  geom_piece(nodes, "2-3") +
   geom_neighbors(neighbors)
 }
