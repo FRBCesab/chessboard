@@ -30,7 +30,7 @@ geom_neighbors <- function(neighbors) {
   
   ## Check argument ----
   
-  check_neighbors_object
+  check_neighbors_object(neighbors)
   
   
   ggplot2::geom_point(data  = neighbors, ggplot2::aes(.data$"transect", 
