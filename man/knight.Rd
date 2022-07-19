@@ -18,6 +18,9 @@ knight(
 \code{node}, \code{transect}, and \code{quadrats}. Must be the output of the function
 \code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
+\item{focus}{an \code{character} of length 1. The node label for which the
+neighbors must be found. Must exist in the \code{nodes} object.}
+
 \item{degree}{an \code{integer} of length 1. The maximum number of neighbors to
 search for.}
 
@@ -44,23 +47,10 @@ according to the knight movement.
 This movement is derived from the chess game. The knight is the difference
 between the \code{\link[=wizard]{wizard()}} and the \code{\link[=queen]{queen()}}.
 
-\strong{Important:} Use the function \code{\link[=create_nodes_labels]{create_nodes_labels()}} to create nodes
-labels.
-
-The detection of neighbors using the knight right method can only work with
+The detection of neighbors using this method can only work with
 two-dimensional sampling (both \strong{transects} and \strong{quadrats}).
-For sampling of type \strong{transects-only} or \strong{quadrats-only}, please use the
-functions \code{\link[=fool]{fool()}} or \code{\link[=pawn]{pawn()}}, respectively.
-
-The argument \code{degree} controls for the degree of neighborhood.
-If \code{degree = 2}, eight neighbors will be identified (except if
-\code{directed = TRUE}). The knight must be used only if \code{degree > 1}.
-
-If \code{directed = TRUE} and \code{reverse = FALSE}, only four nodes will be
-considered as neighbors (remove the nodes at the bottom of the focus node).
-
-If \code{directed = TRUE} and \code{reverse = TRUE}, only four nodes will be
-considered as neighbors (remove the nodes at the top of the focus node).
+For sampling of type \strong{transects-only} or \strong{quadrats-only},
+please use the functions \code{\link[=fool]{fool()}} or \code{\link[=pawn]{pawn()}}, respectively.
 }
 \details{
 This function is internally called by \code{\link[=create_edges_list]{create_edges_list()}} but it can be

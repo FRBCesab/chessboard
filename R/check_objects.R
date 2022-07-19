@@ -50,6 +50,8 @@ check_nodes_object <- function(nodes) {
          call. = FALSE)
   }
   
+  check_node_labels(nodes$"node")
+  
   invisible(NULL)
 }
 
@@ -171,6 +173,8 @@ check_neighbors_object <- function(neighbors) {
          "character", call. = FALSE)
   }
   
+  check_node_labels(neighbors$"node")
+  
   invisible(NULL)
 }
 
@@ -289,6 +293,66 @@ check_edges_object <- function(edges) {
     stop("The column 'to' of the 'edges' data.frame must be a numeric", 
          call. = FALSE)
   }
+  
+  check_node_labels(edges$"from")
+  check_node_labels(edges$"to")
 
   invisible(NULL)  
+}
+
+
+check_sites_object <- function(sites) {
+  
+  if (missing(sites)) {
+    stop("Argument 'sites' (spatial layer of sites) is required", 
+         call. = FALSE)
+  }
+  
+  if (!inherits(sites, "sf")) {
+    stop("The object 'sites' must be an 'sf' object", 
+         call. = FALSE)
+  }
+  
+  if (nrow(sites) < 2) {
+    stop("Argument 'sites' should have at least two rows (sites)", 
+         call. = FALSE)
+  }
+  
+  if (ncol(sites) < 2) {
+    stop("Argument 'sites' should have at least two columns: nodes labels ",
+         "and geometry", call. = FALSE)
+  }
+  
+  geom <- sf::st_geometry_type(sites) %>% as.character() %>% unique()
+  
+  if (length(geom) > 1) {
+    stop("Argument 'sites' (spatial layer of sites) cannot contain different ", 
+         "geometries", call. = FALSE)
+  }
+  
+  if (!("POINT" %in% geom)) {
+    stop("Sites geometry must be of type POINT", call. = FALSE)
+  }
+  
+  if (any(duplicated(sites[ , 1, drop = TRUE]))) {
+    stop("The argument 'sites' cannot contain duplicates", call. = FALSE)
+  }
+  
+  invisible(NULL)
+}
+
+
+check_node_labels <- function(node) {
+  
+  pattern <- "^[0-9]{1,}-[0-9]{1,}$"
+  
+  if (length(grep(pattern, node)) == 0) {
+    stop("Nodes labels have not the good form", call. = FALSE)
+  }
+  
+  if (length(grep(pattern, node)) < length(node)) {
+    stop("Some nodes labels are malformed", call. = FALSE)
+  }
+  
+  invisible(NULL)
 }

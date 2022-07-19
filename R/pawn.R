@@ -11,7 +11,7 @@
 #' one-dimensional sampling of type **quadrats-only**. 
 #' For sampling of type **transects-only**, please use the function [fool()].
 #' 
-#' @inheritParams create_edges_list
+#' @inheritParams bishop_left
 #' 
 #' @inherit bishop_left return details
 #' 

@@ -2,44 +2,48 @@
 % Please edit documentation in R/edges_to_sf.R
 \name{edges_to_sf}
 \alias{edges_to_sf}
-\title{Convert edges to LINESTRING spatial object}
+\title{Convert edges list to spatial object}
 \usage{
 edges_to_sf(edges, sites)
 }
 \arguments{
-\item{edges}{a \code{data.frame} with four columns:
-\itemize{
-\item \code{edge_id}: label of the edge
-\item \code{edge}: 0 (no edge) or 1 (edge)
-\item \code{from}: label of one of the two nodes of the edge
-\item \code{to}: label of the other node of the edge
-}}
+\item{edges}{a \code{data.frame} with the following two columns: \code{from} (the
+first node of the edge) and \code{to} (the second node of the edge). The output
+of the functions \code{\link[=create_edges_list]{create_edges_list()}} or \code{\link[=append_edges_lists]{append_edges_lists()}}.}
 
 \item{sites}{an \code{sf} object of type \code{POINT}. A spatial object with
-coordinates of sites. Note that the first column must be the sites labels.}
+coordinates of sites (nodes). Note that the \strong{first column} must be the
+nodes labels.}
 }
 \value{
 An \code{sf} spatial object of type \code{LINESTRING} where the number of rows
 correspond to the number of edges.
 }
 \description{
-Convert edges to an \code{sf} spatial object of type \code{LINESTRING} with one row
-per edge.
+Convert an edges list to an \code{sf} spatial object of type \code{LINESTRING} with
+one row per edge.
 }
 \examples{
 # Import Adour sites ----
-path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
                             package = "bridge")
 adour_sites  <- read.csv(path_to_file)
 
-# Retrieve nodes (from nodes vector) ----
-adour_nodes <- nodes_list(adour_sites$"site")
+# Select first location ----
+adour_sites <- adour_sites[adour_sites$"location" == 1, ]
 
-# Find edges with 1 degree of neighborhood ----
-adour_edges <- edges_list(adour_nodes)
+# Create nodes labels ----
+adour_nodes <- create_nodes_labels(data     = adour_sites, 
+                                   location = "location", 
+                                   transect = "transect", 
+                                   quadrat = "quadrat")
+
+# Find edges with 1 degree of neighborhood (pawn method) ----
+adour_edges <- create_edges_list(adour_nodes, method = "pawn", 
+                                 directed = TRUE)
 
 # Convert sites to spatial POINT ----
-adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
+adour_sites_sf <- sf::st_as_sf(adour_nodes, coords = 5:6, crs = "epsg:2154")
 
 # Convert edges to spatial LINESTRING ----
 edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)
@@ -49,11 +53,18 @@ head(edges_sf)
 plot(sf::st_geometry(adour_sites_sf), pch = 19)
 plot(sf::st_geometry(edges_sf), add = TRUE)
 
-# Find edges with 2 degrees of neighborhood ----
-adour_edges <- edges_list(adour_nodes, degree = 2)
+
+# Find edges with 1 degree of neighborhood (pawn and bishop methods) ----
+adour_edges_1 <- create_edges_list(adour_nodes, method = "pawn", 
+                                   directed = TRUE)
+adour_edges_2 <- create_edges_list(adour_nodes, method = "bishop", 
+                                   directed = TRUE)
+
+# Append edges ----
+adour_edges <- append_edges_lists(adour_edges_1, adour_edges_2)
 
 # Convert sites to spatial POINT ----
-adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
+adour_sites_sf <- sf::st_as_sf(adour_nodes, coords = 5:6, crs = "epsg:2154")
 
 # Convert edges to spatial LINESTRING ----
 edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)

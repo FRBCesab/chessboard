@@ -11,7 +11,7 @@
 #' For sampling of type **transects-only** or **quadrats-only**, 
 #' please use the functions [fool()] or [pawn()], respectively.
 #' 
-#' @inheritParams create_edges_list
+#' @inheritParams bishop_left
 #' 
 #' @inherit bishop_left return details
 #' 

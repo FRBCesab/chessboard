@@ -113,10 +113,10 @@ create_edges_list <- function(nodes, method, degree = 1, directed = FALSE,
   ## Clean output ----
   
   if (nrow(neighbors) > 0) {
+    
     neighbors <- neighbors[which(!duplicated(paste(neighbors$"from", 
                                                    neighbors$"to"))), ]
-    neighbors <- neighbors[with(neighbors, order(from, to)), ]
-    rownames(neighbors) <- NULL  
+    neighbors <- sort_edges(neighbors)
   }
   
   neighbors

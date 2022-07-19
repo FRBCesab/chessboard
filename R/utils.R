@@ -318,3 +318,64 @@ points_to_line <- function(points_sf, from, to) {
     sf::st_cast("LINESTRING") %>% 
     dplyr::ungroup()
 }
+
+
+
+#' Sort edges in natural ordering
+#'
+#' @inheritParams edges_to_sf
+#' 
+#' @noRd
+
+sort_edges <- function(edges) {
+  
+  ## Check argument ----
+  
+  check_edges_object(edges)
+  
+  
+  ## Split labels ----
+  
+  edges$"by_1" <- as.numeric(unlist(lapply(strsplit(edges$"from", "-"), 
+                                           function(x) x[1])))
+  edges$"by_2" <- as.numeric(unlist(lapply(strsplit(edges$"from", "-"), 
+                                           function(x) x[2])))
+  edges$"by_3" <- as.numeric(unlist(lapply(strsplit(edges$"to", "-"), 
+                                           function(x) x[1])))
+  edges$"by_4" <- as.numeric(unlist(lapply(strsplit(edges$"to", "-"), 
+                                           function(x) x[2])))
+  
+  edges <- edges[with(edges, order(by_1, by_2, by_3, by_4)), 1:2]
+  rownames(edges) <- NULL
+  
+  edges
+}
+
+
+
+#' Sort nodes labels in natural ordering
+#'
+#' @inheritParams edges_to_sf
+#' 
+#' @noRd
+
+get_sorted_nodes <- function(edges) {
+  
+  ## Check argument ----
+  
+  check_edges_object(edges)
+  
+  
+  ## Split labels ----
+  
+  nodes <- unique(c(edges$"from", edges$"to"))
+  
+  nodes <- data.frame(
+    "node" = nodes,
+    "by_1" = as.numeric(unlist(lapply(strsplit(nodes, "-"), 
+                                      function(x) x[1]))),
+    "by_2" = as.numeric(unlist(lapply(strsplit(nodes, "-"), 
+                                           function(x) x[2]))))
+  
+  nodes[with(nodes, order(by_1, by_2)), "node", drop = TRUE]
+}

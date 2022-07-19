@@ -44,8 +44,6 @@ append_edges_lists <- function(...) {
   ## Clean output ----
   
   edges <- edges[which(!duplicated(paste(edges$"from", edges$"to"))), ]
-  edges <- edges[with(edges, order(from, to)), ]
-  rownames(edges) <- NULL  
   
-  edges
+  sort_edges(edges)
 }

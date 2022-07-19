@@ -18,6 +18,9 @@ bishop_left(
 \code{node}, \code{transect}, and \code{quadrats}. Must be the output of the function
 \code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
+\item{focus}{an \code{character} of length 1. The node label for which the
+neighbors must be found. Must exist in the \code{nodes} object.}
+
 \item{degree}{an \code{integer} of length 1. The maximum number of neighbors to
 search for.}
 

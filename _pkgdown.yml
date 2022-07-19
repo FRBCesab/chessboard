@@ -4,15 +4,16 @@ reference:
     Create, extract, and transform nodes and edges objects
   contents:
     - create_nodes_labels
-    - nodes_list
-    - edges_list
+    - get_nodes_list
+    - create_edges_list
+    - append_edges_lists
     - edges_to_sf
-    - adjacency_matrix
+    - connectivity_matrix
+    - matrix_to_edges_list
 - title: Detect neighbors
   desc: >
-    Detect neighbors of a node using chess movements
+    Methods to detect neighbors using chess movements
   contents:
-    - find_neighbors
     - pawn
     - fool
     - rook
@@ -24,13 +25,14 @@ reference:
     - knight_left
     - queen
     - wizard
-- title: Visualize neighbors
+- title: Visualization tools
   desc: >
-    Visualize neighbors on a chessboard
+    Functions to visualize networks objects
   contents:
     - gg_chessboard
     - geom_piece
     - geom_neighbors
+    - gg_matrix
 - title: Distances computation
   desc: >
     Compute distances between nodes
@@ -49,7 +51,3 @@ reference:
   contents:
     - nodes_by_edges_matrix
     - edges_weights_vector
-- title: Other features
-  contents:
-    - matrix_to_edges_list
-    - plot_matrix

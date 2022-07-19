@@ -13,6 +13,9 @@
 #' 
 #' @inheritParams create_edges_list
 #' 
+#' @param focus an `character` of length 1. The node label for which the 
+#'   neighbors must be found. Must exist in the `nodes` object.
+#' 
 #' @return A subset of the `nodes` (`data.frame`) where each row is a neighbor
 #'   of the focal node.
 #' 

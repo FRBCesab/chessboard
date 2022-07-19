@@ -6,23 +6,10 @@
 #' This movement is derived from the chess game. The knight is the difference
 #' between the [wizard()] and the [queen()]. 
 #' 
-#' **Important:** Use the function [create_nodes_labels()] to create nodes 
-#' labels.
-#' 
-#' The detection of neighbors using the knight right method can only work with 
+#' The detection of neighbors using this method can only work with 
 #' two-dimensional sampling (both **transects** and **quadrats**). 
-#' For sampling of type **transects-only** or **quadrats-only**, please use the
-#' functions [fool()] or [pawn()], respectively.
-#' 
-#' The argument `degree` controls for the degree of neighborhood.
-#' If `degree = 2`, eight neighbors will be identified (except if 
-#' `directed = TRUE`). The knight must be used only if `degree > 1`.
-#'  
-#' If `directed = TRUE` and `reverse = FALSE`, only four nodes will be
-#' considered as neighbors (remove the nodes at the bottom of the focus node).
-#' 
-#' If `directed = TRUE` and `reverse = TRUE`, only four nodes will be
-#' considered as neighbors (remove the nodes at the top of the focus node).
+#' For sampling of type **transects-only** or **quadrats-only**, 
+#' please use the functions [fool()] or [pawn()], respectively.
 #' 
 #' @inheritParams bishop_left
 #' 
