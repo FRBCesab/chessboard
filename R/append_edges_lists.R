@@ -1,0 +1,51 @@
+#' Append several edges lists
+#' 
+#' @description 
+#' Appends several edges lists created by [create_edges_list()]. Merged edges 
+#' will be ordered and duplicates will be removed.
+#' 
+#' @param ... one or several edges lists `data.frame`. Outputs of the function
+#'   [create_edges_list()].
+#'   
+#' @export
+#' 
+#' @examples
+#' library("bridge")
+#' 
+#' # Two-dimensional sampling (only) ----
+#' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
+#' 
+#' nodes <- create_nodes_labels(data     = sites_infos, 
+#'                              transect = "transect", 
+#'                              quadrat  = "quadrat")
+#'
+#' edges_1 <- create_edges_list(nodes, method = "pawn", directed = TRUE)
+#' edges_2 <- create_edges_list(nodes, method = "bishop", directed = TRUE)
+#' 
+#' edges <- append_edges_lists(edges_1, edges_2)
+
+append_edges_lists <- function(...) {
+  
+  ## Catch arguments ----
+  
+  edges <- list(...)
+  
+  
+  ## Check edges lists ----
+  
+  lapply(edges, check_edges_object)
+  
+  
+  ## Append edges lists ----
+  
+  edges <- do.call(rbind.data.frame, edges)
+  
+  
+  ## Clean output ----
+  
+  edges <- edges[which(!duplicated(paste(edges$"from", edges$"to"))), ]
+  edges <- edges[with(edges, order(from, to)), ]
+  rownames(edges) <- NULL  
+  
+  edges
+}
