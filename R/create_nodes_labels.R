@@ -91,25 +91,23 @@
 
 create_nodes_labels <- function(data, location, transect, quadrat) {
   
-  if (missing(location)) location <- NULL
-  if (missing(transect)) transect <- NULL
-  if (missing(quadrat))  quadrat  <- NULL
-  
   if (missing(data)) {
-    stop("Argument 'data' is required", call. = FALSE)
+    stop("The argument 'data' is required", call. = FALSE)
   }
   
   if (!is.data.frame(data)) {
-    stop("Argument 'data' must be data.frame", call. = FALSE)
+    stop("The argument 'data' must be data.frame", call. = FALSE)
   }
   
   if (nrow(data) < 1) {
     stop("The data.frame 'data' must have at least one row", call. = FALSE)
   }
   
-  if (ncol(data) < 1) {
-    stop("The data.frame 'data' must have at least one column", call. = FALSE)
-  }
+  
+  if (missing(location)) location <- NULL
+  if (missing(transect)) transect <- NULL
+  if (missing(quadrat))  quadrat  <- NULL
+  
   
   if (is.null(transect) && is.null(quadrat)) {
     stop("Please provide at least either 'transect' or 'quadrat'", 
@@ -120,7 +118,7 @@ create_nodes_labels <- function(data, location, transect, quadrat) {
     
     if (!is.character(location) || length(location) != 1) {
       stop("Argument 'location' must be a character of length 1 ", 
-           "(column name of the transects)", call. = FALSE)
+           "(column name of the locations)", call. = FALSE)
     }
     
     if (!(location %in% colnames(data))) {
@@ -202,7 +200,7 @@ create_nodes_labels <- function(data, location, transect, quadrat) {
          call. = FALSE)
   }
   
-  if (any(is.na(quadrat))) {
+  if (any(is.na(data[ , quadrat]))) {
     stop(paste0("The column '", quadrat, "' cannot contain NA"), 
          call. = FALSE)
   }
@@ -248,6 +246,15 @@ create_nodes_labels <- function(data, location, transect, quadrat) {
   }
   
   
+  ## Check for irregular grid ----
+  
+  if (nrow(nodes) < 
+      (length(unique(nodes$"transect")) * length(unique(nodes$"quadrat")))) {
+    stop("The package 'chessboard' is not designed to work with irregular ", 
+         "grids", call. = FALSE)
+  }
+  
+  
   ## Order columns ----
   
   col_to_add <- which(colnames(nodes) %in% c("location", "transect", "quadrat"))
@@ -258,7 +265,7 @@ create_nodes_labels <- function(data, location, transect, quadrat) {
                      "quadrat"  = nodes$"quadrat")
   
   if (length(col_to_add) < ncol(nodes)) {
-    data <- data.frame(data, nodes[ , -col_to_add])
+    data <- cbind(data, nodes[ , -col_to_add, drop = FALSE])
   }
   
   data
