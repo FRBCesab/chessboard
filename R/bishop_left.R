@@ -3,55 +3,21 @@
 #' @description
 #' For one node (argument `focus`), finds neighbors among a list of nodes 
 #' according to the bishop left movement.
-#' This movement is derived from the [bishop()] method. The bishop left 
-#' can move along the bottom-right to top-left diagonal in both orientations
-#' (default behavior). 
+#' This movement is derived from the [bishop()] method and can only move along 
+#' the bottom-right to top-left diagonal. 
 #' 
-#' **Important:** Use the function [create_nodes_labels()] to create nodes 
-#' labels.
-#' 
-#' The detection of neighbors using the bishop left method can only work with 
+#' The detection of neighbors using this method can only work with 
 #' two-dimensional sampling (both **transects** and **quadrats**). 
-#' For sampling of type **transects-only** or **quadrats-only**, please use the 
-#' functions [fool()] or [pawn()], respectively.
+#' For sampling of type **transects-only** or **quadrats-only**, 
+#' please use the functions [fool()] or [pawn()], respectively.
 #' 
-#' The argument `degree` controls for the degree of neighborhood.
-#' If `degree = 2`, four neighbors will be identified (except if 
-#' `directed = TRUE`): four nodes along the bottom-right to top-left diagonal.
-#'  
-#' If `directed = TRUE` and `reverse = FALSE`, only two nodes will be
-#' considered as neighbors (remove the nodes at the bottom of the focus node).
-#' 
-#' If `directed = TRUE` and `reverse = TRUE`, only two nodes will be
-#' considered as neighbors (remove the nodes at the top of the focus node).
-#' 
-#' @param nodes a `data.frame` with (at least) the following three columns: 
-#'   `node`, `transect`, and `quadrats`. Must be the output if the function 
-#'   [create_nodes_labels()].
-#' 
-#' @param focus an `character` of length 1. The node label for which the 
-#'   neighbors must be found. Must exist in the `nodes` object.
-#' 
-#' @param degree an `integer` of length 1. The maximum number of neighbors to 
-#'   search for in one direction.
-#'
-#' @param directed a `logical` of length 1. If `FALSE` (default), search for 
-#'   neighbors in all directions (undirected network). Otherwise, the network 
-#'   will be considered as directed according to the main direction of the 
-#'   network (i.e. through quadrats).
-#'
-#' @param reverse a `logical` of length 1. If `TRUE`, change the orientation of
-#'   the network (i.e. through quadrats). This argument is ignored if 
-#'   `directed = FALSE`.
-#'   
-#' @param self a `logical` of length 1. If `TRUE`, a node can be its own 
-#'   neighbor. Default is `FALSE`.
+#' @inheritParams create_edges_list
 #' 
 #' @return A subset of the `nodes` (`data.frame`) where each row is a neighbor
-#'   of `focus`.
+#'   of the focal node.
 #' 
 #' @details 
-#' This function is internally called by [find_neighbors()] but it can be
+#' This function is internally called by [create_edges_list()] but it can be
 #' directly used to 1) understand the neighbors detection method, and 2) to 
 #' check detected neighbors for one particular node (`focus`).
 #' 

@@ -3,29 +3,15 @@
 #' @description
 #' For one node (argument `focus`), finds neighbors among a list of nodes 
 #' according to the bishop right movement.
-#' This movement is derived from the [bishop()] method. The bishop right 
-#' can move along the bottom-left to top-right diagonal in both orientations
-#' (default behavior). 
+#' This movement is derived from the [bishop()] method and can only move along 
+#' the bottom-left to top-right diagonal.
 #' 
-#' **Important:** Use the function [create_nodes_labels()] to create nodes 
-#' labels.
-#' 
-#' The detection of neighbors using the bishop right method can only work with 
+#' The detection of neighbors using this method can only work with 
 #' two-dimensional sampling (both **transects** and **quadrats**). 
-#' For sampling of type **transects-only** or **quadrats-only**, please use the
-#' functions [fool()] or [pawn()], respectively.
+#' For sampling of type **transects-only** or **quadrats-only**, 
+#' please use the functions [fool()] or [pawn()], respectively.
 #' 
-#' The argument `degree` controls for the degree of neighborhood.
-#' If `degree = 2`, four neighbors will be identified (except if 
-#' `directed = TRUE`): four nodes along the bottom-left to top-right diagonal.
-#'  
-#' If `directed = TRUE` and `reverse = FALSE`, only two nodes will be
-#' considered as neighbors (remove the nodes at the bottom of the focus node).
-#' 
-#' If `directed = TRUE` and `reverse = TRUE`, only two nodes will be
-#' considered as neighbors (remove the nodes at the top of the focus node).
-#' 
-#' @inheritParams bishop_left
+#' @inheritParams create_edges_list
 #' 
 #' @inherit bishop_left return details
 #' 

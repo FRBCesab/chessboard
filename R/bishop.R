@@ -4,27 +4,14 @@
 #' For one node (argument `focus`), finds neighbors among a list of nodes 
 #' according to the bishop movement.
 #' This movement is derived from the chess game. The bishop can move along the 
-#' two diagonals in both orientations (default behavior). 
+#' two diagonals. 
 #' 
-#' **Important:** Use the function [create_nodes_labels()] to create nodes 
-#' labels.
-#' 
-#' The detection of neighbors using the bishop right method can only work with 
+#' The detection of neighbors using this method can only work with 
 #' two-dimensional sampling (both **transects** and **quadrats**). 
-#' For sampling of type **transects-only** or **quadrats-only**, please use the
-#' functions [fool()] or [pawn()], respectively.
+#' For sampling of type **transects-only** or **quadrats-only**, 
+#' please use the functions [fool()] or [pawn()], respectively.
 #' 
-#' The argument `degree` controls for the degree of neighborhood.
-#' If `degree = 2`, eight neighbors will be identified (except if 
-#' `directed = TRUE`): four nodes along each diagonal.
-#'  
-#' If `directed = TRUE` and `reverse = FALSE`, only four nodes will be
-#' considered as neighbors (remove the nodes at the bottom of the focus node).
-#' 
-#' If `directed = TRUE` and `reverse = TRUE`, only four nodes will be
-#' considered as neighbors (remove the nodes at the top of the focus node).
-#' 
-#' @inheritParams bishop_left
+#' @inheritParams create_edges_list
 #' 
 #' @inherit bishop_left return details
 #' 

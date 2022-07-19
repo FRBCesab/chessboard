@@ -8,59 +8,42 @@ pawn(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE, self = FALSE)
 }
 \arguments{
 \item{nodes}{a \code{data.frame} with (at least) the following three columns:
-\code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
+\code{node}, \code{transect}, and \code{quadrats}. Must be the output of the function
 \code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
-\item{focus}{an \code{character} of length 1. The node label for which the
-neighbors must be found. Must exist in the \code{nodes} object.}
-
 \item{degree}{an \code{integer} of length 1. The maximum number of neighbors to
-search for in one direction.}
+search for.}
 
 \item{directed}{a \code{logical} of length 1. If \code{FALSE} (default), search for
 neighbors in all directions (undirected network). Otherwise, the network
-will be considered as directed from top to bottom.}
+will be considered as directed according to the orientations of the
+network. The default orientation follows the order of nodes labels in
+both axes.}
 
 \item{reverse}{a \code{logical} of length 1. If \code{TRUE}, change the default
-orientation of the network. This argument is ignored if \code{directed = FALSE}.}
+orientation of the network. This argument is ignored if \code{directed = FALSE}.
+See examples for further detail.}
 
 \item{self}{a \code{logical} of length 1. If \code{TRUE}, a node can be its own
 neighbor. Default is \code{FALSE}.}
 }
 \value{
 A subset of the \code{nodes} (\code{data.frame}) where each row is a neighbor
-of \code{focus}.
+of the focal node.
 }
 \description{
 For one node (argument \code{focus}), finds neighbors among a list of nodes
 according to the fool movement.
-This movement is orthogonal to the \code{\link[=fool]{fool()}}. The pawn can only move
-vertically, i.e. through a \strong{transect}, both from bottom to top and from
-top to bottom relatively to the focus node (default behavior).
+This movement is orthogonal to the \code{\link[=fool]{fool()}} function. The pawn can only move
+vertically, i.e. through a \strong{transect}.
 
-\strong{Important:} Use the function \code{\link[=create_nodes_labels]{create_nodes_labels()}} to create nodes
-labels.
-
-The detection of neighbors using the pawn method can work with
+The detection of neighbors using the fool method can work with
 two-dimensional sampling (both \strong{transects} and \strong{quadrats}) and
-one-dimensional sampling of type \strong{quadrats-only}. For sampling of type
-\strong{transects-only}, please use the function \code{\link[=fool]{fool()}}.
-
-The argument \code{degree} controls for the degree of neighborhood.
-If \code{degree = 2}, four neighbors will be identified (except if
-\code{directed = TRUE}): the two nodes at the bottom \strong{and} the two nodes at the
-top of the focus node.
-
-If \code{directed = TRUE} and \code{reverse = FALSE}, only the two nodes at the top
-of the focus node will be considered as neighbors (directed network with
-default orientation).
-
-If \code{directed = TRUE} and \code{reverse = TRUE}, only the two nodes at the bottom
-of the focus node will be considered as neighbors (directed network with
-reverse orientation).
+one-dimensional sampling of type \strong{quadrats-only}.
+For sampling of type \strong{transects-only}, please use the function \code{\link[=fool]{fool()}}.
 }
 \details{
-This function is internally called by \code{\link[=find_neighbors]{find_neighbors()}} but it can be
+This function is internally called by \code{\link[=create_edges_list]{create_edges_list()}} but it can be
 directly used to 1) understand the neighbors detection method, and 2) to
 check detected neighbors for one particular node (\code{focus}).
 }

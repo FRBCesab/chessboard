@@ -5,25 +5,12 @@
 #' according to the knight left movement.
 #' This movement is derived from the [knight()] method.
 #' 
-#' **Important:** Use the function [create_nodes_labels()] to create nodes 
-#' labels.
-#' 
-#' The detection of neighbors using the knight left method can only work with 
+#' The detection of neighbors using this method can only work with 
 #' two-dimensional sampling (both **transects** and **quadrats**). 
-#' For sampling of type **transects-only** or **quadrats-only**, please use the
-#' functions [fool()] or [pawn()], respectively.
+#' For sampling of type **transects-only** or **quadrats-only**, 
+#' please use the functions [fool()] or [pawn()], respectively.
 #' 
-#' The argument `degree` controls for the degree of neighborhood.
-#' If `degree = 2`, four neighbors will be identified (except if 
-#' `directed = TRUE`). The knight left must be used only if `degree > 1`.
-#'  
-#' If `directed = TRUE` and `reverse = FALSE`, only four nodes will be
-#' considered as neighbors (remove the nodes at the bottom of the focus node).
-#' 
-#' If `directed = TRUE` and `reverse = TRUE`, only four nodes will be
-#' considered as neighbors (remove the nodes at the top of the focus node).
-#' 
-#' @inheritParams bishop_left
+#' @inheritParams create_edges_list
 #' 
 #' @inherit bishop_left return details
 #' 

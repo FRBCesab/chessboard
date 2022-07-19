@@ -4,38 +4,14 @@
 #' For one node (argument `focus`), finds neighbors among a list of nodes 
 #' according to the fool movement.
 #' This movement is derived from the chess game. The fool can only move 
-#' horizontally, i.e. through a **quadrat**, both from left to right and from 
-#' right to left relatively to the focus node (default behavior). 
-#' 
-#' **Important:** Use the function [create_nodes_labels()] to create nodes 
-#' labels.
+#' horizontally, i.e. through a **quadrat**. 
 #' 
 #' The detection of neighbors using the fool method can work with 
 #' two-dimensional sampling (both **transects** and **quadrats**) and 
-#' one-dimensional sampling of type **transects-only**. For sampling of type 
-#' **quadrats-only**, please use the function [pawn()].
+#' one-dimensional sampling of type **transects-only**. 
+#' For sampling of type **quadrats-only**, please use the function [pawn()].
 #' 
-#' The argument `degree` controls for the degree of neighborhood.
-#' If `degree = 2`, four neighbors will be identified (except if 
-#' `directed = TRUE`): the two nodes at the left **and** the two nodes at the 
-#' right of the focus node.
-#'  
-#' If `directed = TRUE` and `reverse = FALSE`, only the two nodes at the right 
-#' of the focus node will be considered as neighbors (directed network with 
-#' default orientation).
-#' 
-#' If `directed = TRUE` and `reverse = TRUE`, only the two nodes at the left 
-#' of the focus node will be considered as neighbors (directed network with 
-#' reverse orientation).
-#' 
-#' @param directed a `logical` of length 1. If `FALSE` (default), search for 
-#'   neighbors in all directions (undirected network). Otherwise, the network 
-#'   will be considered as directed from left to right.
-#'
-#' @param reverse a `logical` of length 1. If `TRUE`, change the default 
-#'   orientation of the network. This argument is ignored if `directed = FALSE`.
-#' 
-#' @inheritParams bishop_left
+#' @inheritParams create_edges_list
 #' 
 #' @inherit bishop_left return details
 #' 

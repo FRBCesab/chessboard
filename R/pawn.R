@@ -3,39 +3,15 @@
 #' @description
 #' For one node (argument `focus`), finds neighbors among a list of nodes 
 #' according to the fool movement.
-#' This movement is orthogonal to the [fool()]. The pawn can only move 
-#' vertically, i.e. through a **transect**, both from bottom to top and from 
-#' top to bottom relatively to the focus node (default behavior). 
+#' This movement is orthogonal to the [fool()] function. The pawn can only move
+#' vertically, i.e. through a **transect**. 
 #' 
-#' **Important:** Use the function [create_nodes_labels()] to create nodes 
-#' labels.
-#' 
-#' The detection of neighbors using the pawn method can work with 
+#' The detection of neighbors using the fool method can work with 
 #' two-dimensional sampling (both **transects** and **quadrats**) and 
-#' one-dimensional sampling of type **quadrats-only**. For sampling of type 
-#' **transects-only**, please use the function [fool()].
+#' one-dimensional sampling of type **quadrats-only**. 
+#' For sampling of type **transects-only**, please use the function [fool()].
 #' 
-#' The argument `degree` controls for the degree of neighborhood.
-#' If `degree = 2`, four neighbors will be identified (except if 
-#' `directed = TRUE`): the two nodes at the bottom **and** the two nodes at the 
-#' top of the focus node.
-#'  
-#' If `directed = TRUE` and `reverse = FALSE`, only the two nodes at the top 
-#' of the focus node will be considered as neighbors (directed network with 
-#' default orientation).
-#' 
-#' If `directed = TRUE` and `reverse = TRUE`, only the two nodes at the bottom 
-#' of the focus node will be considered as neighbors (directed network with 
-#' reverse orientation).
-#' 
-#' @param directed a `logical` of length 1. If `FALSE` (default), search for 
-#'   neighbors in all directions (undirected network). Otherwise, the network 
-#'   will be considered as directed from top to bottom.
-#'
-#' @param reverse a `logical` of length 1. If `TRUE`, change the default 
-#'   orientation of the network. This argument is ignored if `directed = FALSE`.
-#' 
-#' @inheritParams bishop_left
+#' @inheritParams create_edges_list
 #' 
 #' @inherit bishop_left return details
 #' 
