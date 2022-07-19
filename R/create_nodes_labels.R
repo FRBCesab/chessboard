@@ -95,6 +95,10 @@ create_nodes_labels <- function(data, location, transect, quadrat) {
   if (missing(transect)) transect <- NULL
   if (missing(quadrat))  quadrat  <- NULL
   
+  if (missing(data)) {
+    stop("Argument 'data' is required", call. = FALSE)
+  }
+  
   if (!is.data.frame(data)) {
     stop("Argument 'data' must be data.frame", call. = FALSE)
   }
