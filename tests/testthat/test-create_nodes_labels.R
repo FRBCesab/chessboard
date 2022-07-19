@@ -66,6 +66,10 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
                "The argument 'data' must be data.frame",
                fixed = TRUE)
   
+  expect_error(create_nodes_labels(tr_qu[0, ]),
+               "The data.frame 'data' must have at least one row",
+               fixed = TRUE)
+  
   
   # Argument 'transect' or 'quadrat' ----
   
