@@ -94,7 +94,14 @@ queen <- function(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE,
   ## Check argument 'degree' ----
   
   check_degree_value(degree)
-
+  
+  
+  ## Check logical ----
+  
+  check_logical_value(directed)
+  check_logical_value(reverse)
+  check_logical_value(self)
+  
    
   ## Detect neighbors ----
 

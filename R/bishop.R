@@ -96,6 +96,13 @@ bishop <- function(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE,
   check_degree_value(degree)
   
   
+  ## Check logical ----
+  
+  check_logical_value(directed)
+  check_logical_value(reverse)
+  check_logical_value(self)
+  
+  
   ## Get focus information ----
   
   tr_focus <- nodes[which(nodes$"node" == focus), "transect"]

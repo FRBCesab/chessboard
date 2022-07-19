@@ -1,6 +1,6 @@
 #' Check the structure of the data.frame nodes
 #' 
-#' @param nodes a `data.frame`. This output of [create_nodes_labels()].
+#' @param nodes a `data.frame`. The output of [create_nodes_labels()].
 #' 
 #' @noRd
 
@@ -57,7 +57,7 @@ check_nodes_object <- function(nodes) {
 
 #' Check the structure of focal node and its presence in the data.frame nodes
 #' 
-#' @param nodes a `data.frame`. This output of [create_nodes_labels()].
+#' @param nodes a `data.frame`. The output of [create_nodes_labels()].
 #' 
 #' @param focus an `character` of length 1. The node label for which the 
 #'   neighbors must be found. Must exist in the `nodes` object.
@@ -119,7 +119,7 @@ check_degree_value <- function(degree) {
 
 #' Check the structure of the data.frame neighbors
 #' 
-#' @param neighbors a `data.frame`. This output of the functions [pawn()], 
+#' @param neighbors a `data.frame`. The output of the functions [pawn()], 
 #'   [fool()], etc.
 #' 
 #' @noRd
@@ -172,4 +172,123 @@ check_neighbors_object <- function(neighbors) {
   }
   
   invisible(NULL)
+}
+
+
+
+#' Check the name of the method to detect neighbors
+#' 
+#' @param method a `character` of length 1. One among `'pawn'`, `'fool'`, 
+#'  `'rook'`, `'bishop'`, `'bishop_left'`, `'bishop_right'`, `'knight'`, 
+#'  `'knight_left'`, `'knight_right'`, `'queen'`, `'wizard'`.
+#' 
+#' @noRd
+
+check_neighbors_method <- function(method) {
+  
+  if (missing(method)) {
+    stop("The argument 'method' is required", call. = FALSE)
+  }
+  
+  if (is.null(method)) {
+    stop("The argument 'method' cannot be NULL", call. = FALSE)
+  }
+  
+  if (!is.character(method) || length(method) != 1) {
+    stop("The argument 'method' must be a character of length 1", 
+         call. = FALSE)
+  }
+  
+  available_methods <- c("pawn", "fool", "rook", "bishop", "bishop_left", 
+                         "bishop_right", "knight", "knight_left", 
+                         "knight_right", "queen", "wizard")
+  
+  error_msg <- paste0(shQuote(available_methods), collapse = ", ")
+  
+  if (!(method %in% available_methods)) {
+    stop("Argument 'method' must be one of ", error_msg, call. = FALSE)
+  }
+  
+  invisible(NULL)
+}
+
+
+
+#' Check for boolean values
+#' 
+#' @param boolean a `logical` value of length 1.
+#' 
+#' @noRd
+
+check_logical_value <- function(boolean) {
+  
+  if (missing(boolean)) {
+    stop("The argument '", deparse(substitute(boolean)), "' is required", 
+         call. = FALSE)
+  }
+  
+  if (is.null(boolean)) {
+    stop("The argument '", deparse(substitute(boolean)), "' cannot be NULL", 
+         call. = FALSE)
+  }
+
+  if (!is.logical(boolean) || length(boolean) != 1) {
+    stop("The argument '", deparse(substitute(boolean)), "' must be a ", 
+         "logical (TRUE or FALSE) of length 1", call. = FALSE)
+  }
+  
+  if (is.na(boolean)) {
+    stop("The argument '", deparse(substitute(boolean)), "' cannot be NA", 
+         call. = FALSE)
+  }
+  
+  invisible(NULL)
+}
+
+
+
+#' Check for the data.frame edges (edges list)
+#'
+#' @param edges a `data.frame` with the column `from` and `to`. The output of 
+#'   the function [create_edges_list()].
+#'
+#' @noRd
+
+check_edges_object <- function(edges) {
+  
+  if (missing(edges)) {
+    stop("Argument 'edges' is required ", 
+         "(output of the function create_edges_list())", call. = FALSE)
+  }
+  
+  if (!is.data.frame(edges)) {
+    stop("Argument 'edges' must be a data.frame ", 
+         "(output of the function create_edges_list())", call. = FALSE)
+  }
+  
+  if (!("from" %in% colnames(edges))) {
+    stop("The column 'from' is absent from the 'edges' data.frame ", 
+         "(output of the function create_edges_list())", call. = FALSE)
+  }
+  
+  if (!("to" %in% colnames(edges))) {
+    stop("The column 'to' is absent from the 'edges' data.frame ", 
+         "(output of the function create_edges_list())", call. = FALSE)
+  }
+ 
+  if (nrow(edges) == 0) {
+    stop("Argument 'edges' must have at least one row (edge)", call. = FALSE)
+  }
+  
+  if (!is.character(edges$"from")) {
+    stop("The column 'from' of the 'edges' data.frame must be a numeric", 
+         call. = FALSE)
+  }
+  
+  if (!is.character(edges$"to")) {
+    stop("The column 'to' of the 'edges' data.frame must be a numeric", 
+         call. = FALSE)
+  }
+
+  invisible(NULL)  
 }
