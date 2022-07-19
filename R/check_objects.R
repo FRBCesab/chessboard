@@ -102,6 +102,10 @@ check_focus_object <- function(nodes, focus) {
 
 check_degree_value <- function(degree) {
   
+  if (is.null(degree)) {
+    stop("Argument 'degree' is required", call. = FALSE)
+  }
+  
   if (!is.numeric(degree)) {
     stop("Argument 'degree' must be a numeric", call. = FALSE)
   }
