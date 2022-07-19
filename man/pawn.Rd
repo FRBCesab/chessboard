@@ -51,7 +51,7 @@ directly used to 1) understand the neighbors detection method, and 2) to
 check detected neighbors for one particular node (\code{focus}).
 }
 \examples{
-library("bridge")
+library("chessboard")
 
 # Two-dimensional sampling (only) ----
 sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)

@@ -1,619 +1,370 @@
 ---
-title: "Chessboard"
+title: "Get started"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Chessboard}
-  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{Get started}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: inline
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse  = TRUE,
                       comment   = "#>",
-                      out.width = "50%",
+                      out.width = "100%",
                       dpi       = 96,
                       fig.align = "center")
 ```
 
 
-```{r 'setup', echo=FALSE}
-library("bridge")
+The aim of the package `chessboard` is to provide tools to work with **directed**
+(asymmetric) and **undirected** (symmetrical) spatial **networks**.
+It makes easier the creation of **connectivity matrix**, i.e. a binary matrix 
+of dimensions `n x n`, where `n` is the number of **nodes** (sampling units) 
+indicating the presence (`1`) or the absence (`0`) of an **edge** (link) 
+between pairs of nodes. Different network objects can be produced by `chessboard`:
+
+- **nodes list**
+- **neighbors list**
+- **edges list**
+- **connectivity matrix**
+
+
+\
+
+
+In addition, the package can also produce objects that can be used later in 
+Asymetric Eigenvector Maps (AEM, Blanchet _et al._ 2008), method available in 
+the package [`adespatial`](https://cran.r-project.org/package=adespatial) (Dray _et al._ 2022):
+**nodes by edges matrix** and **edges weights vector**.
+
+
+\
+
+
+This package has been developed for the 
+[FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) 
+working group 
+[Bridge](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/bridge/) 
+that aims to better understand the role of local and regional environmental 
+factors in shaping the taxonomic and functional diversity of plant communities 
+established along river corridors, roadside corridors and cultivated field 
+margins.
+
+
+\
+
+
+**Setup**
+
+
+
+```{r 'setup'}
+# devtools::load_all()
+library("chessboard")
 library("ggplot2")
-library("patchwork")
-```
-
-```{r 'rerun-chunks', echo=FALSE}
-eval_chunk <- TRUE
 ```
 
 
 
-```{r 'fictitious-data', echo=FALSE}
-sites <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
-
-nodes <- create_nodes_labels(data     = sites,
-                             transect = "transect", 
-                             quadrat  = "quadrat")
-
-focus  <- "5-5"
-
-transects_quadrats <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
-transects_only     <- data.frame("transect" = 1:3)
-quadrats_only      <- data.frame("quadrat"  = 1:5)
-
-nodes_transects_quadrats <- create_nodes_labels(data     = transects_quadrats,
-                                                transect = "transect", 
-                                                quadrat  = "quadrat")
-
-nodes_transects_only <- create_nodes_labels(data     = transects_only,
-                                            transect = "transect")
-
-nodes_quadrats_only <- create_nodes_labels(data    = quadrats_only,
-                                           quadrat = "quadrat")
-```
-
-
-
-The aim of the package `bridge` is to make easier the creation of connectivity 
-matrix, i.e. a binary matrix of dimensions `n x n`, where `n` is the number of 
-**nodes** (sampling units) indicating the presence (`1`) or the absence (`0`) of
-an **edge** (link) between pairs of nodes. Identifying edges between pairs of 
-nodes requires the **detection of neighbors** according to neighborhood rules.
-
-
-\
-
-
-## Neighborhood rules
-
-
-The package implements the following neighborhood rules:
-
-- the **degree of neighborhood**: the number of adjacent nodes that will be used
-to create direct edges. If `degree = 1`, only nodes directly adjacent (on a 
-regular grid) to the focus node will be considered as neighbors.
-
-- the **orientation of neighborhood**: can neighbors be detecting horizontally 
-and/or vertically and/or diagonally? The package `bridge` implements all possible
-orientations derived from the chess game.
-
-- the **direction of neighborhood**: does the sampling has a direction? This can
-be particularly important in directed network (see below).
-
-
-\
-
-
-## Network properties
-
-
-
-The package `bridge` is designed to work with two-dimensional networks (i.e. 
-sampling on a regular grid), where one dimension will be called **transect** 
-and the other will be called **quadrat**. By convention, the dimension **transect** 
-corresponds to the x-axis, and the **quadrat** corresponds to the y-axis (Fig. 1). 
-The number of sampling units in both dimensions can be different.
-
-
-\
-
-
-```{r 'cb-transects-quadrats', eval=TRUE, fig.height=8, fig.width=5, echo=FALSE, fig.cap="Figure 1. Two-dimensional network"}
-gg_chessboard(nodes_transects_quadrats)
+```{r 'ggplot-theme', echo=FALSE}
+## Custom ggplot2 theme ----
+custom_theme <- function() {
+  theme_light() + 
+  theme(plot.title   = element_text(face = "bold", family = "serif", size = 18),
+        plot.caption = element_text(face = "italic", family = "serif"),
+        axis.title   = element_blank(),
+        axis.text    = element_text(family = "serif"))
+}
 ```
 
 
 \
 
 
-It can also deal with one-dimensional sampling (either **transects-only** or 
-**quadrats-only**). If the sampling has been conducted along one single 
-dimension, a fictitious second dimension will be created (for the purpose of 
-the package only). For instance, if the sampling has been conducted only 
-through transects, a fictitious quadrat will be added with only one quadrat (Fig. 2).
+## Sampling design
 
 
 
-```{r 'cb-transects-only', eval=eval_chunk, fig.height=2.1, fig.width=5, echo=FALSE, fig.cap="Figure 2. Transects-only network"}
-gg_chessboard(nodes_transects_only)
+The package `chessboard` is designed to work with **two-dimensional network** (i.e. 
+sampling on a regular grid). The network can be spatial or not, and can be 
+directed or undirected.
+
+`chessboard` provides an example of a survey realized along the French river
+_L'Adour_ (Fig. 1).
+
+```{r 'import-adour-river', echo=FALSE}
+## Import the spatial layer of Adour river ----
+path_to_file <- system.file("extdata", "adour_lambert93.gpkg", package = "chessboard")
+adour_river  <- sf::st_read(path_to_file, quiet = TRUE)
+```
+
+```{r 'get-basemap', echo=FALSE}
+## Import France departments ----
+france <- rnaturalearth::ne_states("france", returnclass = "sf")
+
+## Remove overseas territories ----
+france <- france[grep("^FR\\.", france$"code_hasc"), ]
+
+## Project layer to RGF93 / Lambert-93 system ----
+france <- sf::st_transform(france, sf::st_crs(adour_river))
 ```
 
 
 \
 
 
-On the other hand, if the sampling has been conducted only through quadrats, a
-fictitious transect will be added with only one transect (Fig. 3).
+```{r 'map-adour-river', echo=FALSE, fig.height=9, fig.width=10, out.width='80%', fig.cap='Figure 1. Location of the French river L\'Adour'}
+## Get extent of Adour river ----
+adour_extent <- sf::st_bbox(adour_river)
 
+## Add some margin around ----
+adour_extent <- adour_extent + c(-10000, -10000, 10000, 10000)
 
-```{r 'cb-quadrats-only', eval=eval_chunk, fig.height=8, fig.width=2.1, echo=FALSE, fig.cap="Figure 3. Quadrats-only network", out.width='20%'}
-gg_chessboard(nodes_quadrats_only)
+ggplot() +
+  geom_sf(data = france, fill = "lightgray", col = "white", size = 0.2) +
+  geom_sf(data = adour_river, col = "steelblue") +
+  geom_sf(data = sf::st_as_sfc(adour_extent), fill = NA, size = 0.3) +
+  labs(caption = "RGF93 / Lambert-93 Projection") +
+  custom_theme() +
+  geom_text(aes(x = 194015, y = 6453703), label = "Atlantic\nOcean",
+            color = "lightgray", fontface = "italic", size = 6, 
+            family = "serif") +
+  geom_text(aes(x = 482630, y = 6150836), label = "Pyrenees",
+            color = "lightgray", fontface = "italic", size = 6, 
+            family = "serif")
 ```
 
 
 \
 
 
-The network can be undirected or directed. If the network is **directed**, it will 
-have (by default) these two orientations:
-
-- from bottom to top for quadrats along transects, and
-- from left to right for transects along quadrats.
-
-
-It's important to note that, even the package `bridge` handles spatial networks, 
-it does not explicitly use spatial coordinates to find neighbors. Instead, it 
-will identify neighbors only based on **nodes labels**. In other words, the order
-of nodes labels will give the direction of the network.
+_L'Adour_ is a river in southwestern France. It rises in the Pyrenees and 
+flows into the Atlantic Ocean (Bay of Biscay). It's oriented from south-east 
+(upstream) to north-west (downstream).
 
 
 \
 
 
-The function `create_nodes_labels()` is used to create nodes labels. They 
-will be of the form: `1-2`, where `1` is the identifier of 
-the transect, and `2`, the identifier of the quadrat.
+Along this river, a survey has been realized at **three** locations (Fig. 2).
+At each location, a sampling has been conducted on a regular grid composed of 
+**three** transects each of them composed of **five** quadrats.
 
 
 \
 
 
-## Neighbors detection
+```{r 'import-adour-sites', echo=FALSE}
+## Import sites data ----
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", package = "chessboard")
+adour_sites  <- read.csv(path_to_file)
 
-Ignoring the spatial coordinates of the sampling design, we can consider it as
-a **chessboard** of dimensions `t` x `q`, with `t`, the number of transects, 
-and `q`, the number of quadrats.
-
-
-\
-
-
-### Degree of neighborhood
-
-All functions for detecting neighbors (`pawn()`, `fool()`, etc.) have an 
-argument `degree` that allow users to change the degree of neighborhood (Fig. 4).
+## Convert data.frame to sf object ----
+adour_sites_sf <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"), 
+                               crs = "epsg:2154")
+```
 
 
-\
-
-
-```{r 'cb-degree', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 4. Degrees of neigborhood", out.width='100%'}
-wizard_1 <- 
-  gg_chessboard(nodes, "A. Degree of neighborhood of 1", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(wizard(nodes, focus, degree = 1))
-
-wizard_2 <- 
-  gg_chessboard(nodes, "B. Degree of neighborhood of 2", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(wizard(nodes, focus, degree = 2))
-
-wizard_3 <- 
-  gg_chessboard(nodes, "C. Degree of neighborhood of 3", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(wizard(nodes, focus, degree = 3))
-
-(wizard_1 | wizard_2 | wizard_3)
+```{r 'map-adour-sites', fig.height=9, fig.width=12, out.width='80%', echo=FALSE, fig.cap='Figure 2. Study area with survey sampling'}
+ggplot() +
+  geom_sf(data = adour_river, col = "steelblue") +
+  geom_sf(data = adour_sites_sf, shape = 19, size = 2) +
+  labs(caption = "RGF93 / Lambert-93 Projection") +
+  custom_theme() +
+  geom_segment(aes(x = 454180, xend = 440170, y = 6216290, yend = 6263320), 
+               arrow = arrow(length = unit(0.75, 'cm'), type = 'closed'),
+               size  = 2.25) +
+  geom_text(aes(x = 334500, y = 6285000), label = "River", hjust = 0,
+            color = "steelblue", fontface = "bold", size = 6, family = "serif") +
+  geom_text(aes(x = 414950, y = 6312200), label = "Location 3", hjust = -0.20,
+            color = "black", fontface = "bold", size = 6, family = "serif") +
+  geom_text(aes(x = 474655, y = 6236708), label = "Location 1", 
+            color = "black", fontface = "bold", size = 6, family = "serif") +
+  geom_text(aes(x = 467250, y = 6287620), label = "Location 2", 
+            color = "black", fontface = "bold", size = 6, family = "serif")
 ```
 
 
 \
 
 
-### Movements
+The arrow indicates the direction of the river flow. This means that our 
+sampling design is a **directed spatial network** (both inside a location and
+between locations) where the main direction is from upstream to downstream. 
 
 
-Different neighbors detection methods have been implemented in the package 
-`bridge`. All are derived from the chess game and allow user to define 
-complex movements.
+\
+
+**N.B.** The package `chessboard` can also deal with one-dimensional sampling 
+(either **transects-only** or **quadrats-only**) and with **undirected** networks.
 
 
 \
 
 
+## Nodes labeling
 
-#### Pawn
+
+It's **important** to note that, even the package `chessboard` can handle spatial 
+networks, it does not explicitly use spatial coordinates to find neighbors (and edges). 
+Instead, it will identify neighbors only based on **nodes labels**. In other 
+words, the order of nodes labels will give the dimension and the direction of 
+the network.
 
 
-The function `pawn()` can detect neighbors horizontally, i.e. among 
-quadrats along a transect. User can change the default settings (Fig. 5A),
-by adding directionality (`directed = TRUE`, Fig. 5B) and reversing the default
-directionality (`directed = TRUE` and `reverse = TRUE`, Fig. 5C).
+\
+
+Let's import the survey dataset provided by the package.
+
+```{r 'import-adour-survey'}
+## Import survey data ----
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", package = "chessboard")
+adour_sites  <- read.csv(path_to_file)
+
+head(adour_sites, 20)
+```
+
+This `data.frame` contains the following columns: 
+
+- `location`: the identifier of the location (`numeric`)
+- `transect`: the identifier of the transect (`numeric`)
+- `quadrat`: the identifier of the quadrat (`numeric`)
+- `longitude`: the longitude of the site (**node**) defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection
+- `latitude`: the latitude of the site (**node**) defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection
 
 
 \
 
 
-```{r 'cb-pawn', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 5. Pawn movements", out.width='100%'}
-pawn_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(pawn(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+**N.B.** The column `location` is optional (if the survey has been conducted at one single location).
+If the network has one dimension, one of the columns `transect` and `quadrat` can
+be omitted.
 
-pawn_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(pawn(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
 
-pawn_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(pawn(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+\
 
-(pawn_1 | pawn_2 | pawn_3)
+
+We can visualize this survey on a Cartesian referential, i.e. non-spatial, where
+the x-axis corresponds to **transects** and the y-axis represents the **quadrats**
+(Fig. 3).
+
+
+\
+
+
+```{r 'plot-sampling-units', fig.height=8, fig.width=12, echo=FALSE, out.width='100%', fig.cap='Figure 3. Sampling design'}
+locations <- as.factor(1:3)
+names(locations) <- paste0("Location ", 1:3)
+
+adour_sites$"location" <- factor(adour_sites$"location", levels = 1:3,
+                                 labels = paste0("Location ", 1:3))
+
+ggplot(adour_sites) +
+  geom_point(aes(x = transect, y = quadrat), shape = 19, size = 4) +
+  scale_x_continuous(breaks = seq(1, 3, by = 1)) +
+  xlab("Transect") + ylab("Quadrat") +
+  theme_light() +
+  theme(axis.title       = element_text(family = "serif", face = "bold", 
+                                        size = 16),
+        axis.text        = element_text(family = "serif", face = "bold", 
+                                        size = 14),
+        axis.ticks       = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.background = element_rect(fill = NA),
+        strip.text       = element_text(family = "serif", face = "bold", 
+                                        size = 18, color = "black"),
+        panel.spacing    = unit(4, "lines")) +
+  facet_wrap(. ~ location, scales = "free")
+
+adour_sites$"location" <- as.character(adour_sites$"location")
+adour_sites$"location" <- gsub("Location ", "", adour_sites$"location")
+adour_sites$"location" <- as.numeric(adour_sites$"location")
 ```
 
 
 \
 
+From this figure, several things should be noted:
 
-#### Fool
+1. For two-dimensional networks, the x-axis **always** corresponds to transects
+and the y-axis to the quadrats.
+2. In this survey, the locations have the same transect identifiers (1 to 3) 
+but the **identifier of quadrats increases** with locations.
+3. The **order of the quadrats** follows the direction of the network: the first 
+quadrat is upstream and the last is downstream. 
 
-The function `fool()` can detect neighbors vertically, i.e. among 
-transects along a quadrat. User can change the default settings (Fig. 6A),
-by adding directionality (`directed = TRUE`, Fig. 6B) and reversing the default
-directionality (`directed = TRUE` and `reverse = TRUE`, Fig. 6C).
 
 \
 
 
-```{r 'cb-fool', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 6. Fool movements", out.width='100%'}
-fool_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(fool(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+When using the package `chessboard`, the **first step** is to create **nodes labels**
+by combining the identifiers of transects and quadrats. It's the purpose of the
+function `create_nodes_labels()`.
 
-fool_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(fool(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
 
-fool_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(fool(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+\
 
-(fool_1 | fool_2 | fool_3)
+
+```{r 'nodes-labels'}
+## Create nodes labels ----
+adour_sites <- create_nodes_labels(data     = adour_sites, 
+                                   location = "location",
+                                   transect = "transect", 
+                                   quadrat  = "quadrat")
+
+head(adour_sites, 20)
 ```
 
-
-#### Rook
-
-
-The function `rook()` can detect neighbors both horizontally and vertically, 
-i.e. among transects along a quadrat and among quadrats along a transect. User 
-can change the default settings (Fig. 7A), by adding directionality 
-(`directed = TRUE`, Fig. 7B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 7C).
-
-
+\
+\
+\
+\
+\
 \
 
 
-```{r 'cb-rook', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 7. Rook movements", out.width='100%'}
-rook_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(rook(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+### NOTES
 
-rook_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(rook(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
 
-rook_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(rook(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+Let's import the **Adour river** spatial layer.
 
-(rook_1 | rook_2 | rook_3)
+This layer is an [`sf`](https://cran.r-project.org/package=sf) spatial object 
+of type `LINESTRING` and contains one single row (geometry) defined in the 
+[RGF93 / Lambert-93](https://epsg.io/2154) projection.
+
+
+Let's convert this `data.frame` into an `sf` object of type `POINT`.
+
+```{r 'df-to-sf', fig.height=10, fig.width=12}
+## Convert data.frame to sf object ----
+adour_sites_sf <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"),
+                               crs = "epsg:2154")
+
+head(adour_sites_sf)
 ```
 
+**Note:** The package `chessboard` expects that each site is one row in this object
+and its geometry is `POINT` (other geometry like `MUTLIPOINT`, `POLYGON`, etc.)
+are not implemented.
 
-\
 
 
-#### Bishop
 
+## References
 
-The function `bishop()` can detect neighbors diagonally. User 
-can change the default settings (Fig. 8A), by adding directionality 
-(`directed = TRUE`, Fig. 8B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 8C).
+Bivand R. _et al._ (2022) spdep: Spatial dependence, weighting schemes, and statistics.
+R package version 1.2-4, 
+[https://CRAN.R-project.org/package=spdep](https://CRAN.R-project.org/package=spdep).
 
-\
+Blanchet F. G., Legendre P. & Borcard D. (2008) Modelling directional spatial 
+processes in ecological data. **Ecological Modelling**, 215, 325-336. 
+doi: [10.1016/j.ecolmodel.2008.04.001](https://doi.org/10.1016/j.ecolmodel.2008.04.001).
 
+Dray S., Legendre P. & Peres-Neto P. R. (2006) Spatial modelling: a comprehensive 
+framework for principal coordinate analysis of neighbour matrices (PCNM).
+**Ecological Modelling**, 196, 483-493. 
+doi: [10.1016/j.ecolmodel.2006.02.015](https://doi.org/10.1016/j.ecolmodel.2006.02.015).
 
-```{r 'cb-bishop', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 8. Bishop movements", out.width='100%'}
-bishop_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
-
-bishop_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-bishop_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(bishop_1 | bishop_2 | bishop_3)
-```
-
-
-\
-
-
-#### Bishop right
-
-The function `bishop_right()` is a special case of the function `bishop()` and 
-can detect neighbors along one diagonal (from bottom-left to top-right). User 
-can change the default settings (Fig. 9A), by adding directionality 
-(`directed = TRUE`, Fig. 9B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 9C).
-
-\
-
-
-```{r 'cb-bishop-right', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 9. Bishop right movements", out.width='100%'}
-bishop_right_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop_right(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
-
-bishop_right_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop_right(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-bishop_right_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop_right(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(bishop_right_1 | bishop_right_2 | bishop_right_3)
-```
-
-
-\
-
-
-#### Bishop left
-
-
-The function `bishop_left()` is a special case of the function `bishop()` and 
-can detect neighbors along one diagonal (from bottom-right to top-left). User 
-can change the default settings (Fig. 10A), by adding directionality 
-(`directed = TRUE`, Fig. 10B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 10C).
-
-\
-
-
-```{r 'cb-bishop-left', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 10. Bishop left movements", out.width='100%'}
-bishop_left_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop_left(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
-
-bishop_left_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-bishop_left_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(bishop_left(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(bishop_left_1 | bishop_left_2 | bishop_left_3)
-```
-
-
-\
-
-
-#### Knight
-
-The function `knight()` has complex movement, derived from the chess game. User 
-can change the default settings (Fig. 11A), by adding directionality 
-(`directed = TRUE`, Fig. 11B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 11C).
-
-\
-
-
-```{r 'cb-knight', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 11. Knight movements", out.width='100%'}
-knight_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
-
-knight_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-knight_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(knight_1 | knight_2 | knight_3)
-```
-
-
-\
-
-
-#### Knight right
-
-The function `knight_right()` is a special case of the function `knight()`. User 
-can change the default settings (Fig. 12A), by adding directionality 
-(`directed = TRUE`, Fig. 12B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 12C).
-
-
-\
-
-
-```{r 'cb-knight-right', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 12. Knight right movements", out.width='100%'}
-knight_right_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight_right(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
-
-knight_right_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight_right(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-knight_right_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight_right(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(knight_right_1 | knight_right_2 | knight_right_3)
-```
-
-
-\
-
-
-#### Knight left
-
-The function `knight_left()` is a special case of the function `knight()`. User 
-can change the default settings (Fig. 13A), by adding directionality 
-(`directed = TRUE`, Fig. 13B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 13C).
-
-\
-
-
-```{r 'cb-knight-left', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 13. Knight left movements", out.width='100%'}
-knight_left_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight_left(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
-
-knight_left_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-knight_left_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight_left(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(knight_left_1 | knight_left_2 | knight_left_3)
-```
-
-
-
-\
-
-
-#### Queen
-
-
-The function `queen()` can detect neighbors horizontally, vertically and 
-diagonally. It's a combination the `rook()` and the `bishop()`. User 
-can change the default settings (Fig. 14A), by adding directionality 
-(`directed = TRUE`, Fig. 14B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 14C).
-
-\
-
-
-```{r 'cb-queen', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 14. Queen movements", out.width='100%'}
-queen_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(queen(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
-
-queen_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(queen(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-queen_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(queen(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(queen_1 | queen_2 | queen_3)
-```
-
-
-\
-
-
-#### Wizard
-
-The function `wizard()` can detect neighbors in any direction. It's a 
-combination the `queen()` and the `knight()`. User 
-can change the default settings (Fig. 15A), by adding directionality 
-(`directed = TRUE`, Fig. 15B) and reversing the default directionality 
-(`directed = TRUE` and `reverse = TRUE`, Fig. 15C).
-\
-
-
-```{r 'cb-wizard', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 15. Wizard movements", out.width='100%'}
-wizard_1 <- 
-  gg_chessboard(nodes, "A. Undirected network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(wizard(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
-
-wizard_2 <- 
-  gg_chessboard(nodes, "B. Directed network", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(wizard(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-wizard_3 <- 
-  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(wizard(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(wizard_1 | wizard_2 | wizard_3)
-```
-
-
-\
-
-
-### Complex movements
-
-
-It's possible to create complex movements by combining the previous movements
-and by changing the arguments `degree`, `directed`, and `reverse`
-
-
-```{r 'cb-custom', eval=eval_chunk, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 16. Custom movements", out.width='100%'}
-wizard_1 <- 
-  gg_chessboard(nodes, "Pawn & Bishop", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(pawn(nodes, focus, degree = 3, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(bishop(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-wizard_2 <- 
-  gg_chessboard(nodes, "Knight L & Bishop L", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(bishop_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
-
-wizard_3 <- 
-  gg_chessboard(nodes, "Knight L, Bishop L, Pawn & Fool", "") + 
-  geom_piece(nodes, focus) +
-  geom_neighbors(knight_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(bishop_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(pawn(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(fool(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
-
-(wizard_1 | wizard_2 | wizard_3)
-```
+Dray S. _et al._ (2022) adespatial: Multivariate Multiscale Spatial Analysis. 
+R package version 0.3-16, 
+[https://CRAN.R-project.org/package=adespatial](https://CRAN.R-project.org/package=adespatial).

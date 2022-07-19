@@ -135,7 +135,7 @@ create_edges_id <- function(edges) {
 #' \dontrun{
 #' # Import Adour river (LINESTRING) ----
 #' path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
-#'                             package = "bridge")
+#'                             package = "chessboard")
 #' adour_river <- sf::st_read(path_to_file)
 #' 
 #' # Sample points of the Adour river ----
@@ -228,7 +228,7 @@ line_to_points <- function(x, density = 0.01, type = "regular", ...) {
 #' \dontrun{
 #' # Import Adour river (LINESTRING) ----
 #' path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
-#'                             package = "bridge")
+#'                             package = "chessboard")
 #' adour_river <- sf::st_read(path_to_file)
 #' 
 #' # Sample points of the Adour river ----

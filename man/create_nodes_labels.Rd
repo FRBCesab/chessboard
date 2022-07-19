@@ -44,17 +44,18 @@ Other columns present in the original dataset will also be added.
 Creates unique nodes (sampling units) labels in directed (or undirected)
 spatial (or not) networks.
 
-It's important to note that, even the package \code{bridge} is designed to deal
-with spatial networks, it does not explicitly use spatial coordinates. Every
-functions of the package will use the \strong{nodes labels}.
+It's important to note that, even the package \code{chessboard} is designed to
+deal with spatial networks, it does not explicitly use spatial coordinates.
+Every functions of the package will use the \strong{nodes labels}.
 
-To work, the package \code{bridge} requires that the sampling has two dimensions:
+To work, the package \code{chessboard} requires that the sampling has two
+dimensions:
 one from bottom to top (called \strong{quadrats}), and one from left to right
 (called \strong{transects}). If the sampling has been conducted along one single
 dimension (\strong{transects} or \strong{quadrats}), this function will create a
 fictitious label for the missing dimension.
-In other words, the package \code{bridge} can work with sampling designs such as
-regular grids (two dimensions), transects (one dimension), and quadrats
+In other words, the package \code{chessboard} can work with sampling designs such
+as regular grids (two dimensions), transects (one dimension), and quadrats
 (one dimension).
 
 In addition, the package can also deal with multiple locations. In that
@@ -65,7 +66,7 @@ the transect (created by the function if missing), and \code{2}, the identifier
 of the quadrat (created by the function if missing).
 }
 \examples{
-library("bridge")
+library("chessboard")
 
 # Two-dimensional sampling ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)

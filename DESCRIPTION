@@ -1,6 +1,6 @@
-Package: bridge
+Package: chessboard
 Type: Package
-Title: Directional Spatial Network Analyses
+Title: Neighborhood and Connectivity in Spatial Networks
 Version: 0.0.0.9000
 Authors@R: c(
     person(given   = "Nicolas",
@@ -10,8 +10,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-5537-5294")))
 Description: Contains different tools used by the FRB-CESAB Project Bridge to
     work with directional spatial network.
-URL: https://github.com/frbcesab/bridge
-BugReports: https://github.com/frbcesab/bridge/issues
+URL: https://github.com/frbcesab/chessboard
+BugReports: https://github.com/frbcesab/chessboard/issues
 License: GPL (>= 2)
 Encoding: UTF-8
 Imports: 

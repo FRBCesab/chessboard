@@ -1,10 +1,10 @@
-citHeader("To cite bridge in publications use:")
+citHeader("To cite chessboard in publications use:")
 
 bibentry(
   bibtype = "Manual",
-  title   = "bridge: {An} {R} package to ...",
+  title   = "chessboard: {An} {R} for neighborhood and connectivity in spatial networks.",
   author  = c(person("Casajus Nicolas")),
   year    = "2022",
   note    = "R package version 0.0.0.9000",
-  url     = "https://github.com/frbcesab/bridge"
+  url     = "https://github.com/frbcesab/chessboard"
 )

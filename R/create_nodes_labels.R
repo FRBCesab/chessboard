@@ -4,17 +4,18 @@
 #' Creates unique nodes (sampling units) labels in directed (or undirected) 
 #' spatial (or not) networks. 
 #' 
-#' It's important to note that, even the package `bridge` is designed to deal
-#' with spatial networks, it does not explicitly use spatial coordinates. Every
-#' functions of the package will use the **nodes labels**.
+#' It's important to note that, even the package `chessboard` is designed to 
+#' deal with spatial networks, it does not explicitly use spatial coordinates.
+#' Every functions of the package will use the **nodes labels**.
 #' 
-#' To work, the package `bridge` requires that the sampling has two dimensions: 
+#' To work, the package `chessboard` requires that the sampling has two
+#' dimensions: 
 #' one from bottom to top (called **quadrats**), and one from left to right 
 #' (called **transects**). If the sampling has been conducted along one single 
 #' dimension (**transects** or **quadrats**), this function will create a 
 #' fictitious label for the missing dimension.
-#' In other words, the package `bridge` can work with sampling designs such as 
-#' regular grids (two dimensions), transects (one dimension), and quadrats 
+#' In other words, the package `chessboard` can work with sampling designs such
+#' as regular grids (two dimensions), transects (one dimension), and quadrats 
 #' (one dimension).
 #' 
 #' In addition, the package can also deal with multiple locations. In that 
@@ -57,7 +58,7 @@
 #' @export
 #' 
 #' @examples 
-#' library("bridge")
+#' library("chessboard")
 #' 
 #' # Two-dimensional sampling ----
 #' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)

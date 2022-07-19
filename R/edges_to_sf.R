@@ -18,7 +18,7 @@
 #' @examples
 #' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
-#'                             package = "bridge")
+#'                             package = "chessboard")
 #' adour_sites  <- read.csv(path_to_file)
 #' 
 #' # Select first location ----

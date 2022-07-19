@@ -26,6 +26,8 @@ Plots a sampling as a chessboard of dimensions \code{t} x \code{q}, with
 \code{q}, the number of quadrats.
 }
 \examples{
+library("chessboard")
+
 # Two-dimensional sampling ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 

@@ -29,7 +29,7 @@ distance will be used instead.
 \examples{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
-                            package = "bridge")
+                            package = "chessboard")
 adour_sites <- read.csv(path_to_file)
 
 # Convert sites to sf object (POINTS) ----

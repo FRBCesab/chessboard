@@ -58,21 +58,22 @@ only nodes directly adjacent to the focal node will be considered as
 neighbors.
 \item \strong{Orientation of neighborhood} (argument \code{method}): can neighbors be
 detecting horizontally and/or vertically and/or diagonally? The package
-\code{bridge} implements all possible orientations derived from the chess game.
+\code{chessboard} implements all possible orientations derived from the chess
+game.
 \item \strong{Direction of neighborhood} (arguments \code{directed} and \code{reverse}): does
 the sampling design has a direction? If so (\code{directed = TRUE}), the network
 will be considered as \strong{directed} and the direction will follow the order
 of nodes labels in both axes (except if \code{reverse = TRUE}).
 }
 
-It's important to note that, even the package \code{bridge} is designed to deal
-with spatial networks, this function does not explicitly use spatial
+It's important to note that, even the package \code{chessboard} is designed to
+deal with spatial networks, this function does not explicitly use spatial
 coordinates to detect neighbors. Instead it uses the \strong{nodes labels}. The
 function \code{\link[=create_nodes_labels]{create_nodes_labels()}} must be used before this function to create
 nodes labels.
 }
 \examples{
-library("bridge")
+library("chessboard")
 
 # Two-dimensional sampling (only) ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)

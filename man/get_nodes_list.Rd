@@ -19,7 +19,7 @@ Retrieves the nodes list by selecting and ordering the column \code{node} of the
 output of the function \code{\link[=create_nodes_labels]{create_nodes_labels()}}.
 }
 \examples{
-library("bridge")
+library("chessboard")
 
 # Two-dimensional sampling (only) ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)

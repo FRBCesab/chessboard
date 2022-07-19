@@ -10,14 +10,15 @@
 #' neighbors.
 #' 2. **Orientation of neighborhood** (argument `method`): can neighbors be 
 #' detecting horizontally and/or vertically and/or diagonally? The package 
-#' `bridge` implements all possible orientations derived from the chess game.
+#' `chessboard` implements all possible orientations derived from the chess 
+#' game.
 #' 3. **Direction of neighborhood** (arguments `directed` and `reverse`): does 
 #' the sampling design has a direction? If so (`directed = TRUE`), the network 
 #' will be considered as **directed** and the direction will follow the order 
 #' of nodes labels in both axes (except if `reverse = TRUE`).
 #' 
-#' It's important to note that, even the package `bridge` is designed to deal
-#' with spatial networks, this function does not explicitly use spatial 
+#' It's important to note that, even the package `chessboard` is designed to 
+#' deal with spatial networks, this function does not explicitly use spatial 
 #' coordinates to detect neighbors. Instead it uses the **nodes labels**. The 
 #' function [create_nodes_labels()] must be used before this function to create 
 #' nodes labels.
@@ -56,7 +57,7 @@
 #' @export
 #' 
 #' @examples
-#' library("bridge")
+#' library("chessboard")
 #' 
 #' # Two-dimensional sampling (only) ----
 #' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)

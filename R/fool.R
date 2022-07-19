@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-#' library("bridge")
+#' library("chessboard")
 #' 
 #' # Two-dimensional sampling (only) ----
 #' sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)

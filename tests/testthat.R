@@ -1,4 +1,4 @@
 library("testthat")
-library("bridge")
+library("chessboard")
 
-test_check("bridge")
+test_check("chessboard")

@@ -21,6 +21,8 @@ A list of two \code{geom_point} that must be added to a \code{ggplot2} object.
 Highlights a node (cell) on a chessboard plotted with \code{\link[=gg_chessboard]{gg_chessboard()}}.
 }
 \examples{
+library("chessboard")
+
 # Two-dimensional sampling ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 

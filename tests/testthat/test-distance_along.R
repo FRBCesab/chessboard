@@ -32,11 +32,11 @@ sf::st_crs(river_no_crs) <- NA
 river_bad <- sf::st_transform(river, "epsg:2154")
 
 path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
-                            package = "bridge")
+                            package = "chessboard")
 adour_river <- sf::st_read(path_to_file, quiet = TRUE)
 
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
-                            package = "bridge")
+                            package = "chessboard")
 adour_sites <- read.csv(path_to_file)
 adour_sites <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
 

@@ -51,12 +51,12 @@ up the distance computation.
 \examples{
 # Import Adour river (LINESTRING) ----
 path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
-                            package = "bridge")
+                            package = "chessboard")
 adour_river <- sf::st_read(path_to_file)
 
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
-                            package = "bridge")
+                            package = "chessboard")
 adour_sites <- read.csv(path_to_file)
 
 # Convert sites to sf object (POINTS) ----

@@ -20,7 +20,7 @@ Retrieves and orders nodes from an edges list or from a vector of nodes.
 \examples{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
-                            package = "bridge")
+                            package = "chessboard")
 adour_sites  <- read.csv(path_to_file)
 
 # Retrieve nodes (from nodes vector) ----

@@ -31,7 +31,7 @@ Creates an edges weight matrix from the output of \code{\link[=distance_euclidea
 \examples{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
-                            package = "bridge")
+                            package = "chessboard")
 adour_sites <- read.csv(path_to_file)
 
 # Convert sites to sf object (POINTS) ----
