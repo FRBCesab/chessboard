@@ -230,11 +230,6 @@ check_neighbors_method <- function(method) {
 
 check_logical_value <- function(boolean) {
   
-  if (missing(boolean)) {
-    stop("The argument '", deparse(substitute(boolean)), "' is required", 
-         call. = FALSE)
-  }
-  
   if (is.null(boolean)) {
     stop("The argument '", deparse(substitute(boolean)), "' cannot be NULL", 
          call. = FALSE)
