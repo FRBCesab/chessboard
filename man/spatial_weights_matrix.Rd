@@ -25,6 +25,7 @@ replaced by \verb{4 x max(w)}, where \code{max(w)} is the maximal weight in the
 matrix.
 }
 \examples{
+\dontrun{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "chessboard")
@@ -52,4 +53,5 @@ adour_weights
 
 # Create Spatial weight matrix ----
 spatial_weights_matrix(adour_adjacency, adour_weights)
+}
 }

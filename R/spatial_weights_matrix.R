@@ -19,6 +19,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "chessboard")
@@ -46,6 +47,7 @@
 #' 
 #' # Create Spatial weight matrix ----
 #' spatial_weights_matrix(adour_adjacency, adour_weights)
+#' }
 
 spatial_weights_matrix <- function(x, y) {
   

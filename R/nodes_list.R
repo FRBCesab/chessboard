@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "chessboard")
@@ -25,6 +26,7 @@
 #' 
 #' # Retrieve nodes (from edges list) ----
 #' nodes_list(adour_edges)
+#' }
 
 nodes_list <- function(x) {
   

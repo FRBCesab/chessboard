@@ -21,6 +21,7 @@
 #' @importFrom rlang .data
 #'
 #' @examples
+#' \dontrun{
 #' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "chessboard")
@@ -35,6 +36,7 @@
 #' # Create nodes-by-edges matrix ----
 #' adour_matrix <- nodes_by_edges_matrix(adour_edges)
 #' adour_matrix
+#' }
 
 nodes_by_edges_matrix <- function(edges) {
   

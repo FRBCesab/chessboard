@@ -29,6 +29,7 @@ Creates an edges weight matrix from the output of \code{\link[=distance_euclidea
 \code{\link[=distance_along]{distance_along()}}.
 }
 \examples{
+\dontrun{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "chessboard")
@@ -47,4 +48,5 @@ edges_weight_matrix(adour_dists)
 edges_weight_matrix(adour_dists, lower = FALSE)
 edges_weight_matrix(adour_dists, upper = FALSE)
 edges_weight_matrix(adour_dists, diag = FALSE)
+}
 }

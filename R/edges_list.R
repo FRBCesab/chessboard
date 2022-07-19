@@ -43,6 +43,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "chessboard")
@@ -58,6 +59,7 @@
 #' 
 #' # Find edges with 1 degree of neighborhood (directed network) ----
 #' edges_list(adour_nodes, directed = TRUE)
+#' }
 
 edges_list <- function(nodes, degree = 1, self = FALSE, all = FALSE, 
                        directed = FALSE) {

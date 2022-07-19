@@ -51,6 +51,7 @@ be only linked to first next node (directed network from upstream to
 downstream).
 }
 \examples{
+\dontrun{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "chessboard")
@@ -66,4 +67,5 @@ edges_list(adour_nodes)
 
 # Find edges with 1 degree of neighborhood (directed network) ----
 edges_list(adour_nodes, directed = TRUE)
+}
 }

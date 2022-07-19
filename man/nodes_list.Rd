@@ -18,6 +18,7 @@ A \code{character} vector of unique ordered nodes labels.
 Retrieves and orders nodes from an edges list or from a vector of nodes.
 }
 \examples{
+\dontrun{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "chessboard")
@@ -32,4 +33,5 @@ adour_edges <- edges_list(adour_nodes)
 
 # Retrieve nodes (from edges list) ----
 nodes_list(adour_edges)
+}
 }

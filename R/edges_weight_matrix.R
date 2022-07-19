@@ -23,6 +23,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "chessboard")
@@ -41,6 +42,7 @@
 #' edges_weight_matrix(adour_dists, lower = FALSE)
 #' edges_weight_matrix(adour_dists, upper = FALSE)
 #' edges_weight_matrix(adour_dists, diag = FALSE)
+#' }
 
 edges_weight_matrix <- function(distances, lower = TRUE, upper = TRUE, 
                                 diag = TRUE) {

@@ -23,6 +23,7 @@ Resulting edges weights equal to 0 will be replaced by \verb{4 x max(w)},
 where \code{max(w)} is the maximal weight in the matrix.
 }
 \examples{
+\dontrun{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "chessboard")
@@ -45,4 +46,5 @@ adour_dists <- distance_euclidean(adour_sites_sf)
 
 # Create Edges weights vector ----
 edges_weights_vector(adour_matrix, adour_dists)
+}
 }

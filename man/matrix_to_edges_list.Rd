@@ -26,6 +26,7 @@ Converts an adjacency matrix to an edges list. This function allows to create
 the same edges list as the one obtained with \code{\link[=edges_list]{edges_list()}}.
 }
 \examples{
+\dontrun{
 # Import Adour sites ----
 path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
                             package = "chessboard")
@@ -48,4 +49,5 @@ new_edges
 
 # Check ----
 identical(adour_edges, new_edges)
+}
 }

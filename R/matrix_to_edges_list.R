@@ -18,6 +18,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Import Adour sites ----
 #' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
 #'                             package = "chessboard")
@@ -40,6 +41,7 @@
 #' 
 #' # Check ----
 #' identical(adour_edges, new_edges)
+#' }
 
 matrix_to_edges_list <- function(x, all = FALSE) {
   
