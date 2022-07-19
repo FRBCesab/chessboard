@@ -69,7 +69,7 @@ nodes <- create_nodes_labels(data     = sites_infos,
 focus     <- "5-5"
 
 # Default settings ----
-neighbors <- knight_right(nodes, focus)
+neighbors <- knight_right(nodes, focus, degree = 2)
 gg_chessboard(nodes) +
   geom_piece(nodes, focus) +
   geom_neighbors(neighbors)

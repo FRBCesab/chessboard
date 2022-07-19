@@ -30,7 +30,7 @@
 #' focus     <- "5-5"
 #' 
 #' # Default settings ----
-#' neighbors <- knight(nodes, focus)
+#' neighbors <- knight(nodes, focus, degree = 2)
 #' gg_chessboard(nodes) +
 #'   geom_piece(nodes, focus) +
 #'   geom_neighbors(neighbors)
