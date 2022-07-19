@@ -342,15 +342,15 @@ check_sites_object <- function(sites) {
 }
 
 
-check_node_labels <- function(node) {
+check_node_labels <- function(nodes) {
   
   pattern <- "^[0-9]{1,}-[0-9]{1,}$"
   
-  if (length(grep(pattern, node)) == 0) {
+  if (length(grep(pattern, nodes)) == 0) {
     stop("Nodes labels have not the good form", call. = FALSE)
   }
   
-  if (length(grep(pattern, node)) < length(node)) {
+  if (length(grep(pattern, nodes)) < length(nodes)) {
     stop("Some nodes labels are malformed", call. = FALSE)
   }
   
