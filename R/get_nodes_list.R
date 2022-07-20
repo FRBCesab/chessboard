@@ -32,5 +32,7 @@ get_nodes_list <- function(nodes) {
   
   ## Extract nodes labels ----
   
-  sort(as.character(nodes$"node"))
+  nodes <- nodes[with(nodes, order(location, transect, quadrat)), ]
+  
+  as.character(nodes$"node")
 }
