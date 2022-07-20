@@ -211,7 +211,7 @@ check_neighbors_method <- function(method) {
                          "bishop_right", "knight", "knight_left", 
                          "knight_right", "queen", "wizard")
   
-  error_msg <- paste0(shQuote(available_methods), collapse = ", ")
+  error_msg <- paste0(available_methods, collapse = ", ")
   
   if (!(method %in% available_methods)) {
     stop("Argument 'method' must be one of ", error_msg, call. = FALSE)
