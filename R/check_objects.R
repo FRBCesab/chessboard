@@ -284,12 +284,12 @@ check_edges_object <- function(edges) {
   }
   
   if (!is.character(edges$"from")) {
-    stop("The column 'from' of the 'edges' data.frame must be a numeric", 
+    stop("The column 'from' of the 'edges' data.frame must be a character", 
          call. = FALSE)
   }
   
   if (!is.character(edges$"to")) {
-    stop("The column 'to' of the 'edges' data.frame must be a numeric", 
+    stop("The column 'to' of the 'edges' data.frame must be a character", 
          call. = FALSE)
   }
   
@@ -317,9 +317,14 @@ check_sites_object <- function(sites) {
          call. = FALSE)
   }
   
-  if (ncol(sites) < 2) {
+  if (ncol(sites) < 3) {
     stop("Argument 'sites' should have at least two columns: nodes labels ",
          "and geometry", call. = FALSE)
+  }
+  
+  if (colnames(sites)[1] != "node") {
+    stop("The first column of 'sites' must be named 'node' (nodes labels)",
+         call. = FALSE)
   }
   
   geom <- sf::st_geometry_type(sites) %>% as.character() %>% unique()
