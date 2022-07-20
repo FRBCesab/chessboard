@@ -620,6 +620,14 @@ ggplot(adour_sites_sf) +
 
 ## Connectivity matrix
 
+From this edges list, we can build a **connectivity matrix**, i.e. a binary 
+matrix of dimensions `n x n`, where `n` is the number of nodes (sampling units) 
+indicating the presence (`1`) or the absence (`0`) of an edge (link) between pairs 
+of nodes.
+
+\
+
+We can use the function `connectivity_matrix()` of the package `chessboard`.
 
 ```{r 'connectivity-matrix'}
 ## Create connectivity matrix ----
@@ -631,6 +639,8 @@ adour_matrix
 
 \
 
+The package `chessboard` provides a graphical function to visualize this matrix:
+`gg_matrix()`.
 
 ```{r 'plot-connectivity-matrix', fig.height=8, fig.width=8, fig.cap="Figure 9. Connectivity matrix", out.width='80%'}
 ## Visualize connectivity matrix ----
@@ -640,6 +650,8 @@ gg_matrix(adour_matrix)
 
 \
 
+Optionally, we can use the function `matrix_to_edges_list()` to convert back the
+connectivity matrix to edges list.
 
 ```{r 'connectivity-matrix-to-df'}
 ## Convert connectivity matrix to edges list ----
@@ -652,7 +664,58 @@ matrix_to_edges_list(adour_matrix)
 
 ## Nodes-by-edges matrix
 
-Coming soon...
+The first object required by AEM is the **nodes-by-edges matrix**, i.e. a binary
+matrix of dimensions `n x k`, where `n` is the number of nodes (in rows) and `k` the 
+number of edges (in columns). This matrix represents the presence of a link 
+influencing a site, directly or indirectly. It also gives the direction of the 
+network.
+
+
+\
+
+
+The function `nodes_by_edges_matrix()` of the package `chessboard` is an alternative
+to the function 
+[`aem.build.binary()`](https://sdray.github.io/adespatial/reference/aem.build.binary.html) 
+of the package [`adespatial`](https://cran.r-project.org/package=adespatial). 
+This function creates the same output but works in a different way: it's only based on nodes 
+labels (not on spatial coordinates). In addition, the function `nodes_by_edges_matrix()` 
+adds labels to nodes and edges.
+
+
+
+```{r 'nodes-by-edges-matrix'}
+# Create nodes-by-edges matrix ----
+adour_edges_mat <- nodes_by_edges_matrix(adour_edges)
+
+names(adour_edges_mat)
+```
+
+This function returns a list with the following elements:
+  
+  - `se.mat`: the nodes-by-edges matrix of dimensions `n x k`, where `n` is the 
+number of nodes and `k` the number of edges (including the edge between the 
+                                             fictitious origin and the first site);
+- `edges`: a `data.frame` of edges list.
+
+
+\
+
+
+**Note:** a fictitious `origin` site (coded as `0`) has been created and represents
+the first edge (coded as `E-01`) to the first site.
+
+
+\
+
+
+Let's plot our nodes-by-edges matrix.
+
+
+```{r 'plot-nodes-by-edges-matrix', fig.height=8, fig.width=8, fig.cap="Figure 9. Connectivity matrix", out.width='80%'}
+gg_matrix(adour_edges_mat$"se.mat")
+```
+
 
 
 
@@ -661,18 +724,9 @@ Coming soon...
 
 ## References
 
-Bivand R. _et al._ (2022) spdep: Spatial dependence, weighting schemes, and statistics.
-R package version 1.2-4, 
-[https://CRAN.R-project.org/package=spdep](https://CRAN.R-project.org/package=spdep).
-
 Blanchet F. G., Legendre P. & Borcard D. (2008) Modelling directional spatial 
 processes in ecological data. **Ecological Modelling**, 215, 325-336. 
 doi: [10.1016/j.ecolmodel.2008.04.001](https://doi.org/10.1016/j.ecolmodel.2008.04.001).
-
-Dray S., Legendre P. & Peres-Neto P. R. (2006) Spatial modelling: a comprehensive 
-framework for principal coordinate analysis of neighbour matrices (PCNM).
-**Ecological Modelling**, 196, 483-493. 
-doi: [10.1016/j.ecolmodel.2006.02.015](https://doi.org/10.1016/j.ecolmodel.2006.02.015).
 
 Dray S. _et al._ (2022) adespatial: Multivariate Multiscale Spatial Analysis. 
 R package version 0.3-16, 
