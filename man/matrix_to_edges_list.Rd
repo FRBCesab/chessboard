@@ -2,52 +2,48 @@
 % Please edit documentation in R/matrix_to_edges_list.R
 \name{matrix_to_edges_list}
 \alias{matrix_to_edges_list}
-\title{Convert an adjacency matrix to an edges list}
+\title{Convert an connectivity matrix to an edges list}
 \usage{
 matrix_to_edges_list(x, all = FALSE)
 }
 \arguments{
-\item{x}{a \code{matrix} object. The adjacency matrix to be converted in edges
-list.}
+\item{x}{a \code{matrix} object. The connectivity matrix to be converted in an
+edges list.}
 
 \item{all}{a logical value. If \code{FALSE} (default), removes missing edges.}
 }
 \value{
-A \code{data.frame} with four columns:
+A \code{data.frame} with two (or three) columns:
 \itemize{
-\item \code{edge_id}: label of the edge
-\item \code{edge}: 0 (no edge) or 1 (edge)
 \item \code{from}: label of one of the two nodes of the edge
 \item \code{to}: label of the other node of the edge
+\item \code{edge}: 0 (no edge) or 1 (edge). This column is returned only if
+\code{all = TRUE}.
 }
 }
 \description{
-Converts an adjacency matrix to an edges list. This function allows to create
-the same edges list as the one obtained with \code{\link[=edges_list]{edges_list()}}.
+Converts an connectivity matrix to an edges list. This function allows to
+create the same edges list as the one obtained with \code{\link[=create_edges_list]{create_edges_list()}}.
 }
 \examples{
-\dontrun{
-# Import Adour sites ----
-path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
-                            package = "chessboard")
-adour_sites  <- read.csv(path_to_file)
+library("chessboard")
 
-# Retrieve nodes (from nodes vector) ----
-adour_nodes <- nodes_list(adour_sites$"site")
+# Two-dimensional sampling ----
+sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
+sites_infos
 
-# Find edges with 1 degree of neighborhood (undirected network) ----
-adour_edges <- edges_list(adour_nodes)
-adour_edges
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect", 
+                             quadrat  = "quadrat")
 
-# Get adjacency matrix ----
-adour_adj_matrix <- adjacency_matrix(adour_edges)
-adour_adj_matrix
+edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
+
+conn_matrix <- connectivity_matrix(edges)
 
 # Convert back to edges list ----
-new_edges <- matrix_to_edges_list(adour_adj_matrix)
+new_edges <- matrix_to_edges_list(conn_matrix)
 new_edges
 
 # Check ----
-identical(adour_edges, new_edges)
-}
+identical(edges, new_edges)
 }
