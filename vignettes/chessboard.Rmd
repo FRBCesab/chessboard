@@ -685,10 +685,17 @@ adds labels to nodes and edges.
 
 
 ```{r 'nodes-by-edges-matrix'}
-# Create nodes-by-edges matrix ----
+## Create nodes-by-edges matrix ----
 adour_edges_mat <- nodes_by_edges_matrix(adour_edges)
 
+## Content ----
 names(adour_edges_mat)
+
+## Header of the nodes-by-edge matrix ----
+adour_edges_mat$"se.mat"[ , 1:20]
+
+## Edges list ----
+adour_edges_mat$"edges"
 ```
 
 This function returns a list with the following elements:
@@ -712,7 +719,7 @@ the first edge (coded as `E-01`) to the first site.
 Let's plot our nodes-by-edges matrix.
 
 
-```{r 'plot-nodes-by-edges-matrix', fig.height=8, fig.width=8, fig.cap="Figure 9. Connectivity matrix", out.width='80%'}
+```{r 'plot-nodes-by-edges-matrix', fig.height=4.5, fig.width=8, fig.cap="Figure 10. Nodes-by-edges matrix", out.width='80%'}
 gg_matrix(adour_edges_mat$"se.mat")
 ```
 
