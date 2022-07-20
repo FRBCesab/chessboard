@@ -27,20 +27,18 @@ but works in a different way: it's only based on nodes labels (not on
 coordinates). Also, this function adds labels to nodes and edges.
 }
 \examples{
-\dontrun{
-# Import Adour sites ----
-path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
-                            package = "chessboard")
-adour_sites  <- read.csv(path_to_file)
+library("chessboard")
 
-# Retrieve nodes (from nodes vector) ----
-adour_nodes <- nodes_list(adour_sites$"site")
+# Two-dimensional sampling ----
+sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
+sites_infos
 
-# Find edges with 1 degree of neighborhood ----
-adour_edges <- edges_list(adour_nodes, directed = TRUE)
+nodes <- create_nodes_labels(data     = sites_infos, 
+                             transect = "transect", 
+                             quadrat  = "quadrat")
+
+edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
 
 # Create nodes-by-edges matrix ----
-adour_matrix <- nodes_by_edges_matrix(adour_edges)
-adour_matrix
-}
+nodes_by_edges_matrix(edges)
 }

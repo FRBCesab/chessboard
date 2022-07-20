@@ -21,82 +21,59 @@
 #' @importFrom rlang .data
 #'
 #' @examples
-#' \dontrun{
-#' # Import Adour sites ----
-#' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
-#'                             package = "chessboard")
-#' adour_sites  <- read.csv(path_to_file)
+#' library("chessboard")
 #' 
-#' # Retrieve nodes (from nodes vector) ----
-#' adour_nodes <- nodes_list(adour_sites$"site")
+#' # Two-dimensional sampling ----
+#' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
+#' sites_infos
 #' 
-#' # Find edges with 1 degree of neighborhood ----
-#' adour_edges <- edges_list(adour_nodes, directed = TRUE)
+#' nodes <- create_nodes_labels(data     = sites_infos, 
+#'                              transect = "transect", 
+#'                              quadrat  = "quadrat")
+#' 
+#' edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
 #' 
 #' # Create nodes-by-edges matrix ----
-#' adour_matrix <- nodes_by_edges_matrix(adour_edges)
-#' adour_matrix
-#' }
+#' nodes_by_edges_matrix(edges)
 
 nodes_by_edges_matrix <- function(edges) {
   
   ## Check edges argument ----
   
-  if (missing(edges)) {
-    stop("Argument 'edges' is required", call. = FALSE)
-  }
-  
-  if (!is.data.frame(edges)) {
-    stop("Argument 'edges' must be a data.frame", call. = FALSE)
-  }
-  
-  if (!("from" %in% colnames(edges))) {
-    stop("The column 'from' is absent from the edges data.frame", 
-         call. = FALSE)
-  }
-  
-  if (!("to" %in% colnames(edges))) {
-    stop("The column 'to' is absent from the edges data.frame", 
-         call. = FALSE)
-  }
-  
-  if (!("edge" %in% colnames(edges))) {
-    stop("The column 'edge' is absent from the edges data.frame", 
-         call. = FALSE)
-  }
-  
-  if (!("edge_id" %in% colnames(edges))) {
-    stop("The column 'edge_id' is absent from the edges data.frame", 
-         call. = FALSE)
-  }
-  
-  if (nrow(edges) == 0) {
-    stop("Argument 'edges' must have at least one row", call. = FALSE)
-  }
+  check_edges_object(edges)
   
   
   ## Detect undirected network ----
   
-  nodes <- nodes_list(c(edges$"from", edges$"to"))
-  nodes <- data.frame("node" = nodes, "id" = seq_len(length(nodes)))
+  # nodes <- get_sorted_nodes(edges)
+  # nodes <- data.frame("node" = nodes, "id" = seq_len(length(nodes)))
   
-  udn <- merge(edges, nodes, by.x = "from", by.y = "node", all = FALSE)
-  udn <- merge(udn, nodes, by.x = "to", by.y = "node", all = FALSE)
+  # udn <- merge(edges, nodes, by.x = "from", by.y = "node", all = FALSE)
+  # udn <- merge(udn, nodes, by.x = "to", by.y = "node", all = FALSE)
   
-  if (any(udn$"id.x" >= udn$"id.y")) {
-    stop("This function is not designed to deal with directed network. ",
-         "Please remove symetrical edges.", call. = FALSE)
+  # if (any(udn$"id.x" >= udn$"id.y")) {
+  #   stop("This function is not designed to deal with directed network. ",
+  #        "Please remove symetrical edges.", call. = FALSE)
+  # }
+  
+  
+  ## Detect origins ----
+  
+  origins <- which(!(edges$"from" %in% edges$"to"))
+  
+  if (length(origins) < 1) {
+    stop("Unable to find origin nodes", call. = FALSE)
   }
   
+  origin_edges <- data.frame()
   
-  ## Prepare edges ----
+  for (origin in rev(origins)) {
+    origin_edges <- rbind(data.frame("from" = "0", 
+                                     "to"   = edges[origin, "from"]), 
+                          origin_edges) 
+  }
   
-  edges <- edges[edges$"edge" == 1, ]
-  edges <- edges[ , c("edge_id", "from", "to")]
-  edges <- rbind(data.frame("edge_id" = "O", 
-                            "from"    = "0", 
-                            "to"      = edges[1, "from"]), 
-                 edges)
+  edges <- rbind(origin_edges, edges)
   
   
   ## Rename edges ----
@@ -105,6 +82,8 @@ nodes_by_edges_matrix <- function(edges) {
   edges$"edge_id" <- format(edges$"edge_id")
   edges$"edge_id" <- paste0("E-", edges$"edge_id")
   edges$"edge_id" <- gsub("\\s", "0", edges$"edge_id")
+  
+  edges <- edges[ , c("edge_id", "from", "to")]
   
   
   ## Core code ----
