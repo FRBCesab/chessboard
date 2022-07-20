@@ -17,14 +17,14 @@ test_that("check_neighbors_method() - Tests for wrong inputs", {
                fixed = TRUE)
   
   expect_error(check_neighbors_method("Pawn"),
-               paste0("Argument method must be one of pawn, fool, ",
+               paste0("Argument 'method' must be one of pawn, fool, ",
                       "rook, bishop, bishop_left, bishop_right, ", 
                       "knight, knight_left, knight_right, queen, ",
                       "wizard"),
                fixed = TRUE)
   
   expect_error(check_neighbors_method("knight-right"),
-               paste0("Argument method must be one of pawn, fool, ",
+               paste0("Argument 'method' must be one of pawn, fool, ",
                       "rook, bishop, bishop_left, bishop_right, ", 
                       "knight, knight_left, knight_right, queen, ",
                       "wizard"),
