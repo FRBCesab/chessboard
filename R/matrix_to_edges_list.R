@@ -52,17 +52,17 @@ matrix_to_edges_list <- function(x, all = FALSE) {
   }
   
   if (!is.matrix(x)) {
-    stop("Argument 'x' must be a matrix (adjacency matrix)", call. = FALSE)
+    stop("Argument 'x' must be a matrix (connectivity matrix)", call. = FALSE)
   }
   
   if (!is.numeric(x)) {
-    stop("Argument 'x' must be a numeric matrix (adjacency matrix)", 
+    stop("Argument 'x' must be a numeric matrix (connectivity matrix)", 
          call. = FALSE)
   }
   
   if (nrow(x) != ncol(x)) {
     stop("Number of rows of 'x' must be equal to number of columns ", 
-         "(adjacency matrix)", call. = FALSE)
+         "(connectivity matrix)", call. = FALSE)
   }
   
   if (is.null(rownames(x))) {
@@ -95,10 +95,11 @@ matrix_to_edges_list <- function(x, all = FALSE) {
   
   ## Remove non edges ----
   
-  if (!all) x <- x[which(!is.na(x$"edge") & x$"edge" != 0), ]
+  if (!all) {
+    x <- x[which(!is.na(x$"edge") & x$"edge" != 0), ]
+    x <- x[ , -which(colnames(x) == "edge")]
+  }
 
-  
-  ## Create edges labels ----  
-  
-  create_edges_id(x)
+  rownames(x) <- NULL
+  x
 }
