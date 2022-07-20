@@ -59,18 +59,18 @@ nodes_by_edges_matrix <- function(edges) {
   
   ## Detect origins ----
   
-  origins <- which(!(edges$"from" %in% edges$"to"))
+  origins <- edges[which(!(edges$"from" %in% edges$"to")), "from", drop = TRUE]
   
   if (length(origins) < 1) {
     stop("Unable to find origin nodes", call. = FALSE)
   }
   
+  origins <- sort(unique(origins))
+  
   origin_edges <- data.frame()
   
   for (origin in rev(origins)) {
-    origin_edges <- rbind(data.frame("from" = "0", 
-                                     "to"   = edges[origin, "from"]), 
-                          origin_edges) 
+    origin_edges <- rbind(data.frame("from" = "0", "to" = origin), origin_edges) 
   }
   
   edges <- rbind(origin_edges, edges)
