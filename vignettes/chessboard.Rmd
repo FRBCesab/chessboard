@@ -691,8 +691,8 @@ adour_edges_mat <- nodes_by_edges_matrix(adour_edges)
 ## Content ----
 names(adour_edges_mat)
 
-## Header of the nodes-by-edge matrix ----
-adour_edges_mat$"se.mat"[ , 1:20]
+## Header of the nodes-by-edges matrix ----
+adour_edges_mat$"se.mat"[ , 1:15]
 
 ## Edges list ----
 adour_edges_mat$"edges"
