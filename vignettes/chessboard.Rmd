@@ -59,9 +59,9 @@ margins.
 
 
 ```{r 'setup'}
-# devtools::load_all()
 library("chessboard")
 library("ggplot2")
+library("patchwork")
 ```
 
 
@@ -304,6 +304,20 @@ function `create_nodes_labels()`.
 
 \
 
+But first, let's select the first location (optional).
+
+
+```{r 'select-location'}
+## Select first location (optional) ----
+adour_sites <- adour_sites[adour_sites$"location" == 1, ]
+adour_sites
+```
+
+
+\
+
+
+Now, we can create the nodes labels.
 
 ```{r 'nodes-labels'}
 ## Create nodes labels ----
@@ -312,42 +326,337 @@ adour_sites <- create_nodes_labels(data     = adour_sites,
                                    transect = "transect", 
                                    quadrat  = "quadrat")
 
-head(adour_sites, 20)
+adour_sites
 ```
 
 \
+
+The nodes labels are of the form: `1-2`, where 
+`1` is the identifier of the **transect** (created by the function if missing, 
+i.e. quadrats-only sampling), and 
+`2`, the identifier of the **quadrat** (created by the function if missing,
+i.e. transects-only sampling).
+
+
 \
+
+The function `get_nodes_list()` can be used to extract the nodes list.
+
+```{r 'get-nodes-labels'}
+## Get nodes labels ----
+get_nodes_list(adour_sites)
+```
+
+
+
 \
+
+
+## Edges list
+
+
+
+The creation of a list of edges (links) between nodes (sampling units) is based 
+on the detection of neighbors. The function `create_edges_list()` implements 
+three neighborhood rules:
+
+1. **Degree of neighborhood** (argument `degree`): the number of adjacent 
+nodes that will be used to create **direct** edges. If `degree = 1`, 
+only nodes directly adjacent to the focal node will be considered as 
+neighbors.
+2. **Orientation of neighborhood** (argument `method`): can neighbors be 
+detecting horizontally and/or vertically and/or diagonally? The package 
+`chessboard` implements all possible orientations derived from the chess 
+game.
+3. **Direction of neighborhood** (arguments `directed` and `reverse`): does 
+the sampling design has a direction? If so, the network 
+will be considered as **directed** and the direction will follow the order 
+of nodes labels in both axes of the grid.
+
+
 \
+
+
+Different methods have implemented to define neighborhood (argument `method` 
+of the function `create_edges_list()`). These methods
+are named `'pawn'`, `'rook'`, `'bishop'`, `'queen'`, etc. A complete list of
+available methods is available at: 
+[https://frbcesab.github.io/chessboard/reference/index.html#detect-neighbors](https://frbcesab.github.io/chessboard/reference/index.html#detect-neighbors)
+
+
 \
+
+
+Before using the function `create_edges_list()`, users can explore these different
+methods by calling the functions `pawn()`, `rook()`, `bishop()`, `queen()`, etc.
+
+Let's take a look of the neighborhood method `pawn()`.
+
+```{r 'method-pawn'}
+## Explore pawn method to find neighbors ----
+neighbors_pawn <- pawn(nodes    = adour_sites, 
+                       focus    = "2-3", 
+                       degree   = 1, 
+                       directed = FALSE, 
+                       reverse  = FALSE)
+neighbors_pawn
+```
+
+This function (and others) only works on a specific node (argument `focus`).
+
+
 \
 
 
-### NOTES
+The package `chessboard` contains functions to visualize detected neighbors on a
+chessboard: `gg_chessboard()` is used to plot a chessboard (dimensions defined by the
+nodes list), `geom_piece()` emphasizes the focus node (in red), and `geom_neighbors()` adds
+the detected neighbors.
 
 
-Let's import the **Adour river** spatial layer.
+```{r 'nb-pawn', fig.height=8, fig.width=5, echo=FALSE, fig.cap="Figure 4. Detected neighbors (pawn method)", out.width='50%'}
+gg_chessboard(adour_sites) +
+  geom_piece(adour_sites, focus = "2-3") +
+  geom_neighbors(neighbors_pawn)
+```
 
-This layer is an [`sf`](https://cran.r-project.org/package=sf) spatial object 
-of type `LINESTRING` and contains one single row (geometry) defined in the 
-[RGF93 / Lambert-93](https://epsg.io/2154) projection.
+
+\
 
 
-Let's convert this `data.frame` into an `sf` object of type `POINT`.
+The Figure 5 shows the usage of the function `pawn()` (and others). 
+This function can detect neighbors horizontally, i.e. among 
+quadrats along a transect. User can change the default settings 
+by increasing the degree of neighborhood (`degree = 4`, Fig. 5A),
+by adding directionality (`directed = TRUE`, Fig. 5B), and 
+by reversing the default directionality (`directed = TRUE` and `reverse = TRUE`, Fig. 5C).
 
-```{r 'df-to-sf', fig.height=10, fig.width=12}
-## Convert data.frame to sf object ----
+
+```{r 'cb-pawn', fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 5. Pawn movements", out.width='100%'}
+demo_sites <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
+
+demo_nodes <- create_nodes_labels(data     = demo_sites,
+                                  transect = "transect", 
+                                  quadrat  = "quadrat")
+
+demo_focus  <- "5-5"
+
+pawn_1 <- 
+  gg_chessboard(demo_nodes, "A. Undirected network", "") + 
+  geom_piece(demo_nodes, demo_focus) +
+  geom_neighbors(pawn(demo_nodes, demo_focus, degree = 4, directed = FALSE, 
+                      reverse = FALSE))
+
+pawn_2 <- 
+  gg_chessboard(demo_nodes, "B. Directed network", "") + 
+  geom_piece(demo_nodes, demo_focus) +
+  geom_neighbors(pawn(demo_nodes, demo_focus, degree = 4, directed = TRUE, 
+                      reverse = FALSE))
+
+pawn_3 <- 
+  gg_chessboard(demo_nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(demo_nodes, demo_focus) +
+  geom_neighbors(pawn(demo_nodes, demo_focus, degree = 4, directed = TRUE, 
+                      reverse = TRUE))
+
+(pawn_1 | pawn_2 | pawn_3)
+```
+
+
+\
+
+
+Let's take another example with `method = "bishop"`. 
+The function `bishop()` can detect neighbors diagonally. 
+User can change the default settings 
+by increasing the degree of neighborhood (`degree = 4`, Fig. 6A),
+by adding directionality (`directed = TRUE`, Fig. 6B), and 
+by reversing the default directionality (`directed = TRUE` and `reverse = TRUE`, Fig. 6C).
+
+
+```{r 'cb-bishop', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 6. Bishop movements", out.width='100%'}
+demo_sites <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
+
+demo_nodes <- create_nodes_labels(data     = demo_sites,
+                                  transect = "transect", 
+                                  quadrat  = "quadrat")
+
+demo_focus  <- "5-5"
+
+bishop_1 <- 
+  gg_chessboard(demo_nodes, "A. Undirected network", "") + 
+  geom_piece(demo_nodes, demo_focus) +
+  geom_neighbors(bishop(demo_nodes, demo_focus, degree = 4, directed = FALSE, 
+                      reverse = FALSE))
+
+bishop_2 <- 
+  gg_chessboard(demo_nodes, "B. Directed network", "") + 
+  geom_piece(demo_nodes, demo_focus) +
+  geom_neighbors(bishop(demo_nodes, demo_focus, degree = 4, directed = TRUE, 
+                      reverse = FALSE))
+
+bishop_3 <- 
+  gg_chessboard(demo_nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(demo_nodes, demo_focus) +
+  geom_neighbors(bishop(demo_nodes, demo_focus, degree = 4, directed = TRUE, 
+                      reverse = TRUE))
+
+(bishop_1 | bishop_2 | bishop_3)
+```
+
+
+\
+
+The vignette [Chess movements](https://frbcesab.github.io/chessboard/articles/movements.html) 
+shows all possible movements implemented in `chessboard`.
+
+
+\
+
+
+Now, let's use the function `create_edges_list()` to create an edges list using the
+method `'pawn'` with a degree `1` of neighborhood and in a directional way.
+
+
+```{r 'create-edges-list-pawn'}
+## Create edges list ----
+adour_edges_pawn <- create_edges_list(nodes    = adour_sites, 
+                                      method   = "pawn", 
+                                      degree   = 1, 
+                                      directed = TRUE,
+                                      reverse  = FALSE,
+                                      self     = FALSE)
+
+adour_edges_pawn
+```
+
+
+\
+
+
+It's possible to visualize these edges on a map, i.e. by using spatial coordinates.
+First, we need to convert our sites into a spatial object (`POINT`).
+
+```{r 'df-to-sf'}
+## Convert sites to sf object ----
 adour_sites_sf <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"),
                                crs = "epsg:2154")
 
 head(adour_sites_sf)
 ```
 
-**Note:** The package `chessboard` expects that each site is one row in this object
-and its geometry is `POINT` (other geometry like `MUTLIPOINT`, `POLYGON`, etc.)
-are not implemented.
+
+\
 
 
+Now we can use the function `edges_to_sf()` to convert our edges list 
+into a spatial object (`LINESTRING`).
+
+
+```{r 'edges-list-to-sf'}
+## Convert edges list to sf ----
+adour_edges_pawn_sf <- edges_to_sf(edges = adour_edges_pawn, 
+                                   sites = adour_sites_sf)
+
+adour_edges_pawn_sf
+```
+
+
+\
+
+
+We can now map our nodes and edges.
+
+```{r 'map-edges-list-pawn', fig.height=8, fig.width=6.5, echo=TRUE, fig.cap="Figure 7. Edges list (pawn method)", out.width='80%'}
+## Map of nodes and edges ----
+ggplot(adour_sites_sf) +
+  geom_sf(size = 12) +
+  geom_sf(data = adour_edges_pawn_sf) +
+  theme_light()
+```
+
+
+\
+
+
+Users may want to combine different methods to detect neighbors. It's possible
+by using for each method the function `create_edges_list()` and using the
+function `append_edges_lists()` to merge all edges in a single list.
+
+
+```{r 'create-edges-list-bishop'}
+## Create edges list (Bishop method) ----
+adour_edges_bishop <- create_edges_list(nodes    = adour_sites, 
+                                        method   = "bishop", 
+                                        degree   = 1, 
+                                        directed = TRUE,
+                                        reverse  = FALSE,
+                                        self     = FALSE)
+
+adour_edges_bishop
+
+## Merge Pawn and Bishop edges ----
+adour_edges <- append_edges_lists(adour_edges_pawn, adour_edges_bishop)
+
+## Convert edges to spatial layer ----
+adour_edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)
+```
+
+
+\
+
+
+```{r 'map-edges-list-pawn-bishop', fig.height=8, fig.width=6.5, echo=TRUE, fig.cap="Figure 8. Edges list (combined methods)", out.width='80%'}
+## Map of nodes and edges ----
+ggplot(adour_sites_sf) +
+  geom_sf(size = 12) +
+  geom_sf(data = adour_edges_sf) +
+  theme_light()
+```
+
+
+\
+
+
+## Connectivity matrix
+
+
+```{r 'connectivity-matrix'}
+## Create connectivity matrix ----
+adour_matrix <- connectivity_matrix(adour_edges)
+
+adour_matrix
+```
+
+
+\
+
+
+```{r 'plot-connectivity-matrix', fig.height=8, fig.width=8, fig.cap="Figure 9. Connectivity matrix", out.width='80%'}
+## Visualize connectivity matrix ----
+gg_matrix(adour_matrix)
+```
+
+
+\
+
+
+```{r 'connectivity-matrix-to-df'}
+## Convert connectivity matrix to edges list ----
+matrix_to_edges_list(adour_matrix)
+```
+
+
+\
+
+
+## Nodes-by-edges matrix
+
+Coming soon...
+
+
+
+\
 
 
 ## References
