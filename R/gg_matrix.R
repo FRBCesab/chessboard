@@ -79,7 +79,7 @@ gg_matrix <- function(x, title) {
   x <- data.frame("from" = rownames(x), x)
   rownames(x) <- NULL
   colnames(x) <- gsub("\\.", "-",  colnames(x))
-  colnames(x) <- gsub("[A-Z]", "", colnames(x))
+  colnames(x) <- gsub("X", "", colnames(x))
   
   
   ## Pivot to longer format ----
@@ -90,12 +90,12 @@ gg_matrix <- function(x, title) {
   
   ## Order data ----
   
-  nodes <- get_sorted_nodes(x)
-  # edges <- nodes_list(x$"to")
+  nodes <- sort(unique(x$"from"))
+  edges <- sort(unique(x$"to"))
   
   x$"edge" <- factor(x$"edge", levels = c(0, 1))
   x$"from" <- factor(x$"from", levels = rev(nodes))
-  x$"to"   <- factor(x$"to", levels = nodes)
+  x$"to"   <- factor(x$"to", levels = edges)
   
   ggplot2::ggplot(data = x) +
     ggplot2::geom_tile(ggplot2::aes(.data$to, .data$from, fill = .data$edge), 
