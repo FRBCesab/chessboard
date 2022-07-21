@@ -7,7 +7,7 @@
 
 [![R CMD
 Check](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/FRBCesab/chessboard/branch/main/graph/badge.svg?token=JPXXVNMAJ0)](https://codecov.io/gh/FRBCesab/chessboard)
+[![codecov](https://codecov.io/gh/FRBCesab/chessboard/branch/main/graph/badge.svg?token=OUIHGPNP9F)](https://codecov.io/gh/FRBCesab/chessboard)
 [![Website](https://github.com/frbcesab/chessboard/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/frbcesab/chessboard/actions/workflows/pkgdown.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/chessboard)](https://CRAN.R-project.org/package=chessboard)
