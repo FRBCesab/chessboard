@@ -7,11 +7,11 @@
 
 [![R CMD
 Check](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/FRBCesab/chessboard/branch/main/graph/badge.svg?token=OUIHGPNP9F)](https://codecov.io/gh/FRBCesab/chessboard)
+[![codecov](https://codecov.io/gh/FRBCesab/chessboard/branch/main/graph/badge.svg?token=qH71uWUiot)](https://codecov.io/gh/FRBCesab/chessboard)
 [![Website](https://github.com/frbcesab/chessboard/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/frbcesab/chessboard/actions/workflows/pkgdown.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/chessboard)](https://CRAN.R-project.org/package=chessboard)
-[![License: GPL (>=
+[![License: GPL (\>=
 2)](https://img.shields.io/badge/License-GPL%20%28%3E%3D%202%29-blue.svg)](https://choosealicense.com/licenses/gpl-2.0/)
 <!-- badges: end -->
 
