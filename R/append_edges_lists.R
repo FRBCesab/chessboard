@@ -30,8 +30,12 @@ append_edges_lists <- function(...) {
   
   edges <- list(...)
   
-  
+
   ## Check edges lists ----
+
+  if (length(edges) == 0) {
+   stop("Please provide at least one edges list", call. = FALSE) 
+  }
   
   lapply(edges, check_edges_object)
   
