@@ -30,7 +30,7 @@ The R package `chessboard` contains different tools used by the
 [FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) 
 project 
 [Bridge](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/bridge/) 
-to work with directional spatial network.
+to work with directed spatial network.
 
 
 

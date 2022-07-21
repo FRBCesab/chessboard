@@ -11,7 +11,7 @@ Check](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml
 [![Website](https://github.com/frbcesab/chessboard/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/frbcesab/chessboard/actions/workflows/pkgdown.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/chessboard)](https://CRAN.R-project.org/package=chessboard)
-[![License: GPL (>=
+[![License: GPL (\>=
 2)](https://img.shields.io/badge/License-GPL%20%28%3E%3D%202%29-blue.svg)](https://choosealicense.com/licenses/gpl-2.0/)
 <!-- badges: end -->
 
@@ -19,7 +19,7 @@ The R package `chessboard` contains different tools used by the
 [FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/)
 project
 [Bridge](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/bridge/)
-to work with directional spatial network.
+to work with directed spatial network.
 
 ## Installation
 
