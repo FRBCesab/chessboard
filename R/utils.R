@@ -379,3 +379,45 @@ get_sorted_nodes <- function(edges) {
   
   nodes[with(nodes, order(by_1, by_2)), "node", drop = TRUE]
 }
+
+
+
+#' Extract transects labels from an edges list
+#'
+#' @inheritParams edges_to_sf
+#' 
+#' @noRd
+
+get_edges_transects_labels <- function(edges) {
+  
+  check_edges_object(edges)
+  
+  transects_from <- as.numeric(unlist(lapply(strsplit(edges$"from", "-"), 
+                                            function(x) x[1])))
+  
+  transects_to   <- as.numeric(unlist(lapply(strsplit(edges$"to", "-"), 
+                                            function(x) x[1])))
+  
+  data.frame(edges, transects_from, transects_to)
+}
+
+
+
+#' Extract quadrats labels from an edges list
+#'
+#' @inheritParams edges_to_sf
+#' 
+#' @noRd
+
+get_edges_quadrats_labels <- function(edges) {
+  
+  check_edges_object(edges)
+  
+  quadrats_from <- as.numeric(unlist(lapply(strsplit(edges$"from", "-"), 
+                                            function(x) x[2])))
+  
+  quadrats_to   <- as.numeric(unlist(lapply(strsplit(edges$"to", "-"), 
+                                            function(x) x[2])))
+  
+  data.frame(edges, quadrats_from, quadrats_to)
+}
