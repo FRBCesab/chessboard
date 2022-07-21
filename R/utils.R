@@ -334,18 +334,13 @@ sort_edges <- function(edges) {
   check_edges_object(edges)
   
   
-  ## Split labels ----
+  ## Get transects and quadrats labels ----
   
-  edges$"by_1" <- as.numeric(unlist(lapply(strsplit(edges$"from", "-"), 
-                                           function(x) x[1])))
-  edges$"by_2" <- as.numeric(unlist(lapply(strsplit(edges$"from", "-"), 
-                                           function(x) x[2])))
-  edges$"by_3" <- as.numeric(unlist(lapply(strsplit(edges$"to", "-"), 
-                                           function(x) x[1])))
-  edges$"by_4" <- as.numeric(unlist(lapply(strsplit(edges$"to", "-"), 
-                                           function(x) x[2])))
+  edges <- get_edges_transects_labels(edges)
+  edges <- get_edges_quadrats_labels(edges)
   
-  edges <- edges[with(edges, order(by_1, by_2, by_3, by_4)), 1:2]
+  edges <- edges[with(edges, order(transects_from, quadrats_from, 
+                                   transects_to, quadrats_to)), c("from", "to")]
   rownames(edges) <- NULL
   
   edges
