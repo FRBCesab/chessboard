@@ -34,6 +34,6 @@ Suggests:
 Remotes: 
     ropensci/rnaturalearthhires
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Config/testthat/edition: 3
