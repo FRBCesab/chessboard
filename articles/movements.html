@@ -78,7 +78,7 @@
 
       
 
-      </header><script src="movements_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chess movements</h1>
@@ -91,23 +91,44 @@
 
     
     
-<p>The aim of the package <code>chessboard</code> is to make easier the creation of connectivity matrix, i.e. a binary matrix of dimensions <code>n x n</code>, where <code>n</code> is the number of <strong>nodes</strong> (sampling units) indicating the presence (<code>1</code>) or the absence (<code>0</code>) of an <strong>edge</strong> (link) between pairs of nodes. Identifying edges between pairs of nodes requires the <strong>detection of neighbors</strong> according to neighborhood rules.</p>
+<p>The aim of the package <code>chessboard</code> is to make easier the
+creation of connectivity matrix, i.e. a binary matrix of dimensions
+<code>n x n</code>, where <code>n</code> is the number of
+<strong>nodes</strong> (sampling units) indicating the presence
+(<code>1</code>) or the absence (<code>0</code>) of an
+<strong>edge</strong> (link) between pairs of nodes. Identifying edges
+between pairs of nodes requires the <strong>detection of
+neighbors</strong> according to neighborhood rules.</p>
 <p><br></p>
 <div class="section level2">
 <h2 id="neighborhood-rules">Neighborhood rules<a class="anchor" aria-label="anchor" href="#neighborhood-rules"></a>
 </h2>
 <p>The package implements the following neighborhood rules:</p>
 <ul>
-<li><p>the <strong>degree of neighborhood</strong>: the number of adjacent nodes that will be used to create direct edges. If <code>degree = 1</code>, only nodes directly adjacent (on a regular grid) to the focus node will be considered as neighbors.</p></li>
-<li><p>the <strong>orientation of neighborhood</strong>: can neighbors be detecting horizontally and/or vertically and/or diagonally? The package <code>chessboard</code> implements all possible orientations derived from the chess game.</p></li>
-<li><p>the <strong>direction of neighborhood</strong>: does the sampling has a direction? This can be particularly important in directed network (see below).</p></li>
+<li><p>the <strong>degree of neighborhood</strong>: the number of
+adjacent nodes that will be used to create direct edges. If
+<code>degree = 1</code>, only nodes directly adjacent (on a regular
+grid) to the focus node will be considered as neighbors.</p></li>
+<li><p>the <strong>orientation of neighborhood</strong>: can neighbors
+be detecting horizontally and/or vertically and/or diagonally? The
+package <code>chessboard</code> implements all possible orientations
+derived from the chess game.</p></li>
+<li><p>the <strong>direction of neighborhood</strong>: does the sampling
+has a direction? This can be particularly important in directed network
+(see below).</p></li>
 </ul>
 <p><br></p>
 </div>
 <div class="section level2">
 <h2 id="network-properties">Network properties<a class="anchor" aria-label="anchor" href="#network-properties"></a>
 </h2>
-<p>The package <code>chessboard</code> is designed to work with two-dimensional networks (i.e.  sampling on a regular grid), where one dimension will be called <strong>transect</strong> and the other will be called <strong>quadrat</strong>. By convention, the dimension <strong>transect</strong> corresponds to the x-axis, and the <strong>quadrat</strong> corresponds to the y-axis (Fig. 1). The number of sampling units in both dimensions can be different.</p>
+<p>The package <code>chessboard</code> is designed to work with
+two-dimensional networks (i.e.  sampling on a regular grid), where one
+dimension will be called <strong>transect</strong> and the other will be
+called <strong>quadrat</strong>. By convention, the dimension
+<strong>transect</strong> corresponds to the x-axis, and the
+<strong>quadrat</strong> corresponds to the y-axis (Fig. 1). The number
+of sampling units in both dimensions can be different.</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-transects-quadrats-1.png" alt="Figure 1. Two-dimensional network" width="50%"><p class="caption">
@@ -115,39 +136,60 @@ Figure 1. Two-dimensional network
 </p>
 </div>
 <p><br></p>
-<p>It can also deal with one-dimensional sampling (either <strong>transects-only</strong> or <strong>quadrats-only</strong>). If the sampling has been conducted along one single dimension, a fictitious second dimension will be created (for the purpose of the package only). For instance, if the sampling has been conducted only through transects, a fictitious quadrat will be added with only one quadrat (Fig. 2).</p>
+<p>It can also deal with one-dimensional sampling (either
+<strong>transects-only</strong> or <strong>quadrats-only</strong>). If
+the sampling has been conducted along one single dimension, a fictitious
+second dimension will be created (for the purpose of the package only).
+For instance, if the sampling has been conducted only through transects,
+a fictitious quadrat will be added with only one quadrat (Fig. 2).</p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-transects-only-1.png" alt="Figure 2. Transects-only network" width="50%"><p class="caption">
 Figure 2. Transects-only network
 </p>
 </div>
 <p><br></p>
-<p>On the other hand, if the sampling has been conducted only through quadrats, a fictitious transect will be added with only one transect (Fig. 3).</p>
+<p>On the other hand, if the sampling has been conducted only through
+quadrats, a fictitious transect will be added with only one transect
+(Fig. 3).</p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-quadrats-only-1.png" alt="Figure 3. Quadrats-only network" width="20%"><p class="caption">
 Figure 3. Quadrats-only network
 </p>
 </div>
 <p><br></p>
-<p>The network can be undirected or directed. If the network is <strong>directed</strong>, it will have (by default) these two orientations:</p>
+<p>The network can be undirected or directed. If the network is
+<strong>directed</strong>, it will have (by default) these two
+orientations:</p>
 <ul>
 <li>from bottom to top for quadrats along transects, and</li>
 <li>from left to right for transects along quadrats.</li>
 </ul>
-<p>It’s important to note that, even the package <code>chessboard</code> handles spatial networks, it does not explicitly use spatial coordinates to find neighbors. Instead, it will identify neighbors only based on <strong>nodes labels</strong>. In other words, the order of nodes labels will give the direction of the network.</p>
+<p>It’s important to note that, even the package <code>chessboard</code>
+handles spatial networks, it does not explicitly use spatial coordinates
+to find neighbors. Instead, it will identify neighbors only based on
+<strong>nodes labels</strong>. In other words, the order of nodes labels
+will give the direction of the network.</p>
 <p><br></p>
-<p>The function <code><a href="../reference/create_nodes_labels.html">create_nodes_labels()</a></code> is used to create nodes labels. They will be of the form: <code>1-2</code>, where <code>1</code> is the identifier of the transect, and <code>2</code>, the identifier of the quadrat.</p>
+<p>The function <code><a href="../reference/create_nodes_labels.html">create_nodes_labels()</a></code> is used to create
+nodes labels. They will be of the form: <code>1-2</code>, where
+<code>1</code> is the identifier of the transect, and <code>2</code>,
+the identifier of the quadrat.</p>
 <p><br></p>
 </div>
 <div class="section level2">
 <h2 id="neighbors-detection">Neighbors detection<a class="anchor" aria-label="anchor" href="#neighbors-detection"></a>
 </h2>
-<p>Ignoring the spatial coordinates of the sampling design, we can consider it as a <strong>chessboard</strong> of dimensions <code>t</code> x <code>q</code>, with <code>t</code>, the number of transects, and <code>q</code>, the number of quadrats.</p>
+<p>Ignoring the spatial coordinates of the sampling design, we can
+consider it as a <strong>chessboard</strong> of dimensions
+<code>t</code> x <code>q</code>, with <code>t</code>, the number of
+transects, and <code>q</code>, the number of quadrats.</p>
 <p><br></p>
 <div class="section level3">
 <h3 id="degree-of-neighborhood">Degree of neighborhood<a class="anchor" aria-label="anchor" href="#degree-of-neighborhood"></a>
 </h3>
-<p>All functions for detecting neighbors (<code><a href="../reference/pawn.html">pawn()</a></code>, <code><a href="../reference/fool.html">fool()</a></code>, etc.) have an argument <code>degree</code> that allow users to change the degree of neighborhood (Fig. 4).</p>
+<p>All functions for detecting neighbors (<code><a href="../reference/pawn.html">pawn()</a></code>,
+<code><a href="../reference/fool.html">fool()</a></code>, etc.) have an argument <code>degree</code> that
+allow users to change the degree of neighborhood (Fig. 4).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-degree-1.png" alt="Figure 4. Degrees of neigborhood" width="100%"><p class="caption">
@@ -159,12 +201,19 @@ Figure 4. Degrees of neigborhood
 <div class="section level3">
 <h3 id="movements">Movements<a class="anchor" aria-label="anchor" href="#movements"></a>
 </h3>
-<p>Different neighbors detection methods have been implemented in the package <code>chessboard</code>. All are derived from the chess game and allow user to define complex movements.</p>
+<p>Different neighbors detection methods have been implemented in the
+package <code>chessboard</code>. All are derived from the chess game and
+allow user to define complex movements.</p>
 <p><br></p>
 <div class="section level4">
 <h4 id="pawn">Pawn<a class="anchor" aria-label="anchor" href="#pawn"></a>
 </h4>
-<p>The function <code><a href="../reference/pawn.html">pawn()</a></code> can detect neighbors horizontally, i.e. among quadrats along a transect. User can change the default settings (Fig. 5A), by adding directionality (<code>directed = TRUE</code>, Fig. 5B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 5C).</p>
+<p>The function <code><a href="../reference/pawn.html">pawn()</a></code> can detect neighbors horizontally,
+i.e. among quadrats along a transect. User can change the default
+settings (Fig. 5A), by adding directionality
+(<code>directed = TRUE</code>, Fig. 5B) and reversing the default
+directionality (<code>directed = TRUE</code> and
+<code>reverse = TRUE</code>, Fig. 5C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-pawn-1.png" alt="Figure 5. Pawn movements" width="100%"><p class="caption">
@@ -176,7 +225,12 @@ Figure 5. Pawn movements
 <div class="section level4">
 <h4 id="fool">Fool<a class="anchor" aria-label="anchor" href="#fool"></a>
 </h4>
-<p>The function <code><a href="../reference/fool.html">fool()</a></code> can detect neighbors vertically, i.e. among transects along a quadrat. User can change the default settings (Fig. 6A), by adding directionality (<code>directed = TRUE</code>, Fig. 6B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 6C).</p>
+<p>The function <code><a href="../reference/fool.html">fool()</a></code> can detect neighbors vertically,
+i.e. among transects along a quadrat. User can change the default
+settings (Fig. 6A), by adding directionality
+(<code>directed = TRUE</code>, Fig. 6B) and reversing the default
+directionality (<code>directed = TRUE</code> and
+<code>reverse = TRUE</code>, Fig. 6C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-fool-1.png" alt="Figure 6. Fool movements" width="100%"><p class="caption">
@@ -187,7 +241,13 @@ Figure 6. Fool movements
 <div class="section level4">
 <h4 id="rook">Rook<a class="anchor" aria-label="anchor" href="#rook"></a>
 </h4>
-<p>The function <code><a href="../reference/rook.html">rook()</a></code> can detect neighbors both horizontally and vertically, i.e. among transects along a quadrat and among quadrats along a transect. User can change the default settings (Fig. 7A), by adding directionality (<code>directed = TRUE</code>, Fig. 7B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 7C).</p>
+<p>The function <code><a href="../reference/rook.html">rook()</a></code> can detect neighbors both
+horizontally and vertically, i.e. among transects along a quadrat and
+among quadrats along a transect. User can change the default settings
+(Fig. 7A), by adding directionality (<code>directed = TRUE</code>, Fig.
+7B) and reversing the default directionality
+(<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig.
+7C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-rook-1.png" alt="Figure 7. Rook movements" width="100%"><p class="caption">
@@ -199,7 +259,11 @@ Figure 7. Rook movements
 <div class="section level4">
 <h4 id="bishop">Bishop<a class="anchor" aria-label="anchor" href="#bishop"></a>
 </h4>
-<p>The function <code><a href="../reference/bishop.html">bishop()</a></code> can detect neighbors diagonally. User can change the default settings (Fig. 8A), by adding directionality (<code>directed = TRUE</code>, Fig. 8B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 8C).</p>
+<p>The function <code><a href="../reference/bishop.html">bishop()</a></code> can detect neighbors diagonally.
+User can change the default settings (Fig. 8A), by adding directionality
+(<code>directed = TRUE</code>, Fig. 8B) and reversing the default
+directionality (<code>directed = TRUE</code> and
+<code>reverse = TRUE</code>, Fig. 8C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-bishop-1.png" alt="Figure 8. Bishop movements" width="100%"><p class="caption">
@@ -211,7 +275,13 @@ Figure 8. Bishop movements
 <div class="section level4">
 <h4 id="bishop-right">Bishop right<a class="anchor" aria-label="anchor" href="#bishop-right"></a>
 </h4>
-<p>The function <code><a href="../reference/bishop_right.html">bishop_right()</a></code> is a special case of the function <code><a href="../reference/bishop.html">bishop()</a></code> and can detect neighbors along one diagonal (from bottom-left to top-right). User can change the default settings (Fig. 9A), by adding directionality (<code>directed = TRUE</code>, Fig. 9B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 9C).</p>
+<p>The function <code><a href="../reference/bishop_right.html">bishop_right()</a></code> is a special case of the
+function <code><a href="../reference/bishop.html">bishop()</a></code> and can detect neighbors along one
+diagonal (from bottom-left to top-right). User can change the default
+settings (Fig. 9A), by adding directionality
+(<code>directed = TRUE</code>, Fig. 9B) and reversing the default
+directionality (<code>directed = TRUE</code> and
+<code>reverse = TRUE</code>, Fig. 9C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-bishop-right-1.png" alt="Figure 9. Bishop right movements" width="100%"><p class="caption">
@@ -223,7 +293,13 @@ Figure 9. Bishop right movements
 <div class="section level4">
 <h4 id="bishop-left">Bishop left<a class="anchor" aria-label="anchor" href="#bishop-left"></a>
 </h4>
-<p>The function <code><a href="../reference/bishop_left.html">bishop_left()</a></code> is a special case of the function <code><a href="../reference/bishop.html">bishop()</a></code> and can detect neighbors along one diagonal (from bottom-right to top-left). User can change the default settings (Fig. 10A), by adding directionality (<code>directed = TRUE</code>, Fig. 10B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 10C).</p>
+<p>The function <code><a href="../reference/bishop_left.html">bishop_left()</a></code> is a special case of the
+function <code><a href="../reference/bishop.html">bishop()</a></code> and can detect neighbors along one
+diagonal (from bottom-right to top-left). User can change the default
+settings (Fig. 10A), by adding directionality
+(<code>directed = TRUE</code>, Fig. 10B) and reversing the default
+directionality (<code>directed = TRUE</code> and
+<code>reverse = TRUE</code>, Fig. 10C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-bishop-left-1.png" alt="Figure 10. Bishop left movements" width="100%"><p class="caption">
@@ -235,7 +311,11 @@ Figure 10. Bishop left movements
 <div class="section level4">
 <h4 id="knight">Knight<a class="anchor" aria-label="anchor" href="#knight"></a>
 </h4>
-<p>The function <code><a href="../reference/knight.html">knight()</a></code> has complex movement, derived from the chess game. User can change the default settings (Fig. 11A), by adding directionality (<code>directed = TRUE</code>, Fig. 11B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 11C).</p>
+<p>The function <code><a href="../reference/knight.html">knight()</a></code> has complex movement, derived from
+the chess game. User can change the default settings (Fig. 11A), by
+adding directionality (<code>directed = TRUE</code>, Fig. 11B) and
+reversing the default directionality (<code>directed = TRUE</code> and
+<code>reverse = TRUE</code>, Fig. 11C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-knight-1.png" alt="Figure 11. Knight movements" width="100%"><p class="caption">
@@ -247,7 +327,12 @@ Figure 11. Knight movements
 <div class="section level4">
 <h4 id="knight-right">Knight right<a class="anchor" aria-label="anchor" href="#knight-right"></a>
 </h4>
-<p>The function <code><a href="../reference/knight_right.html">knight_right()</a></code> is a special case of the function <code><a href="../reference/knight.html">knight()</a></code>. User can change the default settings (Fig. 12A), by adding directionality (<code>directed = TRUE</code>, Fig. 12B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 12C).</p>
+<p>The function <code><a href="../reference/knight_right.html">knight_right()</a></code> is a special case of the
+function <code><a href="../reference/knight.html">knight()</a></code>. User can change the default settings
+(Fig. 12A), by adding directionality (<code>directed = TRUE</code>, Fig.
+12B) and reversing the default directionality
+(<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig.
+12C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-knight-right-1.png" alt="Figure 12. Knight right movements" width="100%"><p class="caption">
@@ -259,7 +344,12 @@ Figure 12. Knight right movements
 <div class="section level4">
 <h4 id="knight-left">Knight left<a class="anchor" aria-label="anchor" href="#knight-left"></a>
 </h4>
-<p>The function <code><a href="../reference/knight_left.html">knight_left()</a></code> is a special case of the function <code><a href="../reference/knight.html">knight()</a></code>. User can change the default settings (Fig. 13A), by adding directionality (<code>directed = TRUE</code>, Fig. 13B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 13C).</p>
+<p>The function <code><a href="../reference/knight_left.html">knight_left()</a></code> is a special case of the
+function <code><a href="../reference/knight.html">knight()</a></code>. User can change the default settings
+(Fig. 13A), by adding directionality (<code>directed = TRUE</code>, Fig.
+13B) and reversing the default directionality
+(<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig.
+13C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-knight-left-1.png" alt="Figure 13. Knight left movements" width="100%"><p class="caption">
@@ -271,7 +361,13 @@ Figure 13. Knight left movements
 <div class="section level4">
 <h4 id="queen">Queen<a class="anchor" aria-label="anchor" href="#queen"></a>
 </h4>
-<p>The function <code><a href="../reference/queen.html">queen()</a></code> can detect neighbors horizontally, vertically and diagonally. It’s a combination the <code><a href="../reference/rook.html">rook()</a></code> and the <code><a href="../reference/bishop.html">bishop()</a></code>. User can change the default settings (Fig. 14A), by adding directionality (<code>directed = TRUE</code>, Fig. 14B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 14C).</p>
+<p>The function <code><a href="../reference/queen.html">queen()</a></code> can detect neighbors horizontally,
+vertically and diagonally. It’s a combination the <code><a href="../reference/rook.html">rook()</a></code>
+and the <code><a href="../reference/bishop.html">bishop()</a></code>. User can change the default settings
+(Fig. 14A), by adding directionality (<code>directed = TRUE</code>, Fig.
+14B) and reversing the default directionality
+(<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig.
+14C).</p>
 <p><br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-queen-1.png" alt="Figure 14. Queen movements" width="100%"><p class="caption">
@@ -283,7 +379,12 @@ Figure 14. Queen movements
 <div class="section level4">
 <h4 id="wizard">Wizard<a class="anchor" aria-label="anchor" href="#wizard"></a>
 </h4>
-<p>The function <code><a href="../reference/wizard.html">wizard()</a></code> can detect neighbors in any direction. It’s a combination the <code><a href="../reference/queen.html">queen()</a></code> and the <code><a href="../reference/knight.html">knight()</a></code>. User can change the default settings (Fig. 15A), by adding directionality (<code>directed = TRUE</code>, Fig. 15B) and reversing the default directionality (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig. 15C).<br></p>
+<p>The function <code><a href="../reference/wizard.html">wizard()</a></code> can detect neighbors in any
+direction. It’s a combination the <code><a href="../reference/queen.html">queen()</a></code> and the
+<code><a href="../reference/knight.html">knight()</a></code>. User can change the default settings (Fig. 15A),
+by adding directionality (<code>directed = TRUE</code>, Fig. 15B) and
+reversing the default directionality (<code>directed = TRUE</code> and
+<code>reverse = TRUE</code>, Fig. 15C).<br></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-wizard-1.png" alt="Figure 15. Wizard movements" width="100%"><p class="caption">
 Figure 15. Wizard movements
@@ -295,7 +396,9 @@ Figure 15. Wizard movements
 <div class="section level3">
 <h3 id="complex-movements">Complex movements<a class="anchor" aria-label="anchor" href="#complex-movements"></a>
 </h3>
-<p>It’s possible to create complex movements by combining the previous movements and by changing the arguments <code>degree</code>, <code>directed</code>, and <code>reverse</code></p>
+<p>It’s possible to create complex movements by combining the previous
+movements and by changing the arguments <code>degree</code>,
+<code>directed</code>, and <code>reverse</code></p>
 <div class="figure" style="text-align: center">
 <img src="movements_files/figure-html/cb-custom-1.png" alt="Figure 16. Custom movements" width="100%"><p class="caption">
 Figure 16. Custom movements
@@ -322,7 +425,7 @@ Figure 16. Custom movements
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
