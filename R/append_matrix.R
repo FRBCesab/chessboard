@@ -2,8 +2,8 @@
 #'
 #' @description 
 #' Combines different connectivity matrices by row names and column names by
-#' performing a 2-dimensional full join. Gaps are filled with `NA` (default) or
-#' `0` (argument `na_to_zero`).
+#' performing a 2-dimensional full join. Missing edges are filled with `0` 
+#' (default) or `NA` (argument `na_to_zero`).
 #'
 #' @param ... one or several `matrix` objects created by 
 #'   [connectivity_matrix()].

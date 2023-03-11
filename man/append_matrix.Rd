@@ -19,8 +19,8 @@ number of unique nodes across all provided matrices.
 }
 \description{
 Combines different connectivity matrices by row names and column names by
-performing a 2-dimensional full join. Gaps are filled with \code{NA} (default) or
-\code{0} (argument \code{na_to_zero}).
+performing a 2-dimensional full join. Missing edges are filled with \code{0}
+(default) or \code{NA} (argument \code{na_to_zero}).
 }
 \examples{
 mat1 <- matrix(rep(1, 9), nrow = 3)
