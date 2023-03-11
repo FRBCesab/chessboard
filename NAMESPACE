@@ -2,6 +2,7 @@
 
 export("%>%")
 export(append_edges_lists)
+export(append_matrix)
 export(bishop)
 export(bishop_left)
 export(bishop_right)
