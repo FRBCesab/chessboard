@@ -20,16 +20,21 @@
 #' mat1 <- matrix(rep(1, 9), nrow = 3)
 #' colnames(mat1) <- c("A", "B", "C")
 #' rownames(mat1) <- c("A", "B", "C")
+#' mat1
 #' 
 #' mat2 <- matrix(rep(1, 9), nrow = 3)
 #' colnames(mat2) <- c("D", "E", "F")
 #' rownames(mat2) <- c("D", "E", "F")
+#' mat2
 #' 
 #' mat3 <- matrix(rep(1, 9), nrow = 3)
 #' colnames(mat3) <- c("F", "G", "H")
-#' rownames(mat3) <- c("G", "A", "H")
+#' rownames(mat3) <- c("F", "G", "H")
+#' mat3
 #' 
 #' append_matrix(mat1, mat2, mat3)
+#' 
+#' append_matrix(mat1, mat2, mat3, na_to_zero = FALSE)
 
 append_matrix <- function(..., na_to_zero = TRUE) {
   
@@ -38,20 +43,45 @@ append_matrix <- function(..., na_to_zero = TRUE) {
   matrices <- list(...)
   
   
-  ## Check structures ----
+  ## Check matrices ----
   
   if (length(matrices) == 0) {
     stop("Please provide at least one matrix", call. = FALSE) 
   }
   
   
-  check_str <- unlist(lapply(matrices, function(x) {
-    ifelse(!is.matrix(x), TRUE, FALSE)
+  unlist(lapply(matrices, function(x) {
+    
+    if (!is.matrix(x)) {
+      stop("This function only works with 'matrix' objects", 
+           call. = FALSE)
+    }
+    
+    if (!is.numeric(x)) {
+      stop("This function only works with numeric matrices", 
+           call. = FALSE)
+    }
+    
+    if (nrow(x) != ncol(x)) {
+      stop("Number of rows of matrices must be equal to number of columns ", 
+           "(connectivity matrix)", 
+           call. = FALSE)
+    }
+    
+    if (is.null(rownames(x))) {
+      stop("Row names of matrices must contain nodes labels", 
+           call. = FALSE)
+    }
+    
+    if (any(!(rownames(x) %in% colnames(x)))) {
+      stop("Row names and column names of matrices must be equal", 
+           call. = FALSE)
+    }
+    
+    if (sum(x, na.rm = TRUE) == 0) {
+      stop("Some matrices do not contain any edges", call. = FALSE)
+    }
   }))
-  
-  if (sum(check_str) > 0) {
-    stop("This function only works with 'matrix' objects", call. = FALSE)
-  }
   
   
   ## Convert list of matrix to a single data.frame ----

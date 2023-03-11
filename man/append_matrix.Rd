@@ -26,14 +26,19 @@ performing a 2-dimensional full join. Missing edges are filled with \code{0}
 mat1 <- matrix(rep(1, 9), nrow = 3)
 colnames(mat1) <- c("A", "B", "C")
 rownames(mat1) <- c("A", "B", "C")
+mat1
 
 mat2 <- matrix(rep(1, 9), nrow = 3)
 colnames(mat2) <- c("D", "E", "F")
 rownames(mat2) <- c("D", "E", "F")
+mat2
 
 mat3 <- matrix(rep(1, 9), nrow = 3)
 colnames(mat3) <- c("F", "G", "H")
-rownames(mat3) <- c("G", "A", "H")
+rownames(mat3) <- c("F", "G", "H")
+mat3
 
 append_matrix(mat1, mat2, mat3)
+
+append_matrix(mat1, mat2, mat3, na_to_zero = FALSE)
 }
