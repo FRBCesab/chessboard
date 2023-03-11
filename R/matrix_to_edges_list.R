@@ -69,7 +69,7 @@ matrix_to_edges_list <- function(x, all = FALSE) {
     stop("Row names and column names of 'x' must be equal", call. = FALSE)
   }
   
-  if (sum(!is.na(x) & x != 0) == 0) {
+  if (sum(x, na.rm = TRUE) == 0) {
     stop("Argument 'x' contains no edge", call. = FALSE)
   }
   
