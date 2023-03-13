@@ -176,38 +176,38 @@ the following two columns:</p><ul><li><p><code>from</code>: the node label of on
 <span class="r-in"><span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu">create_edges_list</span><span class="op">(</span><span class="va">nodes</span>, method <span class="op">=</span> <span class="st">"pawn"</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">edges</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    from  to</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1-1 2-1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1-2 2-2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1-3 2-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1-5 2-5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2-1 3-1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2-3 3-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2-4 3-4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2-5 3-5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   3-1 1-2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  3-2 1-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3-3 1-4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  3-4 1-5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1-1 1-2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1-2 1-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1-3 1-4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1-4 1-5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2-1 2-2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2-2 2-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2-3 2-4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2-4 2-5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   3-1 3-2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  3-2 3-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3-3 3-4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  3-4 3-5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu">create_edges_list</span><span class="op">(</span><span class="va">nodes</span>, method <span class="op">=</span> <span class="st">"bishop"</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">edges</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    from  to</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1-1 1-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1-2 1-4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1-3 1-5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1-3 3-1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1-5 3-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2-1 2-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2-3 1-2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2-3 2-5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2-4 1-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  2-5 1-4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3-1 3-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  3-2 2-1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  3-2 3-4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  3-3 2-2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  3-3 3-5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  3-4 2-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1-1 2-2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1-2 2-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1-3 2-4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1-4 2-5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2-1 1-2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2-1 3-2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2-2 1-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2-2 3-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2-3 1-4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  2-3 3-4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  2-4 1-5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  2-4 3-5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  3-1 2-2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  3-2 2-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  3-3 2-4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  3-4 2-5</span>
 </code></pre></div>
     </div>
   </div>
