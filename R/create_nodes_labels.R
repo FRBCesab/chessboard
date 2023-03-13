@@ -239,10 +239,10 @@ create_nodes_labels <- function(data, location, transect, quadrat) {
   nodes <- data[with(data, order(location, transect, quadrat)), ]
   rownames(nodes) <- NULL
 
-  transects_labels <- format(data$"transect")
+  transects_labels <- format(nodes$"transect")
   transects_labels <- gsub("\\s", "0", transects_labels)
   
-  quadrats_labels <- format(data$"quadrat")
+  quadrats_labels <- format(nodes$"quadrat")
   quadrats_labels <- gsub("\\s", "0", quadrats_labels)
   
   keys <- paste0(transects_labels, "-", quadrats_labels)
