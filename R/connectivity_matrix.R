@@ -95,8 +95,8 @@ connectivity_matrix <- function(edges, lower = TRUE, upper = TRUE, diag = TRUE,
   
   ## Pivot data frame ----
   
-  mat <- tidyr::pivot_wider(edges, names_from = .data$to, 
-                            values_from = .data$edge, values_fn = ~.x)
+  mat <- tidyr::pivot_wider(edges, names_from = "to", 
+                            values_from = "edge", values_fn = ~.x)
   
   
   ## Convert to matrix ----

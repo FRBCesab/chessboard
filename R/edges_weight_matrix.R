@@ -80,8 +80,8 @@ edges_weight_matrix <- function(distances, lower = TRUE, upper = TRUE,
   
   ## Pivot data frame ----
   
-  mat <- tidyr::pivot_wider(distances, names_from = .data$to, 
-                            values_from = .data$weight, values_fn = ~.x)
+  mat <- tidyr::pivot_wider(distances, names_from = "to", 
+                            values_from = "weight", values_fn = ~.x)
   
   
   ## Convert to matrix ----
