@@ -17,8 +17,6 @@
 #' - `edges`: a `data.frame` of edges list.
 #' 
 #' @export
-#' 
-#' @importFrom rlang .data
 #'
 #' @examples
 #' library("chessboard")
@@ -43,85 +41,88 @@ nodes_by_edges_matrix <- function(edges) {
   check_edges_object(edges)
   
   
-  ## Detect undirected network ----
+  ## Extract transect and quadrat labels ----
   
-  # nodes <- get_sorted_nodes(edges)
-  # nodes <- data.frame("node" = nodes, "id" = seq_len(length(nodes)))
+  tr_labels <- get_edges_transects_labels(edges)
+  qu_labels <- get_edges_quadrats_labels(edges)
+  qu_labels <- qu_labels[ , -c(1:2)]
   
-  # udn <- merge(edges, nodes, by.x = "from", by.y = "node", all = FALSE)
-  # udn <- merge(udn, nodes, by.x = "to", by.y = "node", all = FALSE)
-  
-  # if (any(udn$"id.x" >= udn$"id.y")) {
-  #   stop("This function is not designed to deal with directed network. ",
-  #        "Please remove symetrical edges.", call. = FALSE)
-  # }
+  edges <- data.frame(tr_labels, qu_labels)
   
   
-  ## Detect origins ----
+  ## Main direction ----
   
-  origins <- edges[which(!(edges$"from" %in% edges$"to")), "from", drop = TRUE]
+  edges_main  <- edges[which(!(edges$"quadrats_from" == edges$"quadrats_to")), ]
   
-  if (length(origins) < 1) {
-    stop("Unable to find origin nodes", call. = FALSE)
+  if (nrow(edges_main) == 0) {
+    stop("The network does not seem to have a main direction (no edges along ", 
+         "transects have been detected)", 
+         call. = FALSE)
   }
   
-  origins <- sort(unique(origins))
   
-  origin_edges <- data.frame()
+  origins_main <- edges_main[which(!(edges_main$"from" %in% edges_main$"to")), 
+                             "from", drop = TRUE]
   
-  for (origin in rev(origins)) {
-    origin_edges <- rbind(data.frame("from" = "0", "to" = origin), origin_edges) 
+  if (length(origins_main) < 1) {
+    stop("This function is not designed to deal with directed network", 
+         call. = FALSE)
   }
   
-  edges <- rbind(origin_edges, edges)
+  origins_main <- create_origin_edges(origins_main)
+  edges_main   <- rbind(origins_main, edges_main[ , 1:2])
   
   
-  ## Rename edges ----
+  ## Orthogonal directions ----
   
-  edges$"edge_id" <- seq_len(nrow(edges))
-  edges$"edge_id" <- format(edges$"edge_id")
-  edges$"edge_id" <- paste0("E-", edges$"edge_id")
-  edges$"edge_id" <- gsub("\\s", "0", edges$"edge_id")
+  edges_ortho <- edges[which((edges$"quadrats_from" == edges$"quadrats_to")), ]
   
-  edges <- edges[ , c("edge_id", "from", "to")]
-  
-  
-  ## Core code ----
-  
-  nodes_edges <- data.frame()
-  
-  for (i in 1:nrow(edges)) {
+  if (nrow(edges_ortho) > 0) {
     
-    edge <- edges[i, "to"]
-    to_search <- edge
-    go_on <- TRUE
+    ## From left to right ----
     
-    while (go_on) {
-      
-      pos <- which(edges$"from" %in% to_search)
-      
-      if (length(pos) > 0) {
-        
-        to_search <- edges[pos, "to"]
-        edge <- c(edge, to_search)
-        
-      } else {
-        
-        go_on <- FALSE
-      }
-    }
+    edges_ortho_r <- edges_ortho[which((edges_ortho$"transects_from" < 
+                                          edges_ortho$"transects_to")), ]
     
-    nodes_edge <- data.frame("edge" = edges[i, "edge_id"], 
-                             "node" = sort(unique(edge)), 
-                             "link" = 1)
-    nodes_edges <- rbind(nodes_edges, nodes_edge)
+    origins_ortho_r <- edges_ortho_r[which(!(edges_ortho_r$"from" %in% 
+                                               edges_ortho_r$"to")), 
+                                     "from", drop = TRUE]
+    
+    origins_ortho_r <- create_origin_edges(origins_ortho_r)
+    edges_ortho_r   <- rbind(origins_ortho_r, edges_ortho_r[ , 1:2])
+    
+    
+    ## From right to left ----
+    
+    edges_ortho_l <- edges_ortho[which((edges_ortho$"transects_from" > 
+                                          edges_ortho$"transects_to")), ]
+    
+    origins_ortho_l <- edges_ortho_l[which(!(edges_ortho_l$"from" %in% 
+                                               edges_ortho_l$"to")), 
+                                     "from", drop = TRUE]
+    
+    origins_ortho_l <- create_origin_edges(origins_ortho_l)
+    edges_ortho_l   <- rbind(origins_ortho_l, edges_ortho_l[ , 1:2])
+    
+  } else {
+    
+    edges_ortho_r <- data.frame("from" = character(0), "to" = character(0))
+    edges_ortho_l <- data.frame("from" = character(0), "to" = character(0))
   }
+  
+  
+  nodes_edges <- rbind(
+    create_nodes_by_edges_list(edges_main, direction = "main"),
+    create_nodes_by_edges_list(edges_ortho_r, direction = "ortho_r"),
+    create_nodes_by_edges_list(edges_ortho_l, direction = "ortho_l"))
+  
+  nodes_edges <- create_nodes_by_edges_labels(nodes_edges)
   
   
   ## Create nodes by edges matrix ----
   
-  mat <- tidyr::pivot_wider(nodes_edges, names_from = .data$edge, 
-                            values_from = .data$link, values_fn = ~.x)
+  mat <- tidyr::pivot_wider(nodes_edges, names_from = "edge_id", 
+                            values_from = "link", values_fn = ~.x)
   
   
   ## Convert to matrix ----
@@ -138,8 +139,8 @@ nodes_by_edges_matrix <- function(edges) {
   
   ## Prepare final edges list ----
   
-  row_names <- edges[ , 1, drop = TRUE]
-  edges <- edges[ , -1]
+  row_names <- nodes_edges[!duplicated(nodes_edges$"edge_id"), "edge_id"]
+  edges <- rbind(edges_main, edges_ortho_r, edges_ortho_l)
   rownames(edges) <- row_names
   
   list("se.mat" = mat, "edges" = edges)

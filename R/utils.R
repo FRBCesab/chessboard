@@ -416,3 +416,116 @@ get_edges_quadrats_labels <- function(edges) {
   
   data.frame(edges, quadrats_from, quadrats_to)
 }
+
+
+
+#' Create origins edges
+#'
+#' @param origins a `character` vector. Nodes directly connected to fictitious 
+#'   origin nodes.
+#' 
+#' @noRd
+
+create_origin_edges <- function(origins) {
+  
+  if (length(origins) == 0) {
+    
+    return(data.frame("from" = character(0), 
+                      "to"   = character(0)))
+  }
+  
+  origins <- rev(sort(unique(origins)))
+  
+  origins_edges <- data.frame()
+  
+  for (origin in origins) {
+    origins_edges <- rbind(data.frame("from" = "0", "to" = origin), 
+                           origins_edges) 
+  }
+  
+  origins_edges
+}
+
+
+
+#' Create edges list (for nodes by edges matrix)
+#' 
+#' @param direction a `character` of length 1. One of `'main'`, `'ortho_r'`, 
+#'   and `'ortho_l'`.
+#' 
+#' @inheritParams edges_to_sf
+#' 
+#' @noRd
+
+create_nodes_by_edges_list <- function(edges, direction) {
+  
+  if (nrow(edges) == 0) {
+    
+    return(data.frame("direction" = character(0),
+                      "edge"      = integer(0), 
+                      "node"      = character(0), 
+                      "link"      = numeric(0)))
+  }
+  
+  nodes_edges <- data.frame()
+  
+  for (i in 1:nrow(edges)) {
+    
+    edge <- edges[i, "to"]
+    to_search <- edge
+    go_on <- TRUE
+    
+    while (go_on) {
+      
+      pos <- which(edges$"from" %in% to_search)
+      
+      if (length(pos) > 0) {
+        
+        to_search <- edges[pos, "to"]
+        edge <- c(edge, to_search)
+        
+      } else {
+        
+        go_on <- FALSE
+      }
+    }
+    
+    nodes_edge <- data.frame("direction" = direction,
+                             "edge"      = i, 
+                             "node"      = sort(unique(edge)), 
+                             "link"      = 1)
+    nodes_edges <- rbind(nodes_edges, nodes_edge)
+  }
+  
+  nodes_edges
+}
+
+
+
+#' Rename edges names (multi-directionality)
+#' 
+#' @inheritParams edges_to_sf
+#' 
+#' @noRd
+
+create_nodes_by_edges_labels <- function(edges) {
+  
+  edges$"edge"  <- format(edges$"edge")
+  edges$"edge"  <- gsub("\\s", "0", edges$"edge")
+   
+  edges$"label" <- paste(edges$"direction", edges$"edge", sep = "__")
+  
+  edges_id <- sort(unique(edges$"label"))
+  
+  edges_table <- data.frame("label"   = edges_id, 
+                            "edge_id" = seq_len(length(edges_id)))
+  
+  edges_table$"edge_id" <- format(edges_table$"edge_id")
+  edges_table$"edge_id" <- gsub("\\s", "0", edges_table$"edge_id")
+  
+  edges_table$"edge_id" <- paste0("E-", edges_table$"edge_id")
+  
+  edges <- merge(edges, edges_table, by = "label", all = TRUE)
+  
+  edges[ , c("edge_id", "node", "link")]
+}
