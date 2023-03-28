@@ -55,19 +55,13 @@
     <loc>/reference/create_nodes_labels.html</loc>
   </url>
   <url>
-    <loc>/reference/distance_along.html</loc>
-  </url>
-  <url>
     <loc>/reference/distance_euclidean.html</loc>
-  </url>
-  <url>
-    <loc>/reference/edges_list.html</loc>
   </url>
   <url>
     <loc>/reference/edges_to_sf.html</loc>
   </url>
   <url>
-    <loc>/reference/edges_weight_matrix.html</loc>
+    <loc>/reference/edges_weights_matrix.html</loc>
   </url>
   <url>
     <loc>/reference/edges_weights_vector.html</loc>
@@ -107,9 +101,6 @@
   </url>
   <url>
     <loc>/reference/nodes_by_edges_matrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nodes_list.html</loc>
   </url>
   <url>
     <loc>/reference/pawn.html</loc>
