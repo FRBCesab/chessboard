@@ -23,20 +23,28 @@ Resulting edges weights equal to 0 will be replaced by \verb{4 x max(w)},
 where \code{max(w)} is the maximal weight in the matrix.
 }
 \examples{
-\dontrun{
 # Import Adour sites ----
-path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
                             package = "chessboard")
-adour_sites  <- read.csv(path_to_file)
+adour_sites <- read.csv(path_to_file)
+
+# Select the 15 first sites ----
+adour_sites <- adour_sites[1:15, ]
+
+# Create nodes labels ----
+adour_sites <- create_nodes_labels(adour_sites, 
+                                   location = "location", 
+                                   transect = "transect", 
+                                   quadrat  = "quadrat")
 
 # Convert sites to sf object (POINTS) ----
-adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
+adour_sites_sf <- sf::st_as_sf(adour_sites, 
+                               coords = c("longitude", "latitude"),
+                               crs = "epsg:2154")
 
-# Retrieve nodes (from nodes vector) ----
-adour_nodes <- nodes_list(adour_sites$"site")
-
-# Find edges with 1 degree of neighborhood ----
-adour_edges <- edges_list(adour_nodes, directed = TRUE)
+# Create edges base on the pawn move (directed network) ----
+adour_edges <- create_edges_list(adour_sites, method = "pawn", 
+                                 directed = TRUE)
 
 # Create nodes-by-edges matrix ----
 adour_matrix <- nodes_by_edges_matrix(adour_edges)
@@ -46,5 +54,4 @@ adour_dists <- distance_euclidean(adour_sites_sf)
 
 # Create Edges weights vector ----
 edges_weights_vector(adour_matrix, adour_dists)
-}
 }
