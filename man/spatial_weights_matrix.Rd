@@ -11,7 +11,7 @@ spatial_weights_matrix(x, y)
 number of nodes (sites). The output of \code{\link[=connectivity_matrix]{connectivity_matrix()}}.}
 
 \item{y}{an edges weight \code{matrix} of dimensions \verb{n x n}, where \code{n} is the
-number of nodes (sites). The output of \code{\link[=edges_weight_matrix]{edges_weight_matrix()}}.}
+number of nodes (sites). The output of \code{\link[=edges_weights_matrix]{edges_weights_matrix()}}.}
 }
 \value{
 A spatial weights \code{matrix} of dimensions \verb{n x n}, where \code{n} is the
@@ -20,7 +20,7 @@ number of nodes (sites).
 \description{
 Creates a spatial weights matrix by multiplying an adjacency (connectivity)
 matrix (see \code{\link[=connectivity_matrix]{connectivity_matrix()}}) and an edges weight matrix (see
-\code{\link[=edges_weight_matrix]{edges_weight_matrix()}}). Resulting spatial weights equal to 0 will be
+\code{\link[=edges_weights_matrix]{edges_weights_matrix()}}). Resulting spatial weights equal to 0 will be
 replaced by \verb{4 x max(w)}, where \code{max(w)} is the maximal weight in the
 matrix.
 }

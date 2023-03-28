@@ -43,7 +43,7 @@ reference:
   desc: >
     Create objects to be used in Moran's Eigenvector Maps (MEM)
   contents:
-    - edges_weight_matrix
+    - edges_weights_matrix
     - spatial_weights_matrix
 - title: Objects for AEM
   desc: >

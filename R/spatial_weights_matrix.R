@@ -3,7 +3,7 @@
 #' @description
 #' Creates a spatial weights matrix by multiplying an adjacency (connectivity)
 #' matrix (see [connectivity_matrix()]) and an edges weight matrix (see 
-#' [edges_weight_matrix()]). Resulting spatial weights equal to 0 will be 
+#' [edges_weights_matrix()]). Resulting spatial weights equal to 0 will be 
 #' replaced by `4 x max(w)`, where `max(w)` is the maximal weight in the 
 #' matrix.
 #'
@@ -11,7 +11,7 @@
 #'   number of nodes (sites). The output of [connectivity_matrix()].
 #'   
 #' @param y an edges weight `matrix` of dimensions `n x n`, where `n` is the 
-#'   number of nodes (sites). The output of [edges_weight_matrix()].
+#'   number of nodes (sites). The output of [edges_weights_matrix()].
 #'
 #' @return A spatial weights `matrix` of dimensions `n x n`, where `n` is the 
 #'   number of nodes (sites).
