@@ -39,7 +39,6 @@ reference:
     Compute distances between nodes
   contents:
     - distance_euclidean
-    - distance_along
 - title: Objects for MEM
   desc: >
     Create objects to be used in Moran's Eigenvector Maps (MEM)

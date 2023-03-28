@@ -25,8 +25,7 @@ An edges weight matrix of dimensions \verb{n x n}, where \code{n} is the
 number of nodes (sites).
 }
 \description{
-Creates an edges weight matrix from the output of \code{\link[=distance_euclidean]{distance_euclidean()}} and
-\code{\link[=distance_along]{distance_along()}}.
+Creates an edges weight matrix from the output of \code{\link[=distance_euclidean]{distance_euclidean()}}.
 }
 \examples{
 \dontrun{

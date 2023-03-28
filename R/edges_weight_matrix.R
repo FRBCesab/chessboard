@@ -1,8 +1,7 @@
 #' Create an edges weight matrix
 #' 
 #' @description
-#' Creates an edges weight matrix from the output of [distance_euclidean()] and
-#' [distance_along()].
+#' Creates an edges weight matrix from the output of [distance_euclidean()].
 #' 
 #' @param distances a `data.frame` with the following three columns: `from` 
 #'   (the first node of the edge), `to` (the second node of the edge), and 
