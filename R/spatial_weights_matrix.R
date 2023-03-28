@@ -2,7 +2,7 @@
 #' 
 #' @description
 #' Creates a spatial weights matrix by multiplying an adjacency (connectivity)
-#' matrix (see [connectivity_matrix()]) and an edges weight matrix (see 
+#' matrix (see [connectivity_matrix()]) and an edges weights matrix (see 
 #' [edges_weights_matrix()]). Resulting spatial weights equal to 0 will be 
 #' replaced by `4 x max(w)`, where `max(w)` is the maximal weight in the 
 #' matrix.
@@ -19,35 +19,40 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' # Import Adour sites ----
-#' path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
+#' path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
 #'                             package = "chessboard")
-#' adour_sites  <- read.csv(path_to_file)
+#' adour_sites <- read.csv(path_to_file)
+#' 
+#' # Select the 15 first sites ----
+#' adour_sites <- adour_sites[1:15, ]
+#' 
+#' # Create nodes labels ----
+#' adour_sites <- create_nodes_labels(adour_sites, 
+#'                                    location = "location", 
+#'                                    transect = "transect", 
+#'                                    quadrat  = "quadrat")
+#' 
+#' # Create edges based on the pawn move (directed network) ----
+#' adour_edges <- create_edges_list(adour_sites, method = "pawn", 
+#'                                  directed = TRUE)
+#'
+#' # Get connectivity matrix ----
+#' adour_adjacency <- connectivity_matrix(adour_edges)
 #' 
 #' # Convert sites to sf object (POINTS) ----
-#' adour_sites_sf <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
-#' 
-#' # Retrieve nodes (from nodes vector) ----
-#' adour_nodes <- nodes_list(adour_sites$"site")
-#' 
-#' # Find edges with 1 degree of neighborhood (undirected) ----
-#' adour_edges <- edges_list(adour_nodes)
-#' 
-#' # Get adjacency matrix ----
-#' adour_adjacency <- adjacency_matrix(adour_edges)
-#' adour_adjacency
+#' adour_sites_sf <- sf::st_as_sf(adour_sites, 
+#'                                coords = c("longitude", "latitude"),
+#'                                crs = "epsg:2154")
 #' 
 #' # Compute distances between pairs of sites along the Adour river ----
 #' adour_dists <- distance_euclidean(adour_sites_sf)
 #' 
-#' # Create Edges weight matrix ----
-#' adour_weights <- edges_weight_matrix(adour_dists)
-#' adour_weights
+#' # Create Edges weights matrix ----
+#' adour_weights <- edges_weights_matrix(adour_dists)
 #' 
-#' # Create Spatial weight matrix ----
+#' # Create Spatial weights matrix ----
 #' spatial_weights_matrix(adour_adjacency, adour_weights)
-#' }
 
 spatial_weights_matrix <- function(x, y) {
   
