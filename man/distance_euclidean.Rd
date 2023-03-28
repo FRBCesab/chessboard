@@ -2,14 +2,14 @@
 % Please edit documentation in R/distance_euclidean.R
 \name{distance_euclidean}
 \alias{distance_euclidean}
-\title{Compute the Euclidean distance between two nodes}
+\title{Compute the pairwise Euclidean distance}
 \usage{
 distance_euclidean(sites, ...)
 }
 \arguments{
 \item{sites}{an \code{sf} object of type \code{POINT}. A spatial object
 containing coordinates of sites. Note that the first column must be the
-site label.}
+node label created by the function \code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
 
 \item{...}{other argument to pass to \code{\link[sf:geos_measures]{sf::st_distance()}}.}
 }
@@ -28,13 +28,25 @@ distance will be used instead.
 }
 \examples{
 # Import Adour sites ----
-path_to_file <- system.file("extdata", "adour_sites_coords.csv", 
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
                             package = "chessboard")
 adour_sites <- read.csv(path_to_file)
 
-# Convert sites to sf object (POINTS) ----
-adour_sites <- sf::st_as_sf(adour_sites, coords = 2:3, crs = "epsg:2154")
+# Select the 15 first sites ----
+adour_sites <- adour_sites[1:15, ]
 
-# Compute distances between pairs of sites along the Adour river ----
-distance_euclidean(adour_sites)
+# Create nodes labels ----
+adour_sites <- create_nodes_labels(adour_sites, 
+                                   location = "location", 
+                                   transect = "transect", 
+                                   quadrat  = "quadrat")
+
+# Convert sites to sf object (POINTS) ----
+adour_sites <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"),
+                            crs = "epsg:2154")
+
+# Compute distances between pairs of sites ----
+weights <- distance_euclidean(adour_sites)
+
+head(weights)
 }

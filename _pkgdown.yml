@@ -52,9 +52,3 @@ reference:
   contents:
     - nodes_by_edges_matrix
     - edges_weights_vector
-- title: Defuncted functions
-  desc: >
-    Functions to be removes
-  contents:
-    - edges_list
-    - nodes_list
