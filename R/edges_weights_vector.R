@@ -36,7 +36,7 @@
 #'                                coords = c("longitude", "latitude"),
 #'                                crs = "epsg:2154")
 #'
-#' # Create edges base on the pawn move (directed network) ----
+#' # Create edges based on the pawn move (directed network) ----
 #' adour_edges <- create_edges_list(adour_sites, method = "pawn", 
 #'                                  directed = TRUE)
 #' 
