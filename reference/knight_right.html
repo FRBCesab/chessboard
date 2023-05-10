@@ -156,21 +156,21 @@ check detected neighbors for one particular node (<code>focus</code>).</p>
 <span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu">knight_right</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span>, degree <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">neighbors</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="knight_right-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Higher degree of neighborhood ----</span></span></span>
 <span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu">knight_right</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span>, degree <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">neighbors</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="knight_right-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span><span class="co"># Directed (default orientation) ----</span></span></span>
 <span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu">knight_right</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span>, degree <span class="op">=</span> <span class="fl">3</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">neighbors</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="knight_right-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span><span class="co"># Directed (reverse orientation) ----</span></span></span>
@@ -178,7 +178,7 @@ check detected neighbors for one particular node (<code>focus</code>).</p>
 <span class="r-in"><span>                          reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">neighbors</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="knight_right-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
