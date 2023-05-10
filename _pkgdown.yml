@@ -33,6 +33,7 @@ reference:
     - gg_chessboard
     - geom_piece
     - geom_neighbors
+    - geom_edges
     - gg_matrix
 - title: Distances computation
   desc: >
