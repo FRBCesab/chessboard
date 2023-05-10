@@ -90,6 +90,13 @@ rook <- function(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE,
   check_logical_value(self)
   
   
+  ## Convert nodes to factor ----
+  
+  nodes_user <- nodes
+  
+  nodes <- convert_nodes_to_factor(nodes)
+  
+  
   ## Get focus information ----
   
   tr_focus <- nodes[which(nodes$"node" == focus), "transect"]
@@ -178,7 +185,7 @@ rook <- function(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE,
   
   ## Clean output ----
   
-  neighbors <- nodes[nodes$"node" %in% unique(neighbors), ]
+  neighbors <- nodes_user[nodes_user$"node" %in% unique(neighbors), ]
   neighbors <- neighbors[order(neighbors$"node"), ]
   rownames(neighbors) <- NULL
   

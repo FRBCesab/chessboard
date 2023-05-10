@@ -326,3 +326,27 @@ create_nodes_by_edges_labels <- function(edges) {
   
   edges[ , c("edge_id", "node", "link")]
 }
+
+
+
+#' Convert numeric to factor and then to numeric
+#' 
+#' @inheritParams check_nodes_object
+#' 
+#' @noRd
+
+convert_nodes_to_factor <- function(nodes) {
+  
+  check_nodes_object(nodes)
+  
+  n_transects <- length(unique(nodes$"transect"))
+  n_quadrats  <- length(unique(nodes$"quadrat"))
+  
+  nodes$"transect" <- factor(nodes$"transect", labels = 1:n_transects)
+  nodes$"transect" <- as.numeric(as.character(nodes$"transect"))
+  
+  nodes$"quadrat"  <- factor(nodes$"quadrat", labels = 1:n_quadrats)
+  nodes$"quadrat"  <- as.numeric(as.character(nodes$"quadrat"))
+  
+  nodes
+}

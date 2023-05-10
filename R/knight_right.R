@@ -89,19 +89,31 @@ knight_right <- function(nodes, focus, degree = 1, directed = FALSE,
   check_logical_value(self)
   
   
+  ## Detect neighbors ----
+  
+  nodes_user <- nodes
+  
+  neighbors_users <- knight(nodes, focus, degree, directed, reverse, self)
+  
+  nodes <- convert_nodes_to_factor(nodes)
+  
+  neighbors <- nodes[which(nodes$"node" %in% neighbors_users$"node"), ]
+  
+  
   ## Get focus information ----
   
   tr_focus <- nodes[which(nodes$"node" == focus), "transect"]
   qu_focus <- nodes[which(nodes$"node" == focus), "quadrat"]
   
   
-  ## Detect neighbors ----
-  
-  neighbors <- knight(nodes, focus, degree, directed, reverse, self)
   neighbors <- neighbors[which((neighbors$"transect" >= tr_focus &
                                   neighbors$"quadrat" >= qu_focus) | 
                                  (neighbors$"transect" <= tr_focus &
                                     neighbors$"quadrat" <= qu_focus)), ]
+  
+  neighbors <- neighbors_users[which(neighbors_users$"node" %in% 
+                                       neighbors$"node"), ]
+  
   
   ## Remove auto-neighborhood ----
   

@@ -61,7 +61,7 @@ check_nodes_object <- function(nodes) {
 #' 
 #' @param nodes a `data.frame`. The output of [create_nodes_labels()].
 #' 
-#' @param focus an `character` of length 1. The node label for which the 
+#' @param focus a `character` of length 1. The node label for which the 
 #'   neighbors must be found. Must exist in the `nodes` object.
 #' 
 #' @noRd
@@ -345,6 +345,13 @@ check_sites_object <- function(sites) {
   invisible(NULL)
 }
 
+
+
+#' Check nodes labels
+#'
+#' @param nodes a `character` vector of nodes labels (e.g. 1-1, 01-10)
+#'
+#' @noRd
 
 check_node_labels <- function(nodes) {
   

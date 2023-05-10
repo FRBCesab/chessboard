@@ -222,16 +222,17 @@ create_nodes_labels <- function(data, location, transect, quadrat) {
   
   
   ## Check labels ----
+  ## ... Disable this to deal w/ complex networks ...
   
-  if (max(diff(sort(data[ , "transect"]))) > 1) {
-    stop("Labels of transects must increased by 1 (no gap allowed in labels)", 
-         call. = FALSE)
-  }
-  
-  if (max(diff(sort(data[ , "quadrat"]))) > 1) {
-    stop("Labels of quadrats must increased by 1 (no gap allowed in labels)", 
-         call. = FALSE)
-  }
+  # if (max(diff(sort(data[ , "transect"]))) > 1) {
+  #   stop("Labels of transects must increased by 1 (no gap allowed in labels)", 
+  #        call. = FALSE)
+  # }
+  # 
+  # if (max(diff(sort(data[ , "quadrat"]))) > 1) {
+  #   stop("Labels of quadrats must increased by 1 (no gap allowed in labels)", 
+  #        call. = FALSE)
+  # }
   
   
   ## Create nodes labels ----

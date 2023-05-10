@@ -49,9 +49,23 @@ geom_piece <- function(nodes, focus) {
   check_focus_object(nodes, focus)
   
   
+  ## Convert nodes to factor ----
+  
+  nodes <- convert_nodes_to_factor(nodes)
+  
+  
+  ## Select focus node ----
+  
   nodes <- nodes[nodes$"node" == focus, ]
   
+  
+  ## ggplot2 features ----
+  
   list(
+    ggplot2::geom_point(data  = nodes, ggplot2::aes(.data$"transect", 
+                                                    .data$"quadrat"), 
+                        shape = 19, size = 4, color = "white"), 
+    
     ggplot2::geom_point(data  = nodes, ggplot2::aes(.data$"transect", 
                                                     .data$"quadrat"), 
                         shape = 21, size = 4), 

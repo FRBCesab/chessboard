@@ -4,9 +4,13 @@
 \alias{geom_neighbors}
 \title{Highlight neighbors on a chessboard}
 \usage{
-geom_neighbors(neighbors)
+geom_neighbors(nodes, neighbors)
 }
 \arguments{
+\item{nodes}{a \code{data.frame} with (at least) the following three columns:
+\code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
+\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
+
 \item{neighbors}{a \code{data.frame} with the following at least three columns:
 \code{node}, \code{transect}, and \code{quadrats}. See \code{\link[=pawn]{pawn()}}, \code{\link[=fool]{fool()}}, etc. for
 further information.}
@@ -31,5 +35,5 @@ neighbors <- pawn(nodes, focus = "2-3")
 
 gg_chessboard(nodes) +
   geom_piece(nodes, "2-3") +
-  geom_neighbors(neighbors)
+  geom_neighbors(nodes, neighbors)
 }

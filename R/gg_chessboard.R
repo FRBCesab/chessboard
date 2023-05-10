@@ -54,6 +54,14 @@ gg_chessboard <- function(nodes, xlab = "Transect", ylab = "Quadrat") {
   
   check_nodes_object(nodes)
 
+  
+  ## Convert nodes to factor ----
+  
+  tr_labels <- sort(unique(nodes$"transect"))
+  qu_labels <- sort(unique(nodes$"quadrat"))
+  
+  nodes <- convert_nodes_to_factor(nodes)
+  
 
   ## Plot chessboard ----
   
@@ -72,11 +80,13 @@ gg_chessboard <- function(nodes, xlab = "Transect", ylab = "Quadrat") {
     
     ggplot2::scale_x_discrete(
       position = "top", 
-      limits   = as.factor(sort(unique(nodes$"transect")))) +
+      limits   = as.factor(sort(unique(nodes$"transect"))),
+      labels   = tr_labels) +
     
     ggplot2::scale_y_discrete(
       position = "left", 
-      limits   = as.factor(sort(unique(nodes$"quadrat")))) +
+      limits   = as.factor(sort(unique(nodes$"quadrat"))),
+      labels   = qu_labels) +
     
     ggplot2::theme_void() +
     ggplot2::theme(
