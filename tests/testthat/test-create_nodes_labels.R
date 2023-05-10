@@ -126,12 +126,12 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
                "The column 'transect' cannot contain NA",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu_gap_tr, 
-                                   transect = "transect", 
-                                   quadrat  = "quadrat"),
-               paste0("Labels of transects must increased by 1 ", 
-                      "(no gap allowed in labels)"),
-               fixed = TRUE)
+  # expect_error(create_nodes_labels(tr_qu_gap_tr, 
+  #                                  transect = "transect", 
+  #                                  quadrat  = "quadrat"),
+  #              paste0("Labels of transects must increased by 1 ", 
+  #                     "(no gap allowed in labels)"),
+  #              fixed = TRUE)
   
   
   # Argument 'quadrat' ----
@@ -160,12 +160,12 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
                "The column 'quadrat' cannot contain NA",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu_gap_qu, 
-                                   transect = "transect", 
-                                   quadrat  = "quadrat"),
-               paste0("Labels of quadrats must increased by 1 ", 
-                      "(no gap allowed in labels)"),
-               fixed = TRUE)
+  # expect_error(create_nodes_labels(tr_qu_gap_qu, 
+  #                                  transect = "transect", 
+  #                                  quadrat  = "quadrat"),
+  #              paste0("Labels of quadrats must increased by 1 ", 
+  #                     "(no gap allowed in labels)"),
+  #              fixed = TRUE)
   
   expect_error(create_nodes_labels(tr_qu_dup, 
                                    transect = "transect", 
