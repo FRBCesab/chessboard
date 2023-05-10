@@ -173,7 +173,7 @@ ggplot() +
   custom_theme() +
   geom_segment(aes(x = 454180, xend = 440170, y = 6216290, yend = 6263320), 
                arrow = arrow(length = unit(0.75, 'cm'), type = 'closed'),
-               size  = 2.25) +
+               linewidth = 2.25) +
   geom_text(aes(x = 334500, y = 6285000), label = "River", hjust = 0,
             color = "steelblue", fontface = "bold", size = 6, family = "serif") +
   geom_text(aes(x = 414950, y = 6312200), label = "Location 3", hjust = -0.20,
