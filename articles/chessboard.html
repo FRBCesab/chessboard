@@ -152,11 +152,6 @@ oriented from south-east (upstream) to north-west (downstream).</p>
 has been conducted on a regular grid composed of <strong>three</strong>
 transects each of them composed of <strong>five</strong> quadrats.</p>
 <p><br></p>
-<pre><code><span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre>
 <div class="figure" style="text-align: center">
 <img src="chessboard_files/figure-html/map-adour-sites-1.png" alt="Figure 2. Study area with survey sampling" width="80%"><p class="caption">
 Figure 2. Study area with survey sampling
@@ -185,7 +180,7 @@ labels</strong>. In other words, the order of nodes labels will give the
 dimension and the direction of the network.</p>
 <p><br></p>
 <p>Let’s import the survey dataset provided by the package.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Import survey data ----</span></span>
 <span><span class="va">path_to_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"adour_survey_sampling.csv"</span>, package <span class="op">=</span> <span class="st">"chessboard"</span><span class="op">)</span></span>
 <span><span class="va">adour_sites</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">path_to_file</span><span class="op">)</span></span>
@@ -265,7 +260,7 @@ the identifiers of transects and quadrats. It’s the purpose of the
 function <code><a href="../reference/create_nodes_labels.html">create_nodes_labels()</a></code>.</p>
 <p><br></p>
 <p>But first, let’s select the first location (optional).</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Select first location (optional) ----</span></span>
 <span><span class="va">adour_sites</span> <span class="op">&lt;-</span> <span class="va">adour_sites</span><span class="op">[</span><span class="va">adour_sites</span><span class="op">$</span><span class="st">"location"</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span></span>
 <span><span class="va">adour_sites</span></span>
@@ -287,7 +282,7 @@ function <code><a href="../reference/create_nodes_labels.html">create_nodes_labe
 <span><span class="co">#&gt; 15        1        3       5  474829.6  6232672</span></span></code></pre></div>
 <p><br></p>
 <p>Now, we can create the nodes labels.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create nodes labels ----</span></span>
 <span><span class="va">adour_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">adour_sites</span>, </span>
 <span>                                   location <span class="op">=</span> <span class="st">"location"</span>,</span>
@@ -320,7 +315,7 @@ by the function if missing, i.e. transects-only sampling).</p>
 <p><br></p>
 <p>The function <code><a href="../reference/get_nodes_list.html">get_nodes_list()</a></code> can be used to extract the
 nodes list.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Get nodes labels ----</span></span>
 <span><span class="fu"><a href="../reference/get_nodes_list.html">get_nodes_list</a></span><span class="op">(</span><span class="va">adour_sites</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "1-1" "1-2" "1-3" "1-4" "1-5" "2-1" "2-2" "2-3" "2-4" "2-5" "3-1" "3-2"</span></span>
@@ -365,7 +360,7 @@ explore these different methods by calling the functions
 <code><a href="../reference/pawn.html">pawn()</a></code>, <code><a href="../reference/rook.html">rook()</a></code>, <code><a href="../reference/bishop.html">bishop()</a></code>,
 <code><a href="../reference/queen.html">queen()</a></code>, etc.</p>
 <p>Let’s take a look of the neighborhood method <code><a href="../reference/pawn.html">pawn()</a></code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Explore pawn method to find neighbors ----</span></span>
 <span><span class="va">neighbors_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pawn.html">pawn</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">adour_sites</span>, </span>
 <span>                       focus    <span class="op">=</span> <span class="st">"2-3"</span>, </span>
@@ -424,7 +419,7 @@ movements</a> shows all possible movements implemented in
 <p>Now, let’s use the function <code><a href="../reference/create_edges_list.html">create_edges_list()</a></code> to
 create an edges list using the method <code>'pawn'</code> with a degree
 <code>1</code> of neighborhood and in a directional way.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create edges list ----</span></span>
 <span><span class="va">adour_edges_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edges_list.html">create_edges_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">adour_sites</span>, </span>
 <span>                                      method   <span class="op">=</span> <span class="st">"pawn"</span>, </span>
@@ -451,7 +446,7 @@ create an edges list using the method <code>'pawn'</code> with a degree
 <p>It’s possible to visualize these edges on a map, i.e. by using
 spatial coordinates. First, we need to convert our sites into a spatial
 object (<code>POINT</code>).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Convert sites to sf object ----</span></span>
 <span><span class="va">adour_sites_sf</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">adour_sites</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>,</span>
 <span>                               crs <span class="op">=</span> <span class="st">"epsg:2154"</span><span class="op">)</span></span>
@@ -472,7 +467,7 @@ object (<code>POINT</code>).</p>
 <p><br></p>
 <p>Now we can use the function <code><a href="../reference/edges_to_sf.html">edges_to_sf()</a></code> to convert our
 edges list into a spatial object (<code>LINESTRING</code>).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Convert edges list to sf ----</span></span>
 <span><span class="va">adour_edges_pawn_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span>edges <span class="op">=</span> <span class="va">adour_edges_pawn</span>, </span>
 <span>                                   sites <span class="op">=</span> <span class="va">adour_sites_sf</span><span class="op">)</span></span>
@@ -497,7 +492,7 @@ edges list into a spatial object (<code>LINESTRING</code>).</p>
 <span><span class="co">#&gt; 10  3-2 3-3 LINESTRING (477700.2 622574...</span></span></code></pre></div>
 <p><br></p>
 <p>We can now map our nodes and edges.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Map of nodes and edges ----</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">adour_sites_sf</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
@@ -514,7 +509,7 @@ possible by using for each method the function
 <code><a href="../reference/create_edges_list.html">create_edges_list()</a></code> and using the function
 <code><a href="../reference/append_edges_lists.html">append_edges_lists()</a></code> to merge all edges in a single
 list.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create edges list (Bishop method) ----</span></span>
 <span><span class="va">adour_edges_bishop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edges_list.html">create_edges_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">adour_sites</span>, </span>
 <span>                                        method   <span class="op">=</span> <span class="st">"bishop"</span>, </span>
@@ -548,7 +543,7 @@ list.</p>
 <span><span class="co">## Convert edges to spatial layer ----</span></span>
 <span><span class="va">adour_edges_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span><span class="va">adour_edges</span>, <span class="va">adour_sites_sf</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Map of nodes and edges ----</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">adour_sites_sf</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
@@ -572,7 +567,7 @@ the presence (<code>1</code>) or the absence (<code>0</code>) of an edge
 <p><br></p>
 <p>We can use the function <code><a href="../reference/connectivity_matrix.html">connectivity_matrix()</a></code> of the
 package <code>chessboard</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create connectivity matrix ----</span></span>
 <span><span class="va">adour_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">adour_edges</span><span class="op">)</span></span>
 <span></span>
@@ -596,7 +591,7 @@ package <code>chessboard</code>.</p>
 <p><br></p>
 <p>The package <code>chessboard</code> provides a graphical function to
 visualize this matrix: <code><a href="../reference/gg_matrix.html">gg_matrix()</a></code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Visualize connectivity matrix ----</span></span>
 <span><span class="fu"><a href="../reference/gg_matrix.html">gg_matrix</a></span><span class="op">(</span><span class="va">adour_matrix</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -608,7 +603,7 @@ Figure 9. Connectivity matrix
 <p>Optionally, we can use the function
 <code><a href="../reference/matrix_to_edges_list.html">matrix_to_edges_list()</a></code> to convert back the connectivity
 matrix to edges list.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Convert connectivity matrix to edges list ----</span></span>
 <span><span class="fu"><a href="../reference/matrix_to_edges_list.html">matrix_to_edges_list</a></span><span class="op">(</span><span class="va">adour_matrix</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    from  to</span></span>
@@ -659,7 +654,7 @@ This function creates the same output but works in a different way: it’s
 only based on nodes labels (not on spatial coordinates). In addition,
 the function <code><a href="../reference/nodes_by_edges_matrix.html">nodes_by_edges_matrix()</a></code> adds labels to nodes
 and edges.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create nodes-by-edges matrix ----</span></span>
 <span><span class="va">adour_edges_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/nodes_by_edges_matrix.html">nodes_by_edges_matrix</a></span><span class="op">(</span><span class="va">adour_edges</span><span class="op">)</span></span>
 <span></span>
@@ -736,7 +731,7 @@ as <code>0</code>) has been created and represents the first edge (coded
 as <code>E-01</code>) to the first site.</p>
 <p><br></p>
 <p>Let’s plot our nodes-by-edges matrix.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gg_matrix.html">gg_matrix</a></span><span class="op">(</span><span class="va">adour_edges_mat</span><span class="op">$</span><span class="st">"se.mat"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="chessboard_files/figure-html/plot-nodes-by-edges-matrix-1.png" alt="Figure 10. Nodes-by-edges matrix" width="80%"><p class="caption">
