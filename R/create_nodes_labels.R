@@ -255,11 +255,11 @@ create_nodes_labels <- function(data, location, transect, quadrat) {
   
   ## Check for irregular grid ----
   
-  if (nrow(nodes) < 
-      (length(unique(nodes$"transect")) * length(unique(nodes$"quadrat")))) {
-    stop("The package 'chessboard' is not designed to work with irregular ", 
-         "grids", call. = FALSE)
-  }
+  # if (nrow(nodes) < 
+  #     (length(unique(nodes$"transect")) * length(unique(nodes$"quadrat")))) {
+  #   stop("The package 'chessboard' is not designed to work with irregular ", 
+  #        "grids", call. = FALSE)
+  # }
   
   
   ## Order columns ----
