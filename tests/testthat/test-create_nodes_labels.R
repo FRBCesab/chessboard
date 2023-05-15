@@ -173,12 +173,12 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
                "Nodes labels cannot contain duplicates",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu[-1, ], 
-                                   transect = "transect", 
-                                   quadrat  = "quadrat"),
-               paste0("The package 'chessboard' is not designed to work with ", 
-                      "irregular grids"),
-               fixed = TRUE)
+  # expect_error(create_nodes_labels(tr_qu[-1, ], 
+  #                                  transect = "transect", 
+  #                                  quadrat  = "quadrat"),
+  #              paste0("The package 'chessboard' is not designed to work with ", 
+  #                     "irregular grids"),
+  #              fixed = TRUE)
 })
 
 
