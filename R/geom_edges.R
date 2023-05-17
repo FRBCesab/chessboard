@@ -60,5 +60,5 @@ geom_edges <- function(nodes, focus, neighbors) {
     ggplot2::aes(x = focus$"transect", xend = .data$"transect", 
                  y = focus$"quadrat",  yend = .data$"quadrat"), 
     arrow = ggplot2::arrow(length = ggplot2::unit(0.25, 'cm'), type = 'closed'),
-    size = 0.25, color = "black") 
+    linewidth = 0.25, color = "black") 
 }
