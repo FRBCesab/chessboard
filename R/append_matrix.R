@@ -89,7 +89,7 @@ append_matrix <- function(..., na_to_zero = TRUE) {
   list_of_dfs <- lapply(matrices, function(x) {
     
     mat <- as.data.frame(x)
-    mat <- data.frame(from = rownames(mat), mat)
+    mat <- data.frame(from = rownames(mat), mat, check.names = FALSE)
     
     tidyr::pivot_longer(mat, cols = -1, names_to = "to", values_to = "edge")
   })
