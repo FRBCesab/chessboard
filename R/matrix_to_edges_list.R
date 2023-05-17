@@ -93,7 +93,7 @@ matrix_to_edges_list <- function(x, all = FALSE) {
   
   if (!all) {
     x <- x[which(!is.na(x$"edge") & x$"edge" != 0), ]
-    x <- x[ , -which(colnames(x) == "edge")]
+    # x <- x[ , -which(colnames(x) == "edge")]
   }
 
   rownames(x) <- NULL
