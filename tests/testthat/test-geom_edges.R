@@ -1,13 +1,22 @@
-sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
+# Data for tests ----
 
-nodes <- create_nodes_labels(data     = sites_infos, 
+sites <- expand.grid("transect" = 1:3, 
+                     "quadrat"  = 1:5)
+
+nodes <- create_nodes_labels(data     = sites, 
                              transect = "transect", 
                              quadrat  = "quadrat")
 
 focus <- "2-3"
 
-neighbors <- pawn(nodes, focus = focus, degree = 4, directed = FALSE, 
-                  reverse = TRUE)
+neighbors <- pawn(nodes    = nodes, 
+                  focus    = focus, 
+                  degree   = 4, 
+                  directed = FALSE, 
+                  reverse  = TRUE)
+
+
+# Tests for success ----
 
 test_that("geom_edges() - Tests for success", {
   
