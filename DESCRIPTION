@@ -1,15 +1,20 @@
 Package: chessboard
 Type: Package
 Title: Neighborhood and Connectivity in Spatial Networks
-Version: 0.0.0.9000
+Version: 0.1
 Authors@R: c(
     person(given   = "Nicolas",
            family  = "Casajus",
            role    = c("aut", "cre", "cph"),
            email   = "nicolas.casajus@fondationbiodiversite.fr",
            comment = c(ORCID = "0000-0002-5537-5294")))
-Description: Contains different tools used by the FRB-CESAB Project Bridge to
-    work with directional spatial network.
+Description: Provides functions to work with directed (asymmetric) and 
+    undirected (symmetrical) spatial networks. It makes easier the creation of 
+    connectivity matrix, i.e. a binary matrix of dimensions n x n, where n is 
+    the number of nodes (sampling units) indicating the presence (1) or the 
+    absence (0) of an edge (link) between pairs of nodes. Different network 
+    objects can be produced by chessboard: nodes list, neighbors list, edges 
+    list, connectivity matrix.
 URL: https://github.com/frbcesab/chessboard
 BugReports: https://github.com/frbcesab/chessboard/issues
 License: GPL (>= 2)
