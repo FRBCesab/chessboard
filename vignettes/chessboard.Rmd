@@ -101,13 +101,13 @@ adour_river  <- sf::st_read(path_to_file, quiet = TRUE)
 
 ```{r 'get-basemap', echo=FALSE}
 ## Import France departments ----
-france <- rnaturalearth::ne_states("france", returnclass = "sf")
+#france <- rnaturalearth::ne_states("france", returnclass = "sf")
 
 ## Remove overseas territories ----
-france <- france[grep("^FR\\.", france$"code_hasc"), ]
+#france <- france[grep("^FR\\.", france$"code_hasc"), ]
 
 ## Project layer to RGF93 / Lambert-93 system ----
-france <- sf::st_transform(france, sf::st_crs(adour_river))
+#france <- sf::st_transform(france, sf::st_crs(adour_river))
 ```
 
 
@@ -116,23 +116,24 @@ france <- sf::st_transform(france, sf::st_crs(adour_river))
 
 ```{r 'map-adour-river', echo=FALSE, fig.height=9, fig.width=10, out.width='80%', fig.cap='Figure 1. Location of the French river L\'Adour'}
 ## Get extent of Adour river ----
-adour_extent <- sf::st_bbox(adour_river)
+#adour_extent <- sf::st_bbox(adour_river)
 
 ## Add some margin around ----
-adour_extent <- adour_extent + c(-10000, -10000, 10000, 10000)
+#adour_extent <- adour_extent + c(-10000, -10000, 10000, 10000)
 
-ggplot() +
-  geom_sf(data = france, fill = "lightgray", col = "white", size = 0.2) +
-  geom_sf(data = adour_river, col = "steelblue") +
-  geom_sf(data = sf::st_as_sfc(adour_extent), fill = NA, size = 0.3) +
-  labs(caption = "RGF93 / Lambert-93 Projection") +
-  custom_theme() +
-  geom_text(aes(x = 194015, y = 6453703), label = "Atlantic\nOcean",
-            color = "lightgray", fontface = "italic", size = 6, 
-            family = "serif") +
-  geom_text(aes(x = 482630, y = 6150836), label = "Pyrenees",
-            color = "lightgray", fontface = "italic", size = 6, 
-            family = "serif")
+# ggplot() +
+#   geom_sf(data = france, fill = "lightgray", col = "white", size = 0.2) +
+#   geom_sf(data = adour_river, col = "steelblue") +
+#   geom_sf(data = sf::st_as_sfc(adour_extent), fill = NA, size = 0.3) +
+#   labs(caption = "RGF93 / Lambert-93 Projection") +
+#   custom_theme() +
+#   geom_text(aes(x = 194015, y = 6453703), label = "Atlantic\nOcean",
+#             color = "lightgray", fontface = "italic", size = 6, 
+#             family = "serif") +
+#   geom_text(aes(x = 482630, y = 6150836), label = "Pyrenees",
+#             color = "lightgray", fontface = "italic", size = 6, 
+#             family = "serif")
+knitr::include_graphics("img/map-adour-river.png")
 ```
 
 

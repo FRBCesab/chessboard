@@ -30,9 +30,6 @@ Suggests:
     knitr,
     patchwork,
     rmarkdown,
-    rnaturalearth,
-    rnaturalearthdata,
-    sp,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
