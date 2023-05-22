@@ -32,11 +32,8 @@ Suggests:
     rmarkdown,
     rnaturalearth,
     rnaturalearthdata,
-    rnaturalearthhires,
     sp,
     testthat (>= 3.0.0)
-Remotes: 
-    ropensci/rnaturalearthhires
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
