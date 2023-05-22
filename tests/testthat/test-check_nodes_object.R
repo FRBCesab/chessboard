@@ -5,7 +5,7 @@ good_nodes <- create_nodes_labels(tr_qr,
                                   transect = "transect", 
                                   quadrat  = "quadrat")
 bad_nodes_1 <- good_nodes
-bad_nodes_1$"node" <- 1:nrow(good_nodes)
+bad_nodes_1$"node" <- seq_len(nrow(good_nodes))
 
 bad_nodes_2 <- good_nodes
 bad_nodes_2$"transect" <- as.character(bad_nodes_2$"transect")
@@ -27,18 +27,21 @@ test_that("check_nodes_object() - Tests for wrong inputs", {
                fixed = TRUE)
   
   expect_error(check_nodes_object(good_nodes[ , -1]),
-               paste0("The column 'node' is absent from the 'nodes' data.frame ", 
-                      "(output of the function create_nodes_labels())"),
+               paste0("The column 'node' is absent from the 'nodes' ", 
+                      "data.frame (output of the function ", 
+                      "create_nodes_labels())"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(good_nodes[ , -3]),
-               paste0("The column 'transect' is absent from the 'nodes' data.frame ", 
-                      "(output of the function create_nodes_labels())"),
+               paste0("The column 'transect' is absent from the 'nodes' ", 
+                      "data.frame (output of the function ", 
+                      "create_nodes_labels())"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(good_nodes[ , -4]),
-               paste0("The column 'quadrat' is absent from the 'nodes' data.frame ", 
-                      "(output of the function create_nodes_labels())"),
+               paste0("The column 'quadrat' is absent from the 'nodes' ", 
+                      "data.frame (output of the function ", 
+                      "create_nodes_labels())"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(good_nodes[1, ]),
@@ -46,15 +49,18 @@ test_that("check_nodes_object() - Tests for wrong inputs", {
                fixed = TRUE)
   
   expect_error(check_nodes_object(bad_nodes_1),
-               "The column 'node' of the 'nodes' data.frame must be a character",
+               paste0("The column 'node' of the 'nodes' data.frame must be a ",
+                      "character"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(bad_nodes_2),
-               "The column 'transect' of the 'nodes' data.frame must be a numeric",
+               paste0("The column 'transect' of the 'nodes' data.frame must ", 
+                      "be a numeric"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(bad_nodes_3),
-               "The column 'quadrat' of the 'nodes' data.frame must be a numeric",
+               paste0("The column 'quadrat' of the 'nodes' data.frame must be ",
+                      "a numeric"),
                fixed = TRUE)
   
 })

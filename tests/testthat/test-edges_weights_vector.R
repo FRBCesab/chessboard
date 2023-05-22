@@ -36,7 +36,8 @@ test_that("edges_weights_vector() - Tests for errors", {
                fixed = TRUE)
   
   expect_error(edges_weights_vector(list(1, 2, 3)),
-               "Argument 'x' must be a list (nodes-by-edges matrix) of length 2",
+               paste0("Argument 'x' must be a list (nodes-by-edges matrix) of ",
+                      "length 2"),
                fixed = TRUE)
   
   expect_error(edges_weights_vector(nodes_edges_bad),
@@ -53,17 +54,20 @@ test_that("edges_weights_vector() - Tests for errors", {
                "Argument 'y' must be a data.frame",
                fixed = TRUE)
   
-  expect_error(edges_weights_vector(nodes_edges, data.frame("node" = edges$"from")),
+  expect_error(edges_weights_vector(nodes_edges, 
+                                    data.frame("node" = edges$"from")),
                "The column 'from' is absent from the y data.frame",
                fixed = TRUE)
   
-  expect_error(edges_weights_vector(nodes_edges, data.frame("from" = edges$"from", 
-                                                            "node" = edges$"from")),
+  expect_error(edges_weights_vector(nodes_edges, 
+                                    data.frame("from" = edges$"from", 
+                                               "node" = edges$"from")),
                "The column 'to' is absent from the y data.frame",
                fixed = TRUE)
   
-  expect_error(edges_weights_vector(nodes_edges, data.frame("from" = edges$"from", 
-                                                            "to" = edges$"from")),
+  expect_error(edges_weights_vector(nodes_edges, 
+                                    data.frame("from" = edges$"from",
+                                               "to" = edges$"from")),
                "The column 'weight' is absent from the y data.frame",
                fixed = TRUE)
   

@@ -117,7 +117,7 @@ test_that("knight() - Tests for success (2D network)", {
   expect_equal(class(neighbors), "data.frame")
   expect_equal(ncol(neighbors), 4L)
   expect_equal(nrow(neighbors), 8L)
-  expect_equal(neighbors[ , "node"], c("1-2", "1-4", "2-1", "2-5", "4-1", "4-5", 
+  expect_equal(neighbors[ , "node"], c("1-2", "1-4", "2-1", "2-5", "4-1", "4-5",
                                        "5-2", "5-4"))
   
   
@@ -133,6 +133,6 @@ test_that("knight() - Tests for success (2D network)", {
   expect_equal(class(neighbors), "data.frame")
   expect_equal(ncol(neighbors), 4L)
   expect_equal(nrow(neighbors), 8L)
-  expect_equal(neighbors[ , "node"], c("1-2", "1-4", "2-1", "2-5", "4-1", "4-5", 
+  expect_equal(neighbors[ , "node"], c("1-2", "1-4", "2-1", "2-5", "4-1", "4-5",
                                        "5-2", "5-4"))
 })

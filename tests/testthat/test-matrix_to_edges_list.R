@@ -50,7 +50,8 @@ test_that("matrix_to_edges_list() - Tests for errors", {
                "Argument 'x' must be a numeric matrix (connectivity matrix)",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(matrix(c(TRUE, FALSE, TRUE, FALSE), ncol = 2)),
+  expect_error(matrix_to_edges_list(matrix(c(TRUE, FALSE, TRUE, FALSE), 
+                                           ncol = 2)),
                "Argument 'x' must be a numeric matrix (connectivity matrix)",
                fixed = TRUE)
   

@@ -266,7 +266,7 @@ create_nodes_by_edges_list <- function(edges, direction) {
   
   nodes_edges <- data.frame()
   
-  for (i in 1:nrow(edges)) {
+  for (i in seq_len(nrow(edges))) {
     
     edge <- edges[i, "to"]
     to_search <- edge

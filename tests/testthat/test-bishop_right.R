@@ -31,13 +31,13 @@ test_that("bishop_right() - Tests for errors", {
                fixed = TRUE)
   
   expect_error(bishop_right(nodes_qu),
-               paste0("The bishop right movement is not designed to work through ", 
-                      "quadrats only. Please use pawn() instead."),
+               paste0("The bishop right movement is not designed to work ", 
+                      "through quadrats only. Please use pawn() instead."),
                fixed = TRUE)
   
   expect_error(bishop_right(nodes_tr),
-               paste0("The bishop right movement is not designed to work through ", 
-                      "transects only. Please use fool() instead."),
+               paste0("The bishop right movement is not designed to work ", 
+                      "through transects only. Please use fool() instead."),
                fixed = TRUE)
 })
 

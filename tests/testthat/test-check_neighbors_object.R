@@ -9,7 +9,7 @@ focus     <- "5-5"
 neighbors <- pawn(nodes, focus)
 
 bad_neighbors_1            <- neighbors
-bad_neighbors_1$"node"     <- 1:nrow(neighbors)
+bad_neighbors_1$"node"     <- seq_len(nrow(neighbors))
 
 bad_neighbors_2            <- neighbors
 bad_neighbors_2$"transect" <- as.character(bad_neighbors_2$"transect")

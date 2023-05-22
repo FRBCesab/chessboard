@@ -230,17 +230,20 @@ directionality (`directed = TRUE` and `reverse = TRUE`, Fig. 5C).
 pawn_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = FALSE, 
+                             reverse = FALSE))
 
 pawn_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = FALSE))
 
 pawn_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = TRUE))
 
 (pawn_1 | pawn_2 | pawn_3)
 ```
@@ -263,17 +266,20 @@ directionality (`directed = TRUE` and `reverse = TRUE`, Fig. 6C).
 fool_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = FALSE, 
+                             reverse = FALSE))
 
 fool_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = FALSE))
 
 fool_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = TRUE))
 
 (fool_1 | fool_2 | fool_3)
 ```
@@ -296,17 +302,20 @@ can change the default settings (Fig. 7A), by adding directionality
 rook_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = FALSE, 
+                             reverse = FALSE))
 
 rook_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = FALSE))
 
 rook_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = TRUE))
 
 (rook_1 | rook_2 | rook_3)
 ```
@@ -330,17 +339,20 @@ can change the default settings (Fig. 8A), by adding directionality
 bishop_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = FALSE, 
+                               reverse = FALSE))
 
 bishop_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = FALSE))
 
 bishop_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = TRUE))
 
 (bishop_1 | bishop_2 | bishop_3)
 ```
@@ -364,17 +376,20 @@ can change the default settings (Fig. 9A), by adding directionality
 bishop_right_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = FALSE,
+                                     reverse = FALSE))
 
 bishop_right_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = TRUE,
+                                     reverse = FALSE))
 
 bishop_right_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = TRUE,
+                                     reverse = TRUE))
 
 (bishop_right_1 | bishop_right_2 | bishop_right_3)
 ```
@@ -399,17 +414,20 @@ can change the default settings (Fig. 10A), by adding directionality
 bishop_left_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = FALSE, 
+                                    reverse = FALSE))
 
 bishop_left_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE))
 
 bishop_left_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = TRUE))
 
 (bishop_left_1 | bishop_left_2 | bishop_left_3)
 ```
@@ -432,17 +450,20 @@ can change the default settings (Fig. 11A), by adding directionality
 knight_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = FALSE, 
+                               reverse = FALSE))
 
 knight_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = FALSE))
 
 knight_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = TRUE))
 
 (knight_1 | knight_2 | knight_3)
 ```
@@ -466,17 +487,20 @@ can change the default settings (Fig. 12A), by adding directionality
 knight_right_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = FALSE,
+                                     reverse = FALSE))
 
 knight_right_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = TRUE,
+                                     reverse = FALSE))
 
 knight_right_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = TRUE,
+                                     reverse = TRUE))
 
 (knight_right_1 | knight_right_2 | knight_right_3)
 ```
@@ -499,17 +523,20 @@ can change the default settings (Fig. 13A), by adding directionality
 knight_left_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = FALSE, 
+                                    reverse = FALSE))
 
 knight_left_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE))
 
 knight_left_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = TRUE))
 
 (knight_left_1 | knight_left_2 | knight_left_3)
 ```
@@ -535,17 +562,20 @@ can change the default settings (Fig. 14A), by adding directionality
 queen_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = FALSE, 
+                              reverse = FALSE))
 
 queen_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = TRUE, 
+                              reverse = FALSE))
 
 queen_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = TRUE, 
+                              reverse = TRUE))
 
 (queen_1 | queen_2 | queen_3)
 ```
@@ -568,17 +598,20 @@ can change the default settings (Fig. 15A), by adding directionality
 wizard_1 <- 
   gg_chessboard(nodes, "A. Undirected network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = FALSE, reverse = FALSE))
+  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = FALSE, 
+                               reverse = FALSE))
 
 wizard_2 <- 
   gg_chessboard(nodes, "B. Directed network", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = FALSE))
 
 wizard_3 <- 
   gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = TRUE))
 
 (wizard_1 | wizard_2 | wizard_3)
 ```
@@ -598,22 +631,30 @@ and by changing the arguments `degree`, `directed`, and `reverse`
 wizard_1 <- 
   gg_chessboard(nodes, "Pawn & Bishop", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, pawn(nodes, focus, degree = 3, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 3, directed = TRUE, 
+                             reverse = FALSE)) +
+  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = FALSE))
 
 wizard_2 <- 
   gg_chessboard(nodes, "Knight L & Bishop L", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE))
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE)) +
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE))
 
 wizard_3 <- 
   gg_chessboard(nodes, "Knight L, Bishop L, Pawn & Fool", "") + 
   geom_piece(nodes, focus) +
-  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, reverse = FALSE)) +
-  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, reverse = TRUE))
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE)) +
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE)) +
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = FALSE)) +
+  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = TRUE))
 
 (wizard_1 | wizard_2 | wizard_3)
 ```

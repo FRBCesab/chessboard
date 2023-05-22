@@ -62,7 +62,7 @@ knight_right <- function(nodes, focus, degree = 1, directed = FALSE,
   check_nodes_object(nodes)
   
   if (length(unique(nodes$"quadrat")) == 1) {
-    stop("The knight right movement is not designed to work through transects ", 
+    stop("The knight right movement is not designed to work through transects ",
          "only. Please use fool() instead.", call. = FALSE)
   }
   

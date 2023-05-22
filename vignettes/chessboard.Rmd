@@ -94,7 +94,8 @@ _L'Adour_ (Fig. 1).
 
 ```{r 'import-adour-river', echo=FALSE}
 ## Import the spatial layer of Adour river ----
-path_to_file <- system.file("extdata", "adour_lambert93.gpkg", package = "chessboard")
+path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
+                            package = "chessboard")
 adour_river  <- sf::st_read(path_to_file, quiet = TRUE)
 ```
 
@@ -156,11 +157,12 @@ At each location, a sampling has been conducted on a regular grid composed of
 
 ```{r 'import-adour-sites', echo=FALSE}
 ## Import sites data ----
-path_to_file <- system.file("extdata", "adour_survey_sampling.csv", package = "chessboard")
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
+                            package = "chessboard")
 adour_sites  <- read.csv(path_to_file)
 
 ## Convert data.frame to sf object ----
-adour_sites_sf <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"), 
+adour_sites_sf <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"),
                                crs = "epsg:2154")
 ```
 
@@ -175,7 +177,8 @@ ggplot() +
                arrow = arrow(length = unit(0.75, 'cm'), type = 'closed'),
                linewidth = 2.25) +
   geom_text(aes(x = 334500, y = 6285000), label = "River", hjust = 0,
-            color = "steelblue", fontface = "bold", size = 6, family = "serif") +
+            color = "steelblue", fontface = "bold", size = 6, 
+            family = "serif") +
   geom_text(aes(x = 414950, y = 6312200), label = "Location 3", hjust = -0.20,
             color = "black", fontface = "bold", size = 6, family = "serif") +
   geom_text(aes(x = 474655, y = 6236708), label = "Location 1", 
@@ -218,7 +221,8 @@ Let's import the survey dataset provided by the package.
 
 ```{r 'import-adour-survey'}
 ## Import survey data ----
-path_to_file <- system.file("extdata", "adour_survey_sampling.csv", package = "chessboard")
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv",
+                            package = "chessboard")
 adour_sites  <- read.csv(path_to_file)
 
 head(adour_sites, 20)

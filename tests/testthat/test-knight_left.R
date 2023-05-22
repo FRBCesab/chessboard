@@ -31,13 +31,13 @@ test_that("knight_left() - Tests for errors", {
                fixed = TRUE)
   
   expect_error(knight_left(nodes_qu),
-               paste0("The knight left movement is not designed to work through ", 
-                      "quadrats only. Please use pawn() instead."),
+               paste0("The knight left movement is not designed to work ", 
+                      "through quadrats only. Please use pawn() instead."),
                fixed = TRUE)
   
   expect_error(knight_left(nodes_tr),
-               paste0("The knight left movement is not designed to work through ", 
-                      "transects only. Please use fool() instead."),
+               paste0("The knight left movement is not designed to work ", 
+                      "through transects only. Please use fool() instead."),
                fixed = TRUE)
 })
 

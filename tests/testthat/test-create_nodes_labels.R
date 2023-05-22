@@ -149,7 +149,8 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
                "The column 'quadrat' must be a numeric",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu, transect = "transect", quadrat = NULL),
+  expect_error(create_nodes_labels(tr_qu, transect = "transect", 
+                                   quadrat = NULL),
                paste0("As argument 'quadrat' is not provided, the column ", 
                       "'transect' cannot contain duplicated value"),
                fixed = TRUE)
@@ -172,13 +173,6 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
                                    quadrat  = "quadrat"),
                "Nodes labels cannot contain duplicates",
                fixed = TRUE)
-  
-  # expect_error(create_nodes_labels(tr_qu[-1, ], 
-  #                                  transect = "transect", 
-  #                                  quadrat  = "quadrat"),
-  #              paste0("The package 'chessboard' is not designed to work with ", 
-  #                     "irregular grids"),
-  #              fixed = TRUE)
 })
 
 
