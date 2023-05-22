@@ -8,3 +8,4 @@
 ^_pkgdown\.yaml$
 ^CODE_OF_CONDUCT\.md$
 ^_pkgdown\.yml$
+^cran-comments\.md$
