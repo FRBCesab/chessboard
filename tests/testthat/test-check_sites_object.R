@@ -34,9 +34,9 @@ test_that("check_sites_object() - Tests for wrong inputs", {
                paste0("Argument 'sites' should have at least two rows (sites)"),
                fixed = TRUE)
   
-  expect_error(check_sites_object(adour_sites_sf[ , 1]),
+  expect_error(check_sites_object(adour_sites_sf[ , 0]),
                paste0("Argument 'sites' should have at least two columns: ", 
-                      "nodes labels and geometry"),
+                      "'node' and 'geometry'"),
                fixed = TRUE)
 
   expect_error(check_sites_object(sites_sf_mltpt),

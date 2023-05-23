@@ -317,9 +317,9 @@ check_sites_object <- function(sites) {
          call. = FALSE)
   }
   
-  if (ncol(sites) < 3) {
-    stop("Argument 'sites' should have at least two columns: nodes labels ",
-         "and geometry", call. = FALSE)
+  if (ncol(sites) < 2) {
+    stop("Argument 'sites' should have at least two columns: 'node' ",
+         "and 'geometry'", call. = FALSE)
   }
   
   if (colnames(sites)[1] != "node") {
