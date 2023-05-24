@@ -6,9 +6,8 @@
 #' but works in a different way: it's only based on nodes labels (not on 
 #' coordinates). Also, this function adds labels to nodes and edges.
 #' 
-#' @param edges a `data.frame` with the following three columns: `from` (the 
-#'   first node of the edge), `to` (the second node of the edge), and `edge` 
-#'   (presence/absence of the edge).
+#' @param edges a `data.frame` with the following two columns: `from` (the 
+#'   first node of the edge) and `to` (the second node of the edge).
 #'
 #' @return A list of two elements:
 #' - `se.mat`: the nodes-by-edges matrix of dimensions `n x k`, where `n` is 

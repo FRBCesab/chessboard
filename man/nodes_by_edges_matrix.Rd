@@ -7,9 +7,8 @@
 nodes_by_edges_matrix(edges)
 }
 \arguments{
-\item{edges}{a \code{data.frame} with the following three columns: \code{from} (the
-first node of the edge), \code{to} (the second node of the edge), and \code{edge}
-(presence/absence of the edge).}
+\item{edges}{a \code{data.frame} with the following two columns: \code{from} (the
+first node of the edge) and \code{to} (the second node of the edge).}
 }
 \value{
 A list of two elements:
