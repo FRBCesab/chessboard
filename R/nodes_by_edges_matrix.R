@@ -64,7 +64,7 @@ nodes_by_edges_matrix <- function(edges) {
                              "from", drop = TRUE]
   
   if (length(origins_main) < 1) {
-    stop("This function is not designed to deal with directed network", 
+    stop("This function is not designed to deal with undirected network", 
          call. = FALSE)
   }
   

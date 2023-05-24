@@ -26,7 +26,7 @@ edges_bad <- data.frame("from" = c("1-1", "1-2", "1-3",
 test_that("nodes_by_edges_matrix() - Tests for errors", {
   
   expect_error(nodes_by_edges_matrix(edges_bad),
-               "This function is not designed to deal with directed network",
+               "This function is not designed to deal with undirected network",
                fixed = TRUE)
   
   expect_error(nodes_by_edges_matrix(edges[-c(1:3), ]),
