@@ -1,0 +1,1177 @@
+---
+title: "Chess pieces"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chess pieces}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse  = TRUE,
+                      comment   = "#>",
+                      out.width = "50%",
+                      dpi       = 96,
+                      fig.align = "center")
+```
+
+
+```{r 'setup', echo=FALSE}
+library("chessboard")
+library("ggplot2")
+library("patchwork")
+```
+
+
+```{r 'fictitious-data', echo=FALSE}
+sites <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
+
+nodes <- create_nodes_labels(data     = sites,
+                             transect = "transect", 
+                             quadrat  = "quadrat")
+
+focus  <- "5-5"
+
+transects_quadrats <- expand.grid("transect" = 1:3, 
+                                  "quadrat"  = 1:5)
+
+transects_only     <- data.frame("transect"  = 1:3)
+quadrats_only      <- data.frame("quadrat"   = 1:5)
+
+nodes_transects_quadrats <- create_nodes_labels(data     = transects_quadrats,
+                                                transect = "transect", 
+                                                quadrat  = "quadrat")
+
+nodes_transects_only <- create_nodes_labels(data     = transects_only,
+                                            transect = "transect")
+
+nodes_quadrats_only  <- create_nodes_labels(data     = quadrats_only,
+                                            quadrat  = "quadrat")
+```
+
+
+
+
+The package `chessboard` implements different methods for detecting neighbors. 
+All are derived from the [chess game](https://en.wikipedia.org/wiki/Chess#Movement) 
+and allow user to define complex moves to create direct edges (links) between 
+nodes (sampling units). The following table provides a description of the chess 
+pieces available in `chessboard`.
+
+
+\
+
+
+| Function       | 2D network | Transect only | Quadrat only | Description                                              |
+| :------------- | :--------: | :-----------: | :----------: | :------------------------------------------------------- |
+| `pawn()`       |     ✅     |      ✅       |      ❌      | Finds neighbors vertically (i.e. along a transect)       |
+| `fool()`       |     ✅     |      ❌       |      ✅      | Finds neighbors horizontally (i.e. along a quadrat)      |
+| `rook()`       |     ✅     |      ❌       |      ❌      | Finds neighbors vertically and horizontally              |
+| `bishop()`^\*^ |     ✅     |      ❌       |      ❌      | Finds neighbors along the two diagonals                  |
+| `knight()`^\*^ |     ✅     |      ❌       |      ❌      | Finds neighbors in 'L' shape                             |
+| `queen()`      |     ✅     |      ❌       |      ❌      | Finds neighbors horizontally, vertically, and diagonally |
+| `wizard()`     |     ✅     |      ❌       |      ❌      | Finds neighbors in all directions                        |
+
+
+^\*^ These two chess pieces each have two variants: `bishop_left()`, `bishop_right()` and `knight_left()`, `knight_right()`.
+
+
+\
+
+
+## Pawn
+
+
+> The `pawn` can detect neighbors vertically, i.e. among quadrats along a transect. 
+
+The function `pawn()` can be used to detect neighbors (black dots in Fig. 1) of a specific node (red dot in Fig. 1).
+
+```{r eval=FALSE, echo=TRUE}
+pawn(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 1A),
+by adding directionality (`directed = TRUE`, Fig. 1B) and reversing the default
+directionality (`directed = TRUE` and `reverse = TRUE`, Fig. 1C).
+
+
+\
+
+
+```{r 'cb-pawn', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 1. Moves of the **Pawn** (with degree = 4)", out.width='100%'}
+pawn_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = FALSE, 
+                             reverse = FALSE))
+
+pawn_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = FALSE))
+
+pawn_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = TRUE))
+
+(pawn_1 | pawn_2 | pawn_3)
+```
+
+
+\
+
+Figure 2 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `pawn` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "pawn", degree = 4, ...)
+```
+
+
+```{r 'cb-pawn-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 2. Connectivity matrices of the **Pawn** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "pawn", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+pawn_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "pawn", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+pawn_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "pawn", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+pawn_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(pawn_1 | pawn_2 | pawn_3)
+```
+
+
+\
+
+
+## Fool
+
+> The `fool` can detect neighbors horizontally, i.e. among transects along a quadrat. 
+
+The function `fool()` can be used to detect neighbors (black dots in Fig. 3) of a specific node (red dot in Fig. 3).
+
+```{r eval=FALSE, echo=TRUE}
+fool(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 3A), by adding directionality 
+(`directed = TRUE`, Fig. 3B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 3C).
+
+
+\
+
+
+```{r 'cb-fool', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 3. Moves of the **Fool** (with degree = 4)", out.width='100%'}
+fool_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = FALSE, 
+                             reverse = FALSE))
+
+fool_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = FALSE))
+
+fool_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = TRUE))
+
+(fool_1 | fool_2 | fool_3)
+```
+
+
+\
+
+
+Figure 4 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `fool` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "fool", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-fool-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 4. Connectivity matrices of the **Fool** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "fool", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+fool_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "fool", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+fool_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "fool", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+fool_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(fool_1 | fool_2 | fool_3)
+```
+
+
+
+## Rook
+
+
+> The `rook` can detect neighbors both horizontally and vertically, 
+i.e. among transects along a quadrat and among quadrats along a transect. 
+
+The function `rook()` can be used to detect neighbors (black dots in Fig. 5) of a specific node (red dot in Fig. 5).
+
+```{r eval=FALSE, echo=TRUE}
+rook(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 5A), by adding directionality 
+(`directed = TRUE`, Fig. 5B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 5C).
+
+
+\
+
+
+```{r 'cb-rook', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 5. Moves of the **Rook** (with degree = 4)", out.width='100%'}
+rook_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = FALSE, 
+                             reverse = FALSE))
+
+rook_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = FALSE))
+
+rook_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, rook(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = TRUE))
+
+(rook_1 | rook_2 | rook_3)
+```
+
+
+\
+
+
+Figure 6 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `rook` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "rook", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-rook-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 6. Connectivity matrices of the **Rook** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "rook", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+rook_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "rook", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+rook_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "rook", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+rook_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(rook_1 | rook_2 | rook_3)
+```
+
+
+
+\
+
+
+## Bishop
+
+
+> The `bishop` can detect neighbors diagonally. 
+
+The function `bishop()` can be used to detect neighbors (black dots in Fig. 7) of a specific node (red dot in Fig. 7).
+
+```{r eval=FALSE, echo=TRUE}
+bishop(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 7A), by adding directionality 
+(`directed = TRUE`, Fig. 7B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 7C).
+
+
+\
+
+
+```{r 'cb-bishop', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 7. Moves of the **Bishop** (with degree = 4)", out.width='100%'}
+bishop_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = FALSE, 
+                               reverse = FALSE))
+
+bishop_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = FALSE))
+
+bishop_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = TRUE))
+
+(bishop_1 | bishop_2 | bishop_3)
+```
+
+
+\
+
+
+Figure 8 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `bishop` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "bishop", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-bishop-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 8. Connectivity matrices of the **Bishop** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "bishop", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+bishop_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "bishop", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+bishop_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "bishop", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+bishop_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(bishop_1 | bishop_2 | bishop_3)
+```
+
+
+\
+
+
+## Bishop right
+
+> The `bishop_right` is a special case of the `bishop` and 
+can detect neighbors along one diagonal (from bottom-left to top-right).
+
+The function `bishop_right()` can be used to detect neighbors (black dots in Fig. 9) of a specific node (red dot in Fig. 9).
+
+```{r eval=FALSE, echo=TRUE}
+bishop_right(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 9A), by adding directionality 
+(`directed = TRUE`, Fig. 9B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 9C).
+
+\
+
+
+```{r 'cb-bishop-right', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 9. Moves of the **Bishop right** (with degree = 4)", out.width='100%'}
+bishop_right_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = FALSE,
+                                     reverse = FALSE))
+
+bishop_right_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = TRUE,
+                                     reverse = FALSE))
+
+bishop_right_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop_right(nodes, focus, degree = 4, directed = TRUE,
+                                     reverse = TRUE))
+
+(bishop_right_1 | bishop_right_2 | bishop_right_3)
+```
+
+
+\
+
+
+Figure 10 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `bishop_right` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "bishop_right", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-bishop_right-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 10. Connectivity matrices of the **Bishop right** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "bishop_right", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+bishop_right_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "bishop_right", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+bishop_right_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "bishop_right", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+bishop_right_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(bishop_right_1 | bishop_right_2 | bishop_right_3)
+```
+
+
+\
+
+
+## Bishop left
+
+
+> The `bishop_left` is a special case of the `bishop` and can detect 
+neighbors along one diagonal (from bottom-right to top-left). 
+
+The function `bishop_left()` can be used to detect neighbors (black dots in Fig. 11) of a specific node (red dot in Fig. 11).
+
+```{r eval=FALSE, echo=TRUE}
+bishop_left(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 11A), by adding directionality 
+(`directed = TRUE`, Fig. 11B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 11C).
+
+\
+
+
+```{r 'cb-bishop-left', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 11. Moves of the **Bishop left** (with degree = 4)", out.width='100%'}
+bishop_left_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = FALSE, 
+                                    reverse = FALSE))
+
+bishop_left_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE))
+
+bishop_left_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = TRUE))
+
+(bishop_left_1 | bishop_left_2 | bishop_left_3)
+```
+
+
+\
+
+
+Figure 12 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `bishop_left` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "bishop_left", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-bishop_left-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 12. Connectivity matrices of the **Bishop left** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "bishop_left", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+bishop_left_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "bishop_left", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+bishop_left_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "bishop_left", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+bishop_left_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(bishop_left_1 | bishop_left_2 | bishop_left_3)
+```
+
+
+\
+
+
+## Knight
+
+> The `knight` has a complex move, like an 'L' shape. It's the difference between
+the `wizard` and the `queen`.
+
+The function `knight()` can be used to detect neighbors (black dots in Fig. 13) of a specific node (red dot in Fig. 13).
+
+```{r eval=FALSE, echo=TRUE}
+knight(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 13A), by adding directionality 
+(`directed = TRUE`, Fig. 13B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 13C).
+
+\
+
+
+```{r 'cb-knight', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 13. Moves of the **Knight** (with degree = 4)", out.width='100%'}
+knight_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = FALSE, 
+                               reverse = FALSE))
+
+knight_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = FALSE))
+
+knight_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = TRUE))
+
+(knight_1 | knight_2 | knight_3)
+```
+
+
+\
+
+
+Figure 14 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `knight` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "knight", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-knight-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 14. Connectivity matrices of the **Knight** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "knight", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+knight_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "knight", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+knight_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "knight", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+knight_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(knight_1 | knight_2 | knight_3)
+```
+
+
+\
+
+
+## Knight right
+
+> The `knight_right` is a special case of the `knight`.
+
+The function `knight_right()` can be used to detect neighbors (black dots in Fig. 15) of a specific node (red dot in Fig. 15).
+
+```{r eval=FALSE, echo=TRUE}
+knight_right(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 15A), by adding directionality 
+(`directed = TRUE`, Fig. 15B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 15C).
+
+
+\
+
+
+```{r 'cb-knight-right', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 15. Moves of the **Knight right** (with degree = 4)", out.width='100%'}
+knight_right_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = FALSE,
+                                     reverse = FALSE))
+
+knight_right_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = TRUE,
+                                     reverse = FALSE))
+
+knight_right_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight_right(nodes, focus, degree = 4, directed = TRUE,
+                                     reverse = TRUE))
+
+(knight_right_1 | knight_right_2 | knight_right_3)
+```
+
+
+\
+
+
+Figure 16 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `knight_right` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "knight_right", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-knight_right-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 16. Connectivity matrices of the **Knight right** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "knight_right", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+knight_right_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "knight_right", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+knight_right_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "knight_right", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+knight_right_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(knight_right_1 | knight_right_2 | knight_right_3)
+```
+
+
+\
+
+
+## Knight left
+
+> The `knight_left` is a special case of the `knight`.
+
+The function `knight_left()` can be used to detect neighbors (black dots in Fig. 17) of a specific node (red dot in Fig. 17).
+
+```{r eval=FALSE, echo=TRUE}
+knight_left(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 17A), by adding directionality 
+(`directed = TRUE`, Fig. 17B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 17C).
+
+\
+
+
+```{r 'cb-knight-left', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 17. Moves of the **Knight left** (with degree = 4)", out.width='100%'}
+knight_left_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = FALSE, 
+                                    reverse = FALSE))
+
+knight_left_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE))
+
+knight_left_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = TRUE))
+
+(knight_left_1 | knight_left_2 | knight_left_3)
+```
+
+
+\
+
+
+Figure 18 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `knight_left` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "knight_left", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-knight_left-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 18. Connectivity matrices of the **Knight left** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "knight_left", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+knight_left_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "knight_left", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+knight_left_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "knight_left", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+knight_left_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(knight_left_1 | knight_left_2 | knight_left_3)
+```
+
+
+
+\
+
+
+## Queen
+
+
+> The `queen` can detect neighbors horizontally, vertically and 
+diagonally. It's a combination the `rook` and the `bishop`.
+
+The function `queen()` can be used to detect neighbors (black dots in Fig. 19) of a specific node (red dot in Fig. 19).
+
+```{r eval=FALSE, echo=TRUE}
+queen(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 19A), by adding directionality 
+(`directed = TRUE`, Fig. 19B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 19C).
+
+\
+
+
+```{r 'cb-queen', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 19. Moves of the **Queen** (with degree = 4)", out.width='100%'}
+queen_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = FALSE, 
+                              reverse = FALSE))
+
+queen_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = TRUE, 
+                              reverse = FALSE))
+
+queen_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, queen(nodes, focus, degree = 4, directed = TRUE, 
+                              reverse = TRUE))
+
+(queen_1 | queen_2 | queen_3)
+```
+
+
+\
+
+
+Figure 20 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `queen` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "queen", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-queen-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 20. Connectivity matrices of the **Queen** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "queen", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+queen_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "queen", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+queen_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "queen", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+queen_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(queen_1 | queen_2 | queen_3)
+```
+
+
+\
+
+
+## Wizard
+
+> The `wizard` can detect neighbors in any direction. It's a combination the 
+`queen` and the `knight`.
+
+The function `wizard()` can be used to detect neighbors (black dots in Fig. 21) of a specific node (red dot in Fig. 21).
+
+```{r eval=FALSE, echo=TRUE}
+wizard(nodes, focus = "5-5", degree = 4, ...)
+```
+
+User can change the default settings (Fig. 21A), by adding directionality 
+(`directed = TRUE`, Fig. 21B) and reversing the default directionality 
+(`directed = TRUE` and `reverse = TRUE`, Fig. 21C).
+\
+
+
+```{r 'cb-wizard', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 21. Moves of the **Wizard** (with degree = 4)", out.width='100%'}
+wizard_1 <- 
+  gg_chessboard(nodes, "A. Undirected network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = FALSE, 
+                               reverse = FALSE))
+
+wizard_2 <- 
+  gg_chessboard(nodes, "B. Directed network", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = FALSE))
+
+wizard_3 <- 
+  gg_chessboard(nodes, "C. Directed network (reverse)", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, wizard(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = TRUE))
+
+(wizard_1 | wizard_2 | wizard_3)
+```
+
+
+\
+
+
+Figure 22 shows the connectivity matrix of the 9 x 9 network when neighbors of all nodes
+are detected by the `wizard` method and with a degree of neighborhood of 4.
+
+```{r eval=FALSE, echo=TRUE}
+create_edges_list(nodes, method = "wizard", degree = 4, ...)
+```
+
+
+\
+
+
+```{r 'cb-wizard-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 22. Connectivity matrices of the **Wizard** (with degree = 4)", out.width='100%'}
+nb_1 <- create_edges_list(nodes, 
+                          method   = "wizard", 
+                          degree   = 4, 
+                          directed = FALSE, 
+                          reverse  = FALSE)
+
+wizard_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_2 <- create_edges_list(nodes, 
+                          method   = "wizard", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = FALSE)
+
+wizard_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+nb_3 <- create_edges_list(nodes, 
+                          method   = "wizard", 
+                          degree   = 4, 
+                          directed = TRUE, 
+                          reverse  = TRUE)
+
+wizard_3 <- gg_matrix(connectivity_matrix(nb_3), "C. Directed network (reverse)") +
+  theme(axis.text = element_blank(), axis.text.x = element_blank(),
+        plot.caption = ggplot2::element_text(family = "mono", size = 12, 
+            face = "bold", hjust = 0.5))
+
+(wizard_1 | wizard_2 | wizard_3)
+```
+
+
+\
+
+
+## Custom moves
+
+
+It's possible to create any kind of scenarios by combining the previous moves
+and by changing the values of the arguments `degree`, `directed`, and `reverse`.
+
+
+```{r 'cb-custom', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 23. Custom moves", out.width='100%'}
+wizard_1 <- 
+  gg_chessboard(nodes, "Pawn & Bishop", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 3, directed = TRUE, 
+                             reverse = FALSE)) +
+  geom_neighbors(nodes, bishop(nodes, focus, degree = 4, directed = TRUE, 
+                               reverse = FALSE))
+
+wizard_2 <- 
+  gg_chessboard(nodes, "Knight L & Bishop L", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE)) +
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE))
+
+wizard_3 <- 
+  gg_chessboard(nodes, "Knight L, Bishop L, Pawn & Fool", "") + 
+  geom_piece(nodes, focus) +
+  geom_neighbors(nodes, knight_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE)) +
+  geom_neighbors(nodes, bishop_left(nodes, focus, degree = 4, directed = TRUE, 
+                                    reverse = FALSE)) +
+  geom_neighbors(nodes, pawn(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = FALSE)) +
+  geom_neighbors(nodes, fool(nodes, focus, degree = 4, directed = TRUE, 
+                             reverse = TRUE))
+
+(wizard_1 | wizard_2 | wizard_3)
+```
