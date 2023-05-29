@@ -212,8 +212,8 @@ gg_chessboard(nodes) +
 
 The [Chess
 pieces](https://frbcesab.github.io/chessboard/articles/chess-pieces.html)
-vignette details all possible moves implemented in chessboard and the
-effects of the argument `degree`, `directed`, `reverse` and `self`.
+vignette details all possible moves implemented in `chessboard` and the
+effects of the arguments `degree`, `directed`, `reverse` and `self`.
 
 Now we can detect the neighbors for the 25 nodes using the function
 [`create_edges_list()`](https://frbcesab.github.io/chessboard/reference/create_edges_list.html).
@@ -221,7 +221,7 @@ Now we can detect the neighbors for the 25 nodes using the function
 ``` r
 # Create edges according to the bishop move (for all nodes) ----
 edges <- create_edges_list(nodes    = nodes,
-                           method = "bishop",
+                           method   = "bishop",
                            degree   = 2, 
                            directed = FALSE)
 
