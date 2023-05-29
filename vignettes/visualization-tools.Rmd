@@ -1,0 +1,270 @@
+---
+title: "Visualization tools"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Visualization tools}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse  = TRUE,
+                      comment   = "#>",
+                      out.width = "50%",
+                      dpi       = 96,
+                      fig.align = "center")
+```
+
+
+The package `chessboard` provides some plotting functions to:
+
+- visualize data on a chessboard
+- visualize matrices
+- visualize data on a map
+
+All these functions have been implemented using the 
+[`ggplot2`](https://ggplot2.tidyverse.org/) package, meaning that they are highly
+customizable.
+
+
+```{r 'setup', echo=TRUE}
+# Setup ----
+library("chessboard")
+library("ggplot2")
+```
+
+To illustrate these plotting functions, let's import the data provided by `chessboard`
+(see the [Case study](https://frbcesab.github.io/chessboard/articles/case-study.html) 
+vignette for a full description).
+
+
+```{r 'import-adour-sites', echo=TRUE}
+# Location of the data ----
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
+                            package = "chessboard")
+
+# Read the data ----
+sampling  <- read.csv(path_to_file)
+
+head(sampling)
+```
+
+For the purpose of this vignette, let's subset the first location.
+
+```{r 'subset-adour-sites', echo=TRUE}
+# Subset location 1 ----
+sampling <- sampling[sampling$"location" == 1, ]
+
+sampling
+```
+
+The sampling is a grid of dimensions 3 transects x 5 quadrats.
+
+When working with `chessboard`, the first step is to create nodes
+labels with the function `create_nodes_labels()`.
+
+```{r 'create-nodes-labels', echo=TRUE}
+# Create nodes labels ----
+nodes <- create_nodes_labels(data     = sampling,
+                             location = "location",
+                             transect = "transect", 
+                             quadrat  = "quadrat")
+
+nodes
+```
+
+
+
+
+
+## Visualizing chessboard
+
+### gg_chessboard
+
+The first plotting function to use is `gg_chessboard()`: it will plot the (spatial) sampling as
+a chessboard, i.e. two-dimension grid where the x-axis is the transect and the
+y-axis is the quadrat.
+
+
+```{r 'gg-chessboard', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
+# Plot the sampling as a chessboard ----
+gg_chessboard(nodes)
+```
+
+
+### geom_piece
+
+On this chessboard, we can locate one specific node using the function `geom_piece()`.
+
+```{r 'geom-piece', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
+# Locate one node ----
+gg_chessboard(nodes) +
+  geom_piece(nodes, focus = "2-3")
+```
+
+We can call the function `geom_piece()` several times to emphase various nodes.
+
+
+```{r 'geom-pieces', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
+# Locate various nodes ----
+gg_chessboard(nodes) +
+  geom_piece(nodes, focus = "2-3") +
+  geom_piece(nodes, focus = "1-5") +
+  geom_piece(nodes, focus = "3-1")
+```
+
+
+### geom_neighbors
+
+As mentioned in the [Get started](https://frbcesab.github.io/chessboard/articles/chessboard.html) 
+vignette, we can test the neighbors detection of a specific node by using the
+functions `pawn()`, `fool()`, `rook()`, etc.
+
+Let's apply the function `rook()` on the node `2-3`.
+
+```{r 'nb-rook', echo=TRUE}
+# Neighbors detection ----
+nb_rook <- rook(nodes, focus = "2-3")
+
+nb_rook
+```
+
+Let's visualize these neighbors on a chessboard by using the function `geom_neighbors()`.
+
+
+```{r 'geom-neighbors', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
+# Locate neighbors ----
+gg_chessboard(nodes) +
+  geom_piece(nodes, focus = "2-3") +
+  geom_neighbors(nodes, neighbors = nb_rook)
+```
+
+
+### geom_edges
+
+Instead of plotting the neighbors, we can directly plot the edges using the function
+`geom_edges()`. This function has the advantage to show the direction of the edges.
+
+```{r 'geom-edges', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
+# Locate neighbors ----
+gg_chessboard(nodes) +
+  geom_edges(nodes, focus = "2-3", neighbors = nb_rook) +
+  geom_piece(nodes, focus = "2-3")
+```
+
+
+Now let's call the function `bishop()` to create a second edges list.
+
+
+```{r 'nb-bishop', echo=TRUE}
+# Neighbors detection ----
+nb_bishop <- bishop(nodes, focus = "2-3")
+
+nb_bishop
+```
+
+
+As for the function `geom_piece()`, we can call the functions `geom_edges()` 
+and `geom_neighbors()` several times.
+
+```{r 'geom-edges-twice', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
+# Locate neighbors ----
+gg_chessboard(nodes) +
+  geom_edges(nodes, focus = "2-3", neighbors = nb_rook) +
+  geom_edges(nodes, focus = "2-3", neighbors = nb_bishop) +
+  geom_neighbors(nodes, neighbors = nb_rook) +
+  geom_neighbors(nodes, neighbors = nb_bishop) +
+  geom_piece(nodes, focus = "2-3")
+```
+
+
+
+## Plotting matrices
+
+
+These two previous moves (rook and bishop) combined together are equivalent to the [queen](https://en.wikipedia.org/wiki/Queen_(chess)).
+For the rest of the vignette let's create the edges list using the queen move.
+
+
+```{r 'edges-queen', echo=TRUE}
+# Edges list ----
+edges <- create_edges_list(nodes, method = "queen")
+
+head(edges)
+```
+
+
+From this edges list, we can build the associated connectivity matrix with the
+function `connectivity_matrix()`.
+
+```{r 'connectivity-matrix', echo=TRUE}
+# Connectivity matrix ----
+mat <- connectivity_matrix(edges)
+
+mat
+```
+
+A better way to visualize any kind of matrices, is to call the function `gg_matrix()`.
+
+
+
+```{r 'gg-matrix', echo=TRUE, dpi=150, fig.height=6, fig.width=6}
+# Visualize matrix ----
+gg_matrix(mat)
+```
+
+
+## Mapping edges
+
+Now, let's go back into a spatial world. First let's convert our sampling into
+an [`sf`](https://r-spatial.github.io/sf/) object.
+
+
+```{r 'convert-to-sf', echo=TRUE}
+# Convert sampling to sf object ----
+nodes_sf <- sf::st_as_sf(nodes, 
+                         coords = c("longitude", "latitude"),
+                         crs = "epsg:2154")
+
+nodes_sf
+```
+
+To convert our edges list into a spatial object, we can use the function `edges_to_sf()`.
+
+
+
+```{r 'edges-to-sf', echo=TRUE}
+# Convert edges to sf object ----
+edges_sf <- edges_to_sf(edges, nodes_sf)
+
+edges_sf
+```
+
+The result is a collection of `LINESTRINGS`, i.e. a collection of spatial lines where
+each line is an edge defined in the coordinate system (CRS) of the sampling.
+
+Let's use `ggplot2` and `sf` to map the nodes and the edges.
+
+
+```{r 'mapping-edges', echo=TRUE, dpi = 150, fig.height=8, fig.width=6.5}
+# Map of nodes and edges ----
+ggplot() +
+  geom_sf(data = edges_sf) +
+  geom_sf(data = nodes_sf, size = 12) +
+  theme_light()
+```
+
+Finally, let's add the nodes labels on this map.
+
+```{r 'mapping-edges-labels', echo=TRUE, dpi = 150, fig.height=8, fig.width=6.5}
+# Map of nodes and edges ----
+ggplot() +
+  geom_sf(data = edges_sf) +
+  geom_sf(data = nodes_sf, size = 12) +
+  geom_sf_text(data = nodes_sf, aes(label = node), 
+               color = "white", fontface = "bold",
+               family = "mono") +
+  theme_light()
+```
