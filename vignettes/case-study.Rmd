@@ -1,8 +1,8 @@
 ---
-title: "Chess movements"
+title: "Case study"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Chess movements}
+  %\VignetteIndexEntry{Case study}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -39,9 +39,11 @@ nodes <- create_nodes_labels(data     = sites,
 
 focus  <- "5-5"
 
-transects_quadrats <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
-transects_only     <- data.frame("transect" = 1:3)
-quadrats_only      <- data.frame("quadrat"  = 1:5)
+transects_quadrats <- expand.grid("transect" = 1:3, 
+                                  "quadrat"  = 1:5)
+
+transects_only     <- data.frame("transect"  = 1:3)
+quadrats_only      <- data.frame("quadrat"   = 1:5)
 
 nodes_transects_quadrats <- create_nodes_labels(data     = transects_quadrats,
                                                 transect = "transect", 
@@ -56,37 +58,27 @@ nodes_quadrats_only <- create_nodes_labels(data    = quadrats_only,
 
 
 
-The aim of the package `chessboard` is to make easier the creation of connectivity 
-matrix, i.e. a binary matrix of dimensions `n x n`, where `n` is the number of 
-**nodes** (sampling units) indicating the presence (`1`) or the absence (`0`) of
-an **edge** (link) between pairs of nodes. Identifying edges between pairs of 
-nodes requires the **detection of neighbors** according to neighborhood rules.
 
 
-\
+The package `chessboard` implements the following rules to detect neighbors and 
+create edges:
 
-
-## Neighborhood rules
-
-
-The package implements the following neighborhood rules:
-
-- the **degree of neighborhood**: the number of adjacent nodes that will be used
+- the **degree** of neighborhood: the number of adjacent nodes that will be used
 to create direct edges. If `degree = 1`, only nodes directly adjacent (on a 
 regular grid) to the focus node will be considered as neighbors.
 
-- the **orientation of neighborhood**: can neighbors be detecting horizontally 
+- the **orientation** of neighborhood: can neighbors be detected horizontally 
 and/or vertically and/or diagonally? The package `chessboard` implements all possible
 orientations derived from the chess game.
 
-- the **direction of neighborhood**: does the sampling has a direction? This can
-be particularly important in directed network (see below).
+- the **direction** of neighborhood: does the sampling has a main direction? 
+This can be particularly relevant for directed networks (e.g. rivers).
 
 
 \
 
 
-## Network properties
+**Network properties**
 
 
 
@@ -108,11 +100,17 @@ gg_chessboard(nodes_transects_quadrats)
 \
 
 
-It can also deal with one-dimensional sampling (either **transects-only** or 
+`chessboard` can also deal with one-dimensional samplings (either **transects-only** or 
 **quadrats-only**). If the sampling has been conducted along one single 
 dimension, a fictitious second dimension will be created (for the purpose of 
-the package only). For instance, if the sampling has been conducted only 
-through transects, a fictitious quadrat will be added with only one quadrat (Fig. 2).
+the package only). This step is automatic and is performed when calling the function `create_nodes_labels()`.
+
+
+\
+
+
+For instance, if the sampling has been conducted only 
+through transects, a fictitious quadrat will be created (Fig. 2).
 
 
 
@@ -125,7 +123,7 @@ gg_chessboard(nodes_transects_only)
 
 
 On the other hand, if the sampling has been conducted only through quadrats, a
-fictitious transect will be added with only one transect (Fig. 3).
+fictitious transect will be created (Fig. 3).
 
 
 ```{r 'cb-quadrats-only', eval=eval_chunk, fig.height=8, fig.width=2.1, echo=FALSE, fig.cap="Figure 3. Quadrats-only network", out.width='20%'}
@@ -139,21 +137,15 @@ gg_chessboard(nodes_quadrats_only)
 The network can be undirected or directed. If the network is **directed**, it will 
 have (by default) these two orientations:
 
-- from bottom to top for quadrats along transects, and
-- from left to right for transects along quadrats.
+- from bottom to top (along transects) for quadrats
+- from left to right (along quadrats) for transects
 
 
 It's important to note that, even the package `chessboard` handles spatial networks, 
 it does not explicitly use spatial coordinates to find neighbors. Instead, it 
 will identify neighbors only based on **nodes labels**. In other words, the order
 of nodes labels will give the direction of the network.
-
-
-\
-
-
-The function `create_nodes_labels()` is used to create nodes labels. They 
-will be of the form: `1-2`, where `1` is the identifier of 
+The function `create_nodes_labels()` is used to create nodes labels of the form: `1-2`, where `1` is the identifier of 
 the transect, and `2`, the identifier of the quadrat.
 
 
@@ -202,16 +194,31 @@ wizard_3 <-
 \
 
 
-### Movements
+### Moves
 
 
 Different neighbors detection methods have been implemented in the package 
 `chessboard`. All are derived from the chess game and allow user to define 
-complex movements.
+complex moves (edges).
 
 
 \
 
+
+| Function name  | 2D network | Transect only | Quadrat only | Description                                              |
+| :------------- | :--------: | :-----------: | :----------: | :------------------------------------------------------- |
+| `pawn()`       |     ✅     |      ✅       |      ❌      | Finds neighbors vertically (i.e. along a transect)       |
+| `fool()`       |     ✅     |      ❌       |      ✅      | Finds neighbors horizontally (i.e. along a quadrat)      |
+| `rook()`       |     ✅     |      ❌       |      ❌      | Finds neighbors vertically and horizontally              |
+| `bishop()`^\*^ |     ✅     |      ❌       |      ❌      | Finds neighbors along the two diagonals                  |
+| `knight()`^\*^ |     ✅     |      ❌       |      ❌      | Difference between the `wizard()` and the `queen()`      |
+| `queen()`      |     ✅     |      ❌       |      ❌      | Finds neighbors horizontally, vertically, and diagonally |
+| `wizard()`     |     ✅     |      ❌       |      ❌      | Finds neighbors in all directions                        |
+
+
+^\*^ These two functions have two variants: `bishop_left()`, `bishop_right()` and `knight_left()`, `knight_right()` for creating complex moves.
+
+\
 
 
 #### Pawn
