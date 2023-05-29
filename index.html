@@ -226,12 +226,12 @@
 <span>  <span class="fu"><a href="reference/geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">nb</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/plot-neighbors-1.png" width="100%"></p>
-<p>The <a href="https://frbcesab.github.io/chessboard/articles/chess-pieces.html" class="external-link">Chess pieces</a> vignette details all possible moves implemented in chessboard and the effects of the argument <code>degree</code>, <code>directed</code>, <code>reverse</code> and <code>self</code>.</p>
+<p>The <a href="https://frbcesab.github.io/chessboard/articles/chess-pieces.html" class="external-link">Chess pieces</a> vignette details all possible moves implemented in <code>chessboard</code> and the effects of the arguments <code>degree</code>, <code>directed</code>, <code>reverse</code> and <code>self</code>.</p>
 <p>Now we can detect the neighbors for the 25 nodes using the function <a href="https://frbcesab.github.io/chessboard/reference/create_edges_list.html" class="external-link"><code>create_edges_list()</code></a>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create edges according to the bishop move (for all nodes) ----</span></span>
 <span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_edges_list.html">create_edges_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>,</span>
-<span>                           method <span class="op">=</span> <span class="st">"bishop"</span>,</span>
+<span>                           method   <span class="op">=</span> <span class="st">"bishop"</span>,</span>
 <span>                           degree   <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>                           directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
