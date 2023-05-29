@@ -52,3 +52,11 @@ reference:
   contents:
     - nodes_by_edges_matrix
     - edges_weights_vector
+
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - chess-pieces
+  - visualization-tools
+  - case-study
