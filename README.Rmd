@@ -214,6 +214,9 @@ Finally, let's plot this matrix with the function [`gg_matrix()`](https://frbces
 gg_matrix(mat)
 ```
 
+These networks objects can then be used with the R packages 
+[`adespatial`](https://CRAN.R-project.org/package=adespatial) (Dray _et al._ 2022) and
+[`igraph`](https://cran.r-project.org/package=igraph) (Csardi & Nepusz 2006).
 
 ## Long-form documentations
 
@@ -270,6 +273,9 @@ Blanchet FG, Legendre P & Borcard D (2008) Modelling directional spatial process
 in ecological data. **Ecological Modelling**, 215, 325-336. 
 doi: [10.1016/j.ecolmodel.2008.04.001](https://doi.org/10.1016/j.ecolmodel.2008.04.001).
 
+Csardi G & Nepusz T (2006) The igraph software package for complex network research. 
+**InterJournal, Complex Systems**, 1695, 1-9. <https://igraph.org/>.
+
 Dray S, Bauman D, Blanchet G _et al._ (2022) `adespatial`: Multivariate Multiscale Spatial Analysis. 
 R package version 0.3-16, <https://CRAN.R-project.org/package=adespatial>.
 
@@ -277,3 +283,4 @@ Dray S, Legendre P & Peres-Neto PR (2006) Spatial modeling: a comprehensive
 framework for principal coordinate analysis of neighbor matrices (PCNM). 
 **Ecological Modelling**, 196: 483–93. 
 doi: [10.1016/j.ecolmodel.2006.02.015](https://doi.org/10.1016/j.ecolmodel.2006.02.015).
+

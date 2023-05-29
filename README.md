@@ -256,6 +256,11 @@ gg_matrix(mat)
 
 <img src="man/figures/plot-matrix-1.png" width="100%" />
 
+These networks objects can then be used with the R packages
+[`adespatial`](https://CRAN.R-project.org/package=adespatial) (Dray *et
+al.* 2022) and [`igraph`](https://cran.r-project.org/package=igraph)
+(Csardi & Nepusz 2006).
+
 ## Long-form documentations
 
 `chessboard` provides four vignettes to learn more about the package:
@@ -308,6 +313,10 @@ Blanchet FG, Legendre P & Borcard D (2008) Modelling directional spatial
 processes in ecological data. **Ecological Modelling**, 215, 325-336.
 doi:
 [10.1016/j.ecolmodel.2008.04.001](https://doi.org/10.1016/j.ecolmodel.2008.04.001).
+
+Csardi G & Nepusz T (2006) The igraph software package for complex
+network research. **InterJournal, Complex Systems**, 1695, 1-9.
+<https://igraph.org/>.
 
 Dray S, Bauman D, Blanchet G *et al.* (2022) `adespatial`: Multivariate
 Multiscale Spatial Analysis. R package version 0.3-16,
