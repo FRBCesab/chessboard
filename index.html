@@ -101,7 +101,7 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>The package <code>chessboard</code> provides functions to work with <strong>directed</strong> (asymmetric) and <strong>undirected</strong> (symmetrical) spatial (or not) <strong>networks</strong>. It implements different methods to detect neighbors, all based on the chess game (it goes beyond the rook and the queen) to create complex connectivity scenarios.</p>
-<p><code>chessboard</code> can handle spatial networks, but it does not explicitly use spatial coordinates to find neighbors (it is not based on spatial distances). Instead, it identifies neighbors according to the <strong>nodes labels</strong> (i.e. the nodes position on a two-dimension chessboard) and the selected method (pawn, fool, rook, bishop, knight, queen, wizard, etc.).</p>
+<p><code>chessboard</code> can handle spatial networks, but it does not explicitly use geographical coordinates to find neighbors (it is not based on spatial distance). Instead, it identifies neighbors according to the <strong>node labels</strong> (i.e. the node positions on a two-dimension chessboard) and a specific method (pawn, fool, rook, bishop, knight, queen, wizard, etc.).</p>
 <p>It implements the following rules to detect neighbors and create edges:</p>
 <ul>
 <li><p>the <strong>degree</strong> of neighborhood: the number of adjacent nodes that will be used to create direct edges.</p></li>
@@ -114,11 +114,11 @@
 </h2>
 <p>The main purpose of <code>chessboard</code> is to create various network objects, including:</p>
 <ul>
-<li>the <strong>nodes list</strong>, using the function <a href="https://frbcesab.github.io/chessboard/reference/create_nodes_labels.html" class="external-link"><code>create_nodes_labels()</code></a>
+<li>the <strong>nodes list</strong>
 </li>
-<li>the <strong>edges list</strong>, using the function <a href="https://frbcesab.github.io/chessboard/reference/create_edges_list.html" class="external-link"><code>create_edges_list()</code></a>
+<li>the <strong>edges list</strong>
 </li>
-<li>the <strong>connectivity matrix</strong>, using the function <a href="https://frbcesab.github.io/chessboard/reference/connectivity_matrix.html" class="external-link"><code>connectivity_matrix()</code></a>
+<li>the <strong>connectivity matrix</strong>
 </li>
 </ul>
 <p><code>chessboard</code> also provides different plotting functions (all based on the <a href="https://ggplot2.tidyverse.org/" class="external-link"><code>ggplot2</code></a> package):</p>
@@ -129,15 +129,16 @@
 <a href="https://frbcesab.github.io/chessboard/reference/gg_chessboard.html" class="external-link"><code>gg_chessboard()</code></a> plots the sampling as a chessboard</li>
 </ul>
 <p>Read the <a href="https://frbcesab.github.io/chessboard/articles/visualization-tools.html" class="external-link">Visualization tools</a> vignette for further details.</p>
+<p><img src="reference/figures/diagramme.png"></p>
 <p>Finally, the package can also produce objects that can be used later in Moran’s Eigenvector Maps (MEM, Dray <em>et al.</em> 2006) and Asymetric Eigenvector Maps (AEM, Blanchet <em>et al.</em> 2008), methods available in the package <a href="https://cran.r-project.org/package=adespatial" class="external-link"><code>adespatial</code></a> (Dray <em>et al.</em> 2022):</p>
 <ul>
-<li>the <strong>edges weights matrix</strong>, using the function <a href="https://frbcesab.github.io/chessboard/reference/edges_weights_matrix.html" class="external-link"><code>edges_weights_matrix()</code></a>
+<li>the <strong>edges weights matrix</strong>
 </li>
-<li>the <strong>spatial weights matrix</strong>, using the function <a href="https://frbcesab.github.io/chessboard/reference/spatial_weights_matrix.html" class="external-link"><code>spatial_weights_matrix()</code></a>
+<li>the <strong>spatial weights matrix</strong>
 </li>
-<li>the <strong>nodes by edges matrix</strong>, using the function <a href="https://frbcesab.github.io/chessboard/reference/nodes_by_edges_matrix.html" class="external-link"><code>nodes_by_edges_matrix()</code></a>
+<li>the <strong>nodes by edges matrix</strong>
 </li>
-<li>the <strong>edges weights vector</strong>, using the function <a href="https://frbcesab.github.io/chessboard/reference/edges_weights_vector.html" class="external-link"><code>edges_weights_vector()</code></a>
+<li>the <strong>edges weights vector</strong>
 </li>
 </ul>
 </div>
@@ -197,7 +198,7 @@
 <span><span class="co">#&gt; 10  2-5        1        2       5</span></span>
 <span><span class="co">#&gt; 11  3-1        1        3       1</span></span>
 <span><span class="co">#&gt; 12  3-2        1        3       2</span></span></code></pre></div>
-<p>The nodes labels are a combination of the transect identifier (i.e. the position of the node on the x-axis of the chessboard) and the quadrat (i.e. the position of the node on the y-axis of the chessboard). The following figure locates the node <code>2-3</code> on the chessboard.</p>
+<p>The node labels are a combination of the transect identifier (i.e. the position of the node on the x-axis of the chessboard) and the quadrat (i.e. the position of the node on the y-axis of the chessboard). The following figure locates the node <code>2-3</code> on the chessboard.</p>
 <p><strong>N.B.</strong> <code>chessboard</code> can handle multi-sites sampling. The function <code><a href="reference/create_nodes_labels.html">create_nodes_labels()</a></code> will always returns a column <code>location</code> even if the sampling is on one single site.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Visualize the sampling as a chessboard ----</span></span>
@@ -246,7 +247,7 @@
 <span><span class="co">#&gt; 4  1-2 2-3</span></span>
 <span><span class="co">#&gt; 5  1-2 3-4</span></span>
 <span><span class="co">#&gt; 6  1-3 2-2</span></span></code></pre></div>
-<p>This function returns a two-column <code>data.frame</code>, an edges list, where a row corresponds to an edge.</p>
+<p>This function returns an edges list, i.e. a two-column <code>data.frame</code> where a row corresponds to an edge.</p>
 <p>Let’s compute the connectivity matrix of this undirected network.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span></span>
@@ -264,7 +265,7 @@
 </h2>
 <p><code>chessboard</code> provides four vignettes to learn more about the package:</p>
 <ul>
-<li>the <a href="https://frbcesab.github.io/chessboard/articles/chessboard.html" class="external-link">Get started</a> vignette describes the core features of the package and presents the recommended workflow</li>
+<li>the <a href="https://frbcesab.github.io/chessboard/articles/chessboard.html" class="external-link">Get started</a> vignette describes the core features of the package</li>
 <li>the <a href="https://frbcesab.github.io/chessboard/articles/chess-pieces.html" class="external-link">Chess pieces</a> vignette details the different methods implemented in <code>chessboard</code> to detect neighbors</li>
 <li>the <a href="https://frbcesab.github.io/chessboard/articles/visualization-tools.html" class="external-link">Visualization tools</a> vignette describes the plotting functions available in <code>chessboard</code>
 </li>
