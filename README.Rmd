@@ -33,10 +33,10 @@ The package `chessboard` provides functions to work with **directed**
 implements different methods to detect neighbors, all based on the chess game
 (it goes beyond the rook and the queen) to create complex connectivity scenarios.
 
-`chessboard` can handle spatial networks, but it does not explicitly use spatial
-coordinates to find neighbors (it is not based on spatial distances). 
-Instead, it identifies neighbors according to the **nodes labels**
-(i.e. the nodes position on a two-dimension chessboard) and the selected method 
+`chessboard` can handle spatial networks, but it does not explicitly use geographical
+coordinates to find neighbors (it is not based on spatial distance). 
+Instead, it identifies neighbors according to the **node labels**
+(i.e. the node positions on a two-dimension chessboard) and a specific method 
 (pawn, fool, rook, bishop, knight, queen, wizard, etc.).
 
 It implements the following rules to detect neighbors and create edges:
@@ -56,9 +56,9 @@ This can be particularly relevant for directed networks (e.g. rivers).
 
 The main purpose of `chessboard` is to create various network objects, including:
 
-- the **nodes list**, using the function [`create_nodes_labels()`](https://frbcesab.github.io/chessboard/reference/create_nodes_labels.html)
-- the **edges list**, using the function [`create_edges_list()`](https://frbcesab.github.io/chessboard/reference/create_edges_list.html)
-- the **connectivity matrix**, using the function [`connectivity_matrix()`](https://frbcesab.github.io/chessboard/reference/connectivity_matrix.html)
+- the **nodes list**
+- the **edges list**
+- the **connectivity matrix**
 
 `chessboard` also provides different plotting functions (all based on the [`ggplot2`](https://ggplot2.tidyverse.org/) package):
 
@@ -70,6 +70,7 @@ plots the sampling as a chessboard
 Read the [Visualization tools](https://frbcesab.github.io/chessboard/articles/visualization-tools.html) 
 vignette for further details.
 
+![](man/figures/diagramme.png)
 
 Finally, the package can also produce objects that can be used later in
 Moran's Eigenvector Maps (MEM, Dray _et al._ 2006) and
@@ -77,11 +78,10 @@ Asymetric Eigenvector Maps (AEM, Blanchet _et al._ 2008),
 methods available in 
 the package [`adespatial`](https://cran.r-project.org/package=adespatial) (Dray _et al._ 2022):
 
-- the **edges weights matrix**, using the function [`edges_weights_matrix()`](https://frbcesab.github.io/chessboard/reference/edges_weights_matrix.html)
-- the **spatial weights matrix**, using the function [`spatial_weights_matrix()`](https://frbcesab.github.io/chessboard/reference/spatial_weights_matrix.html)
-- the **nodes by edges matrix**, using the function [`nodes_by_edges_matrix()`](https://frbcesab.github.io/chessboard/reference/nodes_by_edges_matrix.html)
-- the **edges weights vector**, using the function [`edges_weights_vector()`](https://frbcesab.github.io/chessboard/reference/edges_weights_vector.html)
-
+- the **edges weights matrix**
+- the **spatial weights matrix**
+- the **nodes by edges matrix**
+- the **edges weights vector**
 
 
 ## Installation
@@ -131,7 +131,7 @@ nodes <- create_nodes_labels(data     = sampling,
 head(nodes, 12)
 ```
 
-The nodes labels are a combination of the transect identifier (i.e. the position 
+The node labels are a combination of the transect identifier (i.e. the position 
 of the node on the x-axis of the chessboard) and the quadrat (i.e. the position 
 of the node on the y-axis of the chessboard). The following figure locates the
 node `2-3` on the chessboard.
@@ -195,7 +195,7 @@ edges <- create_edges_list(nodes    = nodes,
 head(edges)
 ```
 
-This function returns a two-column `data.frame`, an edges list, where a row
+This function returns an edges list, i.e. a two-column `data.frame` where a row
 corresponds to an edge.
 
 Let's compute the connectivity matrix of this undirected network.
@@ -218,13 +218,14 @@ These networks objects can then be used with the R packages
 [`adespatial`](https://CRAN.R-project.org/package=adespatial) (Dray _et al._ 2022) and
 [`igraph`](https://cran.r-project.org/package=igraph) (Csardi & Nepusz 2006).
 
+
+
 ## Long-form documentations
 
 `chessboard` provides four vignettes to learn more about the package:
 
 - the [Get started](https://frbcesab.github.io/chessboard/articles/chessboard.html)
-vignette describes the core features of the package and presents the recommended
-workflow
+vignette describes the core features of the package
 - the [Chess pieces](https://frbcesab.github.io/chessboard/articles/chess-pieces.html)
 vignette details the different methods implemented in `chessboard` to detect
 neighbors
@@ -238,7 +239,8 @@ _L'Adour_ (directed spatial network)
 
 ## Citation
 
-A companion paper will be published soon. In the meantime, if you want to use the package, please use the following citation: 
+A companion paper will be published soon. In the meantime, if you want to use 
+the package, please use the following citation: 
 
 > Casajus N (`r format(Sys.Date(), "%Y")`) chessboard: An R 
 package for neighborhood and connectivity in spatial networks. 

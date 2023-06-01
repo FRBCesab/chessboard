@@ -22,10 +22,10 @@ based on the chess game (it goes beyond the rook and the queen) to
 create complex connectivity scenarios.
 
 `chessboard` can handle spatial networks, but it does not explicitly use
-spatial coordinates to find neighbors (it is not based on spatial
-distances). Instead, it identifies neighbors according to the **nodes
-labels** (i.e. the nodes position on a two-dimension chessboard) and the
-selected method (pawn, fool, rook, bishop, knight, queen, wizard, etc.).
+geographical coordinates to find neighbors (it is not based on spatial
+distance). Instead, it identifies neighbors according to the **node
+labels** (i.e. the node positions on a two-dimension chessboard) and a
+specific method (pawn, fool, rook, bishop, knight, queen, wizard, etc.).
 
 It implements the following rules to detect neighbors and create edges:
 
@@ -44,12 +44,9 @@ It implements the following rules to detect neighbors and create edges:
 The main purpose of `chessboard` is to create various network objects,
 including:
 
-- the **nodes list**, using the function
-  [`create_nodes_labels()`](https://frbcesab.github.io/chessboard/reference/create_nodes_labels.html)
-- the **edges list**, using the function
-  [`create_edges_list()`](https://frbcesab.github.io/chessboard/reference/create_edges_list.html)
-- the **connectivity matrix**, using the function
-  [`connectivity_matrix()`](https://frbcesab.github.io/chessboard/reference/connectivity_matrix.html)
+- the **nodes list**
+- the **edges list**
+- the **connectivity matrix**
 
 `chessboard` also provides different plotting functions (all based on
 the [`ggplot2`](https://ggplot2.tidyverse.org/) package):
@@ -63,20 +60,18 @@ Read the [Visualization
 tools](https://frbcesab.github.io/chessboard/articles/visualization-tools.html)
 vignette for further details.
 
+![](man/figures/diagramme.png)
+
 Finally, the package can also produce objects that can be used later in
 Moran’s Eigenvector Maps (MEM, Dray *et al.* 2006) and Asymetric
 Eigenvector Maps (AEM, Blanchet *et al.* 2008), methods available in the
 package [`adespatial`](https://cran.r-project.org/package=adespatial)
 (Dray *et al.* 2022):
 
-- the **edges weights matrix**, using the function
-  [`edges_weights_matrix()`](https://frbcesab.github.io/chessboard/reference/edges_weights_matrix.html)
-- the **spatial weights matrix**, using the function
-  [`spatial_weights_matrix()`](https://frbcesab.github.io/chessboard/reference/spatial_weights_matrix.html)
-- the **nodes by edges matrix**, using the function
-  [`nodes_by_edges_matrix()`](https://frbcesab.github.io/chessboard/reference/nodes_by_edges_matrix.html)
-- the **edges weights vector**, using the function
-  [`edges_weights_vector()`](https://frbcesab.github.io/chessboard/reference/edges_weights_vector.html)
+- the **edges weights matrix**
+- the **spatial weights matrix**
+- the **nodes by edges matrix**
+- the **edges weights vector**
 
 ## Installation
 
@@ -149,7 +144,7 @@ head(nodes, 12)
 #> 12  3-2        1        3       2
 ```
 
-The nodes labels are a combination of the transect identifier (i.e. the
+The node labels are a combination of the transect identifier (i.e. the
 position of the node on the x-axis of the chessboard) and the quadrat
 (i.e. the position of the node on the y-axis of the chessboard). The
 following figure locates the node `2-3` on the chessboard.
@@ -235,8 +230,8 @@ head(edges)
 #> 6  1-3 2-2
 ```
 
-This function returns a two-column `data.frame`, an edges list, where a
-row corresponds to an edge.
+This function returns an edges list, i.e. a two-column `data.frame`
+where a row corresponds to an edge.
 
 Let’s compute the connectivity matrix of this undirected network.
 
@@ -267,8 +262,7 @@ al.* 2022) and [`igraph`](https://cran.r-project.org/package=igraph)
 
 - the [Get
   started](https://frbcesab.github.io/chessboard/articles/chessboard.html)
-  vignette describes the core features of the package and presents the
-  recommended workflow
+  vignette describes the core features of the package
 - the [Chess
   pieces](https://frbcesab.github.io/chessboard/articles/chess-pieces.html)
   vignette details the different methods implemented in `chessboard` to
