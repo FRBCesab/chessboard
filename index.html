@@ -67,6 +67,9 @@
     <li>
       <a href="articles/case-study.html">Case study</a>
     </li>
+    <li>
+      <a href="articles/wrap-up.html">Wrap up</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -124,7 +127,7 @@
 <p><code>chessboard</code> also provides different plotting functions (all based on the <a href="https://ggplot2.tidyverse.org/" class="external-link"><code>ggplot2</code></a> package):</p>
 <ul>
 <li>
-<a href="https://frbcesab.github.io/chessboard/reference/gg_matrix.html" class="external-link"><code>gg_matrix()</code></a> plots a matrix as tiles</li>
+<a href="https://frbcesab.github.io/chessboard/reference/gg_matrix.html" class="external-link"><code>gg_matrix()</code></a> plots a (connectivity) matrix</li>
 <li>
 <a href="https://frbcesab.github.io/chessboard/reference/gg_chessboard.html" class="external-link"><code>gg_chessboard()</code></a> plots the sampling as a chessboard</li>
 </ul>
@@ -199,7 +202,7 @@
 <span><span class="co">#&gt; 11  3-1        1        3       1</span></span>
 <span><span class="co">#&gt; 12  3-2        1        3       2</span></span></code></pre></div>
 <p>The node labels are a combination of the transect identifier (i.e. the position of the node on the x-axis of the chessboard) and the quadrat (i.e. the position of the node on the y-axis of the chessboard). The following figure locates the node <code>2-3</code> on the chessboard.</p>
-<p><strong>N.B.</strong> <code>chessboard</code> can handle multi-sites sampling. The function <code><a href="reference/create_nodes_labels.html">create_nodes_labels()</a></code> will always returns a column <code>location</code> even if the sampling is on one single site.</p>
+<p><strong>N.B.</strong> <code>chessboard</code> can handle multi-sites sampling. The function <code><a href="reference/create_nodes_labels.html">create_nodes_labels()</a></code> will always return a column <code>location</code> even if the sampling is on one single site.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Visualize the sampling as a chessboard ----</span></span>
 <span><span class="fu"><a href="reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span>
