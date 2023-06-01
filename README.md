@@ -52,7 +52,7 @@ including:
 the [`ggplot2`](https://ggplot2.tidyverse.org/) package):
 
 - [`gg_matrix()`](https://frbcesab.github.io/chessboard/reference/gg_matrix.html)
-  plots a matrix as tiles
+  plots a (connectivity) matrix
 - [`gg_chessboard()`](https://frbcesab.github.io/chessboard/reference/gg_chessboard.html)
   plots the sampling as a chessboard
 
@@ -150,7 +150,7 @@ position of the node on the x-axis of the chessboard) and the quadrat
 following figure locates the node `2-3` on the chessboard.
 
 **N.B.** `chessboard` can handle multi-sites sampling. The function
-`create_nodes_labels()` will always returns a column `location` even if
+`create_nodes_labels()` will always return a column `location` even if
 the sampling is on one single site.
 
 ``` r
