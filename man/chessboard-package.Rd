@@ -6,7 +6,7 @@
 \alias{chessboard-package}
 \title{chessboard: Neighborhood and Connectivity in Spatial Networks}
 \description{
-Provides functions to work with directed (asymmetric) and undirected (symmetrical) spatial networks. It makes easier the creation of connectivity matrix, i.e. a binary matrix of dimensions n x n, where n is the number of nodes (sampling units) indicating the presence (1) or the absence (0) of an edge (link) between pairs of nodes. Different network objects can be produced by chessboard: nodes list, neighbors list, edges list, connectivity matrix.
+Provides functions to work with directed (asymmetric) and undirected (symmetrical) spatial networks. It makes easier the creation of connectivity matrix, i.e. a binary matrix of dimensions n x n, where n is the number of nodes (sampling units) indicating the presence (1) or the absence (0) of an edge (link) between pairs of nodes. Different network objects can be produced by chessboard: node list, neighbor list, edge list, connectivity matrix.
 }
 \seealso{
 Useful links:
