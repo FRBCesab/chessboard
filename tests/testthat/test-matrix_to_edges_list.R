@@ -28,52 +28,52 @@ rownames(mat) <- c("1-1", "1-2", "1-3")
 
 # Tests for errors ----
 
-test_that("matrix_to_edges_list() - Tests for errors", {
+test_that("matrix_to_edge_list() - Tests for errors", {
   
-  expect_error(matrix_to_edges_list(),
+  expect_error(matrix_to_edge_list(),
                "Argument 'x' is required",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(1),
+  expect_error(matrix_to_edge_list(1),
                "Argument 'x' must be a matrix (connectivity matrix)",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(letters),
+  expect_error(matrix_to_edge_list(letters),
                "Argument 'x' must be a matrix (connectivity matrix)",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(data.frame(1, 2)),
+  expect_error(matrix_to_edge_list(data.frame(1, 2)),
                "Argument 'x' must be a matrix (connectivity matrix)",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(matrix(letters, ncol = 2)),
+  expect_error(matrix_to_edge_list(matrix(letters, ncol = 2)),
                "Argument 'x' must be a numeric matrix (connectivity matrix)",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(matrix(c(TRUE, FALSE, TRUE, FALSE), 
+  expect_error(matrix_to_edge_list(matrix(c(TRUE, FALSE, TRUE, FALSE), 
                                            ncol = 2)),
                "Argument 'x' must be a numeric matrix (connectivity matrix)",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(mat[-1, ]),
+  expect_error(matrix_to_edge_list(mat[-1, ]),
                paste0("Number of rows of 'x' must be equal to number of ", 
                       "columns (connectivity matrix)"),
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(mat[ , -1]),
+  expect_error(matrix_to_edge_list(mat[ , -1]),
                paste0("Number of rows of 'x' must be equal to number of ", 
                       "columns (connectivity matrix)"),
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(mat_bad_0),
+  expect_error(matrix_to_edge_list(mat_bad_0),
                "Row names of 'x' must contain nodes labels",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(mat_bad_1),
+  expect_error(matrix_to_edge_list(mat_bad_1),
                "Row names and column names of 'x' must be equal",
                fixed = TRUE)
   
-  expect_error(matrix_to_edges_list(mat_bad_2),
+  expect_error(matrix_to_edge_list(mat_bad_2),
                "Argument 'x' contains no edge",
                fixed = TRUE)
 })
@@ -81,9 +81,9 @@ test_that("matrix_to_edges_list() - Tests for errors", {
 
 # Tests for errors ----
 
-test_that("matrix_to_edges_list() - Tests for success", {
+test_that("matrix_to_edge_list() - Tests for success", {
   
-  expect_silent({ check <- matrix_to_edges_list(mat) })
+  expect_silent({ check <- matrix_to_edge_list(mat) })
   
   expect_true("data.frame" %in% class(check))
   expect_equal(ncol(check), 3L)
@@ -106,7 +106,7 @@ test_that("matrix_to_edges_list() - Tests for success", {
   expect_equal(check[3, 3], 1L)
   
   
-  expect_silent({ check <- matrix_to_edges_list(mat, all = TRUE) })
+  expect_silent({ check <- matrix_to_edge_list(mat, all = TRUE) })
   
   expect_true("data.frame" %in% class(check))
   expect_equal(ncol(check), 3L)

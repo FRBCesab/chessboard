@@ -497,12 +497,12 @@ gg_matrix(adour_matrix)
 
 \
 
-Optionally, we can use the function `matrix_to_edges_list()` to convert back the
+Optionally, we can use the function `matrix_to_edge_list()` to convert back the
 connectivity matrix to edges list.
 
 ```{r 'connectivity-matrix-to-df'}
-## Convert connectivity matrix to edges list ----
-matrix_to_edges_list(adour_matrix)
+## Convert connectivity matrix to edge list ----
+matrix_to_edge_list(adour_matrix)
 ```
 
 

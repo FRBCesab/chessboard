@@ -1,13 +1,13 @@
-#' Convert an connectivity matrix to an edges list
+#' Convert an connectivity matrix to an edge list
 #' 
 #' @description
-#' Converts an connectivity matrix to an edges list. This function allows to 
+#' Converts a connectivity matrix to an edge list. This function allows to 
 #' create the same edges list as the one obtained with [create_edge_list()].
 #' 
 #' @param x a `matrix` object. The connectivity matrix to be converted in an
-#'   edges list.
+#'   edge list.
 #' 
-#' @param all a logical value. If `FALSE` (default), removes missing edges.
+#' @param all a `logical` value. If `FALSE` (default), removes missing edges.
 #'
 #' @return A `data.frame` with two (or three) columns:
 #'   - `from`: label of one of the two nodes of the edge
@@ -33,13 +33,13 @@
 #' conn_matrix <- connectivity_matrix(edges)
 #' 
 #' # Convert back to edges list ----
-#' new_edges <- matrix_to_edges_list(conn_matrix)
+#' new_edges <- matrix_to_edge_list(conn_matrix)
 #' new_edges
 #' 
 #' # Check ----
 #' identical(edges, new_edges)
 
-matrix_to_edges_list <- function(x, all = FALSE) {
+matrix_to_edge_list <- function(x, all = FALSE) {
   
   ## Check 'x' argument ----
   

@@ -10,7 +10,7 @@ reference:
     - edges_to_sf
     - connectivity_matrix
     - append_matrix
-    - matrix_to_edges_list
+    - matrix_to_edge_list
 - title: Detect neighbors
   desc: >
     Methods to detect neighbors using chess movements
