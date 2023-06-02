@@ -17,7 +17,7 @@
     connectivity matrix, i.e. a binary matrix of dimensions n x n, where n is 
     the number of nodes (sampling units) indicating the presence (1) or the 
     absence (0) of an edge (link) between pairs of nodes. Different network 
-    objects can be produced by chessboard: nodes list, neighbors list, edges 
+    objects can be produced by chessboard: node list, neighbor list, edge 
     list, connectivity matrix.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -172,10 +172,10 @@
 <span><span class="co">#&gt; 12        2       3</span></span></code></pre></div>
 <p>Now let’s create labels for the 25 nodes.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create nodes labels ----</span></span>
-<span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sampling</span>,</span>
-<span>                             transect <span class="op">=</span> <span class="st">"transect"</span>,</span>
-<span>                             quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Create node labels ----</span></span>
+<span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sampling</span>,</span>
+<span>                            transect <span class="op">=</span> <span class="st">"transect"</span>,</span>
+<span>                            quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    node location transect quadrat</span></span>
@@ -192,11 +192,11 @@
 <span><span class="co">#&gt; 11  3-1        1        3       1</span></span>
 <span><span class="co">#&gt; 12  3-2        1        3       2</span></span></code></pre></div>
 <p>Node labels are a combination of the transect identifier (i.e. the position of the node on the x-axis of the chessboard) and the quadrat (i.e. the position of the node on the y-axis of the chessboard). The following figure locates the node <code>2-3</code> on the chessboard.</p>
-<p><strong>N.B.</strong> <code>chessboard</code> can handle multi-sites sampling. The function <code><a href="reference/create_nodes_labels.html">create_nodes_labels()</a></code> will always return a column <code>location</code> even if the sampling is on one single site.</p>
+<p><strong>N.B.</strong> <code>chessboard</code> can handle multi-sites sampling. The function <code><a href="reference/create_node_labels.html">create_node_labels()</a></code> will always return a column <code>location</code> even if the sampling is on one single site.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Visualize the sampling as a chessboard ----</span></span>
 <span><span class="fu"><a href="reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/plot-chessboard-1.png" width="100%"></p>
 <p>Now it’s time to implement a connectivity scenario. Let’s say we want to connect nodes according to the <a href="https://en.wikipedia.org/wiki/Bishop_(chess)" class="external-link">bishop</a> move, with a degree of neighborhood of 2. Our network will be undirected.</p>
 <p>First, let’s use the function <a href="https://frbcesab.github.io/chessboard/reference/bishop.html" class="external-link"><code>bishop()</code></a> to understand the move.</p>
@@ -221,16 +221,16 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_edges.html">geom_edges</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="st">"2-3"</span>, <span class="va">nb</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">nb</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/plot-neighbors-1.png" width="100%"></p>
 <p>The <a href="https://frbcesab.github.io/chessboard/articles/chess-pieces.html" class="external-link">Chess pieces</a> vignette details all possible moves implemented in <code>chessboard</code> and the effects of the arguments <code>degree</code>, <code>directed</code>, <code>reverse</code> and <code>self</code>.</p>
-<p>Now we can detect the neighbors for the 25 nodes using the function <a href="https://frbcesab.github.io/chessboard/reference/create_edges_list.html" class="external-link"><code>create_edges_list()</code></a>.</p>
+<p>Now we can detect the neighbors for the 25 nodes using the function <a href="https://frbcesab.github.io/chessboard/reference/create_edge_list.html" class="external-link"><code>create_edge_list()</code></a>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create edges according to the bishop move (for all nodes) ----</span></span>
-<span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_edges_list.html">create_edges_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>,</span>
-<span>                           method   <span class="op">=</span> <span class="st">"bishop"</span>,</span>
-<span>                           degree   <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>                           directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>,</span>
+<span>                          method   <span class="op">=</span> <span class="st">"bishop"</span>,</span>
+<span>                          degree   <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>                          directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   from  to</span></span>

@@ -184,17 +184,17 @@ network has one dimension, one of the columns <code>transect</code> and
 <code>quadrat</code> can be omitted.</p>
 </div>
 <div class="section level2">
-<h2 id="creating-nodes-labels">Creating nodes labels<a class="anchor" aria-label="anchor" href="#creating-nodes-labels"></a>
+<h2 id="creating-node-labels">Creating node labels<a class="anchor" aria-label="anchor" href="#creating-node-labels"></a>
 </h2>
 <p>When working with <code>chessboard</code>, the first step is to
 create nodes labels with the function
-<code><a href="../reference/create_nodes_labels.html">create_nodes_labels()</a></code>.</p>
+<code><a href="../reference/create_node_labels.html">create_node_labels()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create nodes labels ----</span></span>
-<span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sampling</span>,</span>
-<span>                             location <span class="op">=</span> <span class="st">"location"</span>,</span>
-<span>                             transect <span class="op">=</span> <span class="st">"transect"</span>,</span>
-<span>                             quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Create node labels ----</span></span>
+<span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sampling</span>,</span>
+<span>                            location <span class="op">=</span> <span class="st">"location"</span>,</span>
+<span>                            transect <span class="op">=</span> <span class="st">"transect"</span>,</span>
+<span>                            quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    node location transect quadrat longitude latitude</span></span>
@@ -210,7 +210,7 @@ create nodes labels with the function
 <span><span class="co">#&gt; 10 2-05        1        2       5  472519.5  6231715</span></span>
 <span><span class="co">#&gt; 11 3-01        1        3       1  478657.1  6223432</span></span>
 <span><span class="co">#&gt; 12 3-02        1        3       2  477700.2  6225742</span></span></code></pre></div>
-<p>The nodes labels are a combination of the transect and the quadrat
+<p>Node labels are a combination of the transect and the quadrat
 identifiers.</p>
 <p>We can visualize this sampling on a Cartesian referential,
 i.e. non-spatial, where the x-axis corresponds to

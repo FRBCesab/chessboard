@@ -84,7 +84,7 @@ q, the number of quadrats."><!-- mathjax --><script src="https://cdnjs.cloudflar
     <dl><dt>nodes</dt>
 <dd><p>a <code>data.frame</code> with (at least) the following three columns:
 <code>node</code>, <code>transect</code>, and <code>quadrats</code>. Must be the output if the function
-<code><a href="create_nodes_labels.html">create_nodes_labels()</a></code>.</p></dd>
+<code><a href="create_node_labels.html">create_node_labels()</a></code>.</p></dd>
 
 
 <dt>xlab</dt>
@@ -111,9 +111,9 @@ Default is <code>'Quadrat'</code>.</p></dd>
 <span class="r-in"><span><span class="co"># Two-dimensional sampling ----</span></span></span>
 <span class="r-in"><span><span class="va">sites_infos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="st">"transect"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="st">"quadrat"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sites_infos</span>, </span></span>
-<span class="r-in"><span>                             transect <span class="op">=</span> <span class="st">"transect"</span>, </span></span>
-<span class="r-in"><span>                             quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sites_infos</span>, </span></span>
+<span class="r-in"><span>                            transect <span class="op">=</span> <span class="st">"transect"</span>, </span></span>
+<span class="r-in"><span>                            quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">gg_chessboard</span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="gg_chessboard-1.png" alt="" width="700" height="433"></span>
@@ -121,8 +121,8 @@ Default is <code>'Quadrat'</code>.</p></dd>
 <span class="r-in"><span><span class="co"># One-dimensional sampling (only transects) ----</span></span></span>
 <span class="r-in"><span><span class="va">sites_infos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"transect"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sites_infos</span>, </span></span>
-<span class="r-in"><span>                             transect <span class="op">=</span> <span class="st">"transect"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sites_infos</span>, </span></span>
+<span class="r-in"><span>                            transect <span class="op">=</span> <span class="st">"transect"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">gg_chessboard</span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="gg_chessboard-2.png" alt="" width="700" height="433"></span>
@@ -130,8 +130,8 @@ Default is <code>'Quadrat'</code>.</p></dd>
 <span class="r-in"><span><span class="co"># One-dimensional sampling (only quadrats) ----</span></span></span>
 <span class="r-in"><span><span class="va">sites_infos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"quadrat"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data    <span class="op">=</span> <span class="va">sites_infos</span>, </span></span>
-<span class="r-in"><span>                             quadrat <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data    <span class="op">=</span> <span class="va">sites_infos</span>, </span></span>
+<span class="r-in"><span>                            quadrat <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">gg_chessboard</span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="gg_chessboard-3.png" alt="" width="700" height="433"></span>

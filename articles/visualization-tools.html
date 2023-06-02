@@ -155,13 +155,13 @@ location.</p>
 <p>The sampling is a grid of dimensions 3 transects x 5 quadrats.</p>
 <p>When working with <code>chessboard</code>, the first step is to
 create nodes labels with the function
-<code><a href="../reference/create_nodes_labels.html">create_nodes_labels()</a></code>.</p>
+<code><a href="../reference/create_node_labels.html">create_node_labels()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create nodes labels ----</span></span>
-<span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sampling</span>,</span>
-<span>                             location <span class="op">=</span> <span class="st">"location"</span>,</span>
-<span>                             transect <span class="op">=</span> <span class="st">"transect"</span>, </span>
-<span>                             quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Create node labels ----</span></span>
+<span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sampling</span>,</span>
+<span>                            location <span class="op">=</span> <span class="st">"location"</span>,</span>
+<span>                            transect <span class="op">=</span> <span class="st">"transect"</span>, </span>
+<span>                            quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nodes</span></span>
 <span><span class="co">#&gt;    node location transect quadrat longitude latitude</span></span>
@@ -195,23 +195,23 @@ grid where the x-axis is the transect and the y-axis is the quadrat.</p>
 <p><img src="visualization-tools_files/figure-html/gg-chessboard-1.png" width="50%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
-<h3 id="geom_piece">geom_piece<a class="anchor" aria-label="anchor" href="#geom_piece"></a>
+<h3 id="geom_node">geom_node<a class="anchor" aria-label="anchor" href="#geom_node"></a>
 </h3>
 <p>On this chessboard, we can locate one specific node using the
-function <code><a href="../reference/geom_piece.html">geom_piece()</a></code>.</p>
+function <code><a href="../reference/geom_node.html">geom_node()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Locate one node ----</span></span>
 <span><span class="fu"><a href="../reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="visualization-tools_files/figure-html/geom-piece-1.png" width="50%" style="display: block; margin: auto;"></p>
-<p>We can call the function <code><a href="../reference/geom_piece.html">geom_piece()</a></code> several times to
+<p>We can call the function <code><a href="../reference/geom_node.html">geom_node()</a></code> several times to
 emphase various nodes.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Locate various nodes ----</span></span>
 <span><span class="fu"><a href="../reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"1-5"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"3-1"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"1-5"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"3-1"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="visualization-tools_files/figure-html/geom-pieces-1.png" width="50%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -238,7 +238,7 @@ node by using the functions <code><a href="../reference/pawn.html">pawn()</a></c
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Locate neighbors ----</span></span>
 <span><span class="fu"><a href="../reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, neighbors <span class="op">=</span> <span class="va">nb_rook</span><span class="op">)</span></span></code></pre></div>
 <p><img src="visualization-tools_files/figure-html/geom-neighbors-1.png" width="50%" style="display: block; margin: auto;"></p>
 </div>
@@ -252,10 +252,10 @@ advantage to show the direction of the edges.</p>
 <code class="sourceCode R"><span><span class="co"># Locate neighbors ----</span></span>
 <span><span class="fu"><a href="../reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_edges.html">geom_edges</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span>, neighbors <span class="op">=</span> <span class="va">nb_rook</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="visualization-tools_files/figure-html/geom-edges-1.png" width="50%" style="display: block; margin: auto;"></p>
 <p>Now let’s call the function <code><a href="../reference/bishop.html">bishop()</a></code> to create a second
-edges list.</p>
+edge list.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Neighbors detection ----</span></span>
 <span><span class="va">nb_bishop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bishop.html">bishop</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span>
@@ -266,7 +266,7 @@ edges list.</p>
 <span><span class="co">#&gt; 2  1-4        1        1       4  471166.2  6228448</span></span>
 <span><span class="co">#&gt; 3  3-2        1        3       2  477700.2  6225742</span></span>
 <span><span class="co">#&gt; 4  3-4        1        3       4  475786.5  6230362</span></span></code></pre></div>
-<p>As for the function <code><a href="../reference/geom_piece.html">geom_piece()</a></code>, we can call the
+<p>As for the function <code><a href="../reference/geom_node.html">geom_node()</a></code>, we can call the
 functions <code><a href="../reference/geom_edges.html">geom_edges()</a></code> and <code><a href="../reference/geom_neighbors.html">geom_neighbors()</a></code>
 several times.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -276,7 +276,7 @@ several times.</p>
 <span>  <span class="fu"><a href="../reference/geom_edges.html">geom_edges</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span>, neighbors <span class="op">=</span> <span class="va">nb_bishop</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, neighbors <span class="op">=</span> <span class="va">nb_rook</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, neighbors <span class="op">=</span> <span class="va">nb_bishop</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="visualization-tools_files/figure-html/geom-edges-twice-1.png" width="50%" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -285,11 +285,11 @@ several times.</p>
 </h2>
 <p>These two previous moves (rook and bishop) combined together are
 equivalent to the <a href="https://en.wikipedia.org/wiki/Queen_(chess)" class="external-link">queen</a>. For the
-rest of the vignette let’s create the edges list using the queen
+rest of the vignette let’s create the edge list using the queen
 move.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Edges list ----</span></span>
-<span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edges_list.html">create_edges_list</a></span><span class="op">(</span><span class="va">nodes</span>, method <span class="op">=</span> <span class="st">"queen"</span><span class="op">)</span></span>
+<span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span><span class="va">nodes</span>, method <span class="op">=</span> <span class="st">"queen"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   from  to</span></span>
@@ -299,7 +299,7 @@ move.</p>
 <span><span class="co">#&gt; 4  1-2 1-1</span></span>
 <span><span class="co">#&gt; 5  1-2 1-3</span></span>
 <span><span class="co">#&gt; 6  1-2 2-1</span></span></code></pre></div>
-<p>From this edges list, we can build the associated connectivity matrix
+<p>From this edge list, we can build the associated connectivity matrix
 with the function <code><a href="../reference/connectivity_matrix.html">connectivity_matrix()</a></code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Connectivity matrix ----</span></span>
@@ -358,7 +358,7 @@ sampling into an <a href="https://r-spatial.github.io/sf/" class="external-link"
 <span><span class="co">#&gt; 8   2-3        1        2       3 POINT (474433.2 6227095)</span></span>
 <span><span class="co">#&gt; 9   2-4        1        2       4 POINT (473476.3 6229405)</span></span>
 <span><span class="co">#&gt; 10  2-5        1        2       5 POINT (472519.5 6231715)</span></span></code></pre></div>
-<p>To convert our edges list into a spatial object, we can use the
+<p>To convert our edge list into a spatial object, we can use the
 function <code><a href="../reference/edges_to_sf.html">edges_to_sf()</a></code>.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert edges to sf object ----</span></span>
@@ -394,7 +394,7 @@ and the edges.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nodes_sf</span>, size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="visualization-tools_files/figure-html/mapping-edges-1.png" width="50%" style="display: block; margin: auto;"></p>
-<p>Finally, let’s add the nodes labels on this map.</p>
+<p>Finally, let’s add the node labels on this map.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Map of nodes and edges ----</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>

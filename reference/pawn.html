@@ -94,7 +94,7 @@ For sampling of type <strong>transects-only</strong>, please use the function <c
     <dl><dt>nodes</dt>
 <dd><p>a <code>data.frame</code> with (at least) the following three columns:
 <code>node</code>, <code>transect</code>, and <code>quadrats</code>. Must be the output of the function
-<code><a href="create_nodes_labels.html">create_nodes_labels()</a></code>.</p></dd>
+<code><a href="create_node_labels.html">create_node_labels()</a></code>.</p></dd>
 
 
 <dt>focus</dt>
@@ -111,7 +111,7 @@ search for.</p></dd>
 <dd><p>a <code>logical</code> of length 1. If <code>FALSE</code> (default), search for
 neighbors in all directions (undirected network). Otherwise, the network
 will be considered as directed according to the orientations of the
-network. The default orientation follows the order of nodes labels in
+network. The default orientation follows the order of node labels in
 both axes.</p></dd>
 
 
@@ -135,7 +135,7 @@ of the focal node.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>This function is internally called by <code><a href="create_edges_list.html">create_edges_list()</a></code> but it can be
+    <p>This function is internally called by <code><a href="create_edge_list.html">create_edge_list()</a></code> but it can be
 directly used to 1) understand the neighbors detection method, and 2) to
 check detected neighbors for one particular node (<code>focus</code>).</p>
     </div>
@@ -147,37 +147,37 @@ check detected neighbors for one particular node (<code>focus</code>).</p>
 <span class="r-in"><span><span class="co"># Two-dimensional sampling (only) ----</span></span></span>
 <span class="r-in"><span><span class="va">sites_infos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="st">"transect"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, <span class="st">"quadrat"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sites_infos</span>, </span></span>
-<span class="r-in"><span>                             transect <span class="op">=</span> <span class="st">"transect"</span>, </span></span>
-<span class="r-in"><span>                             quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sites_infos</span>, </span></span>
+<span class="r-in"><span>                            transect <span class="op">=</span> <span class="st">"transect"</span>, </span></span>
+<span class="r-in"><span>                            quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">focus</span>     <span class="op">&lt;-</span> <span class="st">"5-5"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Default settings ----</span></span></span>
 <span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu">pawn</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pawn-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Higher degree of neighborhood ----</span></span></span>
 <span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu">pawn</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span>, degree <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pawn-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span><span class="co"># Directed (default orientation) ----</span></span></span>
 <span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu">pawn</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span>, degree <span class="op">=</span> <span class="fl">3</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pawn-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span><span class="co"># Directed (reverse orientation) ----</span></span></span>
 <span class="r-in"><span><span class="va">neighbors</span> <span class="op">&lt;-</span> <span class="fu">pawn</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span>, degree <span class="op">=</span> <span class="fl">3</span>, directed <span class="op">=</span> <span class="cn">TRUE</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_piece.html">geom_piece</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">focus</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pawn-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>

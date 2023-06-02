@@ -34,7 +34,7 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/append_edges_lists.html</loc>
+    <loc>/reference/append_edge_lists.html</loc>
   </url>
   <url>
     <loc>/reference/append_matrix.html</loc>
@@ -55,10 +55,10 @@
     <loc>/reference/connectivity_matrix.html</loc>
   </url>
   <url>
-    <loc>/reference/create_edges_list.html</loc>
+    <loc>/reference/create_edge_list.html</loc>
   </url>
   <url>
-    <loc>/reference/create_nodes_labels.html</loc>
+    <loc>/reference/create_node_labels.html</loc>
   </url>
   <url>
     <loc>/reference/distance_euclidean.html</loc>
@@ -82,10 +82,10 @@
     <loc>/reference/geom_neighbors.html</loc>
   </url>
   <url>
-    <loc>/reference/geom_piece.html</loc>
+    <loc>/reference/geom_node.html</loc>
   </url>
   <url>
-    <loc>/reference/get_nodes_list.html</loc>
+    <loc>/reference/get_node_list.html</loc>
   </url>
   <url>
     <loc>/reference/gg_chessboard.html</loc>
@@ -106,7 +106,7 @@
     <loc>/reference/knight_right.html</loc>
   </url>
   <url>
-    <loc>/reference/matrix_to_edges_list.html</loc>
+    <loc>/reference/matrix_to_edge_list.html</loc>
   </url>
   <url>
     <loc>/reference/nodes_by_edges_matrix.html</loc>
