@@ -109,3 +109,73 @@ ggplot() +
 The arrow indicates the direction of the river flow. This means that our 
 sampling design is a **directed spatial network** (both inside a location and
 between locations) where the main direction is from upstream to downstream. 
+
+\
+
+Let's import this dataset provided by `chessboard`.
+
+
+```{r 'import-data', echo=TRUE}
+# Import data ----
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
+                            package = "chessboard")
+
+sampling  <- read.csv(path_to_file)
+
+dim(sampling)
+
+head(sampling)
+
+tail(sampling)
+```
+
+This `data.frame` contains the following columns: 
+
+- `location`: the identifier of the location (`numeric`)
+- `transect`: the identifier of the transect (`numeric`)
+- `quadrat`: the identifier of the quadrat (`numeric`)
+- `longitude`: the longitude of the site (**node**) defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection
+- `latitude`: the latitude of the site (**node**) defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection
+
+\
+
+
+**N.B.** The column `location` is optional (if the survey has been conducted at one single location).
+If the network has one dimension, one of the columns `transect` and `quadrat` can
+be omitted.
+
+
+
+## Creating nodes labels
+
+When working with `chessboard`, the first step is to create nodes
+labels with the function `create_nodes_labels()`.
+
+
+```{r 'create-nodes-labels'}
+# Create nodes labels ----
+nodes <- create_nodes_labels(data     = sampling,
+                             location = "location",
+                             transect = "transect",
+                             quadrat  = "quadrat")
+
+head(nodes, 12)
+```
+
+
+The nodes labels are a combination of the transect and the quadrat identifiers.
+
+We can visualize this sampling on a Cartesian referential, i.e. non-spatial, where
+the x-axis corresponds to **transects** and the y-axis represents the **quadrats**
+(Fig. 3). This new referential is called a chessboard.
+
+
+\
+
+
+```{r 'plot-sampling-units', fig.height=10, fig.width=3, echo=FALSE, out.width='50%', fig.cap='Figure 3. Sampling design'}
+gg_chessboard(nodes)
+```
+
+
+
