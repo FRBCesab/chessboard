@@ -3,7 +3,7 @@ reference:
   desc: >
     Create, extract, and transform nodes and edges objects
   contents:
-    - create_nodes_labels
+    - create_node_labels
     - get_nodes_list
     - create_edges_list
     - append_edges_lists
@@ -31,7 +31,7 @@ reference:
     Functions to visualize networks objects
   contents:
     - gg_chessboard
-    - geom_piece
+    - geom_node
     - geom_neighbors
     - geom_edges
     - gg_matrix

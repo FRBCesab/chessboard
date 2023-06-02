@@ -3,7 +3,7 @@
 sites <- expand.grid("transect" = 1:3, 
                      "quadrat"  = 1:5)
 
-nodes <- create_nodes_labels(data     = sites, 
+nodes <- create_node_labels(data     = sites, 
                              transect = "transect", 
                              quadrat  = "quadrat")
 

@@ -3,21 +3,21 @@
 sites <- expand.grid("transect" = 1:5, 
                      "quadrat"  = 1:5)
 
-nodes <- create_nodes_labels(data     = sites, 
+nodes <- create_node_labels(data     = sites, 
                              transect = "transect", 
                              quadrat  = "quadrat")
 
 sites_qu <- expand.grid("transect" = 3, 
                         "quadrat"  = 1:5)
 
-nodes_qu <- create_nodes_labels(data     = sites_qu, 
+nodes_qu <- create_node_labels(data     = sites_qu, 
                                 transect = "transect", 
                                 quadrat  = "quadrat")
 
 sites_tr <- expand.grid("transect" = 1:5, 
                         "quadrat"  = 3)
 
-nodes_tr <- create_nodes_labels(data     = sites_tr, 
+nodes_tr <- create_node_labels(data     = sites_tr, 
                                 transect = "transect", 
                                 quadrat  = "quadrat")
 
@@ -27,7 +27,7 @@ test_that("bishop_left() - Tests for errors", {
   
   expect_error(bishop_left(),
                paste0("Argument 'nodes' is required (output of the function ", 
-                      "create_nodes_labels())"),
+                      "create_node_labels())"),
                fixed = TRUE)
   
   expect_error(bishop_left(nodes_qu),

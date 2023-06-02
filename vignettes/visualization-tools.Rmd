@@ -63,14 +63,14 @@ sampling
 The sampling is a grid of dimensions 3 transects x 5 quadrats.
 
 When working with `chessboard`, the first step is to create nodes
-labels with the function `create_nodes_labels()`.
+labels with the function `create_node_labels()`.
 
 ```{r 'create-nodes-labels', echo=TRUE}
 # Create nodes labels ----
-nodes <- create_nodes_labels(data     = sampling,
-                             location = "location",
-                             transect = "transect", 
-                             quadrat  = "quadrat")
+nodes <- create_node_labels(data     = sampling,
+                            location = "location",
+                            transect = "transect", 
+                            quadrat  = "quadrat")
 
 nodes
 ```

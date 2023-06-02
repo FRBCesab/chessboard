@@ -1,4 +1,4 @@
-#' Create an edges list
+#' Create an edge list
 #' 
 #' @description 
 #' Creates a list of edges (links) between nodes (sampling units) based on the
@@ -19,13 +19,13 @@
 #' 
 #' It's important to note that, even the package `chessboard` is designed to 
 #' deal with spatial networks, this function does not explicitly use spatial 
-#' coordinates to detect neighbors. Instead it uses the **nodes labels**. The 
-#' function [create_nodes_labels()] must be used before this function to create 
-#' nodes labels.
+#' coordinates to detect neighbors. Instead it uses the **node labels**. The 
+#' function [create_node_labels()] must be used before this function to create 
+#' node labels.
 #' 
 #' @param nodes a `data.frame` with (at least) the following three columns: 
 #'   `node`, `transect`, and `quadrats`. Must be the output of the function 
-#'   [create_nodes_labels()].
+#'   [create_node_labels()].
 #' 
 #' @param method a `character` of length 1. The method used to detect neighbors.
 #'   One among `'pawn'`, `'fool'`, `'rook'`, `'bishop'`, `'bishop_left'`, 
@@ -62,9 +62,9 @@
 #' # Two-dimensional sampling (only) ----
 #' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(data     = sites_infos, 
-#'                              transect = "transect", 
-#'                              quadrat  = "quadrat")
+#' nodes <- create_node_labels(data     = sites_infos, 
+#'                             transect = "transect", 
+#'                             quadrat  = "quadrat")
 #'
 #' edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
 #' edges

@@ -1,6 +1,6 @@
 #' Check the structure of the data.frame nodes
 #' 
-#' @param nodes a `data.frame`. The output of [create_nodes_labels()].
+#' @param nodes a `data.frame`. The output of [create_node_labels()].
 #' 
 #' @noRd
 
@@ -8,27 +8,27 @@ check_nodes_object <- function(nodes) {
   
   if (missing(nodes)) {
     stop("Argument 'nodes' is required ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
+         "(output of the function create_node_labels())", call. = FALSE)
   }
   
   if (!is.data.frame(nodes)) {
     stop("Argument 'nodes' must be a data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
+         "(output of the function create_node_labels())", call. = FALSE)
   }
   
   if (!("node" %in% colnames(nodes))) {
     stop("The column 'node' is absent from the 'nodes' data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
+         "(output of the function create_node_labels())", call. = FALSE)
   }
   
   if (!("transect" %in% colnames(nodes))) {
     stop("The column 'transect' is absent from the 'nodes' data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
+         "(output of the function create_node_labels())", call. = FALSE)
   }
   
   if (!("quadrat" %in% colnames(nodes))) {
     stop("The column 'quadrat' is absent from the 'nodes' data.frame ", 
-         "(output of the function create_nodes_labels())", call. = FALSE)
+         "(output of the function create_node_labels())", call. = FALSE)
   }
   
   if (nrow(nodes) < 2) {
@@ -59,7 +59,7 @@ check_nodes_object <- function(nodes) {
 
 #' Check the structure of focal node and its presence in the data.frame nodes
 #' 
-#' @param nodes a `data.frame`. The output of [create_nodes_labels()].
+#' @param nodes a `data.frame`. The output of [create_node_labels()].
 #' 
 #' @param focus a `character` of length 1. The node label for which the 
 #'   neighbors must be found. Must exist in the `nodes` object.

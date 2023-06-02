@@ -9,7 +9,7 @@ geom_node(nodes, focus)
 \arguments{
 \item{nodes}{a \code{data.frame} with (at least) the following three columns:
 \code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
-\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
+\code{\link[=create_node_labels]{create_node_labels()}}.}
 
 \item{focus}{an \code{character} of length 1. The node label to be emphasized on
 the chessboard. Must exist in the \code{nodes} object.}
@@ -26,9 +26,9 @@ library("chessboard")
 # Two-dimensional sampling ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 
-nodes <- create_nodes_labels(data     = sites_infos, 
-                             transect = "transect", 
-                             quadrat  = "quadrat")
+nodes <- create_node_labels(data     = sites_infos, 
+                            transect = "transect", 
+                            quadrat  = "quadrat")
 
 gg_chessboard(nodes) +
   geom_node(nodes, "2-3")
@@ -36,8 +36,8 @@ gg_chessboard(nodes) +
 # One-dimensional sampling (only transects) ----
 sites_infos <- data.frame("transect" = 1:5)
 
-nodes <- create_nodes_labels(data     = sites_infos, 
-                             transect = "transect")
+nodes <- create_node_labels(data     = sites_infos, 
+                            transect = "transect")
 
 gg_chessboard(nodes) +
   geom_node(nodes, "3-1")

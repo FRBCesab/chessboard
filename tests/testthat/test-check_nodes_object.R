@@ -1,7 +1,7 @@
 # Data for tests ----
 
 tr_qr <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
-good_nodes <- create_nodes_labels(tr_qr, 
+good_nodes <- create_node_labels(tr_qr, 
                                   transect = "transect", 
                                   quadrat  = "quadrat")
 bad_nodes_1 <- good_nodes
@@ -18,30 +18,30 @@ test_that("check_nodes_object() - Tests for wrong inputs", {
   
   expect_error(check_nodes_object(),
                paste0("Argument 'nodes' is required ", 
-                      "(output of the function create_nodes_labels())"),
+                      "(output of the function create_node_labels())"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(data.matrix(good_nodes)),
                paste0("Argument 'nodes' must be a data.frame ", 
-                      "(output of the function create_nodes_labels())"),
+                      "(output of the function create_node_labels())"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(good_nodes[ , -1]),
                paste0("The column 'node' is absent from the 'nodes' ", 
                       "data.frame (output of the function ", 
-                      "create_nodes_labels())"),
+                      "create_node_labels())"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(good_nodes[ , -3]),
                paste0("The column 'transect' is absent from the 'nodes' ", 
                       "data.frame (output of the function ", 
-                      "create_nodes_labels())"),
+                      "create_node_labels())"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(good_nodes[ , -4]),
                paste0("The column 'quadrat' is absent from the 'nodes' ", 
                       "data.frame (output of the function ", 
-                      "create_nodes_labels())"),
+                      "create_node_labels())"),
                fixed = TRUE)
   
   expect_error(check_nodes_object(good_nodes[1, ]),

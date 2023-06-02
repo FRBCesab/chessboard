@@ -9,7 +9,7 @@ distance_euclidean(sites, ...)
 \arguments{
 \item{sites}{an \code{sf} object of type \code{POINT}. A spatial object
 containing coordinates of sites. Note that the first column must be the
-node label created by the function \code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
+node label created by the function \code{\link[=create_node_labels]{create_node_labels()}}.}
 
 \item{...}{other argument to pass to \code{\link[sf:geos_measures]{sf::st_distance()}}.}
 }
@@ -36,10 +36,10 @@ adour_sites <- read.csv(path_to_file)
 adour_sites <- adour_sites[1:15, ]
 
 # Create nodes labels ----
-adour_sites <- create_nodes_labels(adour_sites, 
-                                   location = "location", 
-                                   transect = "transect", 
-                                   quadrat  = "quadrat")
+adour_sites <- create_node_labels(adour_sites, 
+                                  location = "location", 
+                                  transect = "transect", 
+                                  quadrat  = "quadrat")
 
 # Convert sites to sf object (POINTS) ----
 adour_sites <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"),

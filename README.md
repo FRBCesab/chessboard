@@ -124,9 +124,9 @@ Now let’s create labels for the 25 nodes.
 
 ``` r
 # Create nodes labels ----
-nodes <- create_nodes_labels(data     = sampling,
-                             transect = "transect",
-                             quadrat  = "quadrat")
+nodes <- create_node_labels(data     = sampling,
+                            transect = "transect",
+                            quadrat  = "quadrat")
 
 head(nodes, 12)
 #>    node location transect quadrat
@@ -150,7 +150,7 @@ position of the node on the x-axis of the chessboard) and the quadrat
 following figure locates the node `2-3` on the chessboard.
 
 **N.B.** `chessboard` can handle multi-sites sampling. The function
-`create_nodes_labels()` will always return a column `location` even if
+`create_node_labels()` will always return a column `location` even if
 the sampling is on one single site.
 
 ``` r

@@ -1,6 +1,6 @@
 # Data for tests ----
 
-nodes <- create_nodes_labels(expand.grid("transect" = 1:3, "quadrat" = 1:5), 
+nodes <- create_node_labels(expand.grid("transect" = 1:3, "quadrat" = 1:5), 
                              transect = "transect", 
                              quadrat  = "quadrat")
 
@@ -9,7 +9,7 @@ test_that("check_focus_object() - Tests for wrong inputs", {
   
   expect_error(check_focus_object(),
                paste0("Argument 'nodes' is required ", 
-                      "(output of the function create_nodes_labels())"),
+                      "(output of the function create_node_labels())"),
                fixed = TRUE)
   
   expect_error(check_focus_object(nodes),

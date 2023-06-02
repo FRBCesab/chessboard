@@ -16,7 +16,7 @@ knight_right(
 \arguments{
 \item{nodes}{a \code{data.frame} with (at least) the following three columns:
 \code{node}, \code{transect}, and \code{quadrats}. Must be the output of the function
-\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
+\code{\link[=create_node_labels]{create_node_labels()}}.}
 
 \item{focus}{an \code{character} of length 1. The node label for which the
 neighbors must be found. Must exist in the \code{nodes} object.}
@@ -62,9 +62,9 @@ library("chessboard")
 # Two-dimensional sampling (only) ----
 sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 
-nodes <- create_nodes_labels(data     = sites_infos, 
-                             transect = "transect", 
-                             quadrat  = "quadrat")
+nodes <- create_node_labels(data     = sites_infos, 
+                            transect = "transect", 
+                            quadrat  = "quadrat")
 
 focus     <- "5-5"
 

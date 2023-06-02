@@ -1,7 +1,7 @@
-#' Convert edges list to spatial object
+#' Convert edge list to spatial object
 #' 
 #' @description
-#' Convert an edges list to an `sf` spatial object of type `LINESTRING` with 
+#' Converts an edge list to an `sf` spatial object of type `LINESTRING` with 
 #' one row per edge.
 #' 
 #' @inheritParams connectivity_matrix
@@ -25,10 +25,10 @@
 #' adour_sites <- adour_sites[adour_sites$"location" == 1, ]
 #' 
 #' # Create nodes labels ----
-#' adour_nodes <- create_nodes_labels(data     = adour_sites, 
-#'                                    location = "location", 
-#'                                    transect = "transect", 
-#'                                    quadrat = "quadrat")
+#' adour_nodes <- create_node_labels(data     = adour_sites, 
+#'                                   location = "location", 
+#'                                   transect = "transect", 
+#'                                   quadrat = "quadrat")
 #' 
 #' # Find edges with 1 degree of neighborhood (pawn method) ----
 #' adour_edges <- create_edges_list(adour_nodes, method = "pawn", 

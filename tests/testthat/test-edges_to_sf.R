@@ -4,7 +4,7 @@ path_to_file <- system.file("extdata", "adour_survey_sampling.csv",
                             package = "chessboard")
 adour_sites  <- read.csv(path_to_file)
 adour_sites <- adour_sites[adour_sites$"location" == 1, ]
-adour_nodes <- create_nodes_labels(data     = adour_sites, 
+adour_nodes <- create_node_labels(data     = adour_sites, 
                                    location = "location", 
                                    transect = "transect", 
                                    quadrat  = "quadrat")

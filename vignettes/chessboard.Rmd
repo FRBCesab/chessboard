@@ -146,7 +146,7 @@ quadrat is upstream and the last is downstream.
 
 When using the package `chessboard`, the **first step** is to create **nodes labels**
 by combining the identifiers of transects and quadrats. It's the purpose of the
-function `create_nodes_labels()`.
+function `create_node_labels()`.
 
 
 \
@@ -168,10 +168,10 @@ Now, we can create the nodes labels.
 
 ```{r 'nodes-labels'}
 ## Create nodes labels ----
-adour_sites <- create_nodes_labels(data     = adour_sites, 
-                                   location = "location",
-                                   transect = "transect", 
-                                   quadrat  = "quadrat")
+adour_sites <- create_node_labels(data     = adour_sites, 
+                                  location = "location",
+                                  transect = "transect", 
+                                  quadrat  = "quadrat")
 
 adour_sites
 ```
@@ -282,9 +282,9 @@ by reversing the default directionality (`directed = TRUE` and `reverse = TRUE`,
 ```{r 'cb-pawn', fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 5. Pawn movements", out.width='100%'}
 demo_sites <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 
-demo_nodes <- create_nodes_labels(data     = demo_sites,
-                                  transect = "transect", 
-                                  quadrat  = "quadrat")
+demo_nodes <- create_node_labels(data     = demo_sites,
+                                 transect = "transect", 
+                                 quadrat  = "quadrat")
 
 demo_focus  <- "5-5"
 
@@ -324,9 +324,9 @@ by reversing the default directionality (`directed = TRUE` and `reverse = TRUE`,
 ```{r 'cb-bishop', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 6. Bishop movements", out.width='100%'}
 demo_sites <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 
-demo_nodes <- create_nodes_labels(data     = demo_sites,
-                                  transect = "transect", 
-                                  quadrat  = "quadrat")
+demo_nodes <- create_node_labels(data     = demo_sites,
+                                 transect = "transect", 
+                                 quadrat  = "quadrat")
 
 demo_focus  <- "5-5"
 

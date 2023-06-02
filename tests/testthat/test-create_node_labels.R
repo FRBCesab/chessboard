@@ -54,46 +54,46 @@ tr_qu_dup <- rbind(tr_qu, tr_qu[1, ])
 
 # Test for errors ----
 
-test_that("create_nodes_labels() - Tests for wrong inputs", {
+test_that("create_node_labels() - Tests for wrong inputs", {
   
   # Argument 'data' ----
   
-  expect_error(create_nodes_labels(),
+  expect_error(create_node_labels(),
                "The argument 'data' is required",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(data.matrix(tr_qu)),
+  expect_error(create_node_labels(data.matrix(tr_qu)),
                "The argument 'data' must be data.frame",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu[0, ]),
+  expect_error(create_node_labels(tr_qu[0, ]),
                "The data.frame 'data' must have at least one row",
                fixed = TRUE)
   
   
   # Argument 'transect' or 'quadrat' ----
   
-  expect_error(create_nodes_labels(tr_qu),
+  expect_error(create_node_labels(tr_qu),
                "Please provide at least either 'transect' or 'quadrat'",
                fixed = TRUE)
   
   
   # Argument 'location' ----
   
-  expect_error(create_nodes_labels(loc_tr_qu, 
+  expect_error(create_node_labels(loc_tr_qu, 
                                    location = loc_tr_qu$"location",
                                    transect = "transect"),
                paste0("Argument 'location' must be a character of length 1 ", 
                       "(column name of the locations)"),
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(loc_tr_qu, 
+  expect_error(create_node_labels(loc_tr_qu, 
                                    location = "locationS",
                                    transect = "transect"),
                "The column 'locationS' is absent from 'data'",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(loc_tr_qu_bad_loc, 
+  expect_error(create_node_labels(loc_tr_qu_bad_loc, 
                                    location = "location",
                                    transect = "transect"),
                "The column 'location' must be a numeric",
@@ -102,31 +102,31 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
   
   # Argument 'transect' ----
   
-  expect_error(create_nodes_labels(tr_qu, transect = tr_qu$"transect"),
+  expect_error(create_node_labels(tr_qu, transect = tr_qu$"transect"),
                paste0("Argument 'transect' must be a character of length 1 ", 
                       "(column name of the transects)"),
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu, transect = "transectS"),
+  expect_error(create_node_labels(tr_qu, transect = "transectS"),
                "The column 'transectS' is absent from 'data'",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu_bad_tr, transect = "transect"),
+  expect_error(create_node_labels(tr_qu_bad_tr, transect = "transect"),
                "The column 'transect' must be a numeric",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu, transect = NULL, quadrat = "quadrat"),
+  expect_error(create_node_labels(tr_qu, transect = NULL, quadrat = "quadrat"),
                paste0("As argument 'transect' is not provided, the column ", 
                       "'quadrat' cannot contain duplicated value"),
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu_na_tr, 
+  expect_error(create_node_labels(tr_qu_na_tr, 
                                    transect = "transect", 
                                    quadrat  = "quadrat"),
                "The column 'transect' cannot contain NA",
                fixed = TRUE)
   
-  # expect_error(create_nodes_labels(tr_qu_gap_tr, 
+  # expect_error(create_node_labels(tr_qu_gap_tr, 
   #                                  transect = "transect", 
   #                                  quadrat  = "quadrat"),
   #              paste0("Labels of transects must increased by 1 ", 
@@ -136,39 +136,39 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
   
   # Argument 'quadrat' ----
   
-  expect_error(create_nodes_labels(tr_qu, quadrat = tr_qu$"quadrat"),
+  expect_error(create_node_labels(tr_qu, quadrat = tr_qu$"quadrat"),
                paste0("Argument 'quadrat' must be a character of length 1 ", 
                       "(column name of the quadrats)"),
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu, quadrat = "quadratS"),
+  expect_error(create_node_labels(tr_qu, quadrat = "quadratS"),
                "The column 'quadratS' is absent from 'data'",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu_bad_qu, quadrat = "quadrat"),
+  expect_error(create_node_labels(tr_qu_bad_qu, quadrat = "quadrat"),
                "The column 'quadrat' must be a numeric",
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu, transect = "transect", 
+  expect_error(create_node_labels(tr_qu, transect = "transect", 
                                    quadrat = NULL),
                paste0("As argument 'quadrat' is not provided, the column ", 
                       "'transect' cannot contain duplicated value"),
                fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu_na_qu, 
+  expect_error(create_node_labels(tr_qu_na_qu, 
                                    transect = "transect", 
                                    quadrat  = "quadrat"),
                "The column 'quadrat' cannot contain NA",
                fixed = TRUE)
   
-  # expect_error(create_nodes_labels(tr_qu_gap_qu, 
+  # expect_error(create_node_labels(tr_qu_gap_qu, 
   #                                  transect = "transect", 
   #                                  quadrat  = "quadrat"),
   #              paste0("Labels of quadrats must increased by 1 ", 
   #                     "(no gap allowed in labels)"),
   #              fixed = TRUE)
   
-  expect_error(create_nodes_labels(tr_qu_dup, 
+  expect_error(create_node_labels(tr_qu_dup, 
                                    transect = "transect", 
                                    quadrat  = "quadrat"),
                "Nodes labels cannot contain duplicates",
@@ -176,12 +176,12 @@ test_that("create_nodes_labels() - Tests for wrong inputs", {
 })
 
 
-test_that("create_nodes_labels() - Tests for success", {
+test_that("create_node_labels() - Tests for success", {
   
   # Transects AND Quadrat NOT Location ----
   
   expect_silent({
-    nodes <- create_nodes_labels(tr_qu, 
+    nodes <- create_node_labels(tr_qu, 
                                  transect = "transect", 
                                  quadrat  = "quadrat")
   })
@@ -203,7 +203,7 @@ test_that("create_nodes_labels() - Tests for success", {
   # Transects AND Quadrat AND Location ----
   
   expect_silent({
-    nodes <- create_nodes_labels(loc_tr_qu, 
+    nodes <- create_node_labels(loc_tr_qu, 
                                  location = "location",
                                  transect = "transect", 
                                  quadrat  = "quadrat")
@@ -226,7 +226,7 @@ test_that("create_nodes_labels() - Tests for success", {
   # Transects NOT Quadrat NOT Location ----
   
   expect_silent({
-    nodes <- create_nodes_labels(tr_only, transect = "transect")
+    nodes <- create_node_labels(tr_only, transect = "transect")
   })
   
   expect_true(class(nodes) == "data.frame")
@@ -246,7 +246,7 @@ test_that("create_nodes_labels() - Tests for success", {
   # Transects NOT Quadrat AND Location ----
   
   expect_silent({
-    nodes <- create_nodes_labels(loc_tr_only, 
+    nodes <- create_node_labels(loc_tr_only, 
                                  location = "location",
                                  transect = "transect")
   })
@@ -268,7 +268,7 @@ test_that("create_nodes_labels() - Tests for success", {
   # Quadrat NOT Transects NOT Location ----
   
   expect_silent({
-    nodes <- create_nodes_labels(qu_only, quadrat = "quadrat")
+    nodes <- create_node_labels(qu_only, quadrat = "quadrat")
   })
   
   expect_true(class(nodes) == "data.frame")
@@ -288,7 +288,7 @@ test_that("create_nodes_labels() - Tests for success", {
   # Quadrat NOT Transects AND Location ----
   
   expect_silent({
-    nodes <- create_nodes_labels(loc_qu_only, quadrat = "quadrat")
+    nodes <- create_node_labels(loc_qu_only, quadrat = "quadrat")
   })
   
   expect_true(class(nodes) == "data.frame")
@@ -308,7 +308,7 @@ test_that("create_nodes_labels() - Tests for success", {
   # Keep all columns ----
   
   expect_silent({
-    nodes <- create_nodes_labels(tr_qu_w_col, 
+    nodes <- create_node_labels(tr_qu_w_col, 
                                  transect = "transect",
                                  quadrat  = "quadrat")
   })

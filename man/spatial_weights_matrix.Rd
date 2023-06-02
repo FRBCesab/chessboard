@@ -34,10 +34,10 @@ adour_sites <- read.csv(path_to_file)
 adour_sites <- adour_sites[1:15, ]
 
 # Create nodes labels ----
-adour_sites <- create_nodes_labels(adour_sites, 
-                                   location = "location", 
-                                   transect = "transect", 
-                                   quadrat  = "quadrat")
+adour_sites <- create_node_labels(adour_sites, 
+                                  location = "location", 
+                                  transect = "transect", 
+                                  quadrat  = "quadrat")
 
 # Create edges based on the pawn move (directed network) ----
 adour_edges <- create_edges_list(adour_sites, method = "pawn", 

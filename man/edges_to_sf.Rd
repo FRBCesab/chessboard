@@ -2,7 +2,7 @@
 % Please edit documentation in R/edges_to_sf.R
 \name{edges_to_sf}
 \alias{edges_to_sf}
-\title{Convert edges list to spatial object}
+\title{Convert edge list to spatial object}
 \usage{
 edges_to_sf(edges, sites)
 }
@@ -20,7 +20,7 @@ An \code{sf} spatial object of type \code{LINESTRING} where the number of rows
 correspond to the number of edges.
 }
 \description{
-Convert an edges list to an \code{sf} spatial object of type \code{LINESTRING} with
+Converts an edge list to an \code{sf} spatial object of type \code{LINESTRING} with
 one row per edge.
 }
 \examples{
@@ -33,10 +33,10 @@ adour_sites  <- read.csv(path_to_file)
 adour_sites <- adour_sites[adour_sites$"location" == 1, ]
 
 # Create nodes labels ----
-adour_nodes <- create_nodes_labels(data     = adour_sites, 
-                                   location = "location", 
-                                   transect = "transect", 
-                                   quadrat = "quadrat")
+adour_nodes <- create_node_labels(data     = adour_sites, 
+                                  location = "location", 
+                                  transect = "transect", 
+                                  quadrat = "quadrat")
 
 # Find edges with 1 degree of neighborhood (pawn method) ----
 adour_edges <- create_edges_list(adour_nodes, method = "pawn", 

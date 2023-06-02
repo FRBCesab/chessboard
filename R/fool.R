@@ -23,9 +23,9 @@
 #' # Two-dimensional sampling (only) ----
 #' sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 #' 
-#' nodes <- create_nodes_labels(data     = sites_infos, 
-#'                              transect = "transect", 
-#'                              quadrat  = "quadrat")
+#' nodes <- create_node_labels(data     = sites_infos, 
+#'                             transect = "transect", 
+#'                             quadrat  = "quadrat")
 #' 
 #' focus     <- "5-5"
 #' 

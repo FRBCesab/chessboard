@@ -5,7 +5,7 @@
 #'
 #' @param nodes a `data.frame` with (at least) the following three columns: 
 #'   `node`, `transect`, and `quadrats`. Must be the output if the function 
-#'   [create_nodes_labels()].
+#'   [create_node_labels()].
 #'
 #' @param neighbors a `data.frame` with the following at least three columns: 
 #'   `node`, `transect`, and `quadrats`. See [pawn()], [fool()], etc. for 
@@ -21,9 +21,9 @@
 #' # Two-dimensional sampling ----
 #' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(data     = sites_infos, 
-#'                              transect = "transect", 
-#'                              quadrat  = "quadrat")
+#' nodes <- create_node_labels(data     = sites_infos, 
+#'                             transect = "transect", 
+#'                             quadrat  = "quadrat")
 #' 
 #' neighbors <- pawn(nodes, focus = "2-3")
 #' 

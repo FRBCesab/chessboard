@@ -24,9 +24,9 @@
 #' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 #' sites_infos
 #' 
-#' nodes <- create_nodes_labels(data     = sites_infos, 
-#'                              transect = "transect", 
-#'                              quadrat  = "quadrat")
+#' nodes <- create_node_labels(data     = sites_infos, 
+#'                             transect = "transect", 
+#'                             quadrat  = "quadrat")
 #' 
 #' edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
 #' 

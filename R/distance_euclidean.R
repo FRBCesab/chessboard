@@ -7,7 +7,7 @@
 #' 
 #' @param sites an `sf` object of type `POINT`. A spatial object
 #'   containing coordinates of sites. Note that the first column must be the 
-#'   node label created by the function [create_nodes_labels()].
+#'   node label created by the function [create_node_labels()].
 #'   
 #' @param ... other argument to pass to [sf::st_distance()].
 #' 
@@ -28,10 +28,10 @@
 #' adour_sites <- adour_sites[1:15, ]
 #' 
 #' # Create nodes labels ----
-#' adour_sites <- create_nodes_labels(adour_sites, 
-#'                                    location = "location", 
-#'                                    transect = "transect", 
-#'                                    quadrat  = "quadrat")
+#' adour_sites <- create_node_labels(adour_sites, 
+#'                                   location = "location", 
+#'                                   transect = "transect", 
+#'                                   quadrat  = "quadrat")
 #' 
 #' # Convert sites to sf object (POINTS) ----
 #' adour_sites <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"),

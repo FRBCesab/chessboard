@@ -3,14 +3,14 @@
 sites <- expand.grid("transect" = 1:3, 
                      "quadrat"  = 1:5)
 
-nodes <- create_nodes_labels(data     = sites, 
+nodes <- create_node_labels(data     = sites, 
                              transect = "transect", 
                              quadrat  = "quadrat")
 
 sites_w_gaps <- expand.grid("transect" = c(1, 3, 9), 
                             "quadrat"  = c(1, 3, 5, 6, 10))
 
-nodes_w_gaps <- create_nodes_labels(data     = sites_w_gaps, 
+nodes_w_gaps <- create_node_labels(data     = sites_w_gaps, 
                                     transect = "transect", 
                                     quadrat  = "quadrat")
 

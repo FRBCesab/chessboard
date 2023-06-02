@@ -23,10 +23,10 @@
 #' #adour_sites <- adour_sites[adour_sites$"location" == 1, ]
 #' 
 #' # Create nodes labels ----
-#' adour_nodes <- create_nodes_labels(data     = adour_sites, 
-#'                                    location = "location", 
-#'                                    transect = "transect", 
-#'                                    quadrat = "quadrat")
+#' adour_nodes <- create_node_labels(data     = adour_sites, 
+#'                                   location = "location", 
+#'                                   transect = "transect", 
+#'                                   quadrat = "quadrat")
 #' 
 #' # Find edges with 1 degree of neighborhood (queen method) ----
 #' adour_edges <- create_edges_list(adour_nodes, method = "queen", 

@@ -6,7 +6,7 @@ path_to_file <- system.file("extdata", "adour_survey_sampling.csv",
 sites <- read.csv(path_to_file)
 sites <- sites[1:5, ]
 
-sites <- create_nodes_labels(sites, 
+sites <- create_node_labels(sites, 
                              location = "location", 
                              transect = "transect", 
                              quadrat  = "quadrat")

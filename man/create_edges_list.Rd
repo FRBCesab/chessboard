@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_edges_list.R
 \name{create_edges_list}
 \alias{create_edges_list}
-\title{Create an edges list}
+\title{Create an edge list}
 \usage{
 create_edges_list(
   nodes,
@@ -16,7 +16,7 @@ create_edges_list(
 \arguments{
 \item{nodes}{a \code{data.frame} with (at least) the following three columns:
 \code{node}, \code{transect}, and \code{quadrats}. Must be the output of the function
-\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
+\code{\link[=create_node_labels]{create_node_labels()}}.}
 
 \item{method}{a \code{character} of length 1. The method used to detect neighbors.
 One among \code{'pawn'}, \code{'fool'}, \code{'rook'}, \code{'bishop'}, \code{'bishop_left'},
@@ -68,9 +68,9 @@ of nodes labels in both axes (except if \code{reverse = TRUE}).
 
 It's important to note that, even the package \code{chessboard} is designed to
 deal with spatial networks, this function does not explicitly use spatial
-coordinates to detect neighbors. Instead it uses the \strong{nodes labels}. The
-function \code{\link[=create_nodes_labels]{create_nodes_labels()}} must be used before this function to create
-nodes labels.
+coordinates to detect neighbors. Instead it uses the \strong{node labels}. The
+function \code{\link[=create_node_labels]{create_node_labels()}} must be used before this function to create
+node labels.
 }
 \examples{
 library("chessboard")
@@ -78,9 +78,9 @@ library("chessboard")
 # Two-dimensional sampling (only) ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 
-nodes <- create_nodes_labels(data     = sites_infos, 
-                             transect = "transect", 
-                             quadrat  = "quadrat")
+nodes <- create_node_labels(data     = sites_infos, 
+                            transect = "transect", 
+                            quadrat  = "quadrat")
 
 edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
 edges

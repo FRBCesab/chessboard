@@ -1,6 +1,6 @@
 # Data for tests ----
 
-nodes <- create_nodes_labels(expand.grid("transect" = 1:9, "quadrat" = 1:9), 
+nodes <- create_node_labels(expand.grid("transect" = 1:9, "quadrat" = 1:9), 
                              transect = "transect", 
                              quadrat  = "quadrat")
 

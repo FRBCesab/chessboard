@@ -5,7 +5,7 @@
 #'
 #' @param nodes a `data.frame` with (at least) the following three columns: 
 #'   `node`, `transect`, and `quadrats`. Must be the output if the function 
-#'   [create_nodes_labels()].
+#'   [create_node_labels()].
 #'
 #' @param focus an `character` of length 1. The node label to be emphasized on
 #'   the chessboard. Must exist in the `nodes` object.
@@ -23,9 +23,9 @@
 #' 
 #' sites_infos <- expand.grid("transect" = 1:9, "quadrat" = 1:9)
 #' 
-#' nodes <- create_nodes_labels(data     = sites_infos, 
-#'                              transect = "transect", 
-#'                              quadrat  = "quadrat")
+#' nodes <- create_node_labels(data     = sites_infos, 
+#'                             transect = "transect", 
+#'                             quadrat  = "quadrat")
 #' 
 #' focus <- "5-5"
 #' 

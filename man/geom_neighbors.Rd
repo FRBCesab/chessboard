@@ -9,7 +9,7 @@ geom_neighbors(nodes, neighbors)
 \arguments{
 \item{nodes}{a \code{data.frame} with (at least) the following three columns:
 \code{node}, \code{transect}, and \code{quadrats}. Must be the output if the function
-\code{\link[=create_nodes_labels]{create_nodes_labels()}}.}
+\code{\link[=create_node_labels]{create_node_labels()}}.}
 
 \item{neighbors}{a \code{data.frame} with the following at least three columns:
 \code{node}, \code{transect}, and \code{quadrats}. See \code{\link[=pawn]{pawn()}}, \code{\link[=fool]{fool()}}, etc. for
@@ -27,9 +27,9 @@ library("chessboard")
 # Two-dimensional sampling ----
 sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 
-nodes <- create_nodes_labels(data     = sites_infos, 
-                             transect = "transect", 
-                             quadrat  = "quadrat")
+nodes <- create_node_labels(data     = sites_infos, 
+                            transect = "transect", 
+                            quadrat  = "quadrat")
 
 neighbors <- pawn(nodes, focus = "2-3")
 

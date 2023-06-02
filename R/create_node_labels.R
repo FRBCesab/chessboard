@@ -1,12 +1,12 @@
-#' Create unique nodes labels 
+#' Create unique node labels 
 #'
 #' @description 
-#' Creates unique nodes (sampling units) labels in directed (or undirected) 
+#' Creates unique node (sampling units) labels in directed (or undirected) 
 #' spatial (or not) networks. 
 #' 
 #' It's important to note that, even the package `chessboard` is designed to 
 #' deal with spatial networks, it does not explicitly use spatial coordinates.
-#' Every functions of the package will use the **nodes labels**.
+#' Every functions of the package will use the **node labels**.
 #' 
 #' To work, the package `chessboard` requires that the sampling has two
 #' dimensions: 
@@ -21,7 +21,7 @@
 #' In addition, the package can also deal with multiple locations. In that 
 #' case, users will need to use the argument `location`.
 #' 
-#' The nodes labels will be of the form: `1-2`, where `1` is the identifier of 
+#' The node labels will be of the form: `1-2`, where `1` is the identifier of 
 #' the transect (created by the function if missing), and `2`, the identifier 
 #' of the quadrat (created by the function if missing).
 #' 
@@ -49,7 +49,7 @@
 #'   only). If missing, the network will be considered as one-dimensional.
 #'
 #' @return A `data.frame` with at least the four following columns:
-#' - `node`, the nodes label
+#' - `node`, the node label
 #' - `location`, the identifier of the location
 #' - `transect`, the identifier of the transect
 #' - `quadrat`, the identifier of the quadrat
@@ -64,9 +64,9 @@
 #' sites_infos <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
 #' sites_infos
 #' 
-#' nodes <- create_nodes_labels(data     = sites_infos, 
-#'                              transect = "transect", 
-#'                              quadrat  = "quadrat")
+#' nodes <- create_node_labels(data     = sites_infos, 
+#'                             transect = "transect", 
+#'                             quadrat  = "quadrat")
 #' nodes
 #' 
 #' gg_chessboard(nodes)
@@ -74,8 +74,8 @@
 #' # One-dimensional sampling (only transects) ----
 #' transects_only <- data.frame("transect" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(transects_only,
-#'                              transect = "transect")
+#' nodes <- create_node_labels(transects_only,
+#'                             transect = "transect")
 #' nodes
 #' 
 #' gg_chessboard(nodes)
@@ -83,13 +83,13 @@
 #' # One-dimensional sampling (only quadrats) ----
 #' quadrats_only <- data.frame("quadrat" = 1:5)
 #' 
-#' nodes <- create_nodes_labels(quadrats_only,
-#'                              quadrat = "quadrat")
+#' nodes <- create_node_labels(quadrats_only,
+#'                             quadrat = "quadrat")
 #' nodes
 #' 
 #' gg_chessboard(nodes)
 
-create_nodes_labels <- function(data, location, transect, quadrat) {
+create_node_labels <- function(data, location, transect, quadrat) {
   
   if (missing(data)) {
     stop("The argument 'data' is required", call. = FALSE)
