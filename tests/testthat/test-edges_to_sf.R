@@ -8,7 +8,7 @@ adour_nodes <- create_node_labels(data     = adour_sites,
                                    location = "location", 
                                    transect = "transect", 
                                    quadrat  = "quadrat")
-adour_edges <- create_edges_list(adour_nodes, method = "pawn", 
+adour_edges <- create_edge_list(adour_nodes, method = "pawn", 
                                  directed = TRUE)
 adour_sites_sf <- sf::st_as_sf(adour_nodes, coords = 5:6, crs = "epsg:2154")
 
@@ -17,7 +17,7 @@ test_that("edges_to_sf() - Tests for errors", {
   
   expect_error(edges_to_sf(),
                paste0("Argument 'edges' is required (output of the function ", 
-                      "create_edges_list())"),
+                      "create_edge_list())"),
                fixed = TRUE)
   
   expect_error(edges_to_sf(adour_edges),

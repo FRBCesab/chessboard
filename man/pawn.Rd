@@ -46,7 +46,7 @@ one-dimensional sampling of type \strong{quadrats-only}.
 For sampling of type \strong{transects-only}, please use the function \code{\link[=fool]{fool()}}.
 }
 \details{
-This function is internally called by \code{\link[=create_edges_list]{create_edges_list()}} but it can be
+This function is internally called by \code{\link[=create_edge_list]{create_edge_list()}} but it can be
 directly used to 1) understand the neighbors detection method, and 2) to
 check detected neighbors for one particular node (\code{focus}).
 }

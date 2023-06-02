@@ -29,8 +29,8 @@
 #'                                   quadrat = "quadrat")
 #' 
 #' # Find edges with 1 degree of neighborhood (queen method) ----
-#' adour_edges <- create_edges_list(adour_nodes, method = "queen", 
-#'                                  directed = FALSE)
+#' adour_edges <- create_edge_list(adour_nodes, method = "queen", 
+#'                                 directed = FALSE)
 #' 
 #' # Get connectivity matrix ----
 #' adour_con_matrix <- connectivity_matrix(adour_edges)

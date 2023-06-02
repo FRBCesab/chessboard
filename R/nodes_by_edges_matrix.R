@@ -28,7 +28,7 @@
 #'                             transect = "transect", 
 #'                             quadrat  = "quadrat")
 #' 
-#' edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
+#' edges <- create_edge_list(nodes, method = "pawn", directed = TRUE)
 #' 
 #' # Create nodes-by-edges matrix ----
 #' nodes_by_edges_matrix(edges)

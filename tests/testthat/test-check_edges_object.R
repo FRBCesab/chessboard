@@ -8,35 +8,35 @@ test_that("check_edges_object() - Tests for wrong inputs", {
   
   expect_error(check_edges_object(),
                paste0("Argument 'edges' is required ", 
-                      "(output of the function create_edges_list())"),
+                      "(output of the function create_edge_list())"),
                fixed = TRUE)
   
   expect_error(check_edges_object(letters),
                paste0("Argument 'edges' must be a data.frame ", 
-                      "(output of the function create_edges_list())"),
+                      "(output of the function create_edge_list())"),
                fixed = TRUE)
   
   expect_error(check_edges_object(data.matrix(letters)),
                paste0("Argument 'edges' must be a data.frame ", 
-                      "(output of the function create_edges_list())"),
+                      "(output of the function create_edge_list())"),
                fixed = TRUE)
   
   expect_error(check_edges_object(data.frame(letters)),
                paste0("The column 'from' is absent from the 'edges' ", 
                       "data.frame (output of the function ", 
-                      "create_edges_list())"),
+                      "create_edge_list())"),
                fixed = TRUE)
   
   expect_error(check_edges_object(edges[ , -1, drop = FALSE]),
                paste0("The column 'from' is absent from the 'edges' ", 
                       "data.frame (output of the function ", 
-                      "create_edges_list())"),
+                      "create_edge_list())"),
                fixed = TRUE)
   
   expect_error(check_edges_object(edges[ , -2, drop = FALSE]),
                paste0("The column 'to' is absent from the 'edges' ", 
                       "data.frame (output of the function ", 
-                      "create_edges_list())"),
+                      "create_edge_list())"),
                fixed = TRUE)
   
   expect_error(check_edges_object(edges[0, ]),

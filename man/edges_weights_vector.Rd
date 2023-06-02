@@ -43,8 +43,8 @@ adour_sites_sf <- sf::st_as_sf(adour_sites,
                                crs = "epsg:2154")
 
 # Create edges based on the pawn move (directed network) ----
-adour_edges <- create_edges_list(adour_sites, method = "pawn", 
-                                 directed = TRUE)
+adour_edges <- create_edge_list(adour_sites, method = "pawn", 
+                                directed = TRUE)
 
 # Create nodes-by-edges matrix ----
 adour_matrix <- nodes_by_edges_matrix(adour_edges)

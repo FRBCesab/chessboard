@@ -253,7 +253,7 @@ check_logical_value <- function(boolean) {
 #' Check for the data.frame edges (edges list)
 #'
 #' @param edges a `data.frame` with the column `from` and `to`. The output of 
-#'   the function [create_edges_list()].
+#'   the function [create_edge_list()].
 #'
 #' @noRd
 
@@ -261,22 +261,22 @@ check_edges_object <- function(edges) {
   
   if (missing(edges)) {
     stop("Argument 'edges' is required ", 
-         "(output of the function create_edges_list())", call. = FALSE)
+         "(output of the function create_edge_list())", call. = FALSE)
   }
   
   if (!is.data.frame(edges)) {
     stop("Argument 'edges' must be a data.frame ", 
-         "(output of the function create_edges_list())", call. = FALSE)
+         "(output of the function create_edge_list())", call. = FALSE)
   }
   
   if (!("from" %in% colnames(edges))) {
     stop("The column 'from' is absent from the 'edges' data.frame ", 
-         "(output of the function create_edges_list())", call. = FALSE)
+         "(output of the function create_edge_list())", call. = FALSE)
   }
   
   if (!("to" %in% colnames(edges))) {
     stop("The column 'to' is absent from the 'edges' data.frame ", 
-         "(output of the function create_edges_list())", call. = FALSE)
+         "(output of the function create_edge_list())", call. = FALSE)
   }
  
   if (nrow(edges) == 0) {

@@ -204,7 +204,7 @@ get_nodes_list(adour_sites)
 
 
 The creation of a list of edges (links) between nodes (sampling units) is based 
-on the detection of neighbors. The function `create_edges_list()` implements 
+on the detection of neighbors. The function `create_edge_list()` implements 
 three neighborhood rules:
 
 1. **Degree of neighborhood** (argument `degree`): the number of adjacent 
@@ -225,7 +225,7 @@ of nodes labels in both axes of the grid.
 
 
 Different methods have implemented to define neighborhood (argument `method` 
-of the function `create_edges_list()`). These methods
+of the function `create_edge_list()`). These methods
 are named `'pawn'`, `'rook'`, `'bishop'`, `'queen'`, etc. A complete list of
 available methods is available at: 
 [https://frbcesab.github.io/chessboard/reference/index.html#detect-neighbors](https://frbcesab.github.io/chessboard/reference/index.html#detect-neighbors)
@@ -234,7 +234,7 @@ available methods is available at:
 \
 
 
-Before using the function `create_edges_list()`, users can explore these different
+Before using the function `create_edge_list()`, users can explore these different
 methods by calling the functions `pawn()`, `rook()`, `bishop()`, `queen()`, etc.
 
 Let's take a look of the neighborhood method `pawn()`.
@@ -361,18 +361,18 @@ shows all possible movements implemented in `chessboard`.
 \
 
 
-Now, let's use the function `create_edges_list()` to create an edges list using the
+Now, let's use the function `create_edge_list()` to create an edges list using the
 method `'pawn'` with a degree `1` of neighborhood and in a directional way.
 
 
 ```{r 'create-edges-list-pawn'}
 ## Create edges list ----
-adour_edges_pawn <- create_edges_list(nodes    = adour_sites, 
-                                      method   = "pawn", 
-                                      degree   = 1, 
-                                      directed = TRUE,
-                                      reverse  = FALSE,
-                                      self     = FALSE)
+adour_edges_pawn <- create_edge_list(nodes    = adour_sites, 
+                                     method   = "pawn", 
+                                     degree   = 1, 
+                                     directed = TRUE,
+                                     reverse  = FALSE,
+                                     self     = FALSE)
 
 adour_edges_pawn
 ```
@@ -427,18 +427,18 @@ ggplot(adour_sites_sf) +
 
 
 Users may want to combine different methods to detect neighbors. It's possible
-by using for each method the function `create_edges_list()` and using the
+by using for each method the function `create_edge_list()` and using the
 function `append_edges_lists()` to merge all edges in a single list.
 
 
 ```{r 'create-edges-list-bishop'}
 ## Create edges list (Bishop method) ----
-adour_edges_bishop <- create_edges_list(nodes    = adour_sites, 
-                                        method   = "bishop", 
-                                        degree   = 1, 
-                                        directed = TRUE,
-                                        reverse  = FALSE,
-                                        self     = FALSE)
+adour_edges_bishop <- create_edge_list(nodes    = adour_sites, 
+                                       method   = "bishop", 
+                                       degree   = 1, 
+                                       directed = TRUE,
+                                       reverse  = FALSE,
+                                       self     = FALSE)
 
 adour_edges_bishop
 

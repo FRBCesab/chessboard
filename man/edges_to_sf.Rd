@@ -9,7 +9,7 @@ edges_to_sf(edges, sites)
 \arguments{
 \item{edges}{a \code{data.frame} with the following two columns: \code{from} (the
 first node of the edge) and \code{to} (the second node of the edge). The output
-of the functions \code{\link[=create_edges_list]{create_edges_list()}} or \code{\link[=append_edges_lists]{append_edges_lists()}}.}
+of the functions \code{\link[=create_edge_list]{create_edge_list()}} or \code{\link[=append_edges_lists]{append_edges_lists()}}.}
 
 \item{sites}{an \code{sf} object of type \code{POINT}. A spatial object with
 coordinates of sites (nodes). Note that the \strong{first column} must be the
@@ -39,8 +39,8 @@ adour_nodes <- create_node_labels(data     = adour_sites,
                                   quadrat = "quadrat")
 
 # Find edges with 1 degree of neighborhood (pawn method) ----
-adour_edges <- create_edges_list(adour_nodes, method = "pawn", 
-                                 directed = TRUE)
+adour_edges <- create_edge_list(adour_nodes, method = "pawn", 
+                                directed = TRUE)
 
 # Convert sites to spatial POINT ----
 adour_sites_sf <- sf::st_as_sf(adour_nodes, coords = 5:6, crs = "epsg:2154")
@@ -55,10 +55,10 @@ plot(sf::st_geometry(edges_sf), add = TRUE)
 
 
 # Find edges with 1 degree of neighborhood (pawn and bishop methods) ----
-adour_edges_1 <- create_edges_list(adour_nodes, method = "pawn", 
-                                   directed = TRUE)
-adour_edges_2 <- create_edges_list(adour_nodes, method = "bishop", 
-                                   directed = TRUE)
+adour_edges_1 <- create_edge_list(adour_nodes, method = "pawn", 
+                                  directed = TRUE)
+adour_edges_2 <- create_edge_list(adour_nodes, method = "bishop", 
+                                  directed = TRUE)
 
 # Append edges ----
 adour_edges <- append_edges_lists(adour_edges_1, adour_edges_2)

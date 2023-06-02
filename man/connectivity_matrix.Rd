@@ -15,7 +15,7 @@ connectivity_matrix(
 \arguments{
 \item{edges}{a \code{data.frame} with the following two columns: \code{from} (the
 first node of the edge) and \code{to} (the second node of the edge). The output
-of the functions \code{\link[=create_edges_list]{create_edges_list()}} or \code{\link[=append_edges_lists]{append_edges_lists()}}.}
+of the functions \code{\link[=create_edge_list]{create_edge_list()}} or \code{\link[=append_edges_lists]{append_edges_lists()}}.}
 
 \item{lower}{a \code{logical} value. If \code{TRUE} (default), keep values in the
 lower triangle of the matrix. Otherwise they will be replaced by \code{NA}
@@ -56,8 +56,8 @@ adour_nodes <- create_node_labels(data     = adour_sites,
                                   quadrat = "quadrat")
 
 # Find edges with 1 degree of neighborhood (pawn method) ----
-adour_edges <- create_edges_list(adour_nodes, method = "pawn", 
-                                 directed = TRUE)
+adour_edges <- create_edge_list(adour_nodes, method = "pawn", 
+                                directed = TRUE)
 
 # Get connectivity matrix ----
 connectivity_matrix(adour_edges)

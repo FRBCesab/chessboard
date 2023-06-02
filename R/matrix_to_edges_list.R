@@ -2,7 +2,7 @@
 #' 
 #' @description
 #' Converts an connectivity matrix to an edges list. This function allows to 
-#' create the same edges list as the one obtained with [create_edges_list()].
+#' create the same edges list as the one obtained with [create_edge_list()].
 #' 
 #' @param x a `matrix` object. The connectivity matrix to be converted in an
 #'   edges list.
@@ -28,7 +28,7 @@
 #'                             transect = "transect", 
 #'                             quadrat  = "quadrat")
 #' 
-#' edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
+#' edges <- create_edge_list(nodes, method = "pawn", directed = TRUE)
 #' 
 #' conn_matrix <- connectivity_matrix(edges)
 #' 

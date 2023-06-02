@@ -1,11 +1,11 @@
 #' Append several edges lists
 #' 
 #' @description 
-#' Appends several edges lists created by [create_edges_list()]. Merged edges 
+#' Appends several edges lists created by [create_edge_list()]. Merged edges 
 #' will be ordered and duplicates will be removed.
 #' 
 #' @param ... one or several edges lists `data.frame`. Outputs of the function
-#'   [create_edges_list()].
+#'   [create_edge_list()].
 #'   
 #' @export
 #' 
@@ -19,8 +19,8 @@
 #'                             transect = "transect", 
 #'                             quadrat  = "quadrat")
 #'
-#' edges_1 <- create_edges_list(nodes, method = "pawn", directed = TRUE)
-#' edges_2 <- create_edges_list(nodes, method = "bishop", directed = TRUE)
+#' edges_1 <- create_edge_list(nodes, method = "pawn", directed = TRUE)
+#' edges_2 <- create_edge_list(nodes, method = "bishop", directed = TRUE)
 #' 
 #' edges <- append_edges_lists(edges_1, edges_2)
 

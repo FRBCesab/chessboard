@@ -11,7 +11,7 @@ sites <- create_node_labels(sites,
                              transect = "transect", 
                              quadrat  = "quadrat")
 
-edges <- create_edges_list(sites, method = "pawn", directed = TRUE)
+edges <- create_edge_list(sites, method = "pawn", directed = TRUE)
 nodes_edges <- nodes_by_edges_matrix(edges)
 
 nodes_edges_bad <- nodes_edges

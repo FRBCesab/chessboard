@@ -8,10 +8,10 @@ append_edges_lists(...)
 }
 \arguments{
 \item{...}{one or several edges lists \code{data.frame}. Outputs of the function
-\code{\link[=create_edges_list]{create_edges_list()}}.}
+\code{\link[=create_edge_list]{create_edge_list()}}.}
 }
 \description{
-Appends several edges lists created by \code{\link[=create_edges_list]{create_edges_list()}}. Merged edges
+Appends several edges lists created by \code{\link[=create_edge_list]{create_edge_list()}}. Merged edges
 will be ordered and duplicates will be removed.
 }
 \examples{
@@ -24,8 +24,8 @@ nodes <- create_node_labels(data     = sites_infos,
                             transect = "transect", 
                             quadrat  = "quadrat")
 
-edges_1 <- create_edges_list(nodes, method = "pawn", directed = TRUE)
-edges_2 <- create_edges_list(nodes, method = "bishop", directed = TRUE)
+edges_1 <- create_edge_list(nodes, method = "pawn", directed = TRUE)
+edges_2 <- create_edge_list(nodes, method = "bishop", directed = TRUE)
 
 edges <- append_edges_lists(edges_1, edges_2)
 }

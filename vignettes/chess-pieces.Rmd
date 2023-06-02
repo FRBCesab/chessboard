@@ -129,12 +129,12 @@ Figure 2 shows the connectivity matrix of the 9 x 9 network when neighbors of al
 are detected by the `pawn` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "pawn", degree = 4, ...)
+create_edge_list(nodes, method = "pawn", degree = 4, ...)
 ```
 
 
 ```{r 'cb-pawn-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 2. Connectivity matrices of the **Pawn** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "pawn", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -145,7 +145,7 @@ pawn_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "pawn", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -156,7 +156,7 @@ pawn_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "pawn", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -222,7 +222,7 @@ Figure 4 shows the connectivity matrix of the 9 x 9 network when neighbors of al
 are detected by the `fool` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "fool", degree = 4, ...)
+create_edge_list(nodes, method = "fool", degree = 4, ...)
 ```
 
 
@@ -230,7 +230,7 @@ create_edges_list(nodes, method = "fool", degree = 4, ...)
 
 
 ```{r 'cb-fool-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 4. Connectivity matrices of the **Fool** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "fool", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -241,7 +241,7 @@ fool_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "fool", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -252,7 +252,7 @@ fool_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "fool", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -318,7 +318,7 @@ Figure 6 shows the connectivity matrix of the 9 x 9 network when neighbors of al
 are detected by the `rook` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "rook", degree = 4, ...)
+create_edge_list(nodes, method = "rook", degree = 4, ...)
 ```
 
 
@@ -326,7 +326,7 @@ create_edges_list(nodes, method = "rook", degree = 4, ...)
 
 
 ```{r 'cb-rook-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 6. Connectivity matrices of the **Rook** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "rook", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -337,7 +337,7 @@ rook_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "rook", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -348,7 +348,7 @@ rook_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "rook", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -416,7 +416,7 @@ Figure 8 shows the connectivity matrix of the 9 x 9 network when neighbors of al
 are detected by the `bishop` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "bishop", degree = 4, ...)
+create_edge_list(nodes, method = "bishop", degree = 4, ...)
 ```
 
 
@@ -424,7 +424,7 @@ create_edges_list(nodes, method = "bishop", degree = 4, ...)
 
 
 ```{r 'cb-bishop-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 8. Connectivity matrices of the **Bishop** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "bishop", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -435,7 +435,7 @@ bishop_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "bishop", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -446,7 +446,7 @@ bishop_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "bishop", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -512,7 +512,7 @@ Figure 10 shows the connectivity matrix of the 9 x 9 network when neighbors of a
 are detected by the `bishop_right` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "bishop_right", degree = 4, ...)
+create_edge_list(nodes, method = "bishop_right", degree = 4, ...)
 ```
 
 
@@ -520,7 +520,7 @@ create_edges_list(nodes, method = "bishop_right", degree = 4, ...)
 
 
 ```{r 'cb-bishop_right-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 10. Connectivity matrices of the **Bishop right** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "bishop_right", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -531,7 +531,7 @@ bishop_right_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") 
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "bishop_right", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -542,7 +542,7 @@ bishop_right_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "bishop_right", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -609,7 +609,7 @@ Figure 12 shows the connectivity matrix of the 9 x 9 network when neighbors of a
 are detected by the `bishop_left` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "bishop_left", degree = 4, ...)
+create_edge_list(nodes, method = "bishop_left", degree = 4, ...)
 ```
 
 
@@ -617,7 +617,7 @@ create_edges_list(nodes, method = "bishop_left", degree = 4, ...)
 
 
 ```{r 'cb-bishop_left-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 12. Connectivity matrices of the **Bishop left** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "bishop_left", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -628,7 +628,7 @@ bishop_left_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "bishop_left", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -639,7 +639,7 @@ bishop_left_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "bishop_left", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -705,7 +705,7 @@ Figure 14 shows the connectivity matrix of the 9 x 9 network when neighbors of a
 are detected by the `knight` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "knight", degree = 4, ...)
+create_edge_list(nodes, method = "knight", degree = 4, ...)
 ```
 
 
@@ -713,7 +713,7 @@ create_edges_list(nodes, method = "knight", degree = 4, ...)
 
 
 ```{r 'cb-knight-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 14. Connectivity matrices of the **Knight** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "knight", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -724,7 +724,7 @@ knight_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "knight", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -735,7 +735,7 @@ knight_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "knight", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -801,7 +801,7 @@ Figure 16 shows the connectivity matrix of the 9 x 9 network when neighbors of a
 are detected by the `knight_right` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "knight_right", degree = 4, ...)
+create_edge_list(nodes, method = "knight_right", degree = 4, ...)
 ```
 
 
@@ -809,7 +809,7 @@ create_edges_list(nodes, method = "knight_right", degree = 4, ...)
 
 
 ```{r 'cb-knight_right-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 16. Connectivity matrices of the **Knight right** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "knight_right", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -820,7 +820,7 @@ knight_right_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") 
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "knight_right", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -831,7 +831,7 @@ knight_right_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "knight_right", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -896,7 +896,7 @@ Figure 18 shows the connectivity matrix of the 9 x 9 network when neighbors of a
 are detected by the `knight_left` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "knight_left", degree = 4, ...)
+create_edge_list(nodes, method = "knight_left", degree = 4, ...)
 ```
 
 
@@ -904,7 +904,7 @@ create_edges_list(nodes, method = "knight_left", degree = 4, ...)
 
 
 ```{r 'cb-knight_left-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 18. Connectivity matrices of the **Knight left** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "knight_left", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -915,7 +915,7 @@ knight_left_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "knight_left", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -926,7 +926,7 @@ knight_left_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "knight_left", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -994,7 +994,7 @@ Figure 20 shows the connectivity matrix of the 9 x 9 network when neighbors of a
 are detected by the `queen` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "queen", degree = 4, ...)
+create_edge_list(nodes, method = "queen", degree = 4, ...)
 ```
 
 
@@ -1002,7 +1002,7 @@ create_edges_list(nodes, method = "queen", degree = 4, ...)
 
 
 ```{r 'cb-queen-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 20. Connectivity matrices of the **Queen** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "queen", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -1013,7 +1013,7 @@ queen_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "queen", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -1024,7 +1024,7 @@ queen_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "queen", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -1089,7 +1089,7 @@ Figure 22 shows the connectivity matrix of the 9 x 9 network when neighbors of a
 are detected by the `wizard` method and with a degree of neighborhood of 4.
 
 ```{r eval=FALSE, echo=TRUE}
-create_edges_list(nodes, method = "wizard", degree = 4, ...)
+create_edge_list(nodes, method = "wizard", degree = 4, ...)
 ```
 
 
@@ -1097,7 +1097,7 @@ create_edges_list(nodes, method = "wizard", degree = 4, ...)
 
 
 ```{r 'cb-wizard-mat', eval=TRUE, fig.height=4.3, fig.width=12, echo=FALSE, fig.cap="Figure 22. Connectivity matrices of the **Wizard** (with degree = 4)", out.width='100%'}
-nb_1 <- create_edges_list(nodes, 
+nb_1 <- create_edge_list(nodes, 
                           method   = "wizard", 
                           degree   = 4, 
                           directed = FALSE, 
@@ -1108,7 +1108,7 @@ wizard_1 <- gg_matrix(connectivity_matrix(nb_1), "A. Undirected network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_2 <- create_edges_list(nodes, 
+nb_2 <- create_edge_list(nodes, 
                           method   = "wizard", 
                           degree   = 4, 
                           directed = TRUE, 
@@ -1119,7 +1119,7 @@ wizard_2 <- gg_matrix(connectivity_matrix(nb_2), "B. Directed network") +
         plot.caption = ggplot2::element_text(family = "mono", size = 12, 
             face = "bold", hjust = 0.5))
 
-nb_3 <- create_edges_list(nodes, 
+nb_3 <- create_edge_list(nodes, 
                           method   = "wizard", 
                           degree   = 4, 
                           directed = TRUE, 

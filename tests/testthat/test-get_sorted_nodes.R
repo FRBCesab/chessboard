@@ -4,7 +4,7 @@ test_that("get_sorted_nodes() - Tests for errors", {
 
   expect_error(get_sorted_nodes(),
                paste0("Argument 'edges' is required (output of the function ", 
-                      "create_edges_list())"),
+                      "create_edge_list())"),
                fixed = TRUE)
 })
 

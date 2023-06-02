@@ -8,7 +8,7 @@ adour_nodes <- create_node_labels(data     = adour_sites,
                                    location = "location", 
                                    transect = "transect", 
                                    quadrat  = "quadrat")
-adour_edges <- create_edges_list(adour_nodes, method = "pawn", 
+adour_edges <- create_edge_list(adour_nodes, method = "pawn", 
                                  directed = TRUE)
 adour_sites_sf <- sf::st_as_sf(adour_nodes, coords = 5:6, crs = "epsg:2154")
 edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)

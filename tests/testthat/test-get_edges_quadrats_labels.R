@@ -6,7 +6,7 @@ test_that("get_edges_quadrats_labels() - Tests for errors", {
   
   expect_error(get_edges_quadrats_labels(),
               paste0("Argument 'edges' is required (output of the function ", 
-                     "create_edges_list())"),
+                     "create_edge_list())"),
                fixed = TRUE)
 })
 

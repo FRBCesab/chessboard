@@ -11,7 +11,7 @@
 #' For sampling of type **transects-only** or **quadrats-only**, 
 #' please use the functions [fool()] or [pawn()], respectively.
 #' 
-#' @inheritParams create_edges_list
+#' @inheritParams create_edge_list
 #' 
 #' @param focus an `character` of length 1. The node label for which the 
 #'   neighbors must be found. Must exist in the `nodes` object.
@@ -20,7 +20,7 @@
 #'   of the focal node.
 #' 
 #' @details 
-#' This function is internally called by [create_edges_list()] but it can be
+#' This function is internally called by [create_edge_list()] but it can be
 #' directly used to 1) understand the neighbors detection method, and 2) to 
 #' check detected neighbors for one particular node (`focus`).
 #' 

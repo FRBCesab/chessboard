@@ -31,8 +31,8 @@
 #'                                   quadrat = "quadrat")
 #' 
 #' # Find edges with 1 degree of neighborhood (pawn method) ----
-#' adour_edges <- create_edges_list(adour_nodes, method = "pawn", 
-#'                                  directed = TRUE)
+#' adour_edges <- create_edge_list(adour_nodes, method = "pawn", 
+#'                                 directed = TRUE)
 #' 
 #' # Convert sites to spatial POINT ----
 #' adour_sites_sf <- sf::st_as_sf(adour_nodes, coords = 5:6, crs = "epsg:2154")
@@ -47,10 +47,10 @@
 #' 
 #' 
 #' # Find edges with 1 degree of neighborhood (pawn and bishop methods) ----
-#' adour_edges_1 <- create_edges_list(adour_nodes, method = "pawn", 
-#'                                    directed = TRUE)
-#' adour_edges_2 <- create_edges_list(adour_nodes, method = "bishop", 
-#'                                    directed = TRUE)
+#' adour_edges_1 <- create_edge_list(adour_nodes, method = "pawn", 
+#'                                   directed = TRUE)
+#' adour_edges_2 <- create_edge_list(adour_nodes, method = "bishop", 
+#'                                   directed = TRUE)
 #' 
 #' # Append edges ----
 #' adour_edges <- append_edges_lists(adour_edges_1, adour_edges_2)

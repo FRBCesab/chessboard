@@ -11,7 +11,7 @@ sites <- create_node_labels(sites,
                              transect = "transect", 
                              quadrat  = "quadrat")
 
-edges   <- create_edges_list(sites, method = "pawn", directed = FALSE)
+edges   <- create_edge_list(sites, method = "pawn", directed = FALSE)
 mat_adj <- connectivity_matrix(edges)
 
 sites_sf <- sf::st_as_sf(sites, coords = c("longitude", "latitude"),

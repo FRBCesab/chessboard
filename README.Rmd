@@ -183,14 +183,14 @@ the arguments `degree`, `directed`, `reverse` and `self`.
 
 
 Now we can detect the neighbors for the 25 nodes using the function 
-[`create_edges_list()`](https://frbcesab.github.io/chessboard/reference/create_edges_list.html).
+[`create_edge_list()`](https://frbcesab.github.io/chessboard/reference/create_edge_list.html).
 
 ```{r}
 # Create edges according to the bishop move (for all nodes) ----
-edges <- create_edges_list(nodes    = nodes,
-                           method   = "bishop",
-                           degree   = 2, 
-                           directed = FALSE)
+edges <- create_edge_list(nodes    = nodes,
+                          method   = "bishop",
+                          degree   = 2, 
+                          directed = FALSE)
 
 head(edges)
 ```

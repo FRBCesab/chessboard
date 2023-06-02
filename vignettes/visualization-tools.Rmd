@@ -190,7 +190,7 @@ For the rest of the vignette let's create the edges list using the queen move.
 
 ```{r 'edges-queen', echo=TRUE}
 # Edges list ----
-edges <- create_edges_list(nodes, method = "queen")
+edges <- create_edge_list(nodes, method = "queen")
 
 head(edges)
 ```

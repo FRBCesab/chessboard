@@ -66,14 +66,14 @@
 #'                             transect = "transect", 
 #'                             quadrat  = "quadrat")
 #'
-#' edges <- create_edges_list(nodes, method = "pawn", directed = TRUE)
+#' edges <- create_edge_list(nodes, method = "pawn", directed = TRUE)
 #' edges
 #' 
-#' edges <- create_edges_list(nodes, method = "bishop", directed = TRUE)
+#' edges <- create_edge_list(nodes, method = "bishop", directed = TRUE)
 #' edges
 
-create_edges_list <- function(nodes, method, degree = 1, directed = FALSE, 
-                              reverse = FALSE, self = FALSE) {
+create_edge_list <- function(nodes, method, degree = 1, directed = FALSE, 
+                             reverse = FALSE, self = FALSE) {
   
   ## Check arguments ----
   

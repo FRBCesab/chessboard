@@ -6,7 +6,7 @@
 #' 
 #' @param edges a `data.frame` with the following two columns: `from` (the 
 #'   first node of the edge) and `to` (the second node of the edge). The output
-#'   of the functions [create_edges_list()] or [append_edges_lists()].
+#'   of the functions [create_edge_list()] or [append_edges_lists()].
 #' 
 #' @param lower a `logical` value. If `TRUE` (default), keep values in the 
 #'   lower triangle of the matrix. Otherwise they will be replaced by `NA` 
@@ -44,8 +44,8 @@
 #'                                   quadrat = "quadrat")
 #' 
 #' # Find edges with 1 degree of neighborhood (pawn method) ----
-#' adour_edges <- create_edges_list(adour_nodes, method = "pawn", 
-#'                                  directed = TRUE)
+#' adour_edges <- create_edge_list(adour_nodes, method = "pawn", 
+#'                                 directed = TRUE)
 #' 
 #' # Get connectivity matrix ----
 #' connectivity_matrix(adour_edges)

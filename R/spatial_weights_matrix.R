@@ -34,8 +34,8 @@
 #'                                   quadrat  = "quadrat")
 #' 
 #' # Create edges based on the pawn move (directed network) ----
-#' adour_edges <- create_edges_list(adour_sites, method = "pawn", 
-#'                                  directed = TRUE)
+#' adour_edges <- create_edge_list(adour_sites, method = "pawn", 
+#'                                 directed = TRUE)
 #'
 #' # Get connectivity matrix ----
 #' adour_adjacency <- connectivity_matrix(adour_edges)

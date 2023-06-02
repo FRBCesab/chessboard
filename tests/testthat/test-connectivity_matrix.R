@@ -8,20 +8,20 @@ adour_nodes <- create_node_labels(data     = adour_sites,
                                    location = "location", 
                                    transect = "transect", 
                                    quadrat  = "quadrat")
-adour_edges <- create_edges_list(adour_nodes, method = "pawn", 
+adour_edges <- create_edge_list(adour_nodes, method = "pawn", 
                                  directed = TRUE)
 
 test_that("connectivity_matrix() - Tests for errors", {
   
   expect_error(connectivity_matrix(),
                paste0("Argument 'edges' is required (output of the function ", 
-                      "create_edges_list())"),
+                      "create_edge_list())"),
                fixed = TRUE)
   
   expect_error(connectivity_matrix(adour_nodes),
                paste0("The column 'from' is absent from the 'edges' ", 
                       "data.frame (output of the function ", 
-                      "create_edges_list())"),
+                      "create_edge_list())"),
                fixed = TRUE)
 })
 
