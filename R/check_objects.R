@@ -250,7 +250,7 @@ check_logical_value <- function(boolean) {
 
 
 
-#' Check for the data.frame edges (edges list)
+#' Check for the data.frame edges (edge list)
 #'
 #' @param edges a `data.frame` with the column `from` and `to`. The output of 
 #'   the function [create_edge_list()].

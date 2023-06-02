@@ -23,9 +23,9 @@ of dimensions `n x n`, where `n` is the number of **nodes** (sampling units)
 indicating the presence (`1`) or the absence (`0`) of an **edge** (link) 
 between pairs of nodes. Different network objects can be produced by `chessboard`:
 
-- **nodes list**
-- **neighbors list**
-- **edges list**
+- **node list**
+- **neighbor list**
+- **edge list**
 - **connectivity matrix**
 
 
@@ -361,12 +361,12 @@ shows all possible movements implemented in `chessboard`.
 \
 
 
-Now, let's use the function `create_edge_list()` to create an edges list using the
+Now, let's use the function `create_edge_list()` to create an edge list using the
 method `'pawn'` with a degree `1` of neighborhood and in a directional way.
 
 
 ```{r 'create-edges-list-pawn'}
-## Create edges list ----
+## Create edge list ----
 adour_edges_pawn <- create_edge_list(nodes    = adour_sites, 
                                      method   = "pawn", 
                                      degree   = 1, 
@@ -396,12 +396,12 @@ head(adour_sites_sf)
 \
 
 
-Now we can use the function `edges_to_sf()` to convert our edges list 
+Now we can use the function `edges_to_sf()` to convert our edge list 
 into a spatial object (`LINESTRING`).
 
 
 ```{r 'edges-list-to-sf'}
-## Convert edges list to sf ----
+## Convert edge list to sf ----
 adour_edges_pawn_sf <- edges_to_sf(edges = adour_edges_pawn, 
                                    sites = adour_sites_sf)
 
@@ -432,7 +432,7 @@ function `append_edge_lists()` to merge all edges in a single list.
 
 
 ```{r 'create-edges-list-bishop'}
-## Create edges list (Bishop method) ----
+## Create edge list (Bishop method) ----
 adour_edges_bishop <- create_edge_list(nodes    = adour_sites, 
                                        method   = "bishop", 
                                        degree   = 1, 
@@ -467,7 +467,7 @@ ggplot(adour_sites_sf) +
 
 ## Connectivity matrix
 
-From this edges list, we can build a **connectivity matrix**, i.e. a binary 
+From this edge list, we can build a **connectivity matrix**, i.e. a binary 
 matrix of dimensions `n x n`, where `n` is the number of nodes (sampling units) 
 indicating the presence (`1`) or the absence (`0`) of an edge (link) between pairs 
 of nodes.
@@ -498,7 +498,7 @@ gg_matrix(adour_matrix)
 \
 
 Optionally, we can use the function `matrix_to_edge_list()` to convert back the
-connectivity matrix to edges list.
+connectivity matrix to edge list.
 
 ```{r 'connectivity-matrix-to-df'}
 ## Convert connectivity matrix to edge list ----
@@ -550,7 +550,7 @@ This function returns a list with the following elements:
   - `se.mat`: the nodes-by-edges matrix of dimensions `n x k`, where `n` is the 
 number of nodes and `k` the number of edges (including the edge between the 
                                              fictitious origin and the first site);
-- `edges`: a `data.frame` of edges list.
+- `edges`: a `data.frame` of edge list.
 
 
 \

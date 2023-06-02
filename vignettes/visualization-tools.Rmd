@@ -155,7 +155,7 @@ gg_chessboard(nodes) +
 ```
 
 
-Now let's call the function `bishop()` to create a second edges list.
+Now let's call the function `bishop()` to create a second edge list.
 
 
 ```{r 'nb-bishop', echo=TRUE}
@@ -185,7 +185,7 @@ gg_chessboard(nodes) +
 
 
 These two previous moves (rook and bishop) combined together are equivalent to the [queen](https://en.wikipedia.org/wiki/Queen_(chess)).
-For the rest of the vignette let's create the edges list using the queen move.
+For the rest of the vignette let's create the edge list using the queen move.
 
 
 ```{r 'edges-queen', echo=TRUE}
@@ -196,7 +196,7 @@ head(edges)
 ```
 
 
-From this edges list, we can build the associated connectivity matrix with the
+From this edge list, we can build the associated connectivity matrix with the
 function `connectivity_matrix()`.
 
 ```{r 'connectivity-matrix', echo=TRUE}
@@ -231,7 +231,7 @@ nodes_sf <- sf::st_as_sf(nodes,
 nodes_sf
 ```
 
-To convert our edges list into a spatial object, we can use the function `edges_to_sf()`.
+To convert our edge list into a spatial object, we can use the function `edges_to_sf()`.
 
 
 

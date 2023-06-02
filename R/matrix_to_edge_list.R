@@ -2,7 +2,7 @@
 #' 
 #' @description
 #' Converts a connectivity matrix to an edge list. This function allows to 
-#' create the same edges list as the one obtained with [create_edge_list()].
+#' create the same edge list as the one obtained with [create_edge_list()].
 #' 
 #' @param x a `matrix` object. The connectivity matrix to be converted in an
 #'   edge list.
@@ -32,7 +32,7 @@
 #' 
 #' conn_matrix <- connectivity_matrix(edges)
 #' 
-#' # Convert back to edges list ----
+#' # Convert back to edge list ----
 #' new_edges <- matrix_to_edge_list(conn_matrix)
 #' new_edges
 #' 

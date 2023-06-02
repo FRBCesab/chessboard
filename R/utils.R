@@ -54,7 +54,7 @@ create_edges_id <- function(edges) {
                       "nodes_int" = seq_len(length(nodes)))
   
   
-  ## Add information on nodes in edges list ----
+  ## Add information on nodes in edge list ----
   
   edges <- merge(edges, nodes, by.x = "from", by.y = "node")
   colnames(edges)[ncol(edges)] <- "from_int"
@@ -71,7 +71,7 @@ create_edges_id <- function(edges) {
   edges_up   <- edges[which(edges$"from_int" >  edges$"to_int"), ]
   
   
-  ## Sort edges list ----
+  ## Sort edge list ----
   
   edges_down <- edges_down[with(edges_down, order(from, to)), ]
   
@@ -174,7 +174,7 @@ get_sorted_nodes <- function(edges) {
 
 
 
-#' Extract transects labels from an edges list
+#' Extract transects labels from an edge list
 #'
 #' @inheritParams edges_to_sf
 #' 
@@ -195,7 +195,7 @@ get_edges_transects_labels <- function(edges) {
 
 
 
-#' Extract quadrats labels from an edges list
+#' Extract quadrats labels from an edge list
 #'
 #' @inheritParams edges_to_sf
 #' 
@@ -245,7 +245,7 @@ create_origin_edges <- function(origins) {
 
 
 
-#' Create edges list (for nodes by edges matrix)
+#' Create edge list (for nodes by edges matrix)
 #' 
 #' @param direction a `character` of length 1. One of `'main'`, `'ortho_r'`, 
 #'   and `'ortho_l'`.

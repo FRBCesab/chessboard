@@ -16,7 +16,7 @@ A list of two elements:
 \item \code{se.mat}: the nodes-by-edges matrix of dimensions \verb{n x k}, where \code{n} is
 the number of nodes and \code{k} the number of edges (including the edge
 between the fictitious origin and the first site);
-\item \code{edges}: a \code{data.frame} of edges list.
+\item \code{edges}: a \code{data.frame} of edge list.
 }
 }
 \description{

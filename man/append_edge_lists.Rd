@@ -7,7 +7,7 @@
 append_edge_lists(...)
 }
 \arguments{
-\item{...}{one or several edges lists \code{data.frame}. Outputs of the function
+\item{...}{one or several edge lists \code{data.frame}. Outputs of the function
 \code{\link[=create_edge_list]{create_edge_list()}}.}
 }
 \description{

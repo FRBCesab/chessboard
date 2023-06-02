@@ -13,7 +13,7 @@
 #' - `se.mat`: the nodes-by-edges matrix of dimensions `n x k`, where `n` is 
 #'   the number of nodes and `k` the number of edges (including the edge 
 #'   between the fictitious origin and the first site);
-#' - `edges`: a `data.frame` of edges list.
+#' - `edges`: a `data.frame` of edge list.
 #' 
 #' @export
 #'
@@ -136,7 +136,7 @@ nodes_by_edges_matrix <- function(edges) {
   mat <- ifelse(is.na(mat), 0, mat) 
   
   
-  ## Prepare final edges list ----
+  ## Prepare final edge list ----
   
   row_names <- nodes_edges[!duplicated(nodes_edges$"edge_id"), "edge_id"]
   edges <- rbind(edges_main, edges_ortho_r, edges_ortho_l)

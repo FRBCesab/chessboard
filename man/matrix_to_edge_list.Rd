@@ -23,7 +23,7 @@ A \code{data.frame} with two (or three) columns:
 }
 \description{
 Converts a connectivity matrix to an edge list. This function allows to
-create the same edges list as the one obtained with \code{\link[=create_edge_list]{create_edge_list()}}.
+create the same edge list as the one obtained with \code{\link[=create_edge_list]{create_edge_list()}}.
 }
 \examples{
 library("chessboard")
@@ -40,7 +40,7 @@ edges <- create_edge_list(nodes, method = "pawn", directed = TRUE)
 
 conn_matrix <- connectivity_matrix(edges)
 
-# Convert back to edges list ----
+# Convert back to edge list ----
 new_edges <- matrix_to_edge_list(conn_matrix)
 new_edges
 

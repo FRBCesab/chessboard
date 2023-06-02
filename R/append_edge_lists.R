@@ -4,7 +4,7 @@
 #' Appends several edge lists created by [create_edge_list()]. Merged edges 
 #' will be ordered and duplicates will be removed.
 #' 
-#' @param ... one or several edges lists `data.frame`. Outputs of the function
+#' @param ... one or several edge lists `data.frame`. Outputs of the function
 #'   [create_edge_list()].
 #'   
 #' @export
@@ -31,16 +31,16 @@ append_edge_lists <- function(...) {
   edges <- list(...)
   
 
-  ## Check edges lists ----
+  ## Check edge lists ----
 
   if (length(edges) == 0) {
-   stop("Please provide at least one edges list", call. = FALSE) 
+   stop("Please provide at least one edge list", call. = FALSE) 
   }
   
   lapply(edges, check_edges_object)
   
   
-  ## Append edges lists ----
+  ## Append edge lists ----
   
   edges <- do.call(rbind.data.frame, edges)
   
