@@ -9,11 +9,11 @@ edges_to_sf(edges, sites)
 \arguments{
 \item{edges}{a \code{data.frame} with the following two columns: \code{from} (the
 first node of the edge) and \code{to} (the second node of the edge). The output
-of the functions \code{\link[=create_edge_list]{create_edge_list()}} or \code{\link[=append_edges_lists]{append_edges_lists()}}.}
+of the functions \code{\link[=create_edge_list]{create_edge_list()}} or \code{\link[=append_edge_lists]{append_edge_lists()}}.}
 
 \item{sites}{an \code{sf} object of type \code{POINT}. A spatial object with
 coordinates of sites (nodes). Note that the \strong{first column} must be the
-nodes labels.}
+node labels.}
 }
 \value{
 An \code{sf} spatial object of type \code{LINESTRING} where the number of rows
@@ -61,7 +61,7 @@ adour_edges_2 <- create_edge_list(adour_nodes, method = "bishop",
                                   directed = TRUE)
 
 # Append edges ----
-adour_edges <- append_edges_lists(adour_edges_1, adour_edges_2)
+adour_edges <- append_edge_lists(adour_edges_1, adour_edges_2)
 
 # Convert sites to spatial POINT ----
 adour_sites_sf <- sf::st_as_sf(adour_nodes, coords = 5:6, crs = "epsg:2154")

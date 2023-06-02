@@ -1,12 +1,12 @@
-#' Create a connectivity matrix from an edges list
+#' Create a connectivity matrix from an edge list
 #' 
 #' @description
-#' Converts an edges list to an connectivity matrix (also known as adjacency
+#' Converts an edge list to an connectivity matrix (also known as adjacency
 #' matrix).
 #' 
 #' @param edges a `data.frame` with the following two columns: `from` (the 
 #'   first node of the edge) and `to` (the second node of the edge). The output
-#'   of the functions [create_edge_list()] or [append_edges_lists()].
+#'   of the functions [create_edge_list()] or [append_edge_lists()].
 #' 
 #' @param lower a `logical` value. If `TRUE` (default), keep values in the 
 #'   lower triangle of the matrix. Otherwise they will be replaced by `NA` 

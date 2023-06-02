@@ -1,7 +1,7 @@
-#' Append several edges lists
+#' Append several edge lists
 #' 
 #' @description 
-#' Appends several edges lists created by [create_edge_list()]. Merged edges 
+#' Appends several edge lists created by [create_edge_list()]. Merged edges 
 #' will be ordered and duplicates will be removed.
 #' 
 #' @param ... one or several edges lists `data.frame`. Outputs of the function
@@ -22,9 +22,9 @@
 #' edges_1 <- create_edge_list(nodes, method = "pawn", directed = TRUE)
 #' edges_2 <- create_edge_list(nodes, method = "bishop", directed = TRUE)
 #' 
-#' edges <- append_edges_lists(edges_1, edges_2)
+#' edges <- append_edge_lists(edges_1, edges_2)
 
-append_edges_lists <- function(...) {
+append_edge_lists <- function(...) {
   
   ## Catch arguments ----
   

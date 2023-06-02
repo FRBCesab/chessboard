@@ -428,7 +428,7 @@ ggplot(adour_sites_sf) +
 
 Users may want to combine different methods to detect neighbors. It's possible
 by using for each method the function `create_edge_list()` and using the
-function `append_edges_lists()` to merge all edges in a single list.
+function `append_edge_lists()` to merge all edges in a single list.
 
 
 ```{r 'create-edges-list-bishop'}
@@ -443,7 +443,7 @@ adour_edges_bishop <- create_edge_list(nodes    = adour_sites,
 adour_edges_bishop
 
 ## Merge Pawn and Bishop edges ----
-adour_edges <- append_edges_lists(adour_edges_pawn, adour_edges_bishop)
+adour_edges <- append_edge_lists(adour_edges_pawn, adour_edges_bishop)
 
 ## Convert edges to spatial layer ----
 adour_edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)

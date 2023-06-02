@@ -6,7 +6,7 @@ reference:
     - create_node_labels
     - get_nodes_list
     - create_edge_list
-    - append_edges_lists
+    - append_edge_lists
     - edges_to_sf
     - connectivity_matrix
     - append_matrix

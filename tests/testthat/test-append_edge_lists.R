@@ -4,19 +4,19 @@ edges     <- data.frame("from" = c("1-1", "1-2"), "to" = c("1-2", "1-3"))
 edges_bis <- data.frame("from" = c("2-1", "2-2"), "to" = c("2-2", "2-3"))
 edges_ter <- data.frame("from" = c("1-1", "2-2"), "to" = c("1-2", "2-3"))
 
-test_that("append_edges_lists() - Tests for errors", {
+test_that("append_edge_lists() - Tests for errors", {
   
-  expect_error(append_edges_lists(),
+  expect_error(append_edge_lists(),
                "Please provide at least one edges list",
                fixed = TRUE)
 })
 
 
-test_that("append_edges_lists() - Tests for success", {
+test_that("append_edge_lists() - Tests for success", {
   
   # One edges list ----
   
-  expect_silent({ edges_l <- append_edges_lists(edges) })
+  expect_silent({ edges_l <- append_edge_lists(edges) })
   
   expect_equal(class(edges_l), "data.frame")
   expect_equal(ncol(edges_l), 2L)
@@ -27,7 +27,7 @@ test_that("append_edges_lists() - Tests for success", {
   
   # Two duplicated edges lists ----
   
-  expect_silent({ edges_l <- append_edges_lists(edges, edges) })
+  expect_silent({ edges_l <- append_edge_lists(edges, edges) })
   
   expect_equal(class(edges_l), "data.frame")
   expect_equal(ncol(edges_l), 2L)
@@ -38,7 +38,7 @@ test_that("append_edges_lists() - Tests for success", {
   
   # Two different edges lists ----
   
-  expect_silent({ edges_l <- append_edges_lists(edges, edges_bis) })
+  expect_silent({ edges_l <- append_edge_lists(edges, edges_bis) })
   
   expect_equal(class(edges_l), "data.frame")
   expect_equal(ncol(edges_l), 2L)
@@ -49,7 +49,7 @@ test_that("append_edges_lists() - Tests for success", {
   
   # Two different edges lists w/ duplicates ----
   
-  expect_silent({ edges_l <- append_edges_lists(edges, edges_ter) })
+  expect_silent({ edges_l <- append_edge_lists(edges, edges_ter) })
   
   expect_equal(class(edges_l), "data.frame")
   expect_equal(ncol(edges_l), 2L)

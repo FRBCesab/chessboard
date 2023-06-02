@@ -2,7 +2,7 @@
 % Please edit documentation in R/connectivity_matrix.R
 \name{connectivity_matrix}
 \alias{connectivity_matrix}
-\title{Create a connectivity matrix from an edges list}
+\title{Create a connectivity matrix from an edge list}
 \usage{
 connectivity_matrix(
   edges,
@@ -15,7 +15,7 @@ connectivity_matrix(
 \arguments{
 \item{edges}{a \code{data.frame} with the following two columns: \code{from} (the
 first node of the edge) and \code{to} (the second node of the edge). The output
-of the functions \code{\link[=create_edge_list]{create_edge_list()}} or \code{\link[=append_edges_lists]{append_edges_lists()}}.}
+of the functions \code{\link[=create_edge_list]{create_edge_list()}} or \code{\link[=append_edge_lists]{append_edge_lists()}}.}
 
 \item{lower}{a \code{logical} value. If \code{TRUE} (default), keep values in the
 lower triangle of the matrix. Otherwise they will be replaced by \code{NA}
@@ -37,7 +37,7 @@ A connectivity matrix of dimensions \verb{n x n}, where \code{n} is the number
 of nodes.
 }
 \description{
-Converts an edges list to an connectivity matrix (also known as adjacency
+Converts an edge list to an connectivity matrix (also known as adjacency
 matrix).
 }
 \examples{

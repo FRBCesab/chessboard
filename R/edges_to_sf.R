@@ -8,7 +8,7 @@
 #' 
 #' @param sites an `sf` object of type `POINT`. A spatial object with 
 #'   coordinates of sites (nodes). Note that the **first column** must be the 
-#'   nodes labels.
+#'   node labels.
 #'
 #' @return An `sf` spatial object of type `LINESTRING` where the number of rows
 #'   correspond to the number of edges.
@@ -53,7 +53,7 @@
 #'                                   directed = TRUE)
 #' 
 #' # Append edges ----
-#' adour_edges <- append_edges_lists(adour_edges_1, adour_edges_2)
+#' adour_edges <- append_edge_lists(adour_edges_1, adour_edges_2)
 #' 
 #' # Convert sites to spatial POINT ----
 #' adour_sites_sf <- sf::st_as_sf(adour_nodes, coords = 5:6, crs = "epsg:2154")
