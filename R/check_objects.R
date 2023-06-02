@@ -84,7 +84,7 @@ check_focus_object <- function(nodes, focus) {
   }
   
   if (!(focus %in% nodes$"node")) {
-    stop(paste0("The node '", focus, "' is absent from the nodes list ", 
+    stop(paste0("The node '", focus, "' is absent from the node list ", 
                 "(argument 'nodes')"), call. = FALSE)
   }
   

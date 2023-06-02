@@ -25,7 +25,7 @@ test_that("check_focus_object() - Tests for wrong inputs", {
                fixed = TRUE)
   
   expect_error(check_focus_object(nodes, "5-5"),
-               paste0("The node '5-5' is absent from the nodes list ", 
+               paste0("The node '5-5' is absent from the node list ", 
                       "(argument 'nodes')"),
                fixed = TRUE)
   

@@ -12,10 +12,10 @@ get_node_list(nodes)
 \code{\link[=create_node_labels]{create_node_labels()}}.}
 }
 \value{
-A vector of nodes labels.
+A vector of node labels.
 }
 \description{
-Retrieves the nodes list by selecting and ordering the column \code{node} of the
+Retrieves the node list by selecting and ordering the column \code{node} of the
 output of the function \code{\link[=create_node_labels]{create_node_labels()}}.
 }
 \examples{

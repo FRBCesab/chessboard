@@ -187,7 +187,7 @@ i.e. transects-only sampling).
 
 \
 
-The function `get_node_list()` can be used to extract the nodes list.
+The function `get_node_list()` can be used to extract the node list.
 
 ```{r 'get-node-labels'}
 ## Get nodes labels ----
@@ -257,7 +257,7 @@ This function (and others) only works on a specific node (argument `focus`).
 
 The package `chessboard` contains functions to visualize detected neighbors on a
 chessboard: `gg_chessboard()` is used to plot a chessboard (dimensions defined by the
-nodes list), `geom_node()` emphasizes the focus node (in red), and `geom_neighbors()` adds
+node list), `geom_node()` emphasizes the focus node (in red), and `geom_neighbors()` adds
 the detected neighbors.
 
 

@@ -1,14 +1,14 @@
 #' Get the list of nodes
 #'
 #' @description 
-#' Retrieves the nodes list by selecting and ordering the column `node` of the 
+#' Retrieves the node list by selecting and ordering the column `node` of the 
 #' output of the function [create_node_labels()].
 #' 
 #' @param nodes a `data.frame` with (at least) the following three columns: 
 #'   `node`, `transect`, and `quadrats`. Must be the output of the function 
 #'   [create_node_labels()].
 #' 
-#' @return A vector of nodes labels.
+#' @return A vector of node labels.
 #' 
 #' @export
 #' 
@@ -30,7 +30,7 @@ get_node_list <- function(nodes) {
   check_nodes_object(nodes)
   
   
-  ## Extract nodes labels ----
+  ## Extract node labels ----
   
   nodes <- nodes[with(nodes, order(location, transect, quadrat)), ]
   
