@@ -23,9 +23,9 @@ create complex connectivity scenarios.
 
 `chessboard` can handle spatial networks, but it does not explicitly use
 geographical coordinates to find neighbors (it is not based on spatial
-distance). Instead, it identifies neighbors according to the **node
-labels** (i.e. the node positions on a two-dimension chessboard) and a
-specific method (pawn, fool, rook, bishop, knight, queen, wizard, etc.).
+distance). Instead, it identifies neighbors according to **node labels**
+(i.e. the node position on a two-dimension chessboard) and a specific
+method (pawn, fool, rook, bishop, knight, queen, wizard, etc.).
 
 It implements the following rules to detect neighbors and create edges:
 
@@ -44,9 +44,9 @@ It implements the following rules to detect neighbors and create edges:
 The main purpose of `chessboard` is to create various network objects,
 including:
 
-- the **nodes list**
-- the **edges list**
-- the **connectivity matrix**
+- **node list**
+- **edge list**
+- **connectivity matrix**
 
 `chessboard` also provides different plotting functions (all based on
 the [`ggplot2`](https://ggplot2.tidyverse.org/) package):
@@ -62,16 +62,16 @@ vignette for further details.
 
 ![](man/figures/diagramme.png)
 
-Finally, the package can also produce objects that can be used later in
+Finally, the package can also produce objects that will be used later in
 Moran’s Eigenvector Maps (MEM, Dray *et al.* 2006) and Asymetric
 Eigenvector Maps (AEM, Blanchet *et al.* 2008), methods available in the
 package [`adespatial`](https://cran.r-project.org/package=adespatial)
 (Dray *et al.* 2022):
 
-- the **edges weights matrix**
-- the **spatial weights matrix**
-- the **nodes by edges matrix**
-- the **edges weights vector**
+- **edges weights matrix**
+- **spatial weights matrix**
+- **nodes by edges matrix**
+- **edges weights vector**
 
 ## Installation
 
@@ -144,7 +144,7 @@ head(nodes, 12)
 #> 12  3-2        1        3       2
 ```
 
-The node labels are a combination of the transect identifier (i.e. the
+Node labels are a combination of the transect identifier (i.e. the
 position of the node on the x-axis of the chessboard) and the quadrat
 (i.e. the position of the node on the y-axis of the chessboard). The
 following figure locates the node `2-3` on the chessboard.
@@ -230,8 +230,8 @@ head(edges)
 #> 6  1-3 2-2
 ```
 
-This function returns an edges list, i.e. a two-column `data.frame`
-where a row corresponds to an edge.
+This function returns an edge list, i.e. a two-column `data.frame` where
+a row corresponds to an edge.
 
 Let’s compute the connectivity matrix of this undirected network.
 
@@ -278,7 +278,7 @@ al.* 2022) and [`igraph`](https://cran.r-project.org/package=igraph)
 ## Citation
 
 A companion paper will be published soon. In the meantime, if you want
-to use the package, please use the following citation:
+to use the package, please cite it as:
 
 > Casajus N (2023) chessboard: An R package for neighborhood and
 > connectivity in spatial networks. R package version 0.1.
