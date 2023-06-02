@@ -61,9 +61,6 @@
     <li>
       <a href="../articles/case-study.html">Case study</a>
     </li>
-    <li>
-      <a href="../articles/wrap-up.html">Wrap up</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -133,6 +130,99 @@ Figure 2. Study area with survey sampling
 our sampling design is a <strong>directed spatial network</strong> (both
 inside a location and between locations) where the main direction is
 from upstream to downstream.</p>
+<p><br></p>
+<p>Let’s import this dataset provided by <code>chessboard</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Import data ----</span></span>
+<span><span class="va">path_to_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"adour_survey_sampling.csv"</span>, </span>
+<span>                            package <span class="op">=</span> <span class="st">"chessboard"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sampling</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">path_to_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">sampling</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 45  5</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sampling</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   location transect quadrat longitude latitude</span></span>
+<span><span class="co">#&gt; 1        1        1       1  474036.9  6221518</span></span>
+<span><span class="co">#&gt; 2        1        1       2  473080.0  6223828</span></span>
+<span><span class="co">#&gt; 3        1        1       3  472123.1  6226138</span></span>
+<span><span class="co">#&gt; 4        1        1       4  471166.2  6228448</span></span>
+<span><span class="co">#&gt; 5        1        1       5  470209.3  6230758</span></span>
+<span><span class="co">#&gt; 6        1        2       1  476347.0  6222475</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">sampling</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    location transect quadrat longitude latitude</span></span>
+<span><span class="co">#&gt; 40        3        2      15  404432.3  6312095</span></span>
+<span><span class="co">#&gt; 41        3        3      11  414434.2  6314595</span></span>
+<span><span class="co">#&gt; 42        3        3      12  411933.7  6314595</span></span>
+<span><span class="co">#&gt; 43        3        3      13  409433.2  6314595</span></span>
+<span><span class="co">#&gt; 44        3        3      14  406932.8  6314595</span></span>
+<span><span class="co">#&gt; 45        3        3      15  404432.3  6314595</span></span></code></pre></div>
+<p>This <code>data.frame</code> contains the following columns:</p>
+<ul>
+<li>
+<code>location</code>: the identifier of the location
+(<code>numeric</code>)</li>
+<li>
+<code>transect</code>: the identifier of the transect
+(<code>numeric</code>)</li>
+<li>
+<code>quadrat</code>: the identifier of the quadrat
+(<code>numeric</code>)</li>
+<li>
+<code>longitude</code>: the longitude of the site
+(<strong>node</strong>) defined in the <a href="https://epsg.io/2154" class="external-link">RGF93 / Lambert-93</a> projection</li>
+<li>
+<code>latitude</code>: the latitude of the site
+(<strong>node</strong>) defined in the <a href="https://epsg.io/2154" class="external-link">RGF93 / Lambert-93</a> projection</li>
+</ul>
+<p><br></p>
+<p><strong>N.B.</strong> The column <code>location</code> is optional
+(if the survey has been conducted at one single location). If the
+network has one dimension, one of the columns <code>transect</code> and
+<code>quadrat</code> can be omitted.</p>
+</div>
+<div class="section level2">
+<h2 id="creating-nodes-labels">Creating nodes labels<a class="anchor" aria-label="anchor" href="#creating-nodes-labels"></a>
+</h2>
+<p>When working with <code>chessboard</code>, the first step is to
+create nodes labels with the function
+<code><a href="../reference/create_nodes_labels.html">create_nodes_labels()</a></code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create nodes labels ----</span></span>
+<span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_nodes_labels.html">create_nodes_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sampling</span>,</span>
+<span>                             location <span class="op">=</span> <span class="st">"location"</span>,</span>
+<span>                             transect <span class="op">=</span> <span class="st">"transect"</span>,</span>
+<span>                             quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    node location transect quadrat longitude latitude</span></span>
+<span><span class="co">#&gt; 1  1-01        1        1       1  474036.9  6221518</span></span>
+<span><span class="co">#&gt; 2  1-02        1        1       2  473080.0  6223828</span></span>
+<span><span class="co">#&gt; 3  1-03        1        1       3  472123.1  6226138</span></span>
+<span><span class="co">#&gt; 4  1-04        1        1       4  471166.2  6228448</span></span>
+<span><span class="co">#&gt; 5  1-05        1        1       5  470209.3  6230758</span></span>
+<span><span class="co">#&gt; 6  2-01        1        2       1  476347.0  6222475</span></span>
+<span><span class="co">#&gt; 7  2-02        1        2       2  475390.1  6224785</span></span>
+<span><span class="co">#&gt; 8  2-03        1        2       3  474433.2  6227095</span></span>
+<span><span class="co">#&gt; 9  2-04        1        2       4  473476.3  6229405</span></span>
+<span><span class="co">#&gt; 10 2-05        1        2       5  472519.5  6231715</span></span>
+<span><span class="co">#&gt; 11 3-01        1        3       1  478657.1  6223432</span></span>
+<span><span class="co">#&gt; 12 3-02        1        3       2  477700.2  6225742</span></span></code></pre></div>
+<p>The nodes labels are a combination of the transect and the quadrat
+identifiers.</p>
+<p>We can visualize this sampling on a Cartesian referential,
+i.e. non-spatial, where the x-axis corresponds to
+<strong>transects</strong> and the y-axis represents the
+<strong>quadrats</strong> (Fig. 3). This new referential is called a
+chessboard.</p>
+<p><br></p>
+<div class="figure" style="text-align: center">
+<img src="case-study_files/figure-html/plot-sampling-units-1.png" alt="Figure 3. Sampling design" width="50%"><p class="caption">
+Figure 3. Sampling design
+</p>
+</div>
 </div>
   </div>
 
