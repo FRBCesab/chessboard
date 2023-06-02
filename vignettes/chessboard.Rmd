@@ -257,13 +257,13 @@ This function (and others) only works on a specific node (argument `focus`).
 
 The package `chessboard` contains functions to visualize detected neighbors on a
 chessboard: `gg_chessboard()` is used to plot a chessboard (dimensions defined by the
-nodes list), `geom_piece()` emphasizes the focus node (in red), and `geom_neighbors()` adds
+nodes list), `geom_node()` emphasizes the focus node (in red), and `geom_neighbors()` adds
 the detected neighbors.
 
 
 ```{r 'nb-pawn', fig.height=8, fig.width=5, echo=FALSE, fig.cap="Figure 4. Detected neighbors (pawn method)", out.width='50%'}
 gg_chessboard(adour_sites) +
-  geom_piece(adour_sites, focus = "2-3") +
+  geom_node(adour_sites, focus = "2-3") +
   geom_neighbors(adour_sites, neighbors_pawn)
 ```
 
@@ -290,19 +290,19 @@ demo_focus  <- "5-5"
 
 pawn_1 <- 
   gg_chessboard(demo_nodes, "A. Undirected network", "") + 
-  geom_piece(demo_nodes, demo_focus) +
+  geom_node(demo_nodes, demo_focus) +
   geom_neighbors(demo_nodes, pawn(demo_nodes, demo_focus, degree = 4, 
                                   directed = FALSE, reverse = FALSE))
 
 pawn_2 <- 
   gg_chessboard(demo_nodes, "B. Directed network", "") + 
-  geom_piece(demo_nodes, demo_focus) +
+  geom_node(demo_nodes, demo_focus) +
   geom_neighbors(demo_nodes, pawn(demo_nodes, demo_focus, degree = 4, 
                                   directed = TRUE, reverse = FALSE))
 
 pawn_3 <- 
   gg_chessboard(demo_nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(demo_nodes, demo_focus) +
+  geom_node(demo_nodes, demo_focus) +
   geom_neighbors(demo_nodes, pawn(demo_nodes, demo_focus, degree = 4, 
                                   directed = TRUE, reverse = TRUE))
 
@@ -332,19 +332,19 @@ demo_focus  <- "5-5"
 
 bishop_1 <- 
   gg_chessboard(demo_nodes, "A. Undirected network", "") + 
-  geom_piece(demo_nodes, demo_focus) +
+  geom_node(demo_nodes, demo_focus) +
   geom_neighbors(demo_nodes, bishop(demo_nodes, demo_focus, degree = 4, 
                                     directed = FALSE, reverse = FALSE))
 
 bishop_2 <- 
   gg_chessboard(demo_nodes, "B. Directed network", "") + 
-  geom_piece(demo_nodes, demo_focus) +
+  geom_node(demo_nodes, demo_focus) +
   geom_neighbors(demo_nodes, bishop(demo_nodes, demo_focus, degree = 4, 
                                     directed = TRUE, reverse = FALSE))
 
 bishop_3 <- 
   gg_chessboard(demo_nodes, "C. Directed network (reverse)", "") + 
-  geom_piece(demo_nodes, demo_focus) +
+  geom_node(demo_nodes, demo_focus) +
   geom_neighbors(demo_nodes, bishop(demo_nodes, demo_focus, degree = 4, 
                                     directed = TRUE, reverse = TRUE))
 

@@ -28,7 +28,7 @@
 #' neighbors <- pawn(nodes, focus = "2-3")
 #' 
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, "2-3") +
+#'   geom_node(nodes, "2-3") +
 #'   geom_neighbors(nodes, neighbors)
 
 geom_neighbors <- function(nodes, neighbors) {

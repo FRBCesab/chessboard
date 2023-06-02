@@ -94,25 +94,25 @@ gg_chessboard(nodes)
 ```
 
 
-### geom_piece
+### geom_node
 
-On this chessboard, we can locate one specific node using the function `geom_piece()`.
+On this chessboard, we can locate one specific node using the function `geom_node()`.
 
 ```{r 'geom-piece', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
 # Locate one node ----
 gg_chessboard(nodes) +
-  geom_piece(nodes, focus = "2-3")
+  geom_node(nodes, focus = "2-3")
 ```
 
-We can call the function `geom_piece()` several times to emphase various nodes.
+We can call the function `geom_node()` several times to emphase various nodes.
 
 
 ```{r 'geom-pieces', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
 # Locate various nodes ----
 gg_chessboard(nodes) +
-  geom_piece(nodes, focus = "2-3") +
-  geom_piece(nodes, focus = "1-5") +
-  geom_piece(nodes, focus = "3-1")
+  geom_node(nodes, focus = "2-3") +
+  geom_node(nodes, focus = "1-5") +
+  geom_node(nodes, focus = "3-1")
 ```
 
 
@@ -137,7 +137,7 @@ Let's visualize these neighbors on a chessboard by using the function `geom_neig
 ```{r 'geom-neighbors', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
 # Locate neighbors ----
 gg_chessboard(nodes) +
-  geom_piece(nodes, focus = "2-3") +
+  geom_node(nodes, focus = "2-3") +
   geom_neighbors(nodes, neighbors = nb_rook)
 ```
 
@@ -151,7 +151,7 @@ Instead of plotting the neighbors, we can directly plot the edges using the func
 # Locate neighbors ----
 gg_chessboard(nodes) +
   geom_edges(nodes, focus = "2-3", neighbors = nb_rook) +
-  geom_piece(nodes, focus = "2-3")
+  geom_node(nodes, focus = "2-3")
 ```
 
 
@@ -166,7 +166,7 @@ nb_bishop
 ```
 
 
-As for the function `geom_piece()`, we can call the functions `geom_edges()` 
+As for the function `geom_node()`, we can call the functions `geom_edges()` 
 and `geom_neighbors()` several times.
 
 ```{r 'geom-edges-twice', echo=TRUE, dpi=150, fig.height=8, fig.width=5}
@@ -176,7 +176,7 @@ gg_chessboard(nodes) +
   geom_edges(nodes, focus = "2-3", neighbors = nb_bishop) +
   geom_neighbors(nodes, neighbors = nb_rook) +
   geom_neighbors(nodes, neighbors = nb_bishop) +
-  geom_piece(nodes, focus = "2-3")
+  geom_node(nodes, focus = "2-3")
 ```
 
 

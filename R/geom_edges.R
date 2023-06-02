@@ -35,7 +35,7 @@
 #' gg_chessboard(nodes) +
 #'   geom_neighbors(nodes, neighbors) +
 #'   geom_edges(nodes, focus, neighbors) +
-#'   geom_piece(nodes, focus)
+#'   geom_node(nodes, focus)
 
 geom_edges <- function(nodes, focus, neighbors) {
   

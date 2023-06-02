@@ -12,9 +12,9 @@ focus <- "2-3"
 
 # Tests for success ----
 
-test_that("geom_piece() - Tests for success", {
+test_that("geom_node() - Tests for success", {
   
-  expect_silent({ check <- geom_piece(nodes, focus) })
+  expect_silent({ check <- geom_node(nodes, focus) })
   
   expect_true("list" %in% class(check))
   expect_equal(length(check), 3L)

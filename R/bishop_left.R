@@ -41,26 +41,26 @@
 #' # Default settings ----
 #' neighbors <- bishop_left(nodes, focus)
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, focus) +
+#'   geom_node(nodes, focus) +
 #'   geom_neighbors(nodes, neighbors)
 #'
 #' # Higher degree of neighborhood ----
 #' neighbors <- bishop_left(nodes, focus, degree = 3)
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, focus) +
+#'   geom_node(nodes, focus) +
 #'   geom_neighbors(nodes, neighbors)
 #'   
 #' # Directed (default orientation) ----
 #' neighbors <- bishop_left(nodes, focus, degree = 3, directed = TRUE)
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, focus) +
+#'   geom_node(nodes, focus) +
 #'   geom_neighbors(nodes, neighbors)
 #'   
 #' # Directed (reverse orientation) ----
 #' neighbors <- bishop_left(nodes, focus, degree = 3, directed = TRUE, 
 #'                          reverse = TRUE)
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, focus) +
+#'   geom_node(nodes, focus) +
 #'   geom_neighbors(nodes, neighbors)
 
 bishop_left <- function(nodes, focus, degree = 1, directed = FALSE, 

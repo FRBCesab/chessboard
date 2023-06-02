@@ -156,7 +156,7 @@ the sampling is on one single site.
 ``` r
 # Visualize the sampling as a chessboard ----
 gg_chessboard(nodes) +
-  geom_piece(nodes, focus = "2-3")
+  geom_node(nodes, focus = "2-3")
 ```
 
 <img src="man/figures/plot-chessboard-1.png" width="100%" />
@@ -200,7 +200,7 @@ results:
 gg_chessboard(nodes) +
   geom_edges(nodes, "2-3", nb) +
   geom_neighbors(nodes, nb) +
-  geom_piece(nodes, "2-3")
+  geom_node(nodes, "2-3")
 ```
 
 <img src="man/figures/plot-neighbors-1.png" width="100%" />

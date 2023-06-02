@@ -25,7 +25,7 @@
 #'                              quadrat  = "quadrat")
 #' 
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, "2-3")
+#'   geom_node(nodes, "2-3")
 #'
 #' # One-dimensional sampling (only transects) ----
 #' sites_infos <- data.frame("transect" = 1:5)
@@ -34,9 +34,9 @@
 #'                              transect = "transect")
 #' 
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, "3-1")
+#'   geom_node(nodes, "3-1")
 
-geom_piece <- function(nodes, focus) {
+geom_node <- function(nodes, focus) {
   
   
   ## Check argument 'nodes' ----

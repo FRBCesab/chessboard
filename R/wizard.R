@@ -32,26 +32,26 @@
 #' # Default settings ----
 #' neighbors <- wizard(nodes, focus)
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, focus) +
+#'   geom_node(nodes, focus) +
 #'   geom_neighbors(nodes, neighbors)
 #'
 #' # Higher degree of neighborhood ----
 #' neighbors <- wizard(nodes, focus, degree = 3)
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, focus) +
+#'   geom_node(nodes, focus) +
 #'   geom_neighbors(nodes, neighbors)
 #'   
 #' # Directed (default orientation) ----
 #' neighbors <- wizard(nodes, focus, degree = 3, directed = TRUE)
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, focus) +
+#'   geom_node(nodes, focus) +
 #'   geom_neighbors(nodes, neighbors)
 #'   
 #' # Directed (reverse orientation) ----
 #' neighbors <- wizard(nodes, focus, degree = 3, directed = TRUE, 
 #'                     reverse = TRUE)
 #' gg_chessboard(nodes) +
-#'   geom_piece(nodes, focus) +
+#'   geom_node(nodes, focus) +
 #'   geom_neighbors(nodes, neighbors)
 
 wizard <- function(nodes, focus, degree = 1, directed = FALSE, reverse = FALSE, 

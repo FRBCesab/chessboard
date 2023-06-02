@@ -41,5 +41,5 @@ neighbors <- wizard(nodes, focus = focus, degree = 4, directed = FALSE,
 gg_chessboard(nodes) +
   geom_neighbors(nodes, neighbors) +
   geom_edges(nodes, focus, neighbors) +
-  geom_piece(nodes, focus)
+  geom_node(nodes, focus)
 }

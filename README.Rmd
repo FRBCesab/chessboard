@@ -144,7 +144,7 @@ sampling is on one single site.
 ```{r 'plot-chessboard', dpi=300}
 # Visualize the sampling as a chessboard ----
 gg_chessboard(nodes) +
-  geom_piece(nodes, focus = "2-3")
+  geom_node(nodes, focus = "2-3")
 ```
 
 Now it's time to implement a connectivity scenario. Let's say we want to connect
@@ -174,7 +174,7 @@ Let's use some plotting functions of `chessboard` to inspect the results:
 gg_chessboard(nodes) +
   geom_edges(nodes, "2-3", nb) +
   geom_neighbors(nodes, nb) +
-  geom_piece(nodes, "2-3")
+  geom_node(nodes, "2-3")
 ```
 
 The [Chess pieces](https://frbcesab.github.io/chessboard/articles/chess-pieces.html)
