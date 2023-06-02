@@ -10,9 +10,9 @@ nodes <- create_node_labels(data     = sites,
 
 # Tests for success ----
 
-test_that("get_nodes_list() - Tests for success", {
+test_that("get_node_list() - Tests for success", {
   
-  expect_silent({ check <- get_nodes_list(nodes) })
+  expect_silent({ check <- get_node_list(nodes) })
   
   expect_equal(class(check), "character")
   expect_equal(length(check), nrow(nodes))

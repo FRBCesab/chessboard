@@ -4,7 +4,7 @@ reference:
     Create, extract, and transform nodes and edges objects
   contents:
     - create_node_labels
-    - get_nodes_list
+    - get_node_list
     - create_edge_list
     - append_edge_lists
     - edges_to_sf

@@ -21,9 +21,9 @@
 #' nodes <- create_node_labels(data     = sites_infos, 
 #'                             transect = "transect", 
 #'                             quadrat  = "quadrat")
-#' get_nodes_list(nodes)
+#' get_node_list(nodes)
 
-get_nodes_list <- function(nodes) {
+get_node_list <- function(nodes) {
   
   ## Check argument ----
   

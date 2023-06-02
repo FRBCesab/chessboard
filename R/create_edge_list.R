@@ -90,14 +90,14 @@ create_edge_list <- function(nodes, method, degree = 1, directed = FALSE,
   detection_method <- eval(parse(text = method))
   
   
-  ## Get nodes list ----
+  ## Get node list ----
   
-  nodes_list <- get_nodes_list(nodes)
+  node_list <- get_node_list(nodes)
   
   
   ## Detect neighbors ----
   
-  neighbors <- do.call(rbind.data.frame, lapply(nodes_list, function(x) {
+  neighbors <- do.call(rbind.data.frame, lapply(node_list, function(x) {
     
     nb <- detection_method(nodes, x, degree, directed, reverse, self)
     

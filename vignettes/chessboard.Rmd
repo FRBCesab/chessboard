@@ -187,11 +187,11 @@ i.e. transects-only sampling).
 
 \
 
-The function `get_nodes_list()` can be used to extract the nodes list.
+The function `get_node_list()` can be used to extract the nodes list.
 
-```{r 'get-nodes-labels'}
+```{r 'get-node-labels'}
 ## Get nodes labels ----
-get_nodes_list(adour_sites)
+get_node_list(adour_sites)
 ```
 
 

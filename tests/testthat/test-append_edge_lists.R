@@ -7,7 +7,7 @@ edges_ter <- data.frame("from" = c("1-1", "2-2"), "to" = c("1-2", "2-3"))
 test_that("append_edge_lists() - Tests for errors", {
   
   expect_error(append_edge_lists(),
-               "Please provide at least one edges list",
+               "Please provide at least one edge list",
                fixed = TRUE)
 })
 
