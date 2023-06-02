@@ -132,49 +132,11 @@ corridors and cultivated field margins.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/chessboard" class="external-link">"chessboard"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com" class="external-link">"patchwork"</a></span><span class="op">)</span></span></code></pre></div>
-<p><br></p>
-<div class="section level2">
-<h2 id="sampling-design">Sampling design<a class="anchor" aria-label="anchor" href="#sampling-design"></a>
-</h2>
-<p>The package <code>chessboard</code> is designed to work with
-<strong>two-dimensional network</strong> (i.e.  sampling on a regular
-grid). The network can be spatial or not, and can be directed or
-undirected.</p>
-<p><code>chessboard</code> provides an example of a survey realized
-along the French river <em>L’Adour</em> (Fig. 1).</p>
-<p><br></p>
-<div class="figure" style="text-align: center">
-<img src="img/map-adour-river.png" alt="Figure 1. Location of the French river L'Adour" width="80%"><p class="caption">
-Figure 1. Location of the French river L’Adour
-</p>
-</div>
-<p><br></p>
-<p><em>L’Adour</em> is a river in southwestern France. It rises in the
-Pyrenees and flows into the Atlantic Ocean (Bay of Biscay). It’s
-oriented from south-east (upstream) to north-west (downstream).</p>
-<p><br></p>
-<p>Along this river, a survey has been realized at
-<strong>three</strong> locations (Fig. 2). At each location, a sampling
-has been conducted on a regular grid composed of <strong>three</strong>
-transects each of them composed of <strong>five</strong> quadrats.</p>
-<p><br></p>
-<div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/map-adour-sites-1.png" alt="Figure 2. Study area with survey sampling" width="80%"><p class="caption">
-Figure 2. Study area with survey sampling
-</p>
-</div>
-<p><br></p>
-<p>The arrow indicates the direction of the river flow. This means that
-our sampling design is a <strong>directed spatial network</strong> (both
-inside a location and between locations) where the main direction is
-from upstream to downstream.</p>
-<p><br></p>
 <p><strong>N.B.</strong> The package <code>chessboard</code> can also
 deal with one-dimensional sampling (either
 <strong>transects-only</strong> or <strong>quadrats-only</strong>) and
 with <strong>undirected</strong> networks.</p>
 <p><br></p>
-</div>
 <div class="section level2">
 <h2 id="nodes-labeling">Nodes labeling<a class="anchor" aria-label="anchor" href="#nodes-labeling"></a>
 </h2>
@@ -238,16 +200,6 @@ dimension and the direction of the network.</p>
 network has one dimension, one of the columns <code>transect</code> and
 <code>quadrat</code> can be omitted.</p>
 <p><br></p>
-<p>We can visualize this survey on a Cartesian referential,
-i.e. non-spatial, where the x-axis corresponds to
-<strong>transects</strong> and the y-axis represents the
-<strong>quadrats</strong> (Fig. 3).</p>
-<p><br></p>
-<div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/plot-sampling-units-1.png" alt="Figure 3. Sampling design" width="100%"><p class="caption">
-Figure 3. Sampling design
-</p>
-</div>
 <p><br></p>
 <p>From this figure, several things should be noted:</p>
 <ol style="list-style-type: decimal">
