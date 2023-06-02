@@ -30,7 +30,7 @@ search for.}
 \item{directed}{a \code{logical} of length 1. If \code{FALSE} (default), search for
 neighbors in all directions (undirected network). Otherwise, the network
 will be considered as directed according to the orientations of the
-network. The default orientation follows the order of nodes labels in
+network. The default orientation follows the order of node labels in
 both axes.}
 
 \item{reverse}{a \code{logical} of length 1. If \code{TRUE}, change the default
@@ -63,7 +63,7 @@ game.
 \item \strong{Direction of neighborhood} (arguments \code{directed} and \code{reverse}): does
 the sampling design has a direction? If so (\code{directed = TRUE}), the network
 will be considered as \strong{directed} and the direction will follow the order
-of nodes labels in both axes (except if \code{reverse = TRUE}).
+of node labels in both axes (except if \code{reverse = TRUE}).
 }
 
 It's important to note that, even the package \code{chessboard} is designed to

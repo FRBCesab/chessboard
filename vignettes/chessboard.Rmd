@@ -85,13 +85,13 @@ custom_theme <- function() {
 \
 
 
-## Nodes labeling
+## Node labels
 
 
 It's **important** to note that, even the package `chessboard` can handle spatial 
 networks, it does not explicitly use spatial coordinates to find neighbors (and edges). 
-Instead, it will identify neighbors only based on **nodes labels**. In other 
-words, the order of nodes labels will give the dimension and the direction of 
+Instead, it will identify neighbors only based on **node labels**. In other 
+words, the order of node labels will give the dimension and the direction of 
 the network.
 
 
@@ -144,7 +144,7 @@ quadrat is upstream and the last is downstream.
 \
 
 
-When using the package `chessboard`, the **first step** is to create **nodes labels**
+When using the package `chessboard`, the **first step** is to create **node labels**
 by combining the identifiers of transects and quadrats. It's the purpose of the
 function `create_node_labels()`.
 
@@ -164,10 +164,10 @@ adour_sites
 \
 
 
-Now, we can create the nodes labels.
+Now, we can create node labels.
 
 ```{r 'nodes-labels'}
-## Create nodes labels ----
+## Create node labels ----
 adour_sites <- create_node_labels(data     = adour_sites, 
                                   location = "location",
                                   transect = "transect", 
@@ -178,7 +178,7 @@ adour_sites
 
 \
 
-The nodes labels are of the form: `1-2`, where 
+Node labels are of the form: `1-2`, where 
 `1` is the identifier of the **transect** (created by the function if missing, 
 i.e. quadrats-only sampling), and 
 `2`, the identifier of the **quadrat** (created by the function if missing,
@@ -190,7 +190,7 @@ i.e. transects-only sampling).
 The function `get_node_list()` can be used to extract the node list.
 
 ```{r 'get-node-labels'}
-## Get nodes labels ----
+## Get node labels ----
 get_node_list(adour_sites)
 ```
 
@@ -218,7 +218,7 @@ game.
 3. **Direction of neighborhood** (arguments `directed` and `reverse`): does 
 the sampling design has a direction? If so, the network 
 will be considered as **directed** and the direction will follow the order 
-of nodes labels in both axes of the grid.
+of node labels in both axes of the grid.
 
 
 \

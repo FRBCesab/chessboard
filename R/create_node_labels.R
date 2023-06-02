@@ -235,7 +235,7 @@ create_node_labels <- function(data, location, transect, quadrat) {
   # }
   
   
-  ## Create nodes labels ----
+  ## Create node labels ----
   
   nodes <- data[with(data, order(location, transect, quadrat)), ]
   rownames(nodes) <- NULL
@@ -249,7 +249,7 @@ create_node_labels <- function(data, location, transect, quadrat) {
   keys <- paste0(transects_labels, "-", quadrats_labels)
   
   if (any(duplicated(keys))) {
-    stop("Nodes labels cannot contain duplicates", call. = FALSE)
+    stop("Node labels cannot contain duplicates", call. = FALSE)
   }
   
   

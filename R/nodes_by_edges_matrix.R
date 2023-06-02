@@ -3,7 +3,7 @@
 #' @description
 #' Creates a nodes-by-edges matrix that will be used by [adespatial::aem()].
 #' This function creates the same output as [adespatial::aem.build.binary()]
-#' but works in a different way: it's only based on nodes labels (not on 
+#' but works in a different way: it's only based on node labels (not on 
 #' coordinates). Also, this function adds labels to nodes and edges.
 #' 
 #' @param edges a `data.frame` with the following two columns: `from` (the 

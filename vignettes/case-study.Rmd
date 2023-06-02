@@ -146,14 +146,14 @@ be omitted.
 
 
 
-## Creating nodes labels
+## Creating node labels
 
 When working with `chessboard`, the first step is to create nodes
 labels with the function `create_node_labels()`.
 
 
 ```{r 'create-nodes-labels'}
-# Create nodes labels ----
+# Create node labels ----
 nodes <- create_node_labels(data     = sampling,
                             location = "location",
                             transect = "transect",
@@ -163,7 +163,7 @@ head(nodes, 12)
 ```
 
 
-The nodes labels are a combination of the transect and the quadrat identifiers.
+Node labels are a combination of the transect and the quadrat identifiers.
 
 We can visualize this sampling on a Cartesian referential, i.e. non-spatial, where
 the x-axis corresponds to **transects** and the y-axis represents the **quadrats**

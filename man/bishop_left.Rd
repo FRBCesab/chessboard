@@ -27,7 +27,7 @@ search for.}
 \item{directed}{a \code{logical} of length 1. If \code{FALSE} (default), search for
 neighbors in all directions (undirected network). Otherwise, the network
 will be considered as directed according to the orientations of the
-network. The default orientation follows the order of nodes labels in
+network. The default orientation follows the order of node labels in
 both axes.}
 
 \item{reverse}{a \code{logical} of length 1. If \code{TRUE}, change the default

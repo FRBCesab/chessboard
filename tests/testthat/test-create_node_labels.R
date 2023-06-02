@@ -171,7 +171,7 @@ test_that("create_node_labels() - Tests for wrong inputs", {
   expect_error(create_node_labels(tr_qu_dup, 
                                    transect = "transect", 
                                    quadrat  = "quadrat"),
-               "Nodes labels cannot contain duplicates",
+               "Node labels cannot contain duplicates",
                fixed = TRUE)
 })
 

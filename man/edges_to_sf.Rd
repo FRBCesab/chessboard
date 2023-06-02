@@ -32,7 +32,7 @@ adour_sites  <- read.csv(path_to_file)
 # Select first location ----
 adour_sites <- adour_sites[adour_sites$"location" == 1, ]
 
-# Create nodes labels ----
+# Create node labels ----
 adour_nodes <- create_node_labels(data     = adour_sites, 
                                   location = "location", 
                                   transect = "transect", 

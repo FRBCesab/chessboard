@@ -66,7 +66,7 @@ test_that("matrix_to_edge_list() - Tests for errors", {
                fixed = TRUE)
   
   expect_error(matrix_to_edge_list(mat_bad_0),
-               "Row names of 'x' must contain nodes labels",
+               "Row names of 'x' must contain node labels",
                fixed = TRUE)
   
   expect_error(matrix_to_edge_list(mat_bad_1),

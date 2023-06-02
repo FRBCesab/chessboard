@@ -62,7 +62,7 @@ matrix_to_edge_list <- function(x, all = FALSE) {
   }
   
   if (is.null(rownames(x))) {
-    stop("Row names of 'x' must contain nodes labels", call. = FALSE)
+    stop("Row names of 'x' must contain node labels", call. = FALSE)
   }
   
   if (any(!(rownames(x) %in% colnames(x)))) {

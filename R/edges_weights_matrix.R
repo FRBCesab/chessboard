@@ -30,7 +30,7 @@
 #' # Select the 15 first sites ----
 #' adour_sites <- adour_sites[1:15, ]
 #' 
-#' # Create nodes labels ----
+#' # Create node labels ----
 #' adour_sites <- create_node_labels(adour_sites, 
 #'                                   location = "location", 
 #'                                   transect = "transect", 

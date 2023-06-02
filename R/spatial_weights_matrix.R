@@ -27,7 +27,7 @@
 #' # Select the 15 first sites ----
 #' adour_sites <- adour_sites[1:15, ]
 #' 
-#' # Create nodes labels ----
+#' # Create node labels ----
 #' adour_sites <- create_node_labels(adour_sites, 
 #'                                   location = "location", 
 #'                                   transect = "transect", 
@@ -77,7 +77,7 @@ spatial_weights_matrix <- function(x, y) {
   }
   
   if (is.null(rownames(x))) {
-    stop("Row names of 'x' must contain nodes labels", call. = FALSE)
+    stop("Row names of 'x' must contain node labels", call. = FALSE)
   }
   
   if (any(!(rownames(x) %in% colnames(x)))) {
@@ -110,7 +110,7 @@ spatial_weights_matrix <- function(x, y) {
   }
   
   if (is.null(rownames(y))) {
-    stop("Row names of 'y' must contain nodes labels", call. = FALSE)
+    stop("Row names of 'y' must contain node labels", call. = FALSE)
   }
   
   if (any(!(rownames(y) %in% colnames(y)))) {

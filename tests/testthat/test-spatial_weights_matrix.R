@@ -74,7 +74,7 @@ test_that("spatial_weights_matrix() - Tests for errors", {
                fixed = TRUE)
   
   expect_error(spatial_weights_matrix(matrix(1:9, ncol = 3)),
-               "Row names of 'x' must contain nodes labels",
+               "Row names of 'x' must contain node labels",
                fixed = TRUE)
   
   expect_error(spatial_weights_matrix(mat_bad_1),
@@ -107,7 +107,7 @@ test_that("spatial_weights_matrix() - Tests for errors", {
                fixed = TRUE)
   
   expect_error(spatial_weights_matrix(mat_adj, matrix(1:9, ncol = 3)),
-               "Row names of 'y' must contain nodes labels",
+               "Row names of 'y' must contain node labels",
                fixed = TRUE)
   
   expect_error(spatial_weights_matrix(mat_adj, mat_bad_1),

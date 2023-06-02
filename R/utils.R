@@ -145,7 +145,7 @@ sort_edges <- function(edges) {
 
 
 
-#' Sort nodes labels in natural ordering
+#' Sort node labels in natural ordering
 #'
 #' @inheritParams edges_to_sf
 #' 

@@ -123,7 +123,7 @@ head(sampling, 12)
 Now let’s create labels for the 25 nodes.
 
 ``` r
-# Create nodes labels ----
+# Create node labels ----
 nodes <- create_node_labels(data     = sampling,
                             transect = "transect",
                             quadrat  = "quadrat")

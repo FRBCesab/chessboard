@@ -15,7 +15,7 @@
 #' 3. **Direction of neighborhood** (arguments `directed` and `reverse`): does 
 #' the sampling design has a direction? If so (`directed = TRUE`), the network 
 #' will be considered as **directed** and the direction will follow the order 
-#' of nodes labels in both axes (except if `reverse = TRUE`).
+#' of node labels in both axes (except if `reverse = TRUE`).
 #' 
 #' It's important to note that, even the package `chessboard` is designed to 
 #' deal with spatial networks, this function does not explicitly use spatial 
@@ -39,7 +39,7 @@
 #' @param directed a `logical` of length 1. If `FALSE` (default), search for 
 #'   neighbors in all directions (undirected network). Otherwise, the network 
 #'   will be considered as directed according to the orientations of the 
-#'   network. The default orientation follows the order of nodes labels in
+#'   network. The default orientation follows the order of node labels in
 #'   both axes.
 #'
 #' @param reverse a `logical` of length 1. If `TRUE`, change the default 

@@ -69,7 +69,7 @@ append_matrix <- function(..., na_to_zero = TRUE) {
     }
     
     if (is.null(rownames(x))) {
-      stop("Row names of matrices must contain nodes labels", 
+      stop("Row names of matrices must contain node labels", 
            call. = FALSE)
     }
     

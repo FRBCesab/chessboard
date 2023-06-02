@@ -66,7 +66,7 @@ When working with `chessboard`, the first step is to create nodes
 labels with the function `create_node_labels()`.
 
 ```{r 'create-nodes-labels', echo=TRUE}
-# Create nodes labels ----
+# Create node labels ----
 nodes <- create_node_labels(data     = sampling,
                             location = "location",
                             transect = "transect", 
@@ -256,7 +256,7 @@ ggplot() +
   theme_light()
 ```
 
-Finally, let's add the nodes labels on this map.
+Finally, let's add the node labels on this map.
 
 ```{r 'mapping-edges-labels', echo=TRUE, dpi = 150, fig.height=8, fig.width=6.5}
 # Map of nodes and edges ----

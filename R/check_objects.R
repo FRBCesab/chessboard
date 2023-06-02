@@ -323,7 +323,7 @@ check_sites_object <- function(sites) {
   }
   
   if (colnames(sites)[1] != "node") {
-    stop("The first column of 'sites' must be named 'node' (nodes labels)",
+    stop("The first column of 'sites' must be named 'node' (node labels)",
          call. = FALSE)
   }
   
@@ -347,9 +347,9 @@ check_sites_object <- function(sites) {
 
 
 
-#' Check nodes labels
+#' Check node labels
 #'
-#' @param nodes a `character` vector of nodes labels (e.g. 1-1, 01-10)
+#' @param nodes a `character` vector of node labels (e.g. 1-1, 01-10)
 #'
 #' @noRd
 
@@ -358,11 +358,11 @@ check_node_labels <- function(nodes) {
   pattern <- "^[0-9]{1,}-[0-9]{1,}$"
   
   if (length(grep(pattern, nodes)) == 0) {
-    stop("Nodes labels have not the good form", call. = FALSE)
+    stop("Node labels have not the good form", call. = FALSE)
   }
   
   if (length(grep(pattern, nodes)) < length(nodes)) {
-    stop("Some nodes labels are malformed", call. = FALSE)
+    stop("Some node labels are malformed", call. = FALSE)
   }
   
   invisible(NULL)

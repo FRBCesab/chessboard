@@ -54,7 +54,7 @@ test_that("check_sites_object() - Tests for wrong inputs", {
   
   expect_error(check_sites_object(adour_sites_sf[ , -1]),
                paste0("The first column of 'sites' must be named 'node' ", 
-                      "(nodes labels)"),
+                      "(node labels)"),
                fixed = TRUE)
 })
 

@@ -86,7 +86,7 @@ test_that("append_matrix() - Tests for errors", {
                fixed = TRUE)
   
   expect_error(append_matrix(mat_bad_0),
-               "Row names of matrices must contain nodes labels",
+               "Row names of matrices must contain node labels",
                fixed = TRUE)
   
   expect_error(append_matrix(mat_bad_1),
@@ -130,7 +130,7 @@ test_that("append_matrix() - Tests for errors", {
                fixed = TRUE)
   
   expect_error(append_matrix(mat_1, mat_bad_0),
-               "Row names of matrices must contain nodes labels",
+               "Row names of matrices must contain node labels",
                fixed = TRUE)
   
   expect_error(append_matrix(mat_1, mat_bad_1),
