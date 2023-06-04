@@ -62,7 +62,7 @@ sampling
 
 The sampling is a grid of dimensions 3 transects x 5 quadrats.
 
-When working with `chessboard`, the first step is to create nodes
+When working with `chessboard`, the first step is to create node
 labels with the function `create_node_labels()`.
 
 ```{r 'create-nodes-labels', echo=TRUE}

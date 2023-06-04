@@ -66,8 +66,8 @@ pieces available in `chessboard`.
 
 | Function       | 2D network | Transect only | Quadrat only | Description                                              |
 | :------------- | :--------: | :-----------: | :----------: | :------------------------------------------------------- |
-| `pawn()`       |     ✅     |      ✅       |      ❌      | Finds neighbors vertically (i.e. along a transect)       |
-| `fool()`       |     ✅     |      ❌       |      ✅      | Finds neighbors horizontally (i.e. along a quadrat)      |
+| `pawn()`       |     ✅     |      ❌       |      ✅      | Finds neighbors vertically (i.e. along a transect)       |
+| `fool()`       |     ✅     |      ✅       |      ❌      | Finds neighbors horizontally (i.e. along a quadrat)      |
 | `rook()`       |     ✅     |      ❌       |      ❌      | Finds neighbors vertically and horizontally              |
 | `bishop()`^\*^ |     ✅     |      ❌       |      ❌      | Finds neighbors along the two diagonals                  |
 | `knight()`^\*^ |     ✅     |      ❌       |      ❌      | Finds neighbors in 'L' shape                             |
