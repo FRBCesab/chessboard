@@ -58,9 +58,6 @@
     <li>
       <a href="../articles/visualization-tools.html">Visualization tools</a>
     </li>
-    <li>
-      <a href="../articles/case-study.html">Case study</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -99,62 +96,123 @@
     
 <p>The aim of the package <code>chessboard</code> is to provide tools to
 work with <strong>directed</strong> (asymmetric) and
-<strong>undirected</strong> (symmetrical) spatial
-<strong>networks</strong>. It makes easier the creation of
-<strong>connectivity matrix</strong>, i.e. a binary matrix of dimensions
-<code>n x n</code>, where <code>n</code> is the number of
+<strong>undirected</strong> (symmetrical) spatial (or not)
+<strong>networks</strong>. It implements different methods to detect
+neighbors, all based on the chess game (it goes beyond the rook and the
+queen available in many R packages) to create complex connectivity
+scenarios.</p>
+<p><code>chessboard</code> aims to easily create various network
+objects, including:</p>
+<ul>
+<li>
+<strong>node list</strong>, i.e. a list of all nodes of the
+network;</li>
+<li>
+<strong>edge list</strong>, i.e. a list of all edges (links) between
+pairs of nodes;</li>
+<li>
+<strong>connectivity matrix</strong>, i.e. a binary matrix of
+dimensions <code>n x n</code>, where <code>n</code> is the number of
 <strong>nodes</strong> (sampling units) indicating the presence
 (<code>1</code>) or the absence (<code>0</code>) of an
-<strong>edge</strong> (link) between pairs of nodes. Different network
-objects can be produced by <code>chessboard</code>:</p>
-<ul>
-<li><strong>node list</strong></li>
-<li><strong>neighbor list</strong></li>
-<li><strong>edge list</strong></li>
-<li><strong>connectivity matrix</strong></li>
+<strong>edge</strong> (link) between pairs of nodes.</li>
 </ul>
-<p><br></p>
-<p>In addition, the package can also produce objects that can be used
-later in Asymetric Eigenvector Maps (AEM, Blanchet <em>et al.</em>
-2008), method available in the package <a href="https://cran.r-project.org/package=adespatial" class="external-link"><code>adespatial</code></a>
-(Dray <em>et al.</em> 2022): <strong>nodes by edges matrix</strong> and
-<strong>edges weights vector</strong>.</p>
-<p><br></p>
-<p>This package has been developed for the <a href="https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/" class="external-link">FRB-CESAB</a>
-working group <a href="https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/bridge/" class="external-link">Bridge</a>
-that aims to better understand the role of local and regional
-environmental factors in shaping the taxonomic and functional diversity
-of plant communities established along river corridors, roadside
-corridors and cultivated field margins.</p>
-<p><br></p>
-<p><strong>Setup</strong></p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/chessboard" class="external-link">"chessboard"</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com" class="external-link">"patchwork"</a></span><span class="op">)</span></span></code></pre></div>
-<p><strong>N.B.</strong> The package <code>chessboard</code> can also
-deal with one-dimensional sampling (either
-<strong>transects-only</strong> or <strong>quadrats-only</strong>) and
-with <strong>undirected</strong> networks.</p>
-<p><br></p>
 <div class="section level2">
-<h2 id="node-labels">Node labels<a class="anchor" aria-label="anchor" href="#node-labels"></a>
+<h2 id="network-properties">Network properties<a class="anchor" aria-label="anchor" href="#network-properties"></a>
 </h2>
-<p>It’s <strong>important</strong> to note that, even the package
-<code>chessboard</code> can handle spatial networks, it does not
-explicitly use spatial coordinates to find neighbors (and edges).
-Instead, it will identify neighbors only based on <strong>node
-labels</strong>. In other words, the order of node labels will give the
-dimension and the direction of the network.</p>
+<p><code>chessboard</code> can handle spatial networks, but it does not
+explicitly use geographical coordinates to find neighbors (it is not
+based on spatial distance). Instead, it identifies neighbors according
+to <strong>node labels</strong> (i.e. the node position on a
+two-dimension chessboard) and a specific method (pawn, fool, rook,
+bishop, knight, queen, wizard, etc.) derived from the chess game.</p>
+<div class="figure" style="text-align: center">
+<img src="chessboard_files/figure-html/cb-network-1.png" alt="Figure 1. Network as a chessboard" width="60%"><p class="caption">
+Figure 1. Network as a chessboard
+</p>
+</div>
+<p>The package <code>chessboard</code> is designed to work with
+two-dimensional networks (i.e.  sampling on a regular grid), where one
+dimension is called <strong>transect</strong> and the other is called
+<strong>quadrat</strong>. By convention, the dimension
+<strong>transect</strong> corresponds to the x-axis, and the
+<strong>quadrat</strong> corresponds to the y-axis (Fig. 1).</p>
+<p><code>chessboard</code> can also deal with one-dimensional network
+(either <strong>transect-only</strong> or
+<strong>quadrat-only</strong>).</p>
+<p>The network can be undirected or directed. If the network is
+<strong>directed</strong>, it will have (by default) these two
+orientations:</p>
+<ul>
+<li>from bottom to top (along transect) for quadrats</li>
+<li>from left to right (along quadrat) for transects</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="neighbors-detection">Neighbors detection<a class="anchor" aria-label="anchor" href="#neighbors-detection"></a>
+</h2>
+<p><code>chessboard</code> implements the following rules to detect
+neighbors and to create edges:</p>
+<ul>
+<li><p>the <strong>degree</strong> of neighborhood: the number of
+adjacent nodes that will be used to create direct edges.</p></li>
+<li><p>the <strong>orientation</strong> of neighborhood: can neighbors
+be detected horizontally, vertically and/or diagonally?</p></li>
+<li><p>the <strong>direction</strong> of neighborhood: does the sampling
+has a main direction? This can be particularly relevant for directed
+networks (e.g. rivers).</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
+</h2>
+<p>The Figure 2 shows the general workflow and the main features of
+<code>chessboard</code>.</p>
+<div class="figure" style="text-align: center">
+<img src="../reference/figures/diagramme.png" alt="Figure 2. Workflow and main features of `chessboard`" width="100%"><p class="caption">
+Figure 2. Workflow and main features of <code>chessboard</code>
+</p>
+</div>
+<div class="section level3">
+<h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
+</h3>
+<p>The package <code>chessboard</code> comes with a real-world example:
+a survey sampling along the French river <em>L’Adour</em> (Fig. 3).
+<em>L’Adour</em> is a river in southwestern France. It rises in the
+Pyrenees and flows into the Atlantic Ocean (Bay of Biscay). It’s
+oriented from south-east (upstream) to north-west (downstream).</p>
+<div class="figure" style="text-align: center">
+<img src="img/map-adour-river.png" alt="Figure 3. Location of the French river L'Adour" width="80%"><p class="caption">
+Figure 3. Location of the French river L’Adour
+</p>
+</div>
+<p>Along this river, a survey has been realized at
+<strong>three</strong> locations (Fig. 4). At each location, a sampling
+has been conducted on a regular grid composed of <strong>three</strong>
+transects each of them composed of <strong>five</strong> quadrats.</p>
+<div class="figure" style="text-align: center">
+<img src="chessboard_files/figure-html/map-adour-sites-1.png" alt="Figure 4. Survey sampling along the river L'Adour" width="80%"><p class="caption">
+Figure 4. Survey sampling along the river L’Adour
+</p>
+</div>
+<p>The arrow in Fig. 4 indicates the direction of the river flow. This
+means that our sampling design is a <strong>directed spatial
+network</strong> (both inside a location and between locations) where
+the main direction is from upstream to downstream.</p>
 <p><br></p>
-<p>Let’s import the survey dataset provided by the package.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Import survey data ----</span></span>
-<span><span class="va">path_to_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"adour_survey_sampling.csv"</span>,</span>
+<p>Let’s import this dataset provided by <code>chessboard</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Import data ----</span></span>
+<span><span class="va">path_to_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"adour_survey_sampling.csv"</span>, </span>
 <span>                            package <span class="op">=</span> <span class="st">"chessboard"</span><span class="op">)</span></span>
-<span><span class="va">adour_sites</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">path_to_file</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">adour_sites</span>, <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="va">sampling</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">path_to_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">sampling</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 45  5</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># First rows ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sampling</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    location transect quadrat longitude latitude</span></span>
 <span><span class="co">#&gt; 1         1        1       1  474036.9  6221518</span></span>
 <span><span class="co">#&gt; 2         1        1       2  473080.0  6223828</span></span>
@@ -165,17 +223,21 @@ dimension and the direction of the network.</p>
 <span><span class="co">#&gt; 7         1        2       2  475390.1  6224785</span></span>
 <span><span class="co">#&gt; 8         1        2       3  474433.2  6227095</span></span>
 <span><span class="co">#&gt; 9         1        2       4  473476.3  6229405</span></span>
-<span><span class="co">#&gt; 10        1        2       5  472519.5  6231715</span></span>
-<span><span class="co">#&gt; 11        1        3       1  478657.1  6223432</span></span>
-<span><span class="co">#&gt; 12        1        3       2  477700.2  6225742</span></span>
-<span><span class="co">#&gt; 13        1        3       3  476743.4  6228052</span></span>
-<span><span class="co">#&gt; 14        1        3       4  475786.5  6230362</span></span>
-<span><span class="co">#&gt; 15        1        3       5  474829.6  6232672</span></span>
-<span><span class="co">#&gt; 16        2        1       6  464884.1  6272493</span></span>
-<span><span class="co">#&gt; 17        2        1       7  464205.4  6274900</span></span>
-<span><span class="co">#&gt; 18        2        1       8  463526.6  6277306</span></span>
-<span><span class="co">#&gt; 19        2        1       9  462847.9  6279713</span></span>
-<span><span class="co">#&gt; 20        2        1      10  462169.2  6282119</span></span></code></pre></div>
+<span><span class="co">#&gt; 10        1        2       5  472519.5  6231715</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Last rows ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">sampling</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    location transect quadrat longitude latitude</span></span>
+<span><span class="co">#&gt; 36        3        2      11  414434.2  6312095</span></span>
+<span><span class="co">#&gt; 37        3        2      12  411933.7  6312095</span></span>
+<span><span class="co">#&gt; 38        3        2      13  409433.2  6312095</span></span>
+<span><span class="co">#&gt; 39        3        2      14  406932.8  6312095</span></span>
+<span><span class="co">#&gt; 40        3        2      15  404432.3  6312095</span></span>
+<span><span class="co">#&gt; 41        3        3      11  414434.2  6314595</span></span>
+<span><span class="co">#&gt; 42        3        3      12  411933.7  6314595</span></span>
+<span><span class="co">#&gt; 43        3        3      13  409433.2  6314595</span></span>
+<span><span class="co">#&gt; 44        3        3      14  406932.8  6314595</span></span>
+<span><span class="co">#&gt; 45        3        3      15  404432.3  6314595</span></span></code></pre></div>
 <p>This <code>data.frame</code> contains the following columns:</p>
 <ul>
 <li>
@@ -194,61 +256,39 @@ dimension and the direction of the network.</p>
 <code>latitude</code>: the latitude of the site
 (<strong>node</strong>) defined in the <a href="https://epsg.io/2154" class="external-link">RGF93 / Lambert-93</a> projection</li>
 </ul>
-<p><br></p>
-<p><strong>N.B.</strong> The column <code>location</code> is optional
-(if the survey has been conducted at one single location). If the
-network has one dimension, one of the columns <code>transect</code> and
-<code>quadrat</code> can be omitted.</p>
-<p><br></p>
-<p><br></p>
-<p>From this figure, several things should be noted:</p>
-<ol style="list-style-type: decimal">
-<li>For two-dimensional networks, the x-axis <strong>always</strong>
-corresponds to transects and the y-axis to the quadrats.</li>
-<li>In this survey, the locations have the same transect identifiers (1
-to 3) but the <strong>identifier of quadrats increases</strong> with
-locations.</li>
-<li>The <strong>order of the quadrats</strong> follows the direction of
-the network: the first quadrat is upstream and the last is
-downstream.</li>
-</ol>
-<p><br></p>
-<p>When using the package <code>chessboard</code>, the <strong>first
-step</strong> is to create <strong>node labels</strong> by combining the
-identifiers of transects and quadrats. It’s the purpose of the function
+<p><strong>N.B.</strong> The column <code>location</code> is optional if
+the survey has been conducted at one single location. If the network has
+one dimension, one of the columns <code>transect</code> and
+<code>quadrat</code> can be omitted. If the survey is not spatial, the
+columns <code>longitude</code> and <code>latitude</code> can be
+omitted.</p>
+</div>
+<div class="section level3">
+<h3 id="node-labels">Node labels<a class="anchor" aria-label="anchor" href="#node-labels"></a>
+</h3>
+<p>When working with <code>chessboard</code>, the <strong>first
+step</strong> is to create node labels with the function
 <code><a href="../reference/create_node_labels.html">create_node_labels()</a></code>.</p>
 <p><br></p>
-<p>But first, let’s select the first location (optional).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Select first location (optional) ----</span></span>
-<span><span class="va">adour_sites</span> <span class="op">&lt;-</span> <span class="va">adour_sites</span><span class="op">[</span><span class="va">adour_sites</span><span class="op">$</span><span class="st">"location"</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span></span>
-<span><span class="va">adour_sites</span></span>
-<span><span class="co">#&gt;    location transect quadrat longitude latitude</span></span>
-<span><span class="co">#&gt; 1         1        1       1  474036.9  6221518</span></span>
-<span><span class="co">#&gt; 2         1        1       2  473080.0  6223828</span></span>
-<span><span class="co">#&gt; 3         1        1       3  472123.1  6226138</span></span>
-<span><span class="co">#&gt; 4         1        1       4  471166.2  6228448</span></span>
-<span><span class="co">#&gt; 5         1        1       5  470209.3  6230758</span></span>
-<span><span class="co">#&gt; 6         1        2       1  476347.0  6222475</span></span>
-<span><span class="co">#&gt; 7         1        2       2  475390.1  6224785</span></span>
-<span><span class="co">#&gt; 8         1        2       3  474433.2  6227095</span></span>
-<span><span class="co">#&gt; 9         1        2       4  473476.3  6229405</span></span>
-<span><span class="co">#&gt; 10        1        2       5  472519.5  6231715</span></span>
-<span><span class="co">#&gt; 11        1        3       1  478657.1  6223432</span></span>
-<span><span class="co">#&gt; 12        1        3       2  477700.2  6225742</span></span>
-<span><span class="co">#&gt; 13        1        3       3  476743.4  6228052</span></span>
-<span><span class="co">#&gt; 14        1        3       4  475786.5  6230362</span></span>
-<span><span class="co">#&gt; 15        1        3       5  474829.6  6232672</span></span></code></pre></div>
-<p><br></p>
-<p>Now, we can create node labels.</p>
+<p>But first, let’s reduce the size of data by selecting the first
+location.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Create node labels ----</span></span>
-<span><span class="va">adour_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">adour_sites</span>, </span>
-<span>                                  location <span class="op">=</span> <span class="st">"location"</span>,</span>
-<span>                                  transect <span class="op">=</span> <span class="st">"transect"</span>, </span>
-<span>                                  quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Select the first location ----</span></span>
+<span><span class="va">sampling</span> <span class="op">&lt;-</span> <span class="va">sampling</span><span class="op">[</span><span class="va">sampling</span><span class="op">$</span><span class="st">"location"</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span></span>
 <span></span>
-<span><span class="va">adour_sites</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">sampling</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 15  5</span></span></code></pre></div>
+<p><br></p>
+<p>Let’s create node labels with the function
+<code><a href="../reference/create_node_labels.html">create_node_labels()</a></code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create node labels ----</span></span>
+<span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_node_labels.html">create_node_labels</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">sampling</span>,</span>
+<span>                            location <span class="op">=</span> <span class="st">"location"</span>,</span>
+<span>                            transect <span class="op">=</span> <span class="st">"transect"</span>,</span>
+<span>                            quadrat  <span class="op">=</span> <span class="st">"quadrat"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">nodes</span></span>
 <span><span class="co">#&gt;    node location transect quadrat longitude latitude</span></span>
 <span><span class="co">#&gt; 1   1-1        1        1       1  474036.9  6221518</span></span>
 <span><span class="co">#&gt; 2   1-2        1        1       2  473080.0  6223828</span></span>
@@ -265,21 +305,55 @@ identifiers of transects and quadrats. It’s the purpose of the function
 <span><span class="co">#&gt; 13  3-3        1        3       3  476743.4  6228052</span></span>
 <span><span class="co">#&gt; 14  3-4        1        3       4  475786.5  6230362</span></span>
 <span><span class="co">#&gt; 15  3-5        1        3       5  474829.6  6232672</span></span></code></pre></div>
+<p>Node labels are a combination of the transect and the quadrat
+identifiers. They must be <strong>unique</strong>.</p>
 <p><br></p>
-<p>Node labels are of the form: <code>1-2</code>, where <code>1</code>
-is the identifier of the <strong>transect</strong> (created by the
-function if missing, i.e. quadrats-only sampling), and <code>2</code>,
-the identifier of the <strong>quadrat</strong> (created by the function
-if missing, i.e. transects-only sampling).</p>
+<p>We can visualize this sampling on a Cartesian referential,
+i.e. non-spatial, where the x-axis corresponds to
+<strong>transects</strong> and the y-axis represents the
+<strong>quadrats</strong> (Fig. 5). This new referential is called a
+chessboard.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Visualize chessboard ----</span></span>
+<span><span class="fu"><a href="../reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="chessboard_files/figure-html/plot-sampling-units-1.png" alt="Figure 5. Sampling survey as a chessboard" width="60%"><p class="caption">
+Figure 5. Sampling survey as a chessboard
+</p>
+</div>
 <p><br></p>
-<p>The function <code><a href="../reference/get_node_list.html">get_node_list()</a></code> can be used to extract the
-node list.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Get node labels ----</span></span>
-<span><span class="fu"><a href="../reference/get_node_list.html">get_node_list</a></span><span class="op">(</span><span class="va">adour_sites</span><span class="op">)</span></span>
+<p>The function <code><a href="../reference/get_node_list.html">get_node_list()</a></code> can be used to extract and
+order the node list.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract node labels ----</span></span>
+<span><span class="fu"><a href="../reference/get_node_list.html">get_node_list</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "1-1" "1-2" "1-3" "1-4" "1-5" "2-1" "2-2" "2-3" "2-4" "2-5" "3-1" "3-2"</span></span>
 <span><span class="co">#&gt; [13] "3-3" "3-4" "3-5"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="neighbors-detection-1">Neighbors detection<a class="anchor" aria-label="anchor" href="#neighbors-detection-1"></a>
+</h3>
+<p>…</p>
+</div>
+<div class="section level3">
+<h3 id="edge-list">Edge list<a class="anchor" aria-label="anchor" href="#edge-list"></a>
+</h3>
+<ul>
+<li>Creation</li>
+<li>Combination</li>
+<li>Visualization</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="connectivity-matrix">Connectivity matrix<a class="anchor" aria-label="anchor" href="#connectivity-matrix"></a>
+</h3>
+<ul>
+<li>Creation</li>
+<li>Combination</li>
+<li>Visualization</li>
+</ul>
 <p><br></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="edges-list">Edges list<a class="anchor" aria-label="anchor" href="#edges-list"></a>
@@ -318,9 +392,9 @@ explore these different methods by calling the functions
 <code><a href="../reference/pawn.html">pawn()</a></code>, <code><a href="../reference/rook.html">rook()</a></code>, <code><a href="../reference/bishop.html">bishop()</a></code>,
 <code><a href="../reference/queen.html">queen()</a></code>, etc.</p>
 <p>Let’s take a look of the neighborhood method <code><a href="../reference/pawn.html">pawn()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Explore pawn method to find neighbors ----</span></span>
-<span><span class="va">neighbors_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pawn.html">pawn</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">adour_sites</span>, </span>
+<span><span class="va">neighbors_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pawn.html">pawn</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>, </span>
 <span>                       focus    <span class="op">=</span> <span class="st">"2-3"</span>, </span>
 <span>                       degree   <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>                       directed <span class="op">=</span> <span class="cn">FALSE</span>, </span>
@@ -377,9 +451,9 @@ movements</a> shows all possible movements implemented in
 <p>Now, let’s use the function <code><a href="../reference/create_edge_list.html">create_edge_list()</a></code> to create
 an edge list using the method <code>'pawn'</code> with a degree
 <code>1</code> of neighborhood and in a directional way.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create edge list ----</span></span>
-<span><span class="va">adour_edges_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">adour_sites</span>, </span>
+<span><span class="va">adour_edges_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>, </span>
 <span>                                     method   <span class="op">=</span> <span class="st">"pawn"</span>, </span>
 <span>                                     degree   <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>                                     directed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -404,12 +478,12 @@ an edge list using the method <code>'pawn'</code> with a degree
 <p>It’s possible to visualize these edges on a map, i.e. by using
 spatial coordinates. First, we need to convert our sites into a spatial
 object (<code>POINT</code>).</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Convert sites to sf object ----</span></span>
-<span><span class="va">adour_sites_sf</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">adour_sites</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>,</span>
+<span><span class="va">nodes_sf</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">nodes</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>,</span>
 <span>                               crs <span class="op">=</span> <span class="st">"epsg:2154"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">adour_sites_sf</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nodes_sf</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Simple feature collection with 6 features and 4 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
@@ -425,10 +499,10 @@ object (<code>POINT</code>).</p>
 <p><br></p>
 <p>Now we can use the function <code><a href="../reference/edges_to_sf.html">edges_to_sf()</a></code> to convert our
 edge list into a spatial object (<code>LINESTRING</code>).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Convert edge list to sf ----</span></span>
 <span><span class="va">adour_edges_pawn_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span>edges <span class="op">=</span> <span class="va">adour_edges_pawn</span>, </span>
-<span>                                   sites <span class="op">=</span> <span class="va">adour_sites_sf</span><span class="op">)</span></span>
+<span>                                   sites <span class="op">=</span> <span class="va">nodes_sf</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">adour_edges_pawn_sf</span></span>
 <span><span class="co">#&gt; Simple feature collection with 12 features and 2 fields</span></span>
@@ -450,12 +524,12 @@ edge list into a spatial object (<code>LINESTRING</code>).</p>
 <span><span class="co">#&gt; 10  3-2 3-3 LINESTRING (477700.2 622574...</span></span></code></pre></div>
 <p><br></p>
 <p>We can now map our nodes and edges.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Map of nodes and edges ----</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">adour_sites_sf</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adour_edges_pawn_sf</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">nodes_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">adour_edges_pawn_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_light</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="chessboard_files/figure-html/map-edges-list-pawn-1.png" alt="Figure 7. Edges list (pawn method)" width="80%"><p class="caption">
 Figure 7. Edges list (pawn method)
@@ -467,9 +541,9 @@ possible by using for each method the function
 <code><a href="../reference/create_edge_list.html">create_edge_list()</a></code> and using the function
 <code><a href="../reference/append_edge_lists.html">append_edge_lists()</a></code> to merge all edges in a single
 list.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create edge list (Bishop method) ----</span></span>
-<span><span class="va">adour_edges_bishop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">adour_sites</span>, </span>
+<span><span class="va">adour_edges_bishop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>, </span>
 <span>                                       method   <span class="op">=</span> <span class="st">"bishop"</span>, </span>
 <span>                                       degree   <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>                                       directed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -499,14 +573,14 @@ list.</p>
 <span><span class="va">adour_edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_edge_lists.html">append_edge_lists</a></span><span class="op">(</span><span class="va">adour_edges_pawn</span>, <span class="va">adour_edges_bishop</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Convert edges to spatial layer ----</span></span>
-<span><span class="va">adour_edges_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span><span class="va">adour_edges</span>, <span class="va">adour_sites_sf</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">adour_edges_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span><span class="va">adour_edges</span>, <span class="va">nodes_sf</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Map of nodes and edges ----</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">adour_sites_sf</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adour_edges_sf</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">nodes_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">adour_edges_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_light</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="chessboard_files/figure-html/map-edges-list-pawn-bishop-1.png" alt="Figure 8. Edges list (combined methods)" width="80%"><p class="caption">
 Figure 8. Edges list (combined methods)
@@ -515,7 +589,7 @@ Figure 8. Edges list (combined methods)
 <p><br></p>
 </div>
 <div class="section level2">
-<h2 id="connectivity-matrix">Connectivity matrix<a class="anchor" aria-label="anchor" href="#connectivity-matrix"></a>
+<h2 id="connectivity-matrix-1">Connectivity matrix<a class="anchor" aria-label="anchor" href="#connectivity-matrix-1"></a>
 </h2>
 <p>From this edge list, we can build a <strong>connectivity
 matrix</strong>, i.e. a binary matrix of dimensions <code>n x n</code>,
@@ -525,7 +599,7 @@ the presence (<code>1</code>) or the absence (<code>0</code>) of an edge
 <p><br></p>
 <p>We can use the function <code><a href="../reference/connectivity_matrix.html">connectivity_matrix()</a></code> of the
 package <code>chessboard</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create connectivity matrix ----</span></span>
 <span><span class="va">adour_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">adour_edges</span><span class="op">)</span></span>
 <span></span>
@@ -549,7 +623,7 @@ package <code>chessboard</code>.</p>
 <p><br></p>
 <p>The package <code>chessboard</code> provides a graphical function to
 visualize this matrix: <code><a href="../reference/gg_matrix.html">gg_matrix()</a></code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Visualize connectivity matrix ----</span></span>
 <span><span class="fu"><a href="../reference/gg_matrix.html">gg_matrix</a></span><span class="op">(</span><span class="va">adour_matrix</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -561,7 +635,7 @@ Figure 9. Connectivity matrix
 <p>Optionally, we can use the function
 <code><a href="../reference/matrix_to_edge_list.html">matrix_to_edge_list()</a></code> to convert back the connectivity
 matrix to edge list.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Convert connectivity matrix to edge list ----</span></span>
 <span><span class="fu"><a href="../reference/matrix_to_edge_list.html">matrix_to_edge_list</a></span><span class="op">(</span><span class="va">adour_matrix</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    from  to edge</span></span>
@@ -612,7 +686,7 @@ This function creates the same output but works in a different way: it’s
 only based on nodes labels (not on spatial coordinates). In addition,
 the function <code><a href="../reference/nodes_by_edges_matrix.html">nodes_by_edges_matrix()</a></code> adds labels to nodes
 and edges.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create nodes-by-edges matrix ----</span></span>
 <span><span class="va">adour_edges_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/nodes_by_edges_matrix.html">nodes_by_edges_matrix</a></span><span class="op">(</span><span class="va">adour_edges</span><span class="op">)</span></span>
 <span></span>
@@ -689,7 +763,7 @@ as <code>0</code>) has been created and represents the first edge (coded
 as <code>E-01</code>) to the first site.</p>
 <p><br></p>
 <p>Let’s plot our nodes-by-edges matrix.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gg_matrix.html">gg_matrix</a></span><span class="op">(</span><span class="va">adour_edges_mat</span><span class="op">$</span><span class="st">"se.mat"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="chessboard_files/figure-html/plot-nodes-by-edges-matrix-1.png" alt="Figure 10. Nodes-by-edges matrix" width="80%"><p class="caption">
