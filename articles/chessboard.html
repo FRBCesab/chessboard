@@ -117,6 +117,7 @@ dimensions <code>n x n</code>, where <code>n</code> is the number of
 (<code>1</code>) or the absence (<code>0</code>) of an
 <strong>edge</strong> (link) between pairs of nodes.</li>
 </ul>
+<p><br></p>
 <div class="section level2">
 <h2 id="network-properties">Network properties<a class="anchor" aria-label="anchor" href="#network-properties"></a>
 </h2>
@@ -126,11 +127,13 @@ based on spatial distance). Instead, it identifies neighbors according
 to <strong>node labels</strong> (i.e. the node position on a
 two-dimension chessboard) and a specific method (pawn, fool, rook,
 bishop, knight, queen, wizard, etc.) derived from the chess game.</p>
+<p><br></p>
 <div class="figure" style="text-align: center">
 <img src="chessboard_files/figure-html/cb-network-1.png" alt="Figure 1. Network as a chessboard" width="60%"><p class="caption">
 Figure 1. Network as a chessboard
 </p>
 </div>
+<p><br></p>
 <p>The package <code>chessboard</code> is designed to work with
 two-dimensional networks (i.e.  sampling on a regular grid), where one
 dimension is called <strong>transect</strong> and the other is called
@@ -147,6 +150,7 @@ orientations:</p>
 <li>from bottom to top (along transect) for quadrats</li>
 <li>from left to right (along quadrat) for transects</li>
 </ul>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="neighbors-detection">Neighbors detection<a class="anchor" aria-label="anchor" href="#neighbors-detection"></a>
@@ -162,17 +166,20 @@ be detected horizontally, vertically and/or diagonally?</p></li>
 has a main direction? This can be particularly relevant for directed
 networks (e.g. rivers).</p></li>
 </ul>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
 <p>The Figure 2 shows the general workflow and the main features of
 <code>chessboard</code>.</p>
+<p><br></p>
 <div class="figure" style="text-align: center">
 <img src="../reference/figures/diagramme.png" alt="Figure 2. Workflow and main features of `chessboard`" width="100%"><p class="caption">
 Figure 2. Workflow and main features of <code>chessboard</code>
 </p>
 </div>
+<p><br></p>
 <div class="section level3">
 <h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h3>
@@ -181,15 +188,18 @@ a survey sampling along the French river <em>L’Adour</em> (Fig. 3).
 <em>L’Adour</em> is a river in southwestern France. It rises in the
 Pyrenees and flows into the Atlantic Ocean (Bay of Biscay). It’s
 oriented from south-east (upstream) to north-west (downstream).</p>
+<p><br></p>
 <div class="figure" style="text-align: center">
 <img src="img/map-adour-river.png" alt="Figure 3. Location of the French river L'Adour" width="80%"><p class="caption">
 Figure 3. Location of the French river L’Adour
 </p>
 </div>
+<p><br></p>
 <p>Along this river, a survey has been realized at
 <strong>three</strong> locations (Fig. 4). At each location, a sampling
 has been conducted on a regular grid composed of <strong>three</strong>
 transects each of them composed of <strong>five</strong> quadrats.</p>
+<p><br></p>
 <div class="figure" style="text-align: center">
 <img src="chessboard_files/figure-html/map-adour-sites-1.png" alt="Figure 4. Survey sampling along the river L'Adour" width="80%"><p class="caption">
 Figure 4. Survey sampling along the river L’Adour
@@ -262,6 +272,7 @@ one dimension, one of the columns <code>transect</code> and
 <code>quadrat</code> can be omitted. If the survey is not spatial, the
 columns <code>longitude</code> and <code>latitude</code> can be
 omitted.</p>
+<p><br></p>
 </div>
 <div class="section level3">
 <h3 id="node-labels">Node labels<a class="anchor" aria-label="anchor" href="#node-labels"></a>
@@ -329,71 +340,29 @@ order the node list.</p>
 <span><span class="fu"><a href="../reference/get_node_list.html">get_node_list</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "1-1" "1-2" "1-3" "1-4" "1-5" "2-1" "2-2" "2-3" "2-4" "2-5" "3-1" "3-2"</span></span>
 <span><span class="co">#&gt; [13] "3-3" "3-4" "3-5"</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="neighbors-detection-1">Neighbors detection<a class="anchor" aria-label="anchor" href="#neighbors-detection-1"></a>
-</h3>
-<p>…</p>
+<p><br></p>
 </div>
 <div class="section level3">
 <h3 id="edge-list">Edge list<a class="anchor" aria-label="anchor" href="#edge-list"></a>
 </h3>
-<ul>
-<li>Creation</li>
-<li>Combination</li>
-<li>Visualization</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="connectivity-matrix">Connectivity matrix<a class="anchor" aria-label="anchor" href="#connectivity-matrix"></a>
-</h3>
-<ul>
-<li>Creation</li>
-<li>Combination</li>
-<li>Visualization</li>
-</ul>
-<p><br></p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="edges-list">Edges list<a class="anchor" aria-label="anchor" href="#edges-list"></a>
-</h2>
 <p>The creation of a list of edges (links) between nodes (sampling
-units) is based on the detection of neighbors. The function
-<code><a href="../reference/create_edge_list.html">create_edge_list()</a></code> implements three neighborhood rules:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Degree of neighborhood</strong> (argument
-<code>degree</code>): the number of adjacent nodes that will be used to
-create <strong>direct</strong> edges. If <code>degree = 1</code>, only
-nodes directly adjacent to the focal node will be considered as
-neighbors.</li>
-<li>
-<strong>Orientation of neighborhood</strong> (argument
-<code>method</code>): can neighbors be detecting horizontally and/or
-vertically and/or diagonally? The package <code>chessboard</code>
-implements all possible orientations derived from the chess game.</li>
-<li>
-<strong>Direction of neighborhood</strong> (arguments
-<code>directed</code> and <code>reverse</code>): does the sampling
-design has a direction? If so, the network will be considered as
-<strong>directed</strong> and the direction will follow the order of
-node labels in both axes of the grid.</li>
-</ol>
-<p><br></p>
-<p>Different methods have implemented to define neighborhood (argument
-<code>method</code> of the function <code><a href="../reference/create_edge_list.html">create_edge_list()</a></code>).
-These methods are named <code>'pawn'</code>, <code>'rook'</code>,
-<code>'bishop'</code>, <code>'queen'</code>, etc. A complete list of
-available methods is available at: <a href="https://frbcesab.github.io/chessboard/reference/index.html#detect-neighbors" class="external-link">https://frbcesab.github.io/chessboard/reference/index.html#detect-neighbors</a></p>
+units) is based on the detection of neighbors.</p>
+<p>In <code>chessboard</code> different methods have been implemented to
+define neighborhood (argument <code>method</code> of the function
+<code><a href="../reference/create_edge_list.html">create_edge_list()</a></code>). These methods are named
+<code>'pawn'</code>, <code>'rook'</code>, <code>'bishop'</code>,
+<code>'queen'</code>, etc. A complete list of available methods is
+available at: <a href="https://frbcesab.github.io/chessboard/reference/index.html#detect-neighbors" class="external-link">https://frbcesab.github.io/chessboard/reference/index.html#detect-neighbors</a></p>
 <p><br></p>
 <p>Before using the function <code><a href="../reference/create_edge_list.html">create_edge_list()</a></code>, users can
 explore these different methods by calling the functions
 <code><a href="../reference/pawn.html">pawn()</a></code>, <code><a href="../reference/rook.html">rook()</a></code>, <code><a href="../reference/bishop.html">bishop()</a></code>,
-<code><a href="../reference/queen.html">queen()</a></code>, etc.</p>
+<code><a href="../reference/queen.html">queen()</a></code>, etc. These functions only work on a specific node
+(argument <code>focus</code>).</p>
+<p><br></p>
 <p>Let’s take a look of the neighborhood method <code><a href="../reference/pawn.html">pawn()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Explore pawn method to find neighbors ----</span></span>
+<code class="sourceCode R"><span><span class="co"># Explore pawn method to find neighbors ----</span></span>
 <span><span class="va">neighbors_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pawn.html">pawn</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>, </span>
 <span>                       focus    <span class="op">=</span> <span class="st">"2-3"</span>, </span>
 <span>                       degree   <span class="op">=</span> <span class="fl">1</span>, </span>
@@ -403,64 +372,67 @@ explore these different methods by calling the functions
 <span><span class="co">#&gt;   node location transect quadrat longitude latitude</span></span>
 <span><span class="co">#&gt; 1  2-2        1        2       2  475390.1  6224785</span></span>
 <span><span class="co">#&gt; 2  2-4        1        2       4  473476.3  6229405</span></span></code></pre></div>
-<p>This function (and others) only works on a specific node (argument
-<code>focus</code>).</p>
 <p><br></p>
 <p>The package <code>chessboard</code> contains functions to visualize
 detected neighbors on a chessboard: <code><a href="../reference/gg_chessboard.html">gg_chessboard()</a></code> is used
 to plot a chessboard (dimensions defined by the node list),
 <code><a href="../reference/geom_node.html">geom_node()</a></code> emphasizes the focus node (in red), and
-<code><a href="../reference/geom_neighbors.html">geom_neighbors()</a></code> adds the detected neighbors.</p>
+<code><a href="../reference/geom_neighbors.html">geom_neighbors()</a></code> adds the detected neighbors (dots in
+black).</p>
+<p><br></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gg_chessboard.html">gg_chessboard</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_node.html">geom_node</a></span><span class="op">(</span><span class="va">nodes</span>, focus <span class="op">=</span> <span class="st">"2-3"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_neighbors.html">geom_neighbors</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">neighbors_pawn</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/nb-pawn-1.png" alt="Figure 4. Detected neighbors (pawn method)" width="50%"><p class="caption">
-Figure 4. Detected neighbors (pawn method)
+<img src="chessboard_files/figure-html/nb-pawn-1.png" alt="Figure 6. Detected neighbors (pawn method)" width="50%"><p class="caption">
+Figure 6. Detected neighbors (pawn method)
 </p>
 </div>
 <p><br></p>
-<p>The Figure 5 shows the usage of the function <code><a href="../reference/pawn.html">pawn()</a></code> (and
-others). This function can detect neighbors horizontally, i.e. among
-quadrats along a transect. User can change the default settings by
+<p>The function <code><a href="../reference/pawn.html">pawn()</a></code> can detect neighbors vertically,
+i.e. among quadrats along a transect. User can change the default
+settings by increasing the degree of neighborhood
+(<code>degree = 4</code>, Fig. 7A), by adding directionality
+(<code>directed = TRUE</code>, Fig. 7B), and by reversing the default
+directionality (<code>directed = TRUE</code> and
+<code>reverse = TRUE</code>, Fig. 7C).</p>
+<div class="figure" style="text-align: center">
+<img src="chessboard_files/figure-html/cb-pawn-1.png" alt="Figure 7. Pawn movements" width="100%"><p class="caption">
+Figure 7. Pawn movements
+</p>
+</div>
+<p><br></p>
+<p>Let’s take another example. The function <code><a href="../reference/bishop.html">bishop()</a></code> can
+detect neighbors diagonally. User can change the default settings by
 increasing the degree of neighborhood (<code>degree = 4</code>, Fig.
-5A), by adding directionality (<code>directed = TRUE</code>, Fig. 5B),
+8A), by adding directionality (<code>directed = TRUE</code>, Fig. 8B),
 and by reversing the default directionality
 (<code>directed = TRUE</code> and <code>reverse = TRUE</code>, Fig.
-5C).</p>
+8C).</p>
 <div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/cb-pawn-1.png" alt="Figure 5. Pawn movements" width="100%"><p class="caption">
-Figure 5. Pawn movements
+<img src="chessboard_files/figure-html/cb-bishop-1.png" alt="Figure 8. Bishop movements" width="100%"><p class="caption">
+Figure 8. Bishop movements
 </p>
 </div>
 <p><br></p>
-<p>Let’s take another example with <code>method = "bishop"</code>. The
-function <code><a href="../reference/bishop.html">bishop()</a></code> can detect neighbors diagonally. User can
-change the default settings by increasing the degree of neighborhood
-(<code>degree = 4</code>, Fig. 6A), by adding directionality
-(<code>directed = TRUE</code>, Fig. 6B), and by reversing the default
-directionality (<code>directed = TRUE</code> and
-<code>reverse = TRUE</code>, Fig. 6C).</p>
-<div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/cb-bishop-1.png" alt="Figure 6. Bishop movements" width="100%"><p class="caption">
-Figure 6. Bishop movements
-</p>
-</div>
-<p><br></p>
-<p>The vignette <a href="https://frbcesab.github.io/chessboard/articles/movements.html" class="external-link">Chess
-movements</a> shows all possible movements implemented in
+<p>The vignette <a href="https://frbcesab.github.io/chessboard/articles/chess-pieces.html" class="external-link">Chess
+pieces</a> shows all possible methods available in
 <code>chessboard</code>.</p>
 <p><br></p>
 <p>Now, let’s use the function <code><a href="../reference/create_edge_list.html">create_edge_list()</a></code> to create
 an edge list using the method <code>'pawn'</code> with a degree
 <code>1</code> of neighborhood and in a directional way.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Create edge list ----</span></span>
-<span><span class="va">adour_edges_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>, </span>
-<span>                                     method   <span class="op">=</span> <span class="st">"pawn"</span>, </span>
-<span>                                     degree   <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>                                     directed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                     reverse  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                                     self     <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create edge list ----</span></span>
+<span><span class="va">edges_pawn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>, </span>
+<span>                               method   <span class="op">=</span> <span class="st">"pawn"</span>, </span>
+<span>                               degree   <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>                               directed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                               reverse  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                               self     <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">adour_edges_pawn</span></span>
+<span><span class="va">edges_pawn</span></span>
 <span><span class="co">#&gt;    from  to</span></span>
 <span><span class="co">#&gt; 1   1-1 1-2</span></span>
 <span><span class="co">#&gt; 2   1-2 1-3</span></span>
@@ -478,8 +450,8 @@ an edge list using the method <code>'pawn'</code> with a degree
 <p>It’s possible to visualize these edges on a map, i.e. by using
 spatial coordinates. First, we need to convert our sites into a spatial
 object (<code>POINT</code>).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Convert sites to sf object ----</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Convert nodes to sf object ----</span></span>
 <span><span class="va">nodes_sf</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">nodes</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>,</span>
 <span>                               crs <span class="op">=</span> <span class="st">"epsg:2154"</span><span class="op">)</span></span>
 <span></span>
@@ -499,12 +471,12 @@ object (<code>POINT</code>).</p>
 <p><br></p>
 <p>Now we can use the function <code><a href="../reference/edges_to_sf.html">edges_to_sf()</a></code> to convert our
 edge list into a spatial object (<code>LINESTRING</code>).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Convert edge list to sf ----</span></span>
-<span><span class="va">adour_edges_pawn_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span>edges <span class="op">=</span> <span class="va">adour_edges_pawn</span>, </span>
-<span>                                   sites <span class="op">=</span> <span class="va">nodes_sf</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Convert edge list to sf ----</span></span>
+<span><span class="va">edges_pawn_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span>edges <span class="op">=</span> <span class="va">edges_pawn</span>, </span>
+<span>                             sites <span class="op">=</span> <span class="va">nodes_sf</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">adour_edges_pawn_sf</span></span>
+<span><span class="va">edges_pawn_sf</span></span>
 <span><span class="co">#&gt; Simple feature collection with 12 features and 2 fields</span></span>
 <span><span class="co">#&gt; Geometry type: LINESTRING</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
@@ -524,33 +496,33 @@ edge list into a spatial object (<code>LINESTRING</code>).</p>
 <span><span class="co">#&gt; 10  3-2 3-3 LINESTRING (477700.2 622574...</span></span></code></pre></div>
 <p><br></p>
 <p>We can now map our nodes and edges.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Map of nodes and edges ----</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Map of nodes and edges ----</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">nodes_sf</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">adour_edges_pawn_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">edges_pawn_sf</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_light</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/map-edges-list-pawn-1.png" alt="Figure 7. Edges list (pawn method)" width="80%"><p class="caption">
-Figure 7. Edges list (pawn method)
+<img src="chessboard_files/figure-html/map-edges-list-pawn-1.png" alt="Figure 9. Edge list (pawn method)" width="80%"><p class="caption">
+Figure 9. Edge list (pawn method)
 </p>
 </div>
 <p><br></p>
-<p>Users may want to combine different methods to detect neighbors. It’s
-possible by using for each method the function
-<code><a href="../reference/create_edge_list.html">create_edge_list()</a></code> and using the function
+<p>Users may want to combine different methods to detect neighbors to
+build complex scenarios. It’s possible by using for each method the
+function <code><a href="../reference/create_edge_list.html">create_edge_list()</a></code> and using the function
 <code><a href="../reference/append_edge_lists.html">append_edge_lists()</a></code> to merge all edges in a single
 list.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Create edge list (Bishop method) ----</span></span>
-<span><span class="va">adour_edges_bishop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>, </span>
-<span>                                       method   <span class="op">=</span> <span class="st">"bishop"</span>, </span>
-<span>                                       degree   <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>                                       directed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                       reverse  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                                       self     <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create edge list (Bishop method) ----</span></span>
+<span><span class="va">edges_bishop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_edge_list.html">create_edge_list</a></span><span class="op">(</span>nodes    <span class="op">=</span> <span class="va">nodes</span>, </span>
+<span>                                 method   <span class="op">=</span> <span class="st">"bishop"</span>, </span>
+<span>                                 degree   <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>                                 directed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                 reverse  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                 self     <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">adour_edges_bishop</span></span>
+<span><span class="va">edges_bishop</span></span>
 <span><span class="co">#&gt;    from  to</span></span>
 <span><span class="co">#&gt; 1   1-1 2-2</span></span>
 <span><span class="co">#&gt; 2   1-2 2-3</span></span>
@@ -569,28 +541,28 @@ list.</p>
 <span><span class="co">#&gt; 15  3-3 2-4</span></span>
 <span><span class="co">#&gt; 16  3-4 2-5</span></span>
 <span></span>
-<span><span class="co">## Merge Pawn and Bishop edges ----</span></span>
-<span><span class="va">adour_edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_edge_lists.html">append_edge_lists</a></span><span class="op">(</span><span class="va">adour_edges_pawn</span>, <span class="va">adour_edges_bishop</span><span class="op">)</span></span>
+<span><span class="co"># Merge Pawn and Bishop edges ----</span></span>
+<span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_edge_lists.html">append_edge_lists</a></span><span class="op">(</span><span class="va">edges_pawn</span>, <span class="va">edges_bishop</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Convert edges to spatial layer ----</span></span>
-<span><span class="va">adour_edges_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span><span class="va">adour_edges</span>, <span class="va">nodes_sf</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Convert edges to spatial layer ----</span></span>
+<span><span class="va">edges_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/edges_to_sf.html">edges_to_sf</a></span><span class="op">(</span><span class="va">edges</span>, <span class="va">nodes_sf</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Map of nodes and edges ----</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Map of nodes and edges ----</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">nodes_sf</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">adour_edges_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">edges_sf</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_light</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/map-edges-list-pawn-bishop-1.png" alt="Figure 8. Edges list (combined methods)" width="80%"><p class="caption">
-Figure 8. Edges list (combined methods)
+<img src="chessboard_files/figure-html/map-edges-list-pawn-bishop-1.png" alt="Figure 10. Edges list (combined methods)" width="80%"><p class="caption">
+Figure 10. Edges list (combined methods)
 </p>
 </div>
 <p><br></p>
 </div>
-<div class="section level2">
-<h2 id="connectivity-matrix-1">Connectivity matrix<a class="anchor" aria-label="anchor" href="#connectivity-matrix-1"></a>
-</h2>
+<div class="section level3">
+<h3 id="connectivity-matrix">Connectivity matrix<a class="anchor" aria-label="anchor" href="#connectivity-matrix"></a>
+</h3>
 <p>From this edge list, we can build a <strong>connectivity
 matrix</strong>, i.e. a binary matrix of dimensions <code>n x n</code>,
 where <code>n</code> is the number of nodes (sampling units) indicating
@@ -599,11 +571,11 @@ the presence (<code>1</code>) or the absence (<code>0</code>) of an edge
 <p><br></p>
 <p>We can use the function <code><a href="../reference/connectivity_matrix.html">connectivity_matrix()</a></code> of the
 package <code>chessboard</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Create connectivity matrix ----</span></span>
-<span><span class="va">adour_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">adour_edges</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create connectivity matrix ----</span></span>
+<span><span class="va">conn_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">adour_matrix</span></span>
+<span><span class="va">conn_matrix</span></span>
 <span><span class="co">#&gt;     1-1 1-2 1-3 1-4 1-5 2-1 2-2 2-3 2-4 2-5 3-1 3-2 3-3 3-4 3-5</span></span>
 <span><span class="co">#&gt; 1-1   0   1   0   0   0   0   1   0   0   0   0   0   0   0   0</span></span>
 <span><span class="co">#&gt; 1-2   0   0   1   0   0   0   0   1   0   0   0   0   0   0   0</span></span>
@@ -621,23 +593,23 @@ package <code>chessboard</code>.</p>
 <span><span class="co">#&gt; 3-4   0   0   0   0   0   0   0   0   0   1   0   0   0   0   1</span></span>
 <span><span class="co">#&gt; 3-5   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0</span></span></code></pre></div>
 <p><br></p>
-<p>The package <code>chessboard</code> provides a graphical function to
-visualize this matrix: <code><a href="../reference/gg_matrix.html">gg_matrix()</a></code>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Visualize connectivity matrix ----</span></span>
-<span><span class="fu"><a href="../reference/gg_matrix.html">gg_matrix</a></span><span class="op">(</span><span class="va">adour_matrix</span><span class="op">)</span></span></code></pre></div>
+<p>The package <code>chessboard</code> provides a function to visualize
+this matrix: <code><a href="../reference/gg_matrix.html">gg_matrix()</a></code>.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Visualize connectivity matrix ----</span></span>
+<span><span class="fu"><a href="../reference/gg_matrix.html">gg_matrix</a></span><span class="op">(</span><span class="va">conn_matrix</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/plot-connectivity-matrix-1.png" alt="Figure 9. Connectivity matrix" width="80%"><p class="caption">
-Figure 9. Connectivity matrix
+<img src="chessboard_files/figure-html/plot-connectivity-matrix-1.png" alt="Figure 11. Connectivity matrix" width="80%"><p class="caption">
+Figure 11. Connectivity matrix
 </p>
 </div>
 <p><br></p>
 <p>Optionally, we can use the function
 <code><a href="../reference/matrix_to_edge_list.html">matrix_to_edge_list()</a></code> to convert back the connectivity
 matrix to edge list.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Convert connectivity matrix to edge list ----</span></span>
-<span><span class="fu"><a href="../reference/matrix_to_edge_list.html">matrix_to_edge_list</a></span><span class="op">(</span><span class="va">adour_matrix</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Convert connectivity matrix to edge list ----</span></span>
+<span><span class="fu"><a href="../reference/matrix_to_edge_list.html">matrix_to_edge_list</a></span><span class="op">(</span><span class="va">conn_matrix</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    from  to edge</span></span>
 <span><span class="co">#&gt; 1   1-1 1-2    1</span></span>
 <span><span class="co">#&gt; 2   1-1 2-2    1</span></span>
@@ -667,119 +639,7 @@ matrix to edge list.</p>
 <span><span class="co">#&gt; 26  3-3 3-4    1</span></span>
 <span><span class="co">#&gt; 27  3-4 2-5    1</span></span>
 <span><span class="co">#&gt; 28  3-4 3-5    1</span></span></code></pre></div>
-<p><br></p>
 </div>
-<div class="section level2">
-<h2 id="nodes-by-edges-matrix">Nodes-by-edges matrix<a class="anchor" aria-label="anchor" href="#nodes-by-edges-matrix"></a>
-</h2>
-<p>The first object required by AEM is the <strong>nodes-by-edges
-matrix</strong>, i.e. a binary matrix of dimensions <code>n x k</code>,
-where <code>n</code> is the number of nodes (in rows) and <code>k</code>
-the number of edges (in columns). This matrix represents the presence of
-a link influencing a site, directly or indirectly. It also gives the
-direction of the network.</p>
-<p><br></p>
-<p>The function <code><a href="../reference/nodes_by_edges_matrix.html">nodes_by_edges_matrix()</a></code> of the package
-<code>chessboard</code> is an alternative to the function <a href="https://sdray.github.io/adespatial/reference/aem.build.binary.html" class="external-link"><code>aem.build.binary()</code></a>
-of the package <a href="https://cran.r-project.org/package=adespatial" class="external-link"><code>adespatial</code></a>.
-This function creates the same output but works in a different way: it’s
-only based on nodes labels (not on spatial coordinates). In addition,
-the function <code><a href="../reference/nodes_by_edges_matrix.html">nodes_by_edges_matrix()</a></code> adds labels to nodes
-and edges.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Create nodes-by-edges matrix ----</span></span>
-<span><span class="va">adour_edges_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/nodes_by_edges_matrix.html">nodes_by_edges_matrix</a></span><span class="op">(</span><span class="va">adour_edges</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Content ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">adour_edges_mat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "se.mat" "edges"</span></span>
-<span></span>
-<span><span class="co">## Header of the nodes-by-edges matrix ----</span></span>
-<span><span class="va">adour_edges_mat</span><span class="op">$</span><span class="st">"se.mat"</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span></span>
-<span><span class="co">#&gt;     E-01 E-02 E-03 E-04 E-05 E-06 E-07 E-08 E-09 E-10 E-11 E-12 E-13 E-14 E-15</span></span>
-<span><span class="co">#&gt; 1-1    1    0    0    0    0    0    0    0    0    0    0    0    0    0    0</span></span>
-<span><span class="co">#&gt; 1-2    1    1    0    1    0    0    0    0    0    0    0    1    0    0    0</span></span>
-<span><span class="co">#&gt; 1-3    1    1    1    1    1    1    0    0    0    0    0    1    1    0    1</span></span>
-<span><span class="co">#&gt; 1-4    1    1    1    1    1    1    1    1    0    0    0    1    1    1    1</span></span>
-<span><span class="co">#&gt; 1-5    1    1    1    1    1    1    1    1    1    1    0    1    1    1    1</span></span>
-<span><span class="co">#&gt; 2-2    1    1    1    0    1    0    0    0    0    0    0    0    1    0    0</span></span>
-<span><span class="co">#&gt; 2-3    1    1    1    1    1    0    1    0    0    0    0    1    1    1    0</span></span>
-<span><span class="co">#&gt; 2-4    1    1    1    1    1    1    1    0    1    0    0    1    1    1    1</span></span>
-<span><span class="co">#&gt; 2-5    1    1    1    1    1    1    1    1    1    0    1    1    1    1    1</span></span>
-<span><span class="co">#&gt; 3-3    1    1    1    0    1    0    0    0    0    0    0    0    1    1    0</span></span>
-<span><span class="co">#&gt; 3-4    1    1    1    1    1    0    1    0    0    0    0    1    1    1    0</span></span>
-<span><span class="co">#&gt; 3-5    1    1    1    1    1    1    1    0    1    0    0    1    1    1    1</span></span>
-<span><span class="co">#&gt; 2-1    0    1    0    0    0    0    0    0    0    0    0    0    0    0    0</span></span>
-<span><span class="co">#&gt; 3-2    0    1    1    0    0    0    0    0    0    0    0    0    0    1    0</span></span>
-<span><span class="co">#&gt; 3-1    0    0    1    0    0    0    0    0    0    0    0    0    0    0    0</span></span>
-<span></span>
-<span><span class="co">## Edges list ----</span></span>
-<span><span class="va">adour_edges_mat</span><span class="op">$</span><span class="st">"edges"</span></span>
-<span><span class="co">#&gt;      from  to</span></span>
-<span><span class="co">#&gt; E-01    0 1-1</span></span>
-<span><span class="co">#&gt; E-02    0 2-1</span></span>
-<span><span class="co">#&gt; E-03    0 3-1</span></span>
-<span><span class="co">#&gt; E-04  1-1 1-2</span></span>
-<span><span class="co">#&gt; E-05  1-1 2-2</span></span>
-<span><span class="co">#&gt; E-06  1-2 1-3</span></span>
-<span><span class="co">#&gt; E-07  1-2 2-3</span></span>
-<span><span class="co">#&gt; E-08  1-3 1-4</span></span>
-<span><span class="co">#&gt; E-09  1-3 2-4</span></span>
-<span><span class="co">#&gt; E-10  1-4 1-5</span></span>
-<span><span class="co">#&gt; E-11  1-4 2-5</span></span>
-<span><span class="co">#&gt; E-12  2-1 1-2</span></span>
-<span><span class="co">#&gt; E-13  2-1 2-2</span></span>
-<span><span class="co">#&gt; E-14  2-1 3-2</span></span>
-<span><span class="co">#&gt; E-15  2-2 1-3</span></span>
-<span><span class="co">#&gt; E-16  2-2 2-3</span></span>
-<span><span class="co">#&gt; E-17  2-2 3-3</span></span>
-<span><span class="co">#&gt; E-18  2-3 1-4</span></span>
-<span><span class="co">#&gt; E-19  2-3 2-4</span></span>
-<span><span class="co">#&gt; E-20  2-3 3-4</span></span>
-<span><span class="co">#&gt; E-21  2-4 1-5</span></span>
-<span><span class="co">#&gt; E-22  2-4 2-5</span></span>
-<span><span class="co">#&gt; E-23  2-4 3-5</span></span>
-<span><span class="co">#&gt; E-24  3-1 2-2</span></span>
-<span><span class="co">#&gt; E-25  3-1 3-2</span></span>
-<span><span class="co">#&gt; E-26  3-2 2-3</span></span>
-<span><span class="co">#&gt; E-27  3-2 3-3</span></span>
-<span><span class="co">#&gt; E-28  3-3 2-4</span></span>
-<span><span class="co">#&gt; E-29  3-3 3-4</span></span>
-<span><span class="co">#&gt; E-30  3-4 2-5</span></span>
-<span><span class="co">#&gt; E-31  3-4 3-5</span></span></code></pre></div>
-<p>This function returns a list with the following elements:</p>
-<ul>
-<li>
-<code>se.mat</code>: the nodes-by-edges matrix of dimensions
-<code>n x k</code>, where <code>n</code> is the number of nodes and
-<code>k</code> the number of edges (including the edge between the
-fictitious origin and the first site);</li>
-<li>
-<code>edges</code>: a <code>data.frame</code> of edge list.</li>
-</ul>
-<p><br></p>
-<p><strong>Note:</strong> a fictitious <code>origin</code> site (coded
-as <code>0</code>) has been created and represents the first edge (coded
-as <code>E-01</code>) to the first site.</p>
-<p><br></p>
-<p>Let’s plot our nodes-by-edges matrix.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gg_matrix.html">gg_matrix</a></span><span class="op">(</span><span class="va">adour_edges_mat</span><span class="op">$</span><span class="st">"se.mat"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/plot-nodes-by-edges-matrix-1.png" alt="Figure 10. Nodes-by-edges matrix" width="80%"><p class="caption">
-Figure 10. Nodes-by-edges matrix
-</p>
-</div>
-<p><br></p>
-</div>
-<div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h2>
-<p>Blanchet F. G., Legendre P. &amp; Borcard D. (2008) Modelling
-directional spatial processes in ecological data. <strong>Ecological
-Modelling</strong>, 215, 325-336. doi: <a href="https://doi.org/10.1016/j.ecolmodel.2008.04.001" class="external-link">10.1016/j.ecolmodel.2008.04.001</a>.</p>
-<p>Dray S. <em>et al.</em> (2022) adespatial: Multivariate Multiscale
-Spatial Analysis. R package version 0.3-16, <a href="https://CRAN.R-project.org/package=adespatial" class="external-link">https://CRAN.R-project.org/package=adespatial</a>.</p>
 </div>
   </div>
 
