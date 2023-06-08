@@ -13,6 +13,20 @@ Check](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml
 2)](https://img.shields.io/badge/License-GPL%20%28%3E%3D%202%29-blue.svg)](https://choosealicense.com/licenses/gpl-2.0/)
 <!-- badges: end -->
 
+## Table of contents
+
+<p align="left">
+• <a href="#overview">Overview</a><br> •
+<a href="#features">Features</a><br> •
+<a href="#installation">Installation</a><br> •
+<a href="#get-started">Get started</a><br> •
+<a href="#long-form-documentations">Long-form documentations</a><br> •
+<a href="#citation">Citation</a><br> •
+<a href="#acknowledgments">Acknowledgments</a><br> •
+<a href="#code-of-conduct">Code of Conduct</a><br> •
+<a href="#references">References</a>
+</p>
+
 ## Overview
 
 The package `chessboard` provides functions to work with **directed**
