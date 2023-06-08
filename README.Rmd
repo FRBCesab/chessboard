@@ -234,7 +234,7 @@ These networks objects can then be used with the R packages
 
 ## Long-form documentations
 
-`chessboard` provides four vignettes to learn more about the package:
+`chessboard` provides three vignettes to learn more about the package:
 
 - the [Get started](https://frbcesab.github.io/chessboard/articles/chessboard.html)
 vignette describes the core features of the package
@@ -243,9 +243,6 @@ vignette details the different methods implemented in `chessboard` to detect
 neighbors
 - the [Visualization tools](https://frbcesab.github.io/chessboard/articles/visualization-tools.html)
 vignette describes the plotting functions available in `chessboard`
-- the [Case study](https://frbcesab.github.io/chessboard/articles/case-study.html)
-vignette illustrates the use of the package on a sampling along the French river 
-_L'Adour_ (directed spatial network)
 
 
 

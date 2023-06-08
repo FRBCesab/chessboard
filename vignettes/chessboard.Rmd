@@ -11,58 +11,18 @@ vignette: >
 knitr::opts_chunk$set(collapse  = TRUE,
                       comment   = "#>",
                       out.width = "100%",
-                      dpi       = 96,
+                      dpi       = 150,
                       fig.align = "center")
 ```
 
 
-The aim of the package `chessboard` is to provide tools to work with **directed**
-(asymmetric) and **undirected** (symmetrical) spatial **networks**.
-It makes easier the creation of **connectivity matrix**, i.e. a binary matrix 
-of dimensions `n x n`, where `n` is the number of **nodes** (sampling units) 
-indicating the presence (`1`) or the absence (`0`) of an **edge** (link) 
-between pairs of nodes. Different network objects can be produced by `chessboard`:
 
-- **node list**
-- **neighbor list**
-- **edge list**
-- **connectivity matrix**
-
-
-\
-
-
-In addition, the package can also produce objects that can be used later in 
-Asymetric Eigenvector Maps (AEM, Blanchet _et al._ 2008), method available in 
-the package [`adespatial`](https://cran.r-project.org/package=adespatial) (Dray _et al._ 2022):
-**nodes by edges matrix** and **edges weights vector**.
-
-
-\
-
-
-This package has been developed for the 
-[FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) 
-working group 
-[Bridge](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/bridge/) 
-that aims to better understand the role of local and regional environmental 
-factors in shaping the taxonomic and functional diversity of plant communities 
-established along river corridors, roadside corridors and cultivated field 
-margins.
-
-
-\
-
-
-**Setup**
-
-
-
-```{r 'setup'}
+```{r 'setup', echo=FALSE}
 library("chessboard")
 library("ggplot2")
 library("patchwork")
 ```
+
 
 
 
@@ -78,34 +38,175 @@ custom_theme <- function() {
 ```
 
 
-**N.B.** The package `chessboard` can also deal with one-dimensional sampling 
-(either **transects-only** or **quadrats-only**) and with **undirected** networks.
+The aim of the package `chessboard` is to provide tools to work with **directed**
+(asymmetric) and **undirected** (symmetrical) spatial (or not) **networks**. It
+implements different methods to detect neighbors, all based on the chess game
+(it goes beyond the rook and the queen available in many R packages) to create 
+complex connectivity scenarios.
 
 
-\
+`chessboard` aims to easily create various network objects, including:
+
+- **node list**, i.e. a list of all nodes of the network;
+- **edge list**, i.e. a list of all edges (links) between pairs of nodes;
+- **connectivity matrix**, i.e. a binary matrix of dimensions `n x n`, where 
+`n` is the number of **nodes** (sampling units) indicating the presence (`1`) 
+or the absence (`0`) of an **edge** (link) between pairs of nodes.
 
 
-## Node labels
+## Network properties
+
+`chessboard` can handle spatial networks, but it does not explicitly use geographical
+coordinates to find neighbors (it is not based on spatial distance). 
+Instead, it identifies neighbors according to **node labels**
+(i.e. the node position on a two-dimension chessboard) and a specific method 
+(pawn, fool, rook, bishop, knight, queen, wizard, etc.) derived from the chess game.
 
 
-It's **important** to note that, even the package `chessboard` can handle spatial 
-networks, it does not explicitly use spatial coordinates to find neighbors (and edges). 
-Instead, it will identify neighbors only based on **node labels**. In other 
-words, the order of node labels will give the dimension and the direction of 
-the network.
+```{r 'cb-network', eval=TRUE, fig.height=8, fig.width=5, echo=FALSE, fig.cap="Figure 1. Network as a chessboard", out.width='60%'}
+sites <- expand.grid("transect" = 1:3, "quadrat" = 1:5)
+
+nodes <- create_node_labels(data     = sites,
+                            transect = "transect", 
+                            quadrat  = "quadrat")
+
+gg_chessboard(nodes)
+```
 
 
-\
 
-Let's import the survey dataset provided by the package.
+The package `chessboard` is designed to work with two-dimensional networks (i.e. 
+sampling on a regular grid), where one dimension is called **transect** 
+and the other is called **quadrat**. By convention, the dimension **transect** 
+corresponds to the x-axis, and the **quadrat** corresponds to the y-axis (Fig. 1). 
 
-```{r 'import-adour-survey'}
-## Import survey data ----
-path_to_file <- system.file("extdata", "adour_survey_sampling.csv",
+`chessboard` can also deal with one-dimensional network 
+(either **transect-only** or **quadrat-only**).
+
+
+
+The network can be undirected or directed. If the network is **directed**, it will 
+have (by default) these two orientations:
+
+- from bottom to top (along transect) for quadrats
+- from left to right (along quadrat) for transects
+
+
+
+
+## Neighbors detection
+
+
+
+`chessboard` implements the following rules to detect neighbors and to create edges:
+
+- the **degree** of neighborhood: the number of adjacent nodes that will be used
+to create direct edges.
+
+- the **orientation** of neighborhood: can neighbors be detected horizontally, 
+vertically and/or diagonally?
+
+- the **direction** of neighborhood: does the sampling has a main direction? 
+This can be particularly relevant for directed networks (e.g. rivers).
+
+
+## Workflow
+
+The Figure 2 shows the general workflow and the main features of `chessboard`.
+
+
+```{r echo = FALSE, out.width = "100%", fig.cap = "Figure 2. Workflow and main features of `chessboard`", fig.align = 'center'}
+knitr::include_graphics("../man/figures/diagramme.png")
+```
+
+
+
+### Data
+
+The package `chessboard` comes with a real-world example: a survey sampling 
+along the French river _L'Adour_ (Fig. 3). _L'Adour_ is a river in southwestern 
+France. It rises in the Pyrenees and flows into the Atlantic Ocean (Bay of Biscay). 
+It's oriented from south-east (upstream) to north-west (downstream).
+
+
+```{r 'map-adour-river', echo=FALSE, fig.height=9, fig.width=10, out.width='80%', fig.cap='Figure 3. Location of the French river L\'Adour'}
+knitr::include_graphics("img/map-adour-river.png")
+```
+
+
+Along this river, a survey has been realized at **three** locations (Fig. 4).
+At each location, a sampling has been conducted on a regular grid composed of 
+**three** transects each of them composed of **five** quadrats.
+
+
+```{r 'import-adour-river', echo=FALSE}
+## Import the spatial layer of Adour river ----
+path_to_file <- system.file("extdata", "adour_lambert93.gpkg", 
                             package = "chessboard")
-adour_sites  <- read.csv(path_to_file)
+adour_river  <- sf::st_read(path_to_file, quiet = TRUE)
+```
 
-head(adour_sites, 20)
+```{r 'import-adour-sites', echo=FALSE}
+## Import sites data ----
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
+                            package = "chessboard")
+nodes  <- read.csv(path_to_file)
+
+## Convert data.frame to sf object ----
+nodes_sf <- sf::st_as_sf(nodes, coords = c("longitude", "latitude"),
+                               crs = "epsg:2154")
+```
+
+
+```{r 'map-adour-sites', fig.height=9, fig.width=12, out.width='80%', echo=FALSE, fig.cap='Figure 4. Survey sampling along the river L\'Adour'}
+ggplot() +
+  geom_sf(data = adour_river, col = "steelblue") +
+  geom_sf(data = nodes_sf, shape = 19, size = 2) +
+  labs(caption = "RGF93 / Lambert-93 Projection") +
+  custom_theme() +
+  geom_segment(aes(x = 454180, xend = 440170, y = 6216290, yend = 6263320), 
+               arrow = arrow(length = unit(0.75, 'cm'), type = 'closed'),
+               linewidth = 2.25) +
+  geom_text(aes(x = 334500, y = 6285000), label = "River", hjust = 0,
+            color = "steelblue", fontface = "bold", size = 6, 
+            family = "serif") +
+  geom_text(aes(x = 414950, y = 6312200), label = "Location 3", hjust = -0.20,
+            color = "black", fontface = "bold", size = 6, family = "serif") +
+  geom_text(aes(x = 474655, y = 6236708), label = "Location 1", 
+            color = "black", fontface = "bold", size = 6, family = "serif") +
+  geom_text(aes(x = 467250, y = 6287620), label = "Location 2", 
+            color = "black", fontface = "bold", size = 6, family = "serif")
+```
+
+
+
+The arrow in Fig. 4 indicates the direction of the river flow. This means that our 
+sampling design is a **directed spatial network** (both inside a location and
+between locations) where the main direction is from upstream to downstream. 
+
+\
+
+Let's import this dataset provided by `chessboard`.
+
+
+```{r 'import-data', echo=TRUE}
+# Import data ----
+path_to_file <- system.file("extdata", "adour_survey_sampling.csv", 
+                            package = "chessboard")
+
+sampling  <- read.csv(path_to_file)
+
+dim(sampling)
+```
+
+```{r 'head-of-data', echo=TRUE}
+# First rows ----
+head(sampling, 10)
+```
+
+```{r 'tail-of-data', echo=TRUE}
+# Last rows ----
+tail(sampling, 10)
 ```
 
 This `data.frame` contains the following columns: 
@@ -117,82 +218,89 @@ This `data.frame` contains the following columns:
 - `latitude`: the latitude of the site (**node**) defined in the [RGF93 / Lambert-93](https://epsg.io/2154) projection
 
 
-\
-
-
-**N.B.** The column `location` is optional (if the survey has been conducted at one single location).
+**N.B.** The column `location` is optional if the survey has been conducted at one single location.
 If the network has one dimension, one of the columns `transect` and `quadrat` can
-be omitted.
-
-
-\
+be omitted. If the survey is not spatial, the columns `longitude` and `latitude` can be omitted.
 
 
 
-\
 
-From this figure, several things should be noted:
+### Node labels
 
-1. For two-dimensional networks, the x-axis **always** corresponds to transects
-and the y-axis to the quadrats.
-2. In this survey, the locations have the same transect identifiers (1 to 3) 
-but the **identifier of quadrats increases** with locations.
-3. The **order of the quadrats** follows the direction of the network: the first 
-quadrat is upstream and the last is downstream. 
-
+When working with `chessboard`, the **first step** is to create node
+labels with the function `create_node_labels()`.
 
 \
 
+But first, let's reduce the size of data by selecting the first location.
 
-When using the package `chessboard`, the **first step** is to create **node labels**
-by combining the identifiers of transects and quadrats. It's the purpose of the
-function `create_node_labels()`.
 
+```{r 'select-data'}
+# Select the first location ----
+sampling <- sampling[sampling$"location" == 1, ]
+
+dim(sampling)
+```
 
 \
 
-But first, let's select the first location (optional).
+Let's create node labels with the function `create_node_labels()`.
+
+```{r 'create-nodes-labels'}
+# Create node labels ----
+nodes <- create_node_labels(data     = sampling,
+                            location = "location",
+                            transect = "transect",
+                            quadrat  = "quadrat")
+
+nodes
+```
 
 
-```{r 'select-location'}
-## Select first location (optional) ----
-adour_sites <- adour_sites[adour_sites$"location" == 1, ]
-adour_sites
+Node labels are a combination of the transect and the quadrat identifiers. They must be **unique**.
+
+\
+
+We can visualize this sampling on a Cartesian referential, i.e. non-spatial, where
+the x-axis corresponds to **transects** and the y-axis represents the **quadrats**
+(Fig. 5). This new referential is called a chessboard.
+
+
+
+
+```{r 'plot-sampling-units', fig.height=8, fig.width=5, echo=TRUE, out.width='60%', fig.cap='Figure 5. Sampling survey as a chessboard'}
+# Visualize chessboard ----
+gg_chessboard(nodes)
 ```
 
 
 \
 
-
-Now, we can create node labels.
-
-```{r 'nodes-labels'}
-## Create node labels ----
-adour_sites <- create_node_labels(data     = adour_sites, 
-                                  location = "location",
-                                  transect = "transect", 
-                                  quadrat  = "quadrat")
-
-adour_sites
-```
-
-\
-
-Node labels are of the form: `1-2`, where 
-`1` is the identifier of the **transect** (created by the function if missing, 
-i.e. quadrats-only sampling), and 
-`2`, the identifier of the **quadrat** (created by the function if missing,
-i.e. transects-only sampling).
-
-
-\
-
-The function `get_node_list()` can be used to extract the node list.
+The function `get_node_list()` can be used to extract and order the node list.
 
 ```{r 'get-node-labels'}
-## Get node labels ----
-get_node_list(adour_sites)
+# Extract node labels ----
+get_node_list(nodes)
 ```
+
+### Neighbors detection
+
+...
+
+
+### Edge list
+
+- Creation
+- Combination
+- Visualization
+
+
+### Connectivity matrix
+
+- Creation
+- Combination
+- Visualization
+
 
 
 
@@ -241,7 +349,7 @@ Let's take a look of the neighborhood method `pawn()`.
 
 ```{r 'method-pawn'}
 ## Explore pawn method to find neighbors ----
-neighbors_pawn <- pawn(nodes    = adour_sites, 
+neighbors_pawn <- pawn(nodes    = nodes, 
                        focus    = "2-3", 
                        degree   = 1, 
                        directed = FALSE, 
@@ -262,9 +370,9 @@ the detected neighbors.
 
 
 ```{r 'nb-pawn', fig.height=8, fig.width=5, echo=FALSE, fig.cap="Figure 4. Detected neighbors (pawn method)", out.width='50%'}
-gg_chessboard(adour_sites) +
-  geom_node(adour_sites, focus = "2-3") +
-  geom_neighbors(adour_sites, neighbors_pawn)
+gg_chessboard(nodes) +
+  geom_node(nodes, focus = "2-3") +
+  geom_neighbors(nodes, neighbors_pawn)
 ```
 
 
@@ -367,7 +475,7 @@ method `'pawn'` with a degree `1` of neighborhood and in a directional way.
 
 ```{r 'create-edges-list-pawn'}
 ## Create edge list ----
-adour_edges_pawn <- create_edge_list(nodes    = adour_sites, 
+adour_edges_pawn <- create_edge_list(nodes    = nodes, 
                                      method   = "pawn", 
                                      degree   = 1, 
                                      directed = TRUE,
@@ -386,10 +494,10 @@ First, we need to convert our sites into a spatial object (`POINT`).
 
 ```{r 'df-to-sf'}
 ## Convert sites to sf object ----
-adour_sites_sf <- sf::st_as_sf(adour_sites, coords = c("longitude", "latitude"),
+nodes_sf <- sf::st_as_sf(nodes, coords = c("longitude", "latitude"),
                                crs = "epsg:2154")
 
-head(adour_sites_sf)
+head(nodes_sf)
 ```
 
 
@@ -403,7 +511,7 @@ into a spatial object (`LINESTRING`).
 ```{r 'edges-list-to-sf'}
 ## Convert edge list to sf ----
 adour_edges_pawn_sf <- edges_to_sf(edges = adour_edges_pawn, 
-                                   sites = adour_sites_sf)
+                                   sites = nodes_sf)
 
 adour_edges_pawn_sf
 ```
@@ -416,7 +524,7 @@ We can now map our nodes and edges.
 
 ```{r 'map-edges-list-pawn', fig.height=8, fig.width=6.5, echo=TRUE, fig.cap="Figure 7. Edges list (pawn method)", out.width='80%'}
 ## Map of nodes and edges ----
-ggplot(adour_sites_sf) +
+ggplot(nodes_sf) +
   geom_sf(size = 12) +
   geom_sf(data = adour_edges_pawn_sf) +
   theme_light()
@@ -433,7 +541,7 @@ function `append_edge_lists()` to merge all edges in a single list.
 
 ```{r 'create-edges-list-bishop'}
 ## Create edge list (Bishop method) ----
-adour_edges_bishop <- create_edge_list(nodes    = adour_sites, 
+adour_edges_bishop <- create_edge_list(nodes    = nodes, 
                                        method   = "bishop", 
                                        degree   = 1, 
                                        directed = TRUE,
@@ -446,7 +554,7 @@ adour_edges_bishop
 adour_edges <- append_edge_lists(adour_edges_pawn, adour_edges_bishop)
 
 ## Convert edges to spatial layer ----
-adour_edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)
+adour_edges_sf <- edges_to_sf(adour_edges, nodes_sf)
 ```
 
 
@@ -455,7 +563,7 @@ adour_edges_sf <- edges_to_sf(adour_edges, adour_sites_sf)
 
 ```{r 'map-edges-list-pawn-bishop', fig.height=8, fig.width=6.5, echo=TRUE, fig.cap="Figure 8. Edges list (combined methods)", out.width='80%'}
 ## Map of nodes and edges ----
-ggplot(adour_sites_sf) +
+ggplot(nodes_sf) +
   geom_sf(size = 12) +
   geom_sf(data = adour_edges_sf) +
   theme_light()

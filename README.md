@@ -272,7 +272,7 @@ al.* 2022) and [`igraph`](https://cran.r-project.org/package=igraph)
 
 ## Long-form documentations
 
-`chessboard` provides four vignettes to learn more about the package:
+`chessboard` provides three vignettes to learn more about the package:
 
 - the [Get
   started](https://frbcesab.github.io/chessboard/articles/chessboard.html)
@@ -284,10 +284,6 @@ al.* 2022) and [`igraph`](https://cran.r-project.org/package=igraph)
 - the [Visualization
   tools](https://frbcesab.github.io/chessboard/articles/visualization-tools.html)
   vignette describes the plotting functions available in `chessboard`
-- the [Case
-  study](https://frbcesab.github.io/chessboard/articles/case-study.html)
-  vignette illustrates the use of the package on a sampling along the
-  French river *L’Adour* (directed spatial network)
 
 ## Citation
 
