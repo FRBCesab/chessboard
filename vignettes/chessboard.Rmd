@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(collapse  = TRUE,
                       comment   = "#>",
                       out.width = "100%",
-                      dpi       = 150,
+                      dpi       = 96,
                       fig.align = "center")
 ```
 
@@ -121,7 +121,7 @@ The Figure 2 shows the general workflow and the main features of `chessboard`.
 \
 
 ```{r echo = FALSE, out.width = "100%", fig.cap = "Figure 2. Workflow and main features of `chessboard`", fig.align = 'center'}
-knitr::include_graphics("../man/figures/diagramme.png")
+knitr::include_graphics("figures/diagramme.png")
 ```
 
 \
@@ -136,7 +136,7 @@ It's oriented from south-east (upstream) to north-west (downstream).
 \
 
 ```{r 'map-adour-river', echo=FALSE, fig.height=9, fig.width=10, out.width='80%', fig.cap='Figure 3. Location of the French river L\'Adour'}
-knitr::include_graphics("img/map-adour-river.png")
+knitr::include_graphics("figures/map-adour-river.png")
 ```
 
 \

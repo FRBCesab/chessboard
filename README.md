@@ -74,7 +74,7 @@ Read the [Visualization
 tools](https://frbcesab.github.io/chessboard/articles/visualization-tools.html)
 vignette for further details.
 
-![](man/figures/diagramme.png)
+![](vignettes/figures/diagramme.png)
 
 Finally, the package can also produce objects that will be used later in
 Moran’s Eigenvector Maps (MEM, Dray *et al.* 2006) and Asymetric
