@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neighborhood and Connectivity in Spatial Networks • chessboard</title>
+<title>Create Network Connections based on Chess Moves • chessboard</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Neighborhood and Connectivity in Spatial Networks">
+<script src="pkgdown.js"></script><meta property="og:title" content="Create Network Connections based on Chess Moves">
 <meta property="og:description" content="Provides functions to work with directed (asymmetric) and 
     undirected (symmetrical) spatial networks. It makes easier the creation of 
     connectivity matrix, i.e. a binary matrix of dimensions n x n, where n is 
@@ -131,7 +131,7 @@
 </ul>
 <p>Read the <a href="https://frbcesab.github.io/chessboard/articles/visualization-tools.html" class="external-link">Visualization tools</a> vignette for further details.</p>
 <p><img src="articles/figures/diagramme.png"></p>
-<p>Finally, the package can also produce objects that will be used later in Moran’s Eigenvector Maps (MEM, Dray <em>et al.</em> 2006) and Asymetric Eigenvector Maps (AEM, Blanchet <em>et al.</em> 2008), methods available in the package <a href="https://cran.r-project.org/package=adespatial" class="external-link"><code>adespatial</code></a> (Dray <em>et al.</em> 2022):</p>
+<p>Finally, the package can also produce objects that will be used later in Moran’s Eigenvector Maps (MEM, Dray <em>et al.</em> 2006) and Asymetric Eigenvector Maps (AEM, Blanchet <em>et al.</em> 2008), methods available in the package <a href="https://cran.r-project.org/package=adespatial" class="external-link"><code>adespatial</code></a> (Dray <em>et al.</em> 2023):</p>
 <ul>
 <li><strong>edges weights matrix</strong></li>
 <li><strong>spatial weights matrix</strong></li>
@@ -171,7 +171,7 @@
 </h2>
 <p>A companion paper has been submitted to <a href="https://joss.theoj.org/" class="external-link">Journal of Open Source Software</a>. In the meantime, if you want to use the package, please cite it as:</p>
 <blockquote>
-<p>Casajus N (2023) chessboard: An R package for neighborhood and connectivity in spatial networks. R package version 0.1.</p>
+<p>Casajus N (2023) chessboard: An R package for creating network connections based on chess moves. R package version 0.1. URL: <a href="https://github.com/frbcesab/chessboard" class="external-link uri">https://github.com/frbcesab/chessboard</a>.</p>
 </blockquote>
 </div>
 <div class="section level2">
@@ -189,7 +189,7 @@
 </h2>
 <p>Blanchet FG, Legendre P &amp; Borcard D (2008) Modelling directional spatial processes in ecological data. <strong>Ecological Modelling</strong>, 215, 325-336. doi: <a href="https://doi.org/10.1016/j.ecolmodel.2008.04.001" class="external-link">10.1016/j.ecolmodel.2008.04.001</a>.</p>
 <p>Csardi G &amp; Nepusz T (2006) The igraph software package for complex network research. <strong>InterJournal, Complex Systems</strong>, 1695, 1-9. <a href="https://igraph.org/" class="external-link uri">https://igraph.org/</a>.</p>
-<p>Dray S, Bauman D, Blanchet G <em>et al.</em> (2022) <code>adespatial</code>: Multivariate Multiscale Spatial Analysis. R package version 0.3-16, <a href="https://CRAN.R-project.org/package=adespatial" class="external-link uri">https://CRAN.R-project.org/package=adespatial</a>.</p>
+<p>Dray S, Bauman D, Blanchet G <em>et al.</em> (2023) <code>adespatial</code>: Multivariate Multiscale Spatial Analysis. R package version 0.3-21, <a href="https://CRAN.R-project.org/package=adespatial" class="external-link uri">https://CRAN.R-project.org/package=adespatial</a>.</p>
 <p>Dray S, Legendre P &amp; Peres-Neto PR (2006) Spatial modeling: a comprehensive framework for principal coordinate analysis of neighbor matrices (PCNM). <strong>Ecological Modelling</strong>, 196: 483–93. doi: <a href="https://doi.org/10.1016/j.ecolmodel.2006.02.015" class="external-link">10.1016/j.ecolmodel.2006.02.015</a>.</p>
 </div>
 </div>
