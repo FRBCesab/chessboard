@@ -33,20 +33,29 @@ affiliations:
   index: 2
 ---
 
-___THIS A DRAFT___
-
-
 
 # Summary
 
 Lorem ipsum \autoref{fig:fig1}.
 
-![Overview of methods available in `chessboard` to detect neighbors. Red dots locate the node of interest (5-5) and black dots correspond to detected neighbors. Each column corresponds to a specific method derived from the chess game. Each row illustrates the use of one argument (row 1: default settings; row 2: use of the argument `degree`; row 3: use of the argument `directed`; row 4: use of the argument `reverse`)\label{fig:fig1}](figures/ms-fig-1.png){ width=100% }
+![Overview of methods available in `chessboard` to detect neighbors. Red dots locate the node of interest (5-5) and black dots correspond to detected neighbors. Each column corresponds to a specific method derived from the chess game. Each row illustrates the use of one argument (row 1: default settings; row 2: use of the argument `degree`; row 3: use of the argument `directed`; row 4: use of the argument `reverse`)\label{fig:fig1}](figures/figure-1.png){ width=100% }
 
 
 # Statement of need
 
 Lorem ipsum
+
+Lorem ipsum \autoref{fig:fig2}.
+
+![Main features and usage of the R package `chessboard`.\label{fig:fig2}](figures/figure-2.png){ width=100% }
+
+Lorem ipsum \autoref{fig:fig3}.
+
+![Neighbors and edges detected for one node using the bishop method and a degree of neighborhood of 2 (undirected network). The red dot locates the node of interest (2-3) on the chessboard. Black dots correspond to detected neighbors and arrows are corresponding edges.\label{fig:fig3}](figures/figure-3.png){ width=50% }
+
+Lorem ipsum \autoref{fig:fig4}.
+
+![Connectivity matrix of a 5 transects x 5 quadrats network when edges (black squares) are created using the bishop method and a degree of neighborhood of 2 (undirected network). Each row and each column of this square matrix corresponds to a node of the network.\label{fig:fig4}](figures/figure-4.png){ width=50% }
 
 
 

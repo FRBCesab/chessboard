@@ -154,7 +154,7 @@ plots <-
   (pawn_3 | fool_3 | rook_3 | bishop_3 | queen_3 | knight_3 | wizard_3)
 
 
-ggsave(here::here("joss-paper", "figures", "ms-fig-1.png"), plots, 
+ggsave(here::here("joss-paper", "figures", "figure-1.png"), plots, 
        width = 15, height = 9, units = "in", dpi = 300)
 
   
