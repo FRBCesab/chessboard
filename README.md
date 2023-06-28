@@ -80,7 +80,7 @@ Finally, the package can also produce objects that will be used later in
 Moran’s Eigenvector Maps (MEM, Dray *et al.* 2006) and Asymetric
 Eigenvector Maps (AEM, Blanchet *et al.* 2008), methods available in the
 package [`adespatial`](https://cran.r-project.org/package=adespatial)
-(Dray *et al.* 2022):
+(Dray *et al.* 2023):
 
 - **edges weights matrix**
 - **spatial weights matrix**
@@ -163,8 +163,8 @@ Csardi G & Nepusz T (2006) The igraph software package for complex
 network research. **InterJournal, Complex Systems**, 1695, 1-9.
 <https://igraph.org/>.
 
-Dray S, Bauman D, Blanchet G *et al.* (2022) `adespatial`: Multivariate
-Multiscale Spatial Analysis. R package version 0.3-16,
+Dray S, Bauman D, Blanchet G *et al.* (2023) `adespatial`: Multivariate
+Multiscale Spatial Analysis. R package version 0.3-21,
 <https://CRAN.R-project.org/package=adespatial>.
 
 Dray S, Legendre P & Peres-Neto PR (2006) Spatial modeling: a
