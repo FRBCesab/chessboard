@@ -116,7 +116,7 @@ dimensions 5 x 5 (25 nodes in total). By convention, we will name the x-axis
 ```r
 # Fictitious sampling (non spatial) ----
 sampling <- expand.grid("transect" = 1:5,
-                    	  "quadrat"  = 1:5)
+                        "quadrat"  = 1:5)
 ```
 
 
@@ -146,9 +146,9 @@ functions named after the chess game) returns a subset of the nodes object
 ```r
 # Find neighbors according to the bishop move (for one node) ----
 nb <- bishop(nodes    = nodes,
-         	   focus    = "2-3",
-         	   degree   = 2,
-         	   directed = FALSE)
+             focus    = "2-3",
+             degree   = 2,
+             directed = FALSE)
 ```
 
 
