@@ -105,170 +105,10 @@ library("chessboard")
 
 ## Get started
 
-This section is an overview of the main features of `chessboard`. For a
-longer description, please read the [Get
+For an overview of the main features of `chessboard`, please read the
+[Get
 started](https://frbcesab.github.io/chessboard/articles/chessboard.html)
 vignette.
-
-To illustrate `chessboard`, let’s create a fictitious sampling of
-dimensions 5 transects x 5 quadrats.
-
-``` r
-# Fictitious sampling (non spatial) ----
-sampling <- expand.grid("transect" = 1:5, 
-                        "quadrat"  = 1:5)
-
-head(sampling, 12)
-#>    transect quadrat
-#> 1         1       1
-#> 2         2       1
-#> 3         3       1
-#> 4         4       1
-#> 5         5       1
-#> 6         1       2
-#> 7         2       2
-#> 8         3       2
-#> 9         4       2
-#> 10        5       2
-#> 11        1       3
-#> 12        2       3
-```
-
-Now let’s create labels for the 25 nodes.
-
-``` r
-# Create node labels ----
-nodes <- create_node_labels(data     = sampling,
-                            transect = "transect",
-                            quadrat  = "quadrat")
-
-head(nodes, 12)
-#>    node location transect quadrat
-#> 1   1-1        1        1       1
-#> 2   1-2        1        1       2
-#> 3   1-3        1        1       3
-#> 4   1-4        1        1       4
-#> 5   1-5        1        1       5
-#> 6   2-1        1        2       1
-#> 7   2-2        1        2       2
-#> 8   2-3        1        2       3
-#> 9   2-4        1        2       4
-#> 10  2-5        1        2       5
-#> 11  3-1        1        3       1
-#> 12  3-2        1        3       2
-```
-
-Node labels are a combination of the transect identifier (i.e. the
-position of the node on the x-axis of the chessboard) and the quadrat
-(i.e. the position of the node on the y-axis of the chessboard). The
-following figure locates the node `2-3` on the chessboard.
-
-**N.B.** `chessboard` can handle multi-sites sampling. The function
-`create_node_labels()` will always return a column `location` even if
-the sampling is on one single site.
-
-``` r
-# Visualize the sampling as a chessboard ----
-gg_chessboard(nodes) +
-  geom_node(nodes, focus = "2-3")
-```
-
-<img src="man/figures/plot-chessboard-1.png" width="100%" />
-
-Now it’s time to implement a connectivity scenario. Let’s say we want to
-connect nodes according to the
-[bishop](https://en.wikipedia.org/wiki/Bishop_(chess)) move, with a
-degree of neighborhood of 2. Our network will be undirected.
-
-First, let’s use the function
-[`bishop()`](https://frbcesab.github.io/chessboard/reference/bishop.html)
-to understand the move.
-
-``` r
-# Find neighbors according to the bishop move (for one node) ----
-nb <- bishop(nodes    = nodes, 
-             focus    = "2-3", 
-             degree   = 2, 
-             directed = FALSE)
-
-nb
-#>   node location transect quadrat
-#> 1  1-2        1        1       2
-#> 2  1-4        1        1       4
-#> 3  3-2        1        3       2
-#> 4  3-4        1        3       4
-#> 5  4-1        1        4       1
-#> 6  4-5        1        4       5
-```
-
-The function
-[`bishop()`](https://frbcesab.github.io/chessboard/reference/bishop.html)
-(and all other functions named after the chess game) returns a subset of
-the `nodes` object containing the neighbors of the `focus` node (here
-`2-3`).
-
-Let’s use some plotting functions of `chessboard` to inspect the
-results:
-
-``` r
-gg_chessboard(nodes) +
-  geom_edges(nodes, "2-3", nb) +
-  geom_neighbors(nodes, nb) +
-  geom_node(nodes, "2-3")
-```
-
-<img src="man/figures/plot-neighbors-1.png" width="100%" />
-
-The [Chess
-pieces](https://frbcesab.github.io/chessboard/articles/chess-pieces.html)
-vignette details all possible moves implemented in `chessboard` and the
-effects of the arguments `degree`, `directed`, `reverse` and `self`.
-
-Now we can detect the neighbors for the 25 nodes using the function
-[`create_edge_list()`](https://frbcesab.github.io/chessboard/reference/create_edge_list.html).
-
-``` r
-# Create edges according to the bishop move (for all nodes) ----
-edges <- create_edge_list(nodes    = nodes,
-                          method   = "bishop",
-                          degree   = 2, 
-                          directed = FALSE)
-
-head(edges)
-#>   from  to
-#> 1  1-1 2-2
-#> 2  1-1 3-3
-#> 3  1-2 2-1
-#> 4  1-2 2-3
-#> 5  1-2 3-4
-#> 6  1-3 2-2
-```
-
-This function returns an edge list, i.e. a two-column `data.frame` where
-a row corresponds to an edge.
-
-Let’s compute the connectivity matrix of this undirected network.
-
-``` r
-mat <- connectivity_matrix(edges)
-
-dim(mat)
-#> [1] 25 25
-```
-
-Finally, let’s plot this matrix with the function
-[`gg_matrix()`](https://frbcesab.github.io/chessboard/reference/gg_matrix.html).
-
-``` r
-gg_matrix(mat)
-```
-
-<img src="man/figures/plot-matrix-1.png" width="100%" />
-
-These networks objects can then be used with the R packages
-[`adespatial`](https://CRAN.R-project.org/package=adespatial) (Dray *et
-al.* 2022) and [`igraph`](https://cran.r-project.org/package=igraph)
-(Csardi & Nepusz 2006).
 
 ## Long-form documentations
 
@@ -287,8 +127,9 @@ al.* 2022) and [`igraph`](https://cran.r-project.org/package=igraph)
 
 ## Citation
 
-A companion paper will be published soon. In the meantime, if you want
-to use the package, please cite it as:
+A companion paper has been submitted to [Journal of Open Source
+Software](https://joss.theoj.org/). In the meantime, if you want to use
+the package, please cite it as:
 
 > Casajus N (2023) chessboard: An R package for neighborhood and
 > connectivity in spatial networks. R package version 0.1.
