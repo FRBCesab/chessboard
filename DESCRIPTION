@@ -1,6 +1,6 @@
 Package: chessboard
 Type: Package
-Title: Neighborhood and Connectivity in Spatial Networks
+Title: Create Network Connections based on Chess Moves
 Version: 0.1
 Authors@R: c(
     person(given   = "Nicolas",

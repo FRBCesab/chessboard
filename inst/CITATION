@@ -2,7 +2,7 @@ citHeader("To cite chessboard in publications use:")
 
 bibentry(
   bibtype = "Manual",
-  title   = "chessboard: {An} {R} for neighborhood and connectivity in spatial networks.",
+  title   = "chessboard: {A}n {R} package for creating network connections based on chess moves",
   author  = c(person("Casajus Nicolas")),
   year    = "2023",
   note    = "R package version 0.1",

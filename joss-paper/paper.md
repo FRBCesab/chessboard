@@ -1,6 +1,5 @@
 ---
-title: 'chessboard: An R package for detecting neighbors in network connections based
-  on chess moves'
+title: 'chessboard: An R package for creating network connections based on chess moves'
 tags:
 - r
 - package
@@ -24,7 +23,7 @@ authors:
   orcid: "0000-0003-1840-6984"
   equal-contrib: no
   corresponding: no
-  affiliation: 1, 2
+  affiliation: "1, 2"
 bibliography: paper.bib
 affiliations:
 - name: "FRB-CESAB, Montpellier, France"
