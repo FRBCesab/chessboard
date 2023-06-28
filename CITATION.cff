@@ -7,7 +7,7 @@ cff-version: 1.2.0
 message: 'To cite package "chessboard" in publications use:'
 type: software
 license: GPL-2.0-or-later
-title: 'chessboard: Neighborhood and Connectivity in Spatial Networks'
+title: 'chessboard: Create Network Connections based on Chess Moves'
 version: '0.1'
 abstract: 'Provides functions to work with directed (asymmetric) and undirected (symmetrical)
   spatial networks. It makes easier the creation of connectivity matrix, i.e. a binary
@@ -22,7 +22,8 @@ authors:
   orcid: https://orcid.org/0000-0002-5537-5294
 preferred-citation:
   type: manual
-  title: 'chessboard: An R for neighborhood and connectivity in spatial networks.'
+  title: 'chessboard: An R package for creating network connections based on chess
+    moves'
   authors:
   - name: Casajus Nicolas
   year: '2023'
@@ -40,7 +41,6 @@ keywords:
 - directed-networks
 - neighborhood
 - network
-- nodes-by-edges-matrix
 - one-dimensional-networks
 - r-package
 - spatial-networks
