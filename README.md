@@ -11,6 +11,7 @@ Check](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml
 [![Website](https://github.com/frbcesab/chessboard/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/frbcesab/chessboard/actions/workflows/pkgdown.yaml)
 [![License: GPL (\>=
 2)](https://img.shields.io/badge/License-GPL%20%28%3E%3D%202%29-blue.svg)](https://choosealicense.com/licenses/gpl-2.0/)
+[![status](https://joss.theoj.org/papers/f709edaff050ed0cb1ffb8dd4ad2a1bb/status.svg)](https://joss.theoj.org/papers/f709edaff050ed0cb1ffb8dd4ad2a1bb)
 <!-- badges: end -->
 
 ## Table of contents
