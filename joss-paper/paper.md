@@ -6,7 +6,7 @@ tags:
 - networks
 - neighbors
 - edges
-date: "28 June 2023"
+date: "13 July 2023"
 output: pdf_document
 authors:
 - name: Nicolas Casajus
@@ -19,17 +19,31 @@ authors:
   equal-contrib: no
   corresponding: no
   affiliation: 1
+- name: Éric Tabacchi
+  orcid: "0000-0001-7729-4439"
+  equal-contrib: no
+  corresponding: no
+  affiliation: 2
+- name: Guillaume Fried
+  orcid: "0000-0002-3653-195X"
+  equal-contrib: no
+  corresponding: no
+  affiliation: 3
 - name: Nicolas Mouquet
   orcid: "0000-0003-1840-6984"
   equal-contrib: no
   corresponding: no
-  affiliation: "1, 2"
+  affiliation: "1, 4"
 bibliography: paper.bib
 affiliations:
 - name: "FRB-CESAB, Montpellier, France"
   index: 1
-- name: MARBEC, Univ Montpellier, CNRS, IFREMER, IRD, Montpellier, France
+- name: "CNRS, Toulouse, France"
   index: 2
+- name: "ANSES, Montpellier, France"
+  index: 3
+- name: MARBEC, Univ Montpellier, CNRS, IFREMER, IRD, Montpellier, France
+  index: 4
 ---
 
 
@@ -50,14 +64,14 @@ the network represents spatial connections or not, and is based on different
 proposed methods for defining  neighbors. In ecology, spatial network analyses 
 are widely used to investigate spatial patterns of organisms’ distribution and 
 provide important information about the underlying ecological processes leading 
-to these patterns (@legendre-2012). Such methods rely on building a connectivity
-matrix (also known as adjacency matrix) among sampling units (hereafter 
-'nodes'), which consists of a square matrix of dimensions n x n (where n is the 
-total number of nodes). This connectivity matrix thus represents the presence or
-absence of a link (hereafter 'edge') between each pair of nodes. When building a
-connectivity matrix, for each node, the detection of neighbors (new edges) will 
-depend on the type of sampling design used (surface area, transect, regular 
-grid, irregular grid, @dray-2006).
+to these patterns (@legendre-2012, @pilosof-2017). Such methods rely on building
+a connectivity matrix (also known as adjacency matrix) among sampling units 
+(hereafter 'nodes'), which consists of a square matrix of dimensions n x n 
+(where n is the total number of nodes). This connectivity matrix thus represents
+the presence or absence of a link (hereafter 'edge') between each pair of nodes. 
+When building a connectivity matrix, for each node, the detection of neighbors 
+(new edges) will depend on the type of sampling design used (surface area, 
+transect, regular grid, irregular grid, @dray-2006).
 
 Here, we introduce `chessboard`, an open-source R package (@r-2023), dedicated 
 to facilitating the process of creating connectivity matrices for samplings 
