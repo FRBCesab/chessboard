@@ -1,11 +1,11 @@
 ## Test environments
 
 * Local
-  * Arch Linux 6.3.3-arch1-1 install, R 4.3.0
+  * Arch Linux 6.4.3-arch1-1 install, R 4.3.1
 * GitHub Actions
-  * macOS 12.6.5, R-release (R 4.3.0)
-  * Windows Server 2022, R-release (R 4.3.0)
-  * Ubuntu 22.04.2 LTS, R-devel, R-release (R 4.3.0), R-oldrel
+  * macOS 12.6.7, R-release (R 4.3.1)
+  * Windows Server 2022, R-release (R 4.3.1)
+  * Ubuntu 22.04.2 LTS, R-devel, R-release (R 4.3.1), R-oldrel
 * WinBuilder
   * R-devel
   * R-release
