@@ -23,8 +23,8 @@ Check](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml
 <a href="#get-started">Get started</a><br> •
 <a href="#long-form-documentations">Long-form documentations</a><br> •
 <a href="#citation">Citation</a><br> •
+<a href="#contributing">Contributing</a><br> •
 <a href="#acknowledgments">Acknowledgments</a><br> •
-<a href="#code-of-conduct">Code of Conduct</a><br> •
 <a href="#references">References</a>
 </p>
 
@@ -136,6 +136,17 @@ the package, please cite it as:
 > connections based on chess moves. R package version 0.1. URL:
 > <https://github.com/frbcesab/chessboard>.
 
+## Contributing
+
+All types of contributions are encouraged and valued. For more
+information, check out our [Contributor
+Guidelines](https://github.com/FRBCesab/chessboard/blob/main/CONTRIBUTING.md).
+
+Please note that the `chessboard` project is released with a
+[Contributor Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
 ## Acknowledgments
 
 This package has been developed for the
@@ -146,13 +157,6 @@ that aims to better understand the role of local and regional
 environmental factors in shaping the taxonomic and functional diversity
 of plant communities established along river corridors, roadside
 corridors and cultivated field margins.
-
-## Code of Conduct
-
-Please note that the `chessboard` project is released with a
-[Contributor Code of
-Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
-By contributing to this project, you agree to abide by its terms.
 
 ## References
 
