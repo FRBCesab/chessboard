@@ -36,7 +36,7 @@ library("ggplot2")
 ```
 
 To illustrate these plotting functions, let's import the data provided by `chessboard`
-(see the [Case study](https://frbcesab.github.io/chessboard/articles/case-study.html) 
+(see the [Get started](https://frbcesab.github.io/chessboard/articles/chessboard.html) 
 vignette for a full description).
 
 
