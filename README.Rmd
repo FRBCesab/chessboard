@@ -86,10 +86,12 @@ vignette for further details.
 ![](vignettes/figures/diagramme.png)
 
 Finally, the package can also produce objects that will be used later in
-Moran's Eigenvector Maps (MEM, Dray _et al._ 2006) and
-Asymetric Eigenvector Maps (AEM, Blanchet _et al._ 2008), 
-methods available in 
-the package [`adespatial`](https://cran.r-project.org/package=adespatial) (Dray _et al._ 2023):
+Moran's Eigenvector Maps 
+([MEM](https://search.r-project.org/CRAN/refmans/adespatial/html/mem.html), 
+Dray _et al._ 2006) and Asymetric Eigenvector Maps 
+([AEM](https://search.r-project.org/CRAN/refmans/adespatial/html/aem.html),
+Blanchet _et al._ 2008), methods available in the package
+[`adespatial`](https://cran.r-project.org/package=adespatial) (Dray _et al._ 2023):
 
 - **edges weights matrix**
 - **spatial weights matrix**
