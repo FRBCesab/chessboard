@@ -51,7 +51,7 @@ affiliations:
 
 `chessboard` aims to facilitate the creation of connectivity matrices for 
 sampling networks designed as regular grids. It can handle directed (asymmetric)
-and undirected (symmetrical) spatial (or not spatial) networks connection. 
+and undirected (symmetric) spatial (or non-spatial) network connections. 
 `chessboard` offers various methods to detect neighbors, all based on the chess 
 game, allowing the creation of complex connectivity scenarios.
 
@@ -80,7 +80,8 @@ one axis is always the same). `chessboard` identifies neighbors only based on
 node position on a two-dimension non-spatial referential. It can handle spatial 
 networks, but it does not explicitly use geographical coordinates to find 
 neighbors (it is not based on spatial distance). `chessboard` can handle 
-directed (asymmetric) and undirected (symmetrical) spatial (or not) networks.
+directed (asymmetric) and undirected (symmetric) spatial (or non-spatial) 
+networks.
 
 Different methods are available in `chessboard` to detect neighbors, all based 
 on the chess game as proposed in many R packages like 
@@ -127,7 +128,7 @@ dimensions 5 x 5 (25 nodes in total). By convention, we will name the x-axis
 
 
 ```r
-# Fictitious sampling (non spatial) ----
+# Fictitious sampling (non-spatial) ----
 sampling <- expand.grid("transect" = 1:5,
                         "quadrat"  = 1:5)
 ```

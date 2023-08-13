@@ -31,7 +31,7 @@ Check](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml
 ## Overview
 
 The package `chessboard` provides functions to work with **directed**
-(asymmetric) and **undirected** (symmetrical) spatial (or not)
+(asymmetric) and **undirected** (symmetric) spatial (or non-spatial)
 **networks**. It implements different methods to detect neighbors, all
 based on the chess game (it goes beyond the rook and the queen) to
 create complex connectivity scenarios.
