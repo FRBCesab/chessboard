@@ -63,9 +63,9 @@ recommend the following:
 We will then take care of the issue as soon as possible.
 
 
-### Reporting bugs
+## Reporting bugs
 
-#### Before submitting a bug report
+### Before submitting a bug report
 
 A good bug report shouldn't leave others needing to chase you up for more 
 information. Therefore, we ask you to investigate carefully, collect information
@@ -79,7 +79,7 @@ same issue you are having, check if there is not already a bug report existing
 for your bug or error in the [bug tracker](https://github.com/FRBCesab/chessboard/issues?q=label%3Abug).
 
 
-#### How do I submit a bug report?
+### How do I submit a bug report?
 
 We use [GitHub Issues](https://github.com/FRBCesab/chessboard/issues) to track 
 bugs and errors. If you run into an issue with the project:
@@ -95,7 +95,7 @@ We will then take care of the issue as soon as possible.
 
 
 
-### Requesting features
+## Requesting features
 
 #### Before requesting a feature
 
@@ -107,7 +107,7 @@ this enhancement has already been suggested. If it has, add a comment to the
 existing issue instead of opening a new one.
 
 
-#### How do I submit a feature request?
+### How do I submit a feature request?
 
 Feature requests are tracked as 
 [GitHub Issues](https://github.com/FRBCesab/chessboard/issues).
@@ -121,7 +121,7 @@ many details as possible.
 
 We will then take care of the issue as soon as possible.
 
-### Contributing code
+## Contributing code
 
 We use the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) to collaborate on this project:
 
@@ -139,4 +139,4 @@ We use the [GitHub flow](https://docs.github.com/en/get-started/quickstart/githu
 
 We will then review the PR as soon as possible.
 
-**Note:** depending on your contribution, the steps 4 to 8 can be adapted. 
+**Note:** depending on your contribution, the steps 4 to 8 can be adapted.
