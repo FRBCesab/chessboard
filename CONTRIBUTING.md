@@ -97,7 +97,7 @@ We will then take care of the issue as soon as possible.
 
 ## Requesting features
 
-#### Before requesting a feature
+### Before requesting a feature
 
 - Make sure that you are using the latest version of `chessboard`.
 - Read the [documentation](https://frbcesab.github.io/chessboard/)
