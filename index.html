@@ -13,7 +13,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Create Network Connections based on Chess Moves">
 <meta property="og:description" content="Provides functions to work with directed (asymmetric) and 
-    undirected (symmetrical) spatial networks. It makes easier the creation of 
+    undirected (symmetric) spatial networks. It makes easier the creation of 
     connectivity matrix, i.e. a binary matrix of dimensions n x n, where n is 
     the number of nodes (sampling units) indicating the presence (1) or the 
     absence (0) of an edge (link) between pairs of nodes. Different network 
@@ -98,13 +98,13 @@
 <h2 id="table-of-contents">Table of contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
 </h2>
 <p align="left">
-• <a href="#overview">Overview</a><br> • <a href="#features">Features</a><br> • <a href="#installation">Installation</a><br> • <a href="#get-started">Get started</a><br> • <a href="#long-form-documentations">Long-form documentations</a><br> • <a href="#citation">Citation</a><br> • <a href="#acknowledgments">Acknowledgments</a><br> • <a href="#code-of-conduct">Code of Conduct</a><br> • <a href="#references">References</a>
+• <a href="#overview">Overview</a><br> • <a href="#features">Features</a><br> • <a href="#installation">Installation</a><br> • <a href="#get-started">Get started</a><br> • <a href="#long-form-documentations">Long-form documentations</a><br> • <a href="#citation">Citation</a><br> • <a href="#contributing">Contributing</a><br> • <a href="#acknowledgments">Acknowledgments</a><br> • <a href="#references">References</a>
 </p>
 </div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The package <code>chessboard</code> provides functions to work with <strong>directed</strong> (asymmetric) and <strong>undirected</strong> (symmetrical) spatial (or not) <strong>networks</strong>. It implements different methods to detect neighbors, all based on the chess game (it goes beyond the rook and the queen) to create complex connectivity scenarios.</p>
+<p>The package <code>chessboard</code> provides functions to work with <strong>directed</strong> (asymmetric) and <strong>undirected</strong> (symmetric) spatial (or non-spatial) <strong>networks</strong>. It implements different methods to detect neighbors, all based on the chess game (it goes beyond the rook and the queen) to create complex connectivity scenarios.</p>
 <p><code>chessboard</code> can handle spatial networks, but it does not explicitly use geographical coordinates to find neighbors (it is not based on spatial distance). Instead, it identifies neighbors according to <strong>node labels</strong> (i.e. the node position on a two-dimension chessboard) and a specific method (pawn, fool, rook, bishop, knight, queen, wizard, etc.).</p>
 <p>It implements the following rules to detect neighbors and create edges:</p>
 <ul>
@@ -131,7 +131,7 @@
 </ul>
 <p>Read the <a href="https://frbcesab.github.io/chessboard/articles/visualization-tools.html" class="external-link">Visualization tools</a> vignette for further details.</p>
 <p><img src="articles/figures/diagramme.png"></p>
-<p>Finally, the package can also produce objects that will be used later in Moran’s Eigenvector Maps (MEM, Dray <em>et al.</em> 2006) and Asymetric Eigenvector Maps (AEM, Blanchet <em>et al.</em> 2008), methods available in the package <a href="https://cran.r-project.org/package=adespatial" class="external-link"><code>adespatial</code></a> (Dray <em>et al.</em> 2023):</p>
+<p>Finally, the package can also produce objects that will be used later in Moran’s Eigenvector Maps (<a href="https://search.r-project.org/CRAN/refmans/adespatial/html/mem.html" class="external-link">MEM</a>, Dray <em>et al.</em> 2006) and Asymetric Eigenvector Maps (<a href="https://search.r-project.org/CRAN/refmans/adespatial/html/aem.html" class="external-link">AEM</a>, Blanchet <em>et al.</em> 2008), methods available in the package <a href="https://cran.r-project.org/package=adespatial" class="external-link"><code>adespatial</code></a> (Dray <em>et al.</em> 2023):</p>
 <ul>
 <li><strong>edges weights matrix</strong></li>
 <li><strong>spatial weights matrix</strong></li>
@@ -175,14 +175,15 @@
 </blockquote>
 </div>
 <div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>All types of contributions are encouraged and valued. For more information, check out our <a href="https://github.com/FRBCesab/chessboard/blob/main/CONTRIBUTING.md" class="external-link">Contributor Guidelines</a>.</p>
+<p>Please note that the <code>chessboard</code> project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
+<div class="section level2">
 <h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
 </h2>
 <p>This package has been developed for the <a href="https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/" class="external-link">FRB-CESAB</a> working group <a href="https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/bridge/" class="external-link">Bridge</a> that aims to better understand the role of local and regional environmental factors in shaping the taxonomic and functional diversity of plant communities established along river corridors, roadside corridors and cultivated field margins.</p>
-</div>
-<div class="section level2">
-<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
-</h2>
-<p>Please note that the <code>chessboard</code> project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -215,6 +216,7 @@
 <div class="community">
 <h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
