@@ -16,8 +16,25 @@ knitr::opts_chunk$set(collapse  = TRUE,
 ```
 
 
+The aim of the package `chessboard` is to provide tools to work with **directed**
+(asymmetric) and **undirected** (symmetrical) spatial (or not) **networks**. It
+implements different methods to detect neighbors, all based on the chess game
+(it goes beyond the rook and the queen available in many R packages) to create 
+complex connectivity scenarios.
 
-```{r 'setup', echo=FALSE}
+
+`chessboard` aims to easily create various network objects, including:
+
+- **node list**, i.e. a list of all nodes of the network;
+- **edge list**, i.e. a list of all edges (links) between pairs of nodes;
+- **connectivity matrix**, i.e. a binary matrix of dimensions `n x n`, where 
+`n` is the number of **nodes** (sampling units) indicating the presence (`1`) 
+or the absence (`0`) of an **edge** (link) between pairs of nodes.
+
+
+
+```{r 'setup', echo=TRUE}
+# Setup ----
 library("chessboard")
 library("ggplot2")
 library("patchwork")
@@ -36,22 +53,6 @@ custom_theme <- function() {
         axis.text    = element_text(family = "serif"))
 }
 ```
-
-
-The aim of the package `chessboard` is to provide tools to work with **directed**
-(asymmetric) and **undirected** (symmetrical) spatial (or not) **networks**. It
-implements different methods to detect neighbors, all based on the chess game
-(it goes beyond the rook and the queen available in many R packages) to create 
-complex connectivity scenarios.
-
-
-`chessboard` aims to easily create various network objects, including:
-
-- **node list**, i.e. a list of all nodes of the network;
-- **edge list**, i.e. a list of all edges (links) between pairs of nodes;
-- **connectivity matrix**, i.e. a binary matrix of dimensions `n x n`, where 
-`n` is the number of **nodes** (sampling units) indicating the presence (`1`) 
-or the absence (`0`) of an **edge** (link) between pairs of nodes.
 
 \
 
