@@ -19,5 +19,13 @@ Useful links:
 \author{
 \strong{Maintainer}: Nicolas Casajus \email{nicolas.casajus@fondationbiodiversite.fr} (\href{https://orcid.org/0000-0002-5537-5294}{ORCID}) [copyright holder]
 
+Authors:
+\itemize{
+  \item Erica Rievrs Borges \email{erica.rievrs@fondationbiodiversite.fr} (\href{https://orcid.org/0000-0001-7751-6265}{ORCID})
+  \item Eric Tabacchi \email{eric.tabacchi@univ-tlse3.fr} (\href{https://orcid.org/0000-0001-7729-4439}{ORCID})
+  \item Guillaume Fried \email{guillaume.fried@anses.fr} (\href{https://orcid.org/0000-0002-3653-195X}{ORCID})
+  \item Nicolas Mouquet \email{nicolas.mouquet@cnrs.fr} (\href{https://orcid.org/0000-0003-1840-6984}{ORCID})
+}
+
 }
 \keyword{internal}
