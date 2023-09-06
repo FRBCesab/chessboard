@@ -591,7 +591,7 @@ matrix_to_edge_list(conn_matrix)
 
 ## Extending chessboard
 
-chessboard has been built to be compatible with the following R packages: 
+`chessboard` has been built to be compatible with the following R packages: 
 [`adespatial`](https://sdray.github.io/adespatial/) (Dray _et al._ 2023), 
 [`spdep`](https://r-spatial.github.io/spdep/) (Bivand & Wong 2018), 
 [`igraph`](https://r.igraph.org/) (Csardi & Nepusz 2006), 
@@ -604,7 +604,29 @@ chessboard has been built to be compatible with the following R packages:
 
 ### Package `sf`
 
-...
+As seen before, the edge list can be converted into an spatial object with the 
+function `edges_to_sf()`. The output is an `sf` `LINESTRING` that can be handled
+by many functions of the package `sf`. For instance, let's project the coordinate
+system.
+
+```{r 'transform-crs'}
+# Convert edges to spatial layer ----
+edges_sf <- edges_to_sf(edges, nodes_sf)
+
+# Project the CRS ----
+edges_sf_lonlat <- sf::st_transform(edges_sf, crs = "epsg:4326")
+
+# Check ----
+edges_sf
+edges_sf_lonlat
+```
+
+User can also export this spatial layer.
+
+```{r 'export-sf', eval=FALSE}
+# Export layer as a GeoPackage ----
+sf::st_write(edges_sf, "edge_list.gpkg")
+```
 
 
 \
@@ -661,6 +683,6 @@ Pebesma E (2018) Simple Features for R: Standardized support for spatial
 vector data. **The R Journal**, 10, 439–446. 
 <https://doi.org/10.32614/RJ-2018-009>.
 
-Wickham H (2016) ggplot2: Elegant graphics for data analysis (p. 213). 
+Wickham H (2016) _ggplot2: Elegant graphics for data analysis_ (p. 213). 
 Springer-Verlag. 
 <https://ggplot2.tidyverse.org/>.
