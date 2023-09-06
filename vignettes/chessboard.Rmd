@@ -602,7 +602,7 @@ matrix_to_edge_list(conn_matrix)
 \
 
 
-### Package `sf`
+### with `sf`
 
 As seen before, the edge list can be converted into an spatial object with the 
 function `edges_to_sf()`. The output is an `sf` `LINESTRING` that can be handled
@@ -632,7 +632,24 @@ sf::st_write(edges_sf, "edge_list.gpkg")
 \
 
 
-### Package `ggplot2`
+### with `ggplot2`
+
+All plotting functions in `chessboard` are produced with the `ggplot2` engine
+and are highly customizable. For instance, let's change the default theme.
+
+
+```{r 'change-theme', fig.height=8, fig.width=8, fig.cap="Figure 12. Connectivity matrix", out.width='80%'}
+# Change default ggplot2 theme ----
+gg_matrix(conn_matrix) +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+
+\
+
+
+### with `igraph`
 
 ...
 
@@ -640,7 +657,7 @@ sf::st_write(edges_sf, "edge_list.gpkg")
 \
 
 
-### Package `igraph`
+### with `spdep`
 
 ...
 
@@ -648,15 +665,7 @@ sf::st_write(edges_sf, "edge_list.gpkg")
 \
 
 
-### Package `spdep`
-
-...
-
-
-\
-
-
-### Package `adespatial`
+### with `adespatial`
 
 ...
 
