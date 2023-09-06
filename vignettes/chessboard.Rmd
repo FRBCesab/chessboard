@@ -585,3 +585,82 @@ connectivity matrix to edge list.
 matrix_to_edge_list(conn_matrix)
 ```
 
+
+\
+
+
+## Extending chessboard
+
+chessboard has been built to be compatible with the following R packages: 
+[`adespatial`](https://sdray.github.io/adespatial/) (Dray _et al._ 2023), 
+[`spdep`](https://r-spatial.github.io/spdep/) (Bivand & Wong 2018), 
+[`igraph`](https://r.igraph.org/) (Csardi & Nepusz 2006), 
+[`sf`](https://r-spatial.github.io/sf/) (Pebesma 2018), and 
+[`ggplot2`](https://ggplot2.tidyverse.org) (Wickham 2016).
+
+
+\
+
+
+### Package `sf`
+
+...
+
+
+\
+
+
+### Package `ggplot2`
+
+...
+
+
+\
+
+
+### Package `igraph`
+
+...
+
+
+\
+
+
+### Package `spdep`
+
+...
+
+
+\
+
+
+### Package `adespatial`
+
+...
+
+
+\
+
+
+
+## References
+
+Bivand R & Wong D (2018) Comparing implementations of global and local 
+indicators of spatial association. **TEST**, 27, 716–748.
+<https://doi.org/10.1007/s11749-018-0599-x>.
+
+Csardi G & Nepusz T (2006) The igraph software package for complex network 
+research. **InterJournal, Complex Systems**, 1695, 1–9. <https://igraph.org/>.
+
+Dray S, Bauman D, Blanchet G, Borcard D, Clappe S, Guénard G, Jombart T, 
+Larocque G, Legendre P, Madi N & Wagner HH (2023) adespatial: Multivariate
+multiscale spatial analysis. 
+<https://cran-r-project.org/package=adespatial>.
+
+Pebesma E (2018) Simple Features for R: Standardized support for spatial 
+vector data. **The R Journal**, 10, 439–446. 
+<https://doi.org/10.32614/RJ-2018-009>.
+
+Wickham H (2016) ggplot2: Elegant graphics for data analysis (p. 213). 
+Springer-Verlag. 
+<https://ggplot2.tidyverse.org/>.
