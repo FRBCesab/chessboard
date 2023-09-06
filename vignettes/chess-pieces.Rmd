@@ -81,6 +81,13 @@ pieces available in `chessboard`.
 \
 
 
+In this vignette, we use an extended version (9 transects x 9 quadrats) of the 
+network used in Casajus _et al._ (2023) to illustrate methods for detecting 
+neighbors implemented in `chessboard` and the impact of the different arguments.
+
+
+\
+
 ## Pawn
 
 
@@ -792,3 +799,10 @@ wizard_3 <-
 
 (wizard_1 | wizard_2 | wizard_3)
 ```
+
+
+## References
+
+Casajus N, Rievrs Borges E, Tabacchi E, Fried G & Mouquet N (2023) chessboard: 
+An R package for creating network connections based on chess moves. 
+R package version 0.1. URL: <https://github.com/frbcesab/chessboard>.
