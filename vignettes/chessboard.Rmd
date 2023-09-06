@@ -638,7 +638,7 @@ All plotting functions in `chessboard` are produced with the `ggplot2` engine
 and are highly customizable. For instance, let's change the default theme.
 
 
-```{r 'change-theme', fig.height=8, fig.width=8, fig.cap="Figure 12. Connectivity matrix", out.width='80%'}
+```{r 'change-theme', fig.height=8, fig.width=8, fig.cap="Figure 12. Custom connectivity matrix", out.width='80%'}
 # Change default ggplot2 theme ----
 gg_matrix(conn_matrix) +
   theme_bw() +
@@ -651,21 +651,31 @@ gg_matrix(conn_matrix) +
 
 ### with `igraph`
 
-...
+The package `igraph` is commonly use to analyze network data. User can use the 
+function [`igraph::graph_from_data_frame()`] to convert the edge list created
+with `chessboard` to an `igraph` object.
+
+```{r 'to-igraph', fig.height=8, fig.width=8, fig.cap="Figure 13. igraph graph", out.width='80%'}
+# Convert edge list to igraph object ----
+igraph_obj <- igraph::graph_from_data_frame(d        = edges, 
+                                            directed = TRUE, 
+                                            vertices = nodes)
+
+# Check -----
+class(igraph_obj)
+
+print(igraph_obj)
+
+# Plot the graph w/ igraph ----
+plot(igraph_obj)
+```
+
 
 
 \
 
 
 ### with `spdep`
-
-...
-
-
-\
-
-
-### with `adespatial`
 
 ...
 
