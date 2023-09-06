@@ -659,7 +659,7 @@ Nepusz 2006), <a href="https://r-spatial.github.io/sf/" class="external-link"><c
 2016).</p>
 <p><br></p>
 <div class="section level3">
-<h3 id="package-sf">Package <code>sf</code><a class="anchor" aria-label="anchor" href="#package-sf"></a>
+<h3 id="with-sf">with <code>sf</code><a class="anchor" aria-label="anchor" href="#with-sf"></a>
 </h3>
 <p>As seen before, the edge list can be converted into an spatial object
 with the function <code><a href="../reference/edges_to_sf.html">edges_to_sf()</a></code>. The output is an
@@ -717,25 +717,62 @@ the coordinate system.</p>
 <p><br></p>
 </div>
 <div class="section level3">
-<h3 id="package-ggplot2">Package <code>ggplot2</code><a class="anchor" aria-label="anchor" href="#package-ggplot2"></a>
+<h3 id="with-ggplot2">with <code>ggplot2</code><a class="anchor" aria-label="anchor" href="#with-ggplot2"></a>
 </h3>
-<p>…</p>
+<p>All plotting functions in <code>chessboard</code> are produced with
+the <code>ggplot2</code> engine and are highly customizable. For
+instance, let’s change the default theme.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Change default ggplot2 theme ----</span></span>
+<span><span class="fu"><a href="../reference/gg_matrix.html">gg_matrix</a></span><span class="op">(</span><span class="va">conn_matrix</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="chessboard_files/figure-html/change-theme-1.png" alt="Figure 12. Custom connectivity matrix" width="80%"><p class="caption">
+Figure 12. Custom connectivity matrix
+</p>
+</div>
 <p><br></p>
 </div>
 <div class="section level3">
-<h3 id="package-igraph">Package <code>igraph</code><a class="anchor" aria-label="anchor" href="#package-igraph"></a>
+<h3 id="with-igraph">with <code>igraph</code><a class="anchor" aria-label="anchor" href="#with-igraph"></a>
 </h3>
-<p>…</p>
+<p>The package <code>igraph</code> is commonly use to analyze network
+data. User can use the function
+[<code><a href="https://r.igraph.org/reference/graph_from_data_frame.html" class="external-link">igraph::graph_from_data_frame()</a></code>] to convert the edge list
+created with <code>chessboard</code> to an <code>igraph</code>
+object.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Convert edge list to igraph object ----</span></span>
+<span><span class="va">igraph_obj</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/graph_from_data_frame.html" class="external-link">graph_from_data_frame</a></span><span class="op">(</span>d        <span class="op">=</span> <span class="va">edges</span>, </span>
+<span>                                            directed <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                                            vertices <span class="op">=</span> <span class="va">nodes</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check -----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">igraph_obj</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "igraph"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">igraph_obj</span><span class="op">)</span></span>
+<span><span class="co">#&gt; IGRAPH c33704f DN-- 15 28 -- </span></span>
+<span><span class="co">#&gt; + attr: name (v/c), location (v/n), transect (v/n), quadrat (v/n),</span></span>
+<span><span class="co">#&gt; | longitude (v/n), latitude (v/n)</span></span>
+<span><span class="co">#&gt; + edges from c33704f (vertex names):</span></span>
+<span><span class="co">#&gt;  [1] 1-1-&gt;1-2 1-1-&gt;2-2 1-2-&gt;1-3 1-2-&gt;2-3 1-3-&gt;1-4 1-3-&gt;2-4 1-4-&gt;1-5 1-4-&gt;2-5</span></span>
+<span><span class="co">#&gt;  [9] 2-1-&gt;1-2 2-1-&gt;2-2 2-1-&gt;3-2 2-2-&gt;1-3 2-2-&gt;2-3 2-2-&gt;3-3 2-3-&gt;1-4 2-3-&gt;2-4</span></span>
+<span><span class="co">#&gt; [17] 2-3-&gt;3-4 2-4-&gt;1-5 2-4-&gt;2-5 2-4-&gt;3-5 3-1-&gt;2-2 3-1-&gt;3-2 3-2-&gt;2-3 3-2-&gt;3-3</span></span>
+<span><span class="co">#&gt; [25] 3-3-&gt;2-4 3-3-&gt;3-4 3-4-&gt;2-5 3-4-&gt;3-5</span></span>
+<span></span>
+<span><span class="co"># Plot the graph w/ igraph ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">igraph_obj</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="chessboard_files/figure-html/to-igraph-1.png" alt="Figure 13. igraph graph" width="80%"><p class="caption">
+Figure 13. igraph graph
+</p>
+</div>
 <p><br></p>
 </div>
 <div class="section level3">
-<h3 id="package-spdep">Package <code>spdep</code><a class="anchor" aria-label="anchor" href="#package-spdep"></a>
-</h3>
-<p>…</p>
-<p><br></p>
-</div>
-<div class="section level3">
-<h3 id="package-adespatial">Package <code>adespatial</code><a class="anchor" aria-label="anchor" href="#package-adespatial"></a>
+<h3 id="with-spdep">with <code>spdep</code><a class="anchor" aria-label="anchor" href="#with-spdep"></a>
 </h3>
 <p>…</p>
 <p><br></p>
