@@ -592,7 +592,6 @@ matrix_to_edge_list(conn_matrix)
 ## Extending chessboard
 
 `chessboard` has been built to be compatible with the following R packages: 
-[`spdep`](https://r-spatial.github.io/spdep/) (Bivand & Wong 2018), 
 [`igraph`](https://r.igraph.org/) (Csardi & Nepusz 2006), 
 [`sf`](https://r-spatial.github.io/sf/) (Pebesma 2018), and 
 [`ggplot2`](https://ggplot2.tidyverse.org) (Wickham 2016).
@@ -686,18 +685,6 @@ For more information about the package `igraph`, please visit the
 
 
 \
-
-
-### with `spdep`
-
-...
-
-
-For more information about the package `spdep`, please visit the 
-<!-- [manual](https://cran.r-project.org/web/packages/spdep/spdep.pdf). -->
-
-\
-
 
 
 ## References
