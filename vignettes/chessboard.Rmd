@@ -592,7 +592,6 @@ matrix_to_edge_list(conn_matrix)
 ## Extending chessboard
 
 `chessboard` has been built to be compatible with the following R packages: 
-[`adespatial`](https://sdray.github.io/adespatial/) (Dray _et al._ 2023), 
 [`spdep`](https://r-spatial.github.io/spdep/) (Bivand & Wong 2018), 
 [`igraph`](https://r.igraph.org/) (Csardi & Nepusz 2006), 
 [`sf`](https://r-spatial.github.io/sf/) (Pebesma 2018), and 
@@ -629,6 +628,9 @@ sf::st_write(edges_sf, "edge_list.gpkg")
 ```
 
 
+For more information about the package `sf`, please visit the 
+[manual](https://cran.r-project.org/web/packages/sf/sf.pdf).
+
 \
 
 
@@ -645,6 +647,9 @@ gg_matrix(conn_matrix) +
   theme(legend.position = "none")
 ```
 
+For more information about the package `ggplot2`, please visit the 
+[manual](https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf).
+
 
 \
 
@@ -652,10 +657,10 @@ gg_matrix(conn_matrix) +
 ### with `igraph`
 
 The package `igraph` is commonly use to analyze network data. User can use the 
-function [`igraph::graph_from_data_frame()`] to convert the edge list created
+function `igraph::graph_from_data_frame()` to convert the edge list created
 with `chessboard` to an `igraph` object.
 
-```{r 'to-igraph', fig.height=8, fig.width=8, fig.cap="Figure 13. igraph graph", out.width='80%'}
+```{r 'to-igraph'}
 # Convert edge list to igraph object ----
 igraph_obj <- igraph::graph_from_data_frame(d        = edges, 
                                             directed = TRUE, 
@@ -665,10 +670,18 @@ igraph_obj <- igraph::graph_from_data_frame(d        = edges,
 class(igraph_obj)
 
 print(igraph_obj)
+```
 
-# Plot the graph w/ igraph ----
+Let's plot our network using `igraph`.
+
+```{r 'plot-igraph', fig.height=8, fig.width=8, fig.cap="Figure 13. Network visualization w/ `igraph`", out.width='80%'}
+# Plot the network w/ igraph ----
 plot(igraph_obj)
 ```
+
+
+For more information about the package `igraph`, please visit the 
+[manual](https://cran.r-project.org/web/packages/igraph/igraph.pdf).
 
 
 
@@ -679,6 +692,9 @@ plot(igraph_obj)
 
 ...
 
+
+For more information about the package `spdep`, please visit the 
+[manual](https://cran.r-project.org/web/packages/spdep/spdep.pdf).
 
 \
 
@@ -692,11 +708,6 @@ indicators of spatial association. **TEST**, 27, 716–748.
 
 Csardi G & Nepusz T (2006) The igraph software package for complex network 
 research. **InterJournal, Complex Systems**, 1695, 1–9. <https://igraph.org/>.
-
-Dray S, Bauman D, Blanchet G, Borcard D, Clappe S, Guénard G, Jombart T, 
-Larocque G, Legendre P, Madi N & Wagner HH (2023) adespatial: Multivariate
-multiscale spatial analysis. 
-<https://cran-r-project.org/package=adespatial>.
 
 Pebesma E (2018) Simple Features for R: Standardized support for spatial 
 vector data. **The R Journal**, 10, 439–446. 
