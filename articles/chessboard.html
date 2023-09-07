@@ -651,8 +651,7 @@ matrix to edge list.</p>
 <h2 id="extending-chessboard">Extending chessboard<a class="anchor" aria-label="anchor" href="#extending-chessboard"></a>
 </h2>
 <p><code>chessboard</code> has been built to be compatible with the
-following R packages: <a href="https://sdray.github.io/adespatial/" class="external-link"><code>adespatial</code></a>
-(Dray <em>et al.</em> 2023), <a href="https://r-spatial.github.io/spdep/" class="external-link"><code>spdep</code></a> (Bivand
+following R packages: <a href="https://r-spatial.github.io/spdep/" class="external-link"><code>spdep</code></a> (Bivand
 &amp; Wong 2018), <a href="https://r.igraph.org/" class="external-link"><code>igraph</code></a> (Csardi &amp;
 Nepusz 2006), <a href="https://r-spatial.github.io/sf/" class="external-link"><code>sf</code></a> (Pebesma
 2018), and <a href="https://ggplot2.tidyverse.org" class="external-link"><code>ggplot2</code></a> (Wickham
@@ -714,6 +713,8 @@ the coordinate system.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Export layer as a GeoPackage ----</span></span>
 <span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html" class="external-link">st_write</a></span><span class="op">(</span><span class="va">edges_sf</span>, <span class="st">"edge_list.gpkg"</span><span class="op">)</span></span></code></pre></div>
+<p>For more information about the package <code>sf</code>, please visit
+the <a href="https://cran.r-project.org/web/packages/sf/sf.pdf" class="external-link">manual</a>.</p>
 <p><br></p>
 </div>
 <div class="section level3">
@@ -732,6 +733,8 @@ instance, let’s change the default theme.</p>
 Figure 12. Custom connectivity matrix
 </p>
 </div>
+<p>For more information about the package <code>ggplot2</code>, please
+visit the <a href="https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf" class="external-link">manual</a>.</p>
 <p><br></p>
 </div>
 <div class="section level3">
@@ -739,7 +742,7 @@ Figure 12. Custom connectivity matrix
 </h3>
 <p>The package <code>igraph</code> is commonly use to analyze network
 data. User can use the function
-[<code><a href="https://r.igraph.org/reference/graph_from_data_frame.html" class="external-link">igraph::graph_from_data_frame()</a></code>] to convert the edge list
+<code><a href="https://r.igraph.org/reference/graph_from_data_frame.html" class="external-link">igraph::graph_from_data_frame()</a></code> to convert the edge list
 created with <code>chessboard</code> to an <code>igraph</code>
 object.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -753,28 +756,34 @@ object.</p>
 <span><span class="co">#&gt; [1] "igraph"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">igraph_obj</span><span class="op">)</span></span>
-<span><span class="co">#&gt; IGRAPH c33704f DN-- 15 28 -- </span></span>
+<span><span class="co">#&gt; IGRAPH f7498ab DN-- 15 28 -- </span></span>
 <span><span class="co">#&gt; + attr: name (v/c), location (v/n), transect (v/n), quadrat (v/n),</span></span>
 <span><span class="co">#&gt; | longitude (v/n), latitude (v/n)</span></span>
-<span><span class="co">#&gt; + edges from c33704f (vertex names):</span></span>
+<span><span class="co">#&gt; + edges from f7498ab (vertex names):</span></span>
 <span><span class="co">#&gt;  [1] 1-1-&gt;1-2 1-1-&gt;2-2 1-2-&gt;1-3 1-2-&gt;2-3 1-3-&gt;1-4 1-3-&gt;2-4 1-4-&gt;1-5 1-4-&gt;2-5</span></span>
 <span><span class="co">#&gt;  [9] 2-1-&gt;1-2 2-1-&gt;2-2 2-1-&gt;3-2 2-2-&gt;1-3 2-2-&gt;2-3 2-2-&gt;3-3 2-3-&gt;1-4 2-3-&gt;2-4</span></span>
 <span><span class="co">#&gt; [17] 2-3-&gt;3-4 2-4-&gt;1-5 2-4-&gt;2-5 2-4-&gt;3-5 3-1-&gt;2-2 3-1-&gt;3-2 3-2-&gt;2-3 3-2-&gt;3-3</span></span>
-<span><span class="co">#&gt; [25] 3-3-&gt;2-4 3-3-&gt;3-4 3-4-&gt;2-5 3-4-&gt;3-5</span></span>
-<span></span>
-<span><span class="co"># Plot the graph w/ igraph ----</span></span>
+<span><span class="co">#&gt; [25] 3-3-&gt;2-4 3-3-&gt;3-4 3-4-&gt;2-5 3-4-&gt;3-5</span></span></code></pre></div>
+<p>Let’s plot our network using <code>igraph</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot the network w/ igraph ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">igraph_obj</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="chessboard_files/figure-html/to-igraph-1.png" alt="Figure 13. igraph graph" width="80%"><p class="caption">
-Figure 13. igraph graph
+<img src="chessboard_files/figure-html/plot-igraph-1.png" alt="Figure 13. Network visualization w/ `igraph`" width="80%"><p class="caption">
+Figure 13. Network visualization w/ <code>igraph</code>
 </p>
 </div>
+<p>For more information about the package <code>igraph</code>, please
+visit the <a href="https://cran.r-project.org/web/packages/igraph/igraph.pdf" class="external-link">manual</a>.</p>
 <p><br></p>
 </div>
 <div class="section level3">
 <h3 id="with-spdep">with <code>spdep</code><a class="anchor" aria-label="anchor" href="#with-spdep"></a>
 </h3>
 <p>…</p>
+<p>For more information about the package <code>spdep</code>, please
+visit the
+<!-- [manual](https://cran.r-project.org/web/packages/spdep/spdep.pdf). --></p>
 <p><br></p>
 </div>
 </div>
@@ -787,9 +796,6 @@ local indicators of spatial association. <strong>TEST</strong>, 27,
 <p>Csardi G &amp; Nepusz T (2006) The igraph software package for
 complex network research. <strong>InterJournal, Complex
 Systems</strong>, 1695, 1–9. <a href="https://igraph.org/" class="external-link uri">https://igraph.org/</a>.</p>
-<p>Dray S, Bauman D, Blanchet G, Borcard D, Clappe S, Guénard G, Jombart
-T, Larocque G, Legendre P, Madi N &amp; Wagner HH (2023) adespatial:
-Multivariate multiscale spatial analysis. <a href="https://cran-r-project.org/package=adespatial" class="external-link uri">https://cran-r-project.org/package=adespatial</a>.</p>
 <p>Pebesma E (2018) Simple Features for R: Standardized support for
 spatial vector data. <strong>The R Journal</strong>, 10, 439–446. <a href="https://doi.org/10.32614/RJ-2018-009" class="external-link uri">https://doi.org/10.32614/RJ-2018-009</a>.</p>
 <p>Wickham H (2016) <em>ggplot2: Elegant graphics for data analysis</em>
