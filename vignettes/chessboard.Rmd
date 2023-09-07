@@ -694,7 +694,7 @@ For more information about the package `igraph`, please visit the
 
 
 For more information about the package `spdep`, please visit the 
-[manual](https://cran.r-project.org/web/packages/spdep/spdep.pdf).
+<!-- [manual](https://cran.r-project.org/web/packages/spdep/spdep.pdf). -->
 
 \
 
