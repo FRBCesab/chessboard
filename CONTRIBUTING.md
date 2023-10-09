@@ -123,20 +123,124 @@ We will then take care of the issue as soon as possible.
 
 ## Contributing code
 
-We use the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) to collaborate on this project:
+### General workflow
 
-1. [Fork](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) this repository.
-1. Clone your fork.
-1. Create a new branch.
-1. Create a new function in the folder `R/`.
-1. Document your function w/ the [roxygen2](https://roxygen2.r-lib.org/articles/roxygen2.html) syntax.
-1. Update the package documentation w/ `devtools::document()`.
-1. Implement [unit tests](https://r-pkgs.org/testing-basics.html#introducing-testthat) for your function in the `tests/ `folder.
-1. Test your function w/ `devtools::test()`.
-1. Check the integrity of the package w/ `devtools::check()`.
-1. Stage, commit and push your changes.
-1. Submit a [pull request](https://docs.github.com/en/get-started/quickstart/contributing-to-projects#making-a-pull-request).
+We use the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) 
+to collaborate on this project:
+
+
+1. [Fork](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) 
+this repository using the GitHub interface.
+1. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) 
+your fork using `git clone fork-url` (replace `fork-url` by the URL of your fork). 
+Alternatively, open RStudio IDE and create a 
+[New Project from Version Control](https://argoshare.is.ed.ac.uk/healthyr_book/clone-an-existing-github-project-to-new-rstudio-project.html).
+1. Create a new branch w/ `git checkout -b branch-name` (replace `branch-name` 
+by the name of your new branch).
+1. Make your contribution (see below for examples).
+1. Stage (`git add`) and commit (`git commit`) your changes as often as necessary
+1. Push your changes to GitHub w/ `git push origin branch-name`.
+3. Submit a [Pull Request](https://docs.github.com/en/get-started/quickstart/contributing-to-projects#making-a-pull-request) on the [original repo](https://github.com/FRBCesab/chessboard/compare).
 
 We will then review the PR as soon as possible.
 
-**Note:** depending on your contribution, the steps 4 to 8 can be adapted.
+### Improve documentation
+
+#### Editing the README
+
+If you want to contribute by improving the README, please edit the `README.Rmd` 
+(not the `README.md`). Do not forget to update the `README.md` by running: 
+
+```r
+rmarkdown::render("README.Rmd")
+```
+
+#### Editing vignettes
+
+If you want to contribute by editing an existing vignette, just edit the 
+corresponding `Rmd` file stored in the `vignettes/` folder.
+
+If you want to contribute by adding a new vignette, create a new `Rmd` in the 
+`vignettes/` folder and add the following header:
+
+```yaml
+---
+title: "Vignette Title"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```
+
+If you use a new external dependency, do not forget to add it in the `DESCRIPTION` 
+file under the section `Suggests` (only if this package is not already listed 
+under the tag `Imports`).
+
+Check the integrity of the package with: 
+
+```r
+devtools::check()
+```
+
+#### Editing function documentation
+
+If you want to contribute by improving the documentation of a function, open 
+the corresponding file in the `R/` folder and edit lines starting with `#'` 
+([roxygen2](https://roxygen2.r-lib.org/articles/roxygen2.html) syntax).
+
+Update the documentation (`Rd` files in the `man/` folder) by running:
+
+```r
+devtools::document()
+```
+
+If you use a new external dependency in the example section, do not forget to 
+add it in the `DESCRIPTION` file under the section `Imports` (only if this 
+package is not already listed).
+
+Check the integrity of the package with: 
+
+```r
+devtools::check()
+```
+
+
+### Fix bug
+
+If you want to contribute by improving the code of a function, open and edit 
+the corresponding file in the `R/` folder.
+
+Check the integrity of the package with: 
+
+```r
+devtools::check()
+```
+
+Do not forget to adapt the 
+[unit tests](https://r-pkgs.org/testing-basics.html#introducing-testthat) for 
+the function by editing the corresponding file stored in the `tests/testthat/` 
+folder. We use the package [`testthat`](https://testthat.r-lib.org/) to 
+implement unit tests.
+
+Check your tests by running:
+
+```r
+devtools::test()
+```
+
+
+### New feature
+
+If you want to contribute by submitting a new feature, please follow this 
+workflow:
+
+1. Create a new `R` file in the folder `R/`.
+2. Implement the code of the function.
+3. Document your function w/ the [roxygen2](https://roxygen2.r-lib.org/articles/roxygen2.html) syntax.
+4. If necessary, add additional dependencies in the `DESCRIPTION` file.
+5. Update the package documentation w/ `devtools::document()`.
+6. Create a new `R` file in the folder `tests/testthat/`.
+7. Implement [unit tests](https://r-pkgs.org/testing-basics.html#introducing-testthat) for the new function.
+8. Check the integrity of the package w/ `devtools::check()`.
