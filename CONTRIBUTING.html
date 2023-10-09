@@ -138,21 +138,80 @@
 </div>
 <div class="section level2">
 <h2 id="contributing-code">Contributing code<a class="anchor" aria-label="anchor" href="#contributing-code"></a></h2>
+<div class="section level3">
+<h3 id="general-workflow">General workflow<a class="anchor" aria-label="anchor" href="#general-workflow"></a></h3>
 <p>We use the <a href="https://docs.github.com/en/get-started/quickstart/github-flow" class="external-link">GitHub flow</a> to collaborate on this project:</p>
 <ol style="list-style-type: decimal"><li>
-<a href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects" class="external-link">Fork</a> this repository.</li>
-<li>Clone your fork.</li>
-<li>Create a new branch.</li>
-<li>Create a new function in the folder <code>R/</code>.</li>
-<li>Document your function w/ the <a href="https://roxygen2.r-lib.org/articles/roxygen2.html" class="external-link">roxygen2</a> syntax.</li>
-<li>Update the package documentation w/ <code>devtools::document()</code>.</li>
-<li>Implement <a href="https://r-pkgs.org/testing-basics.html#introducing-testthat" class="external-link">unit tests</a> for your function in the <code>tests/</code>folder.</li>
-<li>Test your function w/ <code>devtools::test()</code>.</li>
-<li>Check the integrity of the package w/ <code>devtools::check()</code>.</li>
-<li>Stage, commit and push your changes.</li>
-<li>Submit a <a href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects#making-a-pull-request" class="external-link">pull request</a>.</li>
+<a href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects" class="external-link">Fork</a> this repository using the GitHub interface.</li>
+<li>
+<a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository" class="external-link">Clone</a> your fork using <code>git clone fork-url</code> (replace <code>fork-url</code> by the URL of your fork). Alternatively, open RStudio IDE and create a <a href="https://argoshare.is.ed.ac.uk/healthyr_book/clone-an-existing-github-project-to-new-rstudio-project.html" class="external-link">New Project from Version Control</a>.</li>
+<li>Create a new branch w/ <code>git checkout -b branch-name</code> (replace <code>branch-name</code> by the name of your new branch).</li>
+<li>Make your contribution (see below for examples).</li>
+<li>Stage (<code>git add</code>) and commit (<code>git commit</code>) your changes as often as necessary</li>
+<li>Push your changes to GitHub w/ <code>git push origin branch-name</code>.</li>
+<li>Submit a <a href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects#making-a-pull-request" class="external-link">Pull Request</a> on the <a href="https://github.com/FRBCesab/chessboard/compare" class="external-link">original repo</a>.</li>
 </ol><p>We will then review the PR as soon as possible.</p>
-<p><strong>Note:</strong> depending on your contribution, the steps 4 to 8 can be adapted.</p>
+</div>
+<div class="section level3">
+<h3 id="improve-documentation">Improve documentation<a class="anchor" aria-label="anchor" href="#improve-documentation"></a></h3>
+<div class="section level4">
+<h4 id="editing-the-readme">Editing the README<a class="anchor" aria-label="anchor" href="#editing-the-readme"></a></h4>
+<p>If you want to contribute by improving the README, please edit the <code>README.Rmd</code> (not the <code>README.md</code>). Do not forget to update the <code>README.md</code> by running:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"README.Rmd"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="editing-vignettes">Editing vignettes<a class="anchor" aria-label="anchor" href="#editing-vignettes"></a></h4>
+<p>If you want to contribute by editing an existing vignette, just edit the corresponding <code>Rmd</code> file stored in the <code>vignettes/</code> folder.</p>
+<p>If you want to contribute by adding a new vignette, create a new <code>Rmd</code> in the <code>vignettes/</code> folder and add the following header:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Vignette Title"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> rmarkdown::html_vignette</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  %\VignetteIndexEntry{Vignette Title}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  %\VignetteEngine{knitr::rmarkdown}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  %\VignetteEncoding{UTF-8}</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>If you use a new external dependency, do not forget to add it in the <code>DESCRIPTION</code> file under the section <code>Suggests</code> (only if this package is not already listed under the tag <code>Imports</code>).</p>
+<p>Check the integrity of the package with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="editing-function-documentation">Editing function documentation<a class="anchor" aria-label="anchor" href="#editing-function-documentation"></a></h4>
+<p>If you want to contribute by improving the documentation of a function, open the corresponding file in the <code>R/</code> folder and edit lines starting with <code>#'</code> (<a href="https://roxygen2.r-lib.org/articles/roxygen2.html" class="external-link">roxygen2</a> syntax).</p>
+<p>Update the documentation (<code>Rd</code> files in the <code>man/</code> folder) by running:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">document</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>If you use a new external dependency in the example section, do not forget to add it in the <code>DESCRIPTION</code> file under the section <code>Imports</code> (only if this package is not already listed).</p>
+<p>Check the integrity of the package with:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="fix-bug">Fix bug<a class="anchor" aria-label="anchor" href="#fix-bug"></a></h3>
+<p>If you want to contribute by improving the code of a function, open and edit the corresponding file in the <code>R/</code> folder.</p>
+<p>Check the integrity of the package with:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Do not forget to adapt the <a href="https://r-pkgs.org/testing-basics.html#introducing-testthat" class="external-link">unit tests</a> for the function by editing the corresponding file stored in the <code>tests/testthat/</code> folder. We use the package <a href="https://testthat.r-lib.org/" class="external-link"><code>testthat</code></a> to implement unit tests.</p>
+<p>Check your tests by running:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">test</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="new-feature">New feature<a class="anchor" aria-label="anchor" href="#new-feature"></a></h3>
+<p>If you want to contribute by submitting a new feature, please follow this workflow:</p>
+<ol style="list-style-type: decimal"><li>Create a new <code>R</code> file in the folder <code>R/</code>.</li>
+<li>Implement the code of the function.</li>
+<li>Document your function w/ the <a href="https://roxygen2.r-lib.org/articles/roxygen2.html" class="external-link">roxygen2</a> syntax.</li>
+<li>If necessary, add additional dependencies in the <code>DESCRIPTION</code> file.</li>
+<li>Update the package documentation w/ <code>devtools::document()</code>.</li>
+<li>Create a new <code>R</code> file in the folder <code>tests/testthat/</code>.</li>
+<li>Implement <a href="https://r-pkgs.org/testing-basics.html#introducing-testthat" class="external-link">unit tests</a> for the new function.</li>
+<li>Check the integrity of the package w/ <code>devtools::check()</code>.</li>
+</ol></div>
 </div>
 </div>
 
