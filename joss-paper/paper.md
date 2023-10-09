@@ -66,8 +66,8 @@ are widely used to investigate spatial patterns of organisms’ distribution and
 provide important information about the underlying ecological processes leading 
 to these patterns (@legendre-2012, @pilosof-2017). Such methods rely on building
 a connectivity matrix (also known as adjacency matrix) among sampling units 
-(hereafter 'nodes'), which consists of a square matrix of dimensions n x n 
-(where n is the total number of nodes). This connectivity matrix thus represents
+(hereafter 'nodes'), which consists of a square matrix of dimensions $n\ \times\ n$ 
+(where $n$ is the total number of nodes). This connectivity matrix thus represents
 the presence or absence of a link (hereafter 'edge') between each pair of nodes. 
 When building a connectivity matrix, for each node, the detection of neighbors 
 (new edges) will depend on the type of sampling design used (surface area, 
