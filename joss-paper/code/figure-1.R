@@ -14,38 +14,38 @@ nodes <- create_node_labels(nodes,
 
 ## DEFAULT SETTINGS ----
 
-pawn_0 <- gg_chessboard(nodes, xlab = "Pawn", ylab = "default settings") +
+pawn_0 <- gg_chessboard(nodes, xlab = "method = 'pawn'", ylab = "degree = 1   \ndirected = FALSE \nreverse = FALSE") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, pawn(nodes, focus))
 
-fool_0 <- gg_chessboard(nodes, xlab = "Fool", ylab = "") +
+fool_0 <- gg_chessboard(nodes, xlab = "method = 'fool'", ylab = "") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, fool(nodes, focus))
 
-rook_0 <- gg_chessboard(nodes, xlab = "Rook", ylab = "") +
+rook_0 <- gg_chessboard(nodes, xlab = "method = 'rook'", ylab = "") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, rook(nodes, focus))
 
-bishop_0 <- gg_chessboard(nodes, xlab = "Bishop", ylab = "") +
+bishop_0 <- gg_chessboard(nodes, xlab = "method = 'bishop'", ylab = "") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, bishop(nodes, focus))
 
-knight_0 <- gg_chessboard(nodes, xlab = "Knight", ylab = "") +
+knight_0 <- gg_chessboard(nodes, xlab = "method = 'knight'", ylab = "") +
   geom_node(nodes, focus) #+
   #geom_neighbors(nodes, knight(nodes, focus))
 
-queen_0 <- gg_chessboard(nodes, xlab = "Queen", ylab = "") +
+queen_0 <- gg_chessboard(nodes, xlab = "method = 'queen'", ylab = "") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, queen(nodes, focus))
 
-wizard_0 <- gg_chessboard(nodes, xlab = "Wizard", ylab = "") +
+wizard_0 <- gg_chessboard(nodes, xlab = "method = 'wizard'", ylab = "") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, wizard(nodes, focus))
 
 
 ## ARGUMENT DEGREE ----
 
-pawn_1 <- gg_chessboard(nodes, xlab = "", ylab = "degree = 3") +
+pawn_1 <- gg_chessboard(nodes, xlab = "", ylab = "degree = 3   \ndirected = FALSE \nreverse = FALSE") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, pawn(nodes, focus, degree = 3))
 
@@ -76,7 +76,7 @@ wizard_1 <- gg_chessboard(nodes, xlab = "", ylab = "") +
 
 ## ARGUMENT DIRECTED ----
 
-pawn_2 <- gg_chessboard(nodes, xlab = "", ylab = "directed = TRUE") +
+pawn_2 <- gg_chessboard(nodes, xlab = "", ylab = "degree = 3   \ndirected = TRUE  \nreverse = FALSE") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, pawn(nodes, focus, degree = 3, directed = TRUE))
 
@@ -109,7 +109,7 @@ wizard_2 <- gg_chessboard(nodes, xlab = "", ylab = "") +
 
 ## ARGUMENT DIRECTED ----
 
-pawn_3 <- gg_chessboard(nodes, xlab = "", ylab = "reverse = TRUE") +
+pawn_3 <- gg_chessboard(nodes, xlab = "", ylab = "degree = 3  \ndirected = TRUE \nreverse = TRUE") +
   geom_node(nodes, focus) +
   geom_neighbors(nodes, pawn(nodes, focus, degree = 3, directed = TRUE,
                              reverse = TRUE))
