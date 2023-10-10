@@ -131,14 +131,12 @@ vignette.
 
 ## Citation
 
-A companion paper has been submitted to [Journal of Open Source
-Software](https://joss.theoj.org/). In the meantime, if you want to use
-the package, please cite it as:
+Please cite `chessboard` as:
 
 > Casajus N, Rievrs Borges E, Tabacchi E, Fried G & Mouquet N (2023)
-> chessboard: An R package for creating network connections based on
-> chess moves. R package version 0.1. URL:
-> <https://github.com/frbcesab/chessboard>.
+> `chessboard`: An R package for creating network connections based on
+> chess moves. ***Journal of Open Source Software***, *8*, 5753.
+> <https://doi.org/10.21105/joss.05753>.
 
 ## Contributing
 

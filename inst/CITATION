@@ -1,10 +1,13 @@
 citHeader("To cite chessboard in publications use:")
 
 bibentry(
-  bibtype = "Manual",
+  bibtype = "Article",
   title   = "chessboard: {A}n {R} package for creating network connections based on chess moves",
   author  = c(person("Casajus Nicolas"), person("Rievrs-Borges Erica"), person("Tabacchi Eric"), person("Fried Guillaume"), person("Mouquet Nicolas")),
-  year    = "2023",
-  note    = "R package version 0.1",
-  url     = "https://github.com/frbcesab/chessboard"
+  journal = "Journal of Open Source Software",
+  volume  = 8,
+  number  = 90,
+  pages   = 5753,
+  url     = "https://doi.org/10.21105/joss.05753",
+  doi     = "10.21105/joss.05753"
 )
