@@ -5,6 +5,7 @@ bibentry(
   title   = "chessboard: {A}n {R} package for creating network connections based on chess moves",
   author  = c(person("Casajus Nicolas"), person("Rievrs-Borges Erica"), person("Tabacchi Eric"), person("Fried Guillaume"), person("Mouquet Nicolas")),
   journal = "Journal of Open Source Software",
+  year    = 2023,
   volume  = 8,
   number  = 90,
   pages   = 5753,
