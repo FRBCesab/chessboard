@@ -628,7 +628,7 @@ sf::st_write(edges_sf, "edge_list.gpkg")
 
 
 For more information about the package `sf`, please visit the 
-[manual](https://cran.r-project.org/web/packages/sf/sf.pdf).
+[manual](https://cran.r-project.org/package=sf).
 
 \
 
@@ -647,7 +647,7 @@ gg_matrix(conn_matrix) +
 ```
 
 For more information about the package `ggplot2`, please visit the 
-[manual](https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf).
+[manual](https://cran.r-project.org/package=ggplot2).
 
 
 \
@@ -680,7 +680,7 @@ plot(igraph_obj)
 
 
 For more information about the package `igraph`, please visit the 
-[manual](https://cran.r-project.org/web/packages/igraph/igraph.pdf).
+[manual](https://cran.r-project.org/package=igraph).
 
 
 
