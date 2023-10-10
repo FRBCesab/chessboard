@@ -9,6 +9,7 @@ type: software
 license: GPL-2.0-or-later
 title: 'chessboard: Create Network Connections based on Chess Moves'
 version: '0.1'
+doi: 10.21105/joss.05753
 abstract: 'Provides functions to work with directed (asymmetric) and undirected (symmetric)
   spatial networks. It makes easier the creation of connectivity matrix, i.e. a binary
   matrix of dimensions n x n, where n is the number of nodes (sampling units) indicating
@@ -36,6 +37,23 @@ authors:
   given-names: Nicolas
   email: nicolas.mouquet@cnrs.fr
   orcid: https://orcid.org/0000-0003-1840-6984
+preferred-citation:
+  type: article
+  title: 'chessboard: An R package for creating network connections based on chess
+    moves'
+  authors:
+  - name: Casajus Nicolas
+  - name: Rievrs-Borges Erica
+  - name: Tabacchi Eric
+  - name: Fried Guillaume
+  - name: Mouquet Nicolas
+  journal: Journal of Open Source Software
+  year: '2023'
+  volume: '8'
+  issue: '90'
+  url: https://doi.org/10.21105/joss.05753
+  doi: 10.21105/joss.05753
+  start: '5753'
 repository-code: https://github.com/frbcesab/chessboard
 url: https://github.com/frbcesab/chessboard
 contact:
