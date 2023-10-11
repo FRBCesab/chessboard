@@ -7,7 +7,7 @@ cff-version: 1.2.0
 message: 'To cite package "chessboard" in publications use:'
 type: software
 license: GPL-2.0-or-later
-title: 'chessboard: Create Network Connections based on Chess Moves'
+title: 'chessboard: Create Network Connections Based on Chess Moves'
 version: '0.1'
 doi: 10.21105/joss.05753
 abstract: 'Provides functions to work with directed (asymmetric) and undirected (symmetric)
