@@ -1,11 +1,12 @@
 ## Test environments
 
 * Local
-  * Arch Linux 6.4.3-arch1-1 install, R 4.3.1
+  * Arch Linux 6.5.6-arch2-1, R 4.3.1
+  * Windows 11 22H2, R 4.3.1
 * GitHub Actions
-  * macOS 12.6.7, R-release (R 4.3.1)
-  * Windows Server 2022, R-release (R 4.3.1)
-  * Ubuntu 22.04.2 LTS, R-devel, R-release (R 4.3.1), R-oldrel
+  * macOS 12.7 21G816, R-release (R 4.3.1)
+  * Windows Server 2022 10.0.20348, R-release (R 4.3.1)
+  * Ubuntu 22.04.3 LTS, R-devel, R-release (R 4.3.1), R-oldrel
 * WinBuilder
   * R-devel
   * R-release
@@ -17,10 +18,11 @@
 
 ## R CMD check results
 
-0 error | 0 warning | 1 note
+0 error | 0 warning | 2 notes
 
-* Note:
+* Notes:
   * Maintainer: 'Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>' - New submission
+  * Possibly misspelled words in DESCRIPTION: undirected (32:5)
 
 ## Downstream dependencies
 
