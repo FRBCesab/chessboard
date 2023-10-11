@@ -20,10 +20,11 @@ between the fictitious origin and the first site);
 }
 }
 \description{
-Creates a nodes-by-edges matrix that will be used by \code{\link[adespatial:aem]{adespatial::aem()}}.
-This function creates the same output as \code{\link[adespatial:aem.build.binary]{adespatial::aem.build.binary()}}
-but works in a different way: it's only based on node labels (not on
-coordinates). Also, this function adds labels to nodes and edges.
+Creates a nodes-by-edges matrix that will be used by \code{aem()} of the package
+\code{adespatial}. This function creates the same output as \code{aem.build.binary()}
+of the package \code{adespatial} but works in a different way: it's only based on
+node labels (not on coordinates). Also, this function adds labels to nodes
+and edges.
 }
 \examples{
 library("chessboard")

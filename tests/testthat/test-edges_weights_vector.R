@@ -43,7 +43,7 @@ test_that("edges_weights_vector() - Tests for errors", {
   expect_error(edges_weights_vector(nodes_edges_bad),
                paste0("Argument 'x' must be a nodes-by-edges matrix as ", 
                       "returned by nodes_by_edges_matrix() or ", 
-                      "adespatial::aem.build.binary()"),
+                      "aem.build.binary() (adespatial)"),
                fixed = TRUE)
   
   expect_error(edges_weights_vector(nodes_edges),

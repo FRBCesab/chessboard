@@ -8,7 +8,8 @@ edges_weights_vector(x, y)
 }
 \arguments{
 \item{x}{a \code{list} of length 2. The nodes_by_edges matrix returned by
-\code{nodes_by_edges_matrix()} or \code{\link[adespatial:aem.build.binary]{adespatial::aem.build.binary()}}.}
+\code{nodes_by_edges_matrix()} (or \code{aem.build.binary()} of the package
+\code{adespatial}).}
 
 \item{y}{a \code{data.frame} with the following three columns: \code{from}
 (the first node of the edge), \code{to} (the second node of the edge), and
@@ -18,9 +19,9 @@ edges_weights_vector(x, y)
 An edges weights \code{vector}.
 }
 \description{
-Creates an edges weights vector that can be used in \code{\link[adespatial:aem]{adespatial::aem()}}.
-Resulting edges weights equal to 0 will be replaced by \verb{4 x max(w)},
-where \code{max(w)} is the maximal weight in the matrix.
+Creates an edges weights vector that can be used in \code{aem()} of the package
+\code{adespatial}. Resulting edges weights equal to 0 will be replaced by
+\verb{4 x max(w)}, where \code{max(w)} is the maximal weight in the matrix.
 }
 \examples{
 # Import Adour sites ----

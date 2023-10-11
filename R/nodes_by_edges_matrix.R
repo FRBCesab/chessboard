@@ -1,10 +1,11 @@
 #' Create a nodes-by-edges matrix
 #' 
 #' @description
-#' Creates a nodes-by-edges matrix that will be used by [adespatial::aem()].
-#' This function creates the same output as [adespatial::aem.build.binary()]
-#' but works in a different way: it's only based on node labels (not on 
-#' coordinates). Also, this function adds labels to nodes and edges.
+#' Creates a nodes-by-edges matrix that will be used by `aem()` of the package 
+#' `adespatial`. This function creates the same output as `aem.build.binary()` 
+#' of the package `adespatial` but works in a different way: it's only based on
+#' node labels (not on coordinates). Also, this function adds labels to nodes 
+#' and edges.
 #' 
 #' @param edges a `data.frame` with the following two columns: `from` (the 
 #'   first node of the edge) and `to` (the second node of the edge).
