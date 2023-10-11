@@ -79,10 +79,10 @@ vignette for further details.
 
 Finally, the package can also produce objects that will be used later in
 Moran’s Eigenvector Maps
-([MEM](https://search.r-project.org/CRAN/refmans/adespatial/html/mem.html),
-Dray *et al.* 2006) and Asymetric Eigenvector Maps
-([AEM](https://search.r-project.org/CRAN/refmans/adespatial/html/aem.html),
-Blanchet *et al.* 2008), methods available in the package
+([MEM](https://rdrr.io/cran/adespatial/man/mem.html), Dray *et al.*
+2006) and Asymetric Eigenvector Maps
+([AEM](https://rdrr.io/cran/adespatial/man/aem.html), Blanchet *et al.*
+2008), methods available in the package
 [`adespatial`](https://cran.r-project.org/package=adespatial) (Dray *et
 al.* 2023):
 
