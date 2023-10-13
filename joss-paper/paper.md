@@ -65,18 +65,18 @@ proposed methods for defining  neighbors. In ecology, spatial network analyses
 are widely used to investigate spatial patterns of organisms’ distribution and 
 provide important information about the underlying ecological processes leading 
 to these patterns (@legendre-2012, @pilosof-2017). Such methods rely on building
-a connectivity matrix (also known as adjacency matrix) among sampling units 
-(hereafter 'nodes'), which consists of a square matrix of dimensions $n\ \times\ n$ 
+a connectivity matrix (also known as an adjacency matrix) among sampling units 
+(hereafter 'nodes'), which consists of a square matrix of dimension $n\ \times\ n$ 
 (where $n$ is the total number of nodes). This connectivity matrix thus represents
 the presence or absence of a link (hereafter 'edge') between each pair of nodes. 
 When building a connectivity matrix, for each node, the detection of neighbors 
 (new edges) will depend on the type of sampling design used (surface area, 
 transect, regular grid, irregular grid, @dray-2006).
 
-Here, we introduce `chessboard`, an open-source R package (@r-2023), dedicated 
+Here we introduce `chessboard`, an open-source R package (@r-2023), dedicated 
 to facilitating the process of creating connectivity matrices for samplings 
-designed as regular grids (i.e. the distance between each pair of nodes along 
-one axis is always the same). `chessboard` identifies neighbors only based on 
+designed as regular grids (i.e., the distance between each pair of nodes along 
+one axis is always the same). `chessboard` identifies neighbors based only on 
 node position on a two-dimension non-spatial referential. It can handle spatial 
 networks, but it does not explicitly use geographical coordinates to find 
 neighbors (it is not based on spatial distance). `chessboard` can handle 
@@ -86,17 +86,17 @@ networks.
 Different methods are available in `chessboard` to detect neighbors, all based 
 on the chess game as proposed in many R packages like 
 [`spdep`](https://r-spatial.github.io/spdep/) (@bivand-2018), but with the 
-advantage of several additional chess movements which flexibilizes the user's 
-experience and allows the creation of complex connectivity scenarios 
+advantage of several additional chess movements that are flexible with respect to the user's 
+experience and that allow the creation of complex connectivity scenarios 
 (\autoref{fig:fig1}). `chessboard` implements the following rules to detect 
 neighbors and to create edges:
 
 - the **degree** of neighborhood: the number of adjacent nodes that will be used
 to create edges;
 - the **orientation** of neighborhood: can neighbors be detected horizontally, 
-vertically and/or diagonally?
+vertically, and/or diagonally?
 - the **direction** of neighborhood: does the sampling have a main direction? 
-This can be particularly relevant for directed networks (e.g. rivers).
+This can be particularly relevant for directed networks (e.g., rivers).
 
 
 ![Overview of methods available in `chessboard` to detect neighbors. Red dots locate the node of interest (5-5) and black dots correspond to detected neighbors. Each column corresponds to a specific method derived from the chess game. Each row illustrates the use of one argument (row 1: default settings; row 2: use of the argument `degree`; row 3: use of the argument `directed`; row 4: use of the argument `reverse`)\label{fig:fig1}](figures/figure-1.png){ width=100% }
@@ -107,7 +107,7 @@ are compatible and reusable with various other R packages:
 [`adespatial`](https://sdray.github.io/adespatial/) (@dray-2023), 
 [`spdep`](https://r-spatial.github.io/spdep/) (@bivand-2018), 
 [`igraph`](https://r.igraph.org/) (@csardi-2006), 
-[`sf`](https://r-spatial.github.io/sf/) (@pebesma-2018) and 
+[`sf`](https://r-spatial.github.io/sf/) (@pebesma-2018), and 
 [`ggplot2`](https://ggplot2.tidyverse.org) (@wickham-2016).
 
 
@@ -146,12 +146,12 @@ nodes <- create_node_labels(data     = sampling,
 ```
 
 
-Node labels are a combination of the transect identifier (i.e. the position of 
-the node on the x-axis of the grid) and the quadrat identifier (i.e. the 
+Node labels are a combination of the transect identifier (i.e., the position of 
+the node on the x-axis of the grid) and the quadrat identifier (i.e., the 
 position of the node on the y-axis of the grid).
 
 Then we implement a connectivity scenario where we would like to connect nodes 
-according to the 'bishop' move , i.e. diagonally, with a degree of neighborhood 
+according to the 'bishop' move , i.e., diagonally, with a degree of neighborhood 
 of 2 for an undirected network. The function `bishop()` (and all other 
 functions named after the chess game) returns a subset of the nodes object 
 (`data.frame`) containing the neighbors of the focus node. 
@@ -183,7 +183,7 @@ gg_chessboard(nodes) +
 
 The [Chess pieces](https://frbcesab.github.io/chessboard/articles/chess-pieces.html) 
 vignette details all possible moves implemented in `chessboard` and the effects 
-of the arguments `degree`, `directed`, `reverse` and `self`.
+of the arguments `degree`, `directed`, `reverse`, and `self`.
 
 The function `create_edge_list()` will detect the neighbors for the 25 nodes:
 
@@ -197,7 +197,7 @@ edges <- create_edge_list(nodes    = nodes,
 ```
 
 
-This function returns an **edge list**, i.e. a two-column `data.frame` where a 
+This function returns an **edge list**, i.e., a two-column `data.frame` where a 
 row corresponds to an edge between two nodes.
 
 The function `connectivity_matrix()` computes the connectivity matrix of this 
