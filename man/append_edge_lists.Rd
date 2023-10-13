@@ -10,6 +10,14 @@ append_edge_lists(...)
 \item{...}{one or several edge lists \code{data.frame}. Outputs of the function
 \code{\link[=create_edge_list]{create_edge_list()}}.}
 }
+\value{
+A \code{data.frame} with \code{n} rows (where \code{n} is the total number of edges)
+and the following two columns:
+\itemize{
+\item \code{from}: the node label of one of the two endpoints of the edge
+\item \code{to}: the node label of the other endpoint of the edge
+}
+}
 \description{
 Appends several edge lists created by \code{\link[=create_edge_list]{create_edge_list()}}. Merged edges
 will be ordered and duplicates will be removed.

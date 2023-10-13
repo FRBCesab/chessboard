@@ -6,7 +6,12 @@
 #' 
 #' @param ... one or several edge lists `data.frame`. Outputs of the function
 #'   [create_edge_list()].
-#'   
+#' 
+#' @return A `data.frame` with `n` rows (where `n` is the total number of edges)
+#' and the following two columns:
+#' - `from`: the node label of one of the two endpoints of the edge
+#' - `to`: the node label of the other endpoint of the edge
+#' 
 #' @export
 #' 
 #' @examples
