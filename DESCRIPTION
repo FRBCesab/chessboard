@@ -29,11 +29,11 @@ Authors@R: c(
            email   = "nicolas.mouquet@cnrs.fr",
            comment = c(ORCID = "0000-0003-1840-6984")))
 Description: Provides functions to work with directed (asymmetric) and 
-    undirected (symmetric) spatial networks. It makes easier the creation of 
-    connectivity matrix, i.e. a binary matrix of dimensions n x n, where n is 
-    the number of nodes (sampling units) indicating the presence (1) or the 
-    absence (0) of an edge (link) between pairs of nodes. Different network 
-    objects can be produced by chessboard: node list, neighbor list, edge 
+    undirected (symmetric) spatial networks. It makes the creation of 
+    connectivity matrix easier, i.e. a binary matrix of dimension n x n, where 
+    n is the number of nodes (sampling units) indicating the presence (1) or  
+    the absence (0) of an edge (link) between pairs of nodes. Different network
+    objects can be produced by 'chessboard': node list, neighbor list, edge 
     list, connectivity matrix.
 URL: https://github.com/frbcesab/chessboard
 BugReports: https://github.com/frbcesab/chessboard/issues
