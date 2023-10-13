@@ -30,9 +30,4 @@ There are currently no downstream dependencies for this package.
 
 ## Resubmit comments
 
-* `DESCRIPTION` file: use single quote to mention the package
-* `DESCRIPTION` file: replace "It makes easier the creation of..." by 
-"It makes the creation of... easier"
-* `DESCRIPTION` file: add missing references for methods
-
-* Function `append_edge_lists()`: add missing value (return of the function)
+* `DESCRIPTION` file: fix typo (replace matrix by matrices)
