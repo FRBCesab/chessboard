@@ -6,7 +6,7 @@
 \alias{chessboard-package}
 \title{chessboard: Create Network Connections Based on Chess Moves}
 \description{
-Provides functions to work with directed (asymmetric) and undirected (symmetric) spatial networks. It makes the creation of connectivity matrix easier, i.e. a binary matrix of dimension n x n, where n is the number of nodes (sampling units) indicating the presence (1) or the absence (0) of an edge (link) between pairs of nodes. Different network objects can be produced by 'chessboard': node list, neighbor list, edge list, connectivity matrix.
+Provides functions to work with directed (asymmetric) and undirected (symmetric) spatial networks. It makes the creation of connectivity matrix easier, i.e. a binary matrix of dimension n x n, where n is the number of nodes (sampling units) indicating the presence (1) or the absence (0) of an edge (link) between pairs of nodes. Different network objects can be produced by 'chessboard': node list, neighbor list, edge list, connectivity matrix. It can also produce objects that will be used later in Moran's Eigenvector Maps (Dray et al. (2006) \doi{10.1016/j.ecolmodel.2006.02.015}) and Asymetric Eigenvector Maps (Blanchet et al. (2008) \doi{10.1016/j.ecolmodel.2008.04.001}), methods available in the package 'adespatial' (Dray et al. (2023) \url{https://CRAN.R-project.org/package=adespatial}). This work is part of the FRB-CESAB working group Bridge \url{https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/bridge/}.
 }
 \seealso{
 Useful links:
