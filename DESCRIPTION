@@ -1,7 +1,7 @@
 Package: chessboard
 Type: Package
 Title: Create Network Connections Based on Chess Moves
-Version: 0.1
+Version: 0.1.0.9000
 Authors@R: c(
     person(given   = "Nicolas",
            family  = "Casajus",
