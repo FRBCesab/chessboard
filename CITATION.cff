@@ -8,7 +8,7 @@ message: 'To cite package "chessboard" in publications use:'
 type: software
 license: GPL-2.0-or-later
 title: 'chessboard: Create Network Connections Based on Chess Moves'
-version: '0.1'
+version: 0.1.0.9000
 doi: 10.21105/joss.05753
 abstract: 'Provides functions to work with directed (asymmetric) and undirected (symmetric)
   spatial networks. It makes the creation of connectivity matrices easier, i.e. a
@@ -58,6 +58,7 @@ preferred-citation:
   url: https://doi.org/10.21105/joss.05753
   doi: 10.21105/joss.05753
   start: '5753'
+repository: https://CRAN.R-project.org/package=chessboard
 repository-code: https://github.com/frbcesab/chessboard
 url: https://github.com/frbcesab/chessboard
 contact:
