@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/chessboard)](https://CRAN.R-project.org/package=chessboard)
 [![R CMD
 Check](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/frbcesab/chessboard/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/FRBCesab/chessboard/branch/main/graph/badge.svg?token=qH71uWUiot)](https://app.codecov.io/gh/FRBCesab/chessboard)
