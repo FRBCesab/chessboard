@@ -95,12 +95,25 @@ al.* 2023):
 
 ## Installation
 
-The package is not yet published on the CRAN but you can install the
-development version from GitHub with:
+You can install the stable version from
+[CRAN](https://cran.r-project.org/) with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("frbcesab/chessboard")
+## Install stable version of < chessboard > from CRAN ----
+install.packages("chessboard")
+```
+
+Or you can install the development version from
+[GitHub](https://github.com/) with:
+
+``` r
+## Install < remotes > package (if not already installed) ----
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+
+## Install dev version of < chessboard > from GitHub ----
+remotes::install_github("FRBCesab/chessboard")
 ```
 
 Then you can attach the package `chessboard`:
